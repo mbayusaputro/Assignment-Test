@@ -4,15 +4,15 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {View, Image} from 'react-native';
 import {Text} from '../components';
-import {Home, Profile} from '../features';
+import {Flight, Orders, Inbox, Profile} from '../features';
 import {Color} from '../constants/Color';
 
 const TABS = createBottomTabNavigator(
   {
     Home: {
-      screen: Home,
+      screen: Flight,
       navigationOptions: {
-        tabBarLabel: 'Home',
+        tabBarLabel: 'Flight',
         tabBarIcon: ({focused}) =>
           focused ? (
             <Image
@@ -32,9 +32,9 @@ const TABS = createBottomTabNavigator(
       },
     },
     Order: {
-      screen: Home,
+      screen: Orders,
       navigationOptions: {
-        tabBarLabel: 'Order',
+        tabBarLabel: 'Orders',
         tabBarIcon: ({focused}) =>
           focused ? (
             <Image
@@ -54,7 +54,7 @@ const TABS = createBottomTabNavigator(
       },
     },
     Inbox: {
-      screen: Home,
+      screen: Inbox,
       navigationOptions: {
         tabBarLabel: 'Inbox',
         tabBarIcon: ({focused}) =>
@@ -76,9 +76,9 @@ const TABS = createBottomTabNavigator(
       },
     },
     Account: {
-      screen: Home,
+      screen: Profile,
       navigationOptions: {
-        tabBarLabel: 'Account',
+        tabBarLabel: 'Profile',
         tabBarIcon: ({focused}) =>
           focused ? (
             <Image

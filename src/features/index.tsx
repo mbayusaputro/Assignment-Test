@@ -1,4 +1,6 @@
-import Home from './home';
+import Flight from './flight';
+import Orders from './orders';
+import Inbox from './inbox';
 import Profile from './profile';
 
-export {Home, Profile};
+export {Flight, Orders, Inbox, Profile};
