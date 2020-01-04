@@ -1,0 +1,9 @@
+export const SMALL_FONT_SIZE = 10;
+export const DEFAULT_FONT_SIZE = 12;
+export const MEDIUM_FONT_SIZE = 14;
+export const HEADER_FONT_SIZE = 16;
+export const TITLE_FONT_SIZE = 18;
+export const BIG_FONT_SIZE = 20;
+export const LARGE_FONT_SIZE = 24;
+export const MEDIUM_LARGE_FONT_SIZE = 28;
+export const EXTRA_LARGE_FONT_SIZE = 32;
