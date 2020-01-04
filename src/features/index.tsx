@@ -1,4 +1,4 @@
-import Flight from './flight';
+import Flight from './flight/pages/FormFlight/index';
 import Orders from './orders';
 import Inbox from './inbox';
 import Profile from './profile';

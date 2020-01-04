@@ -28,4 +28,7 @@ export const Color = {
   darkPink: '#da2864',
   coralPÒink: '#fe676e',
   greyish: '#aaaaaa',
+  lightgray: '#ededed',
+  mediumgray: '#e0e0e0',
+  labelgray: '#bababa',
 };
