@@ -4,7 +4,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {View, Image} from 'react-native';
 import {Text} from '../components';
-import {Flight, Orders, Inbox, Profile} from '../features';
+import {Flight, Orders, Inbox, Profile, PaymentMethod} from '../features';
 import {Color} from '../constants/Color';
 
 const TABS = createBottomTabNavigator(
@@ -124,6 +124,12 @@ const TABS = createBottomTabNavigator(
 const STACK = createStackNavigator({
   Tabs: {
     screen: TABS,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  PaymentMethod: {
+    screen: PaymentMethod,
     navigationOptions: {
       header: null,
     },
