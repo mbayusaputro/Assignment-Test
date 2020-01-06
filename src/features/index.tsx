@@ -3,5 +3,6 @@ import Orders from './orders';
 import Inbox from './inbox';
 import Profile from './profile';
 import PaymentMethod from './payment/pages/PaymentMethod';
+import BookingDetail from './booking/pages/Detail';
 
-export {Flight, Orders, Inbox, Profile, PaymentMethod};
+export {Flight, Orders, Inbox, Profile, PaymentMethod, BookingDetail};
