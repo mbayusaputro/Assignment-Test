@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, TextStyle} from 'react-native';
 import {LanguageContext, Content} from '../helpers/LanguageContext';
 
 type Props = {
@@ -7,6 +7,7 @@ type Props = {
   content?: Content;
   isUpperCase?: boolean | undefined;
   fontWeight?: string | undefined;
+  style?: TextStyle;
 };
 
 const setText = (
@@ -28,13 +29,13 @@ const CustomText = (props: Props) => {
       <LanguageContext.Consumer>
         {({language}) =>
           content ? (
-            <Text>
+            <Text style={props.style}>
               {language === 'id'
                 ? setText(content.id, isUpperCase, fontWeight)
                 : setText(content.en, isUpperCase, fontWeight)}
             </Text>
           ) : (
-            <Text>{children}</Text>
+            <Text style={props.style}>{children}</Text>
           )
         }
       </LanguageContext.Consumer>

@@ -1,4 +1,4 @@
-const data: Array<object> = [
+const dataUser: Array<object> = [
   {
     first_name: 'Gills',
     last_name: 'Gills ',
@@ -173,4 +173,4 @@ const dataFlight: any = {
   },
 };
 
-export {data, dataFlight};
+export {dataUser, dataFlight};

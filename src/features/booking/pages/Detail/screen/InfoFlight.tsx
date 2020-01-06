@@ -45,10 +45,9 @@ const InfoFlight = (props: Props) => {
                     </Text>
                   </View>
                   <View>
-                    <Text
-                      style={
-                        styles.bold
-                      }>{`${item.duration_hour} ${item.duration_minute}`}</Text>
+                    <Text style={styles.bold}>{`${item.duration_hour} ${
+                      item.duration_minute
+                    }`}</Text>
                   </View>
                   <View>
                     <Text style={styles.bold}>{item.simple_arrival_time}</Text>
@@ -69,10 +68,9 @@ const InfoFlight = (props: Props) => {
                 </View>
                 <View style={styles.col}>
                   <View>
-                    <Text
-                      style={
-                        styles.bold
-                      }>{`${item.departure_city_name} (${item.departure_city})`}</Text>
+                    <Text style={styles.bold}>{`${item.departure_city_name} (${
+                      item.departure_city
+                    })`}</Text>
                     <Text style={styles.subbold}>
                       {item.departure_airport_name}
                     </Text>
@@ -99,10 +97,9 @@ const InfoFlight = (props: Props) => {
                     </Text>
                   </View>
                   <View>
-                    <Text
-                      style={
-                        styles.bold
-                      }>{`${item.arrival_city_name} (${item.arrival_city})`}</Text>
+                    <Text style={styles.bold}>{`${item.arrival_city_name} (${
+                      item.arrival_city
+                    })`}</Text>
                     <Text style={styles.subbold}>
                       {item.arrival_airport_name}
                     </Text>

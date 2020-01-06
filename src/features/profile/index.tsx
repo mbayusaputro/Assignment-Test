@@ -1,15 +1,36 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import {Text} from '../../components';
-const Profile = () => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text isUpperCase={false} content={{id: 'Akun', en: 'Account'}} />
-    </SafeAreaView>
+import {View, Text} from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators, Dispatch} from 'redux';
+import {setLogin} from '../../reduxs/profile/action';
+import {getIsLogin} from '../../reduxs/profile/selector';
+import {SigninProps} from './interface/types';
+import {SignIn} from './pages/Profile';
+
+const mapStateToProps = (state: any) => ({
+  isLogin: getIsLogin(state),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      setLogin: (data: any) => setLogin(data),
+    },
+    dispatch,
+  );
+
+const Default = (props: SigninProps) => {
+  const {isLogin} = props;
+  return isLogin ? (
+    <View>
+      <Text>My Profile</Text>
+    </View>
+  ) : (
+    <SignIn {...props} />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {alignItems: 'center', flex: 1, justifyContent: 'center'},
-});
-export default Profile;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Default);

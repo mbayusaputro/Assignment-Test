@@ -75,7 +75,7 @@ const Button = (props: Props) => {
 
   return (
     <TouchableOpacity
-      activeOpacity={1}
+      activeOpacity={0.9}
       onPress={onPress}
       style={[buttonType, buttonStyle, customStyle]}>
       <View style={{flexDirection: 'row'}}>

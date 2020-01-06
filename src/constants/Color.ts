@@ -31,4 +31,5 @@ export const Color = {
   lightgray: '#ededed',
   mediumgray: '#e0e0e0',
   labelgray: '#bababa',
+  fbColor: '#3b5998',
 };

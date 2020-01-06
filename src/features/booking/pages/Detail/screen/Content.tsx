@@ -5,7 +5,7 @@ import Passenger from './Passanger';
 import Price from './Price';
 import Total from './Total';
 import Policy from './Policy';
-import {data, dataFlight} from '../data';
+import {dataUser, dataFlight} from '../data';
 
 const Content = (props: any) => {
   return (
@@ -16,7 +16,7 @@ const Content = (props: any) => {
         data={dataFlight.flightSelectedReturn}
       />
       <Passenger
-        data={data}
+        data={dataUser}
         baggage={dataFlight.flightSelected.detail[0].check_in_baggage}
       />
       <Policy
