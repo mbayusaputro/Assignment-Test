@@ -163,5 +163,4 @@ const styles = StyleSheet.create({
     height: 1,
   },
 });
-
 export default InfoFlight;

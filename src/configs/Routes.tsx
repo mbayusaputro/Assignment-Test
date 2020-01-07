@@ -11,6 +11,7 @@ import {
   Profile,
   PaymentMethod,
   BookingDetail,
+  ETicketFlight,
 } from '../features';
 import {Color} from '../constants/Color';
 
@@ -148,9 +149,15 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
+    ETicketFlight: {
+      screen: ETicketFlight,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
   {
-    initialRouteName: 'BookingDetail',
+    initialRouteName: 'ETicketFlight',
   },
 );
 
