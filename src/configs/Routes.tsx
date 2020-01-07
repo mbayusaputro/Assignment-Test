@@ -130,37 +130,42 @@ const TABS = createBottomTabNavigator(
   },
 );
 
-const STACK = createStackNavigator({
-  Tabs: {
-    screen: TABS,
-    navigationOptions: {
-      header: null,
+const STACK = createStackNavigator(
+  {
+    Tabs: {
+      screen: TABS,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    PaymentMethod: {
+      screen: PaymentMethod,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    BookingDetail: {
+      screen: BookingDetail,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ETicketFlight: {
+      screen: ETicketFlight,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    NoFlight: {
+      screen: NoFlight,
+      navigationOptions: {
+        header: null,
+      },
     },
   },
-  PaymentMethod: {
-    screen: PaymentMethod,
-    navigationOptions: {
-      header: null,
-    },
+  {
+    initialRouteName: 'Tabs',
   },
-  BookingDetail: {
-    screen: BookingDetail,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  ETicketFlight: {
-    screen: ETicketFlight,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  NoFlight: {
-    screen: NoFlight,
-    navigationOptions: {
-      header: null,
-    },
-  },
-});
+);
 
 export default createAppContainer(STACK);

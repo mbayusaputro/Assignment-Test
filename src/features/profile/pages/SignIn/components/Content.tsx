@@ -5,15 +5,16 @@ import {
   InputText,
   InputPassword,
   Button,
+  ButtonLoading,
   Imaging,
 } from '../../../../../components';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {SigninProps} from '../../../interface/types';
+import {SignInContent} from '../../../interface/types';
 import styles from './styles';
 import {Color} from '../../../../../constants/Color';
 import {scale} from '../../../../../constants/ScaleUtils';
 
-export default (props: SigninProps) => {
+export default (props: SignInContent) => {
   const {
     validMail,
     onChangeEmail,
@@ -23,6 +24,7 @@ export default (props: SigninProps) => {
     onForgot,
     onPressLogin,
     onPressRegister,
+    fetchSignIn,
   } = props;
   return (
     <View style={styles.container}>
@@ -87,12 +89,16 @@ export default (props: SigninProps) => {
 
       {/* Log In */}
       <View style={styles.content}>
-        <Button
-          content={{id: 'Masuk', en: 'Log In'}}
-          isUpperCase={true}
-          customStyle={styles.btn}
-          onPress={onPressLogin}
-        />
+        {fetchSignIn ? (
+          <ButtonLoading />
+        ) : (
+          <Button
+            content={{id: 'Masuk', en: 'Log In'}}
+            isUpperCase={true}
+            customStyle={styles.btn}
+            onPress={onPressLogin}
+          />
+        )}
       </View>
 
       {/* Register */}

@@ -5,10 +5,15 @@ export interface Props {
 }
 
 export interface SigninProps extends Props {
-  isLogin: boolean;
+  isLogin?: boolean;
   setLogin: (data: any) => void;
+  actionSignIn: (data: any) => Promise<void>;
+  setToken: (data: any) => void;
+  logout: () => void;
+}
 
-  // Local Props
+export interface SignInContent {
+  fetchSignIn?: boolean;
   validMail: boolean;
   onChangeEmail: () => void;
   onChangePassword: () => void;
@@ -17,4 +22,8 @@ export interface SigninProps extends Props {
   onForgot: () => void;
   onPressLogin: () => void;
   onPressRegister: () => void;
+}
+
+export interface MyProfileProps {
+  onLogOut: () => void;
 }

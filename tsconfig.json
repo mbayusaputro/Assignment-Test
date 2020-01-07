@@ -28,5 +28,8 @@
     "node_modules",
     "__mocks__"
   ],
-  "compileOnSave": false
+  "compileOnSave": false,
+  "include": [
+    "declaration.d.ts"
+  ]
 }
