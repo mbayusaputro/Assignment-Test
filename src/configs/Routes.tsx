@@ -12,6 +12,7 @@ import {
   PaymentMethod,
   BookingDetail,
   ETicketFlight,
+  NoFlight,
 } from '../features';
 import {Color} from '../constants/Color';
 
@@ -129,36 +130,37 @@ const TABS = createBottomTabNavigator(
   },
 );
 
-const STACK = createStackNavigator(
-  {
-    Tabs: {
-      screen: TABS,
-      navigationOptions: {
-        header: null,
-      },
-    },
-    PaymentMethod: {
-      screen: PaymentMethod,
-      navigationOptions: {
-        header: null,
-      },
-    },
-    BookingDetail: {
-      screen: BookingDetail,
-      navigationOptions: {
-        header: null,
-      },
-    },
-    ETicketFlight: {
-      screen: ETicketFlight,
-      navigationOptions: {
-        header: null,
-      },
+const STACK = createStackNavigator({
+  Tabs: {
+    screen: TABS,
+    navigationOptions: {
+      header: null,
     },
   },
-  {
-    initialRouteName: 'ETicketFlight',
+  PaymentMethod: {
+    screen: PaymentMethod,
+    navigationOptions: {
+      header: null,
+    },
   },
-);
+  BookingDetail: {
+    screen: BookingDetail,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  ETicketFlight: {
+    screen: ETicketFlight,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  NoFlight: {
+    screen: NoFlight,
+    navigationOptions: {
+      header: null,
+    },
+  },
+});
 
 export default createAppContainer(STACK);

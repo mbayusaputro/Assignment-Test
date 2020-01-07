@@ -5,6 +5,7 @@ import Profile from './profile';
 import PaymentMethod from './payment/pages/PaymentMethod';
 import BookingDetail from './booking/pages/Detail';
 import ETicketFlight from './eticket/pages/Flight';
+import NoFlight from './flight/pages/NoFlight';
 
 export {
   Flight,
@@ -14,4 +15,5 @@ export {
   PaymentMethod,
   BookingDetail,
   ETicketFlight,
+  NoFlight,
 };

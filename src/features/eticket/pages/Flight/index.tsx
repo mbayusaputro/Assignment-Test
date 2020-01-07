@@ -3,7 +3,7 @@ import {SafeAreaView, ScrollView} from 'react-native';
 import {Header, SubHeader} from '../../components';
 import Content from './screen/Content';
 
-const Default = () => {
+const Default = (props: any) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
