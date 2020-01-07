@@ -6,8 +6,11 @@ import {
   SIGNIN_FAILED,
   SET_TOKEN,
   LOGOUT,
+  GETPROFILE,
+  GETPROFILE_SUCCESS,
+  GETPROFILE_FAILED,
 } from './types';
-import {signIn} from '../../services/api';
+import {signIn, getProfile} from '../../services/api';
 
 export const setLogin = (data: any) => ({
   type: SET_LOGIN,
@@ -50,6 +53,35 @@ export const actionSignIn = (payloadSignIn: object) => {
       return dispatch(failedSignIn(res.message, payloadSignIn));
     } catch (err) {
       return dispatch(failedSignIn(err.message, payloadSignIn));
+    }
+  };
+};
+
+export const actionGetProfile = (token: string) => {
+  const request = () => ({
+    type: GETPROFILE,
+  });
+  const success = (data: any, payload: string) => ({
+    type: GETPROFILE_SUCCESS,
+    data,
+    payload,
+  });
+  const failed = (message: any, payload: string) => ({
+    type: GETPROFILE_FAILED,
+    message,
+    payload,
+  });
+
+  return async (dispatch: Dispatch) => {
+    dispatch(request());
+    try {
+      const res = await getProfile(token);
+      if (res.success) {
+        return dispatch(success(res.data, token));
+      }
+      return dispatch(failed(res.message, token));
+    } catch (err) {
+      return dispatch(failed(err.message, token));
     }
   };
 };

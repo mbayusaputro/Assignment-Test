@@ -1,20 +1,45 @@
 import React from 'react';
-import {InteractionManager} from 'react-native';
+import {InteractionManager, View, StyleSheet, Alert} from 'react-native';
 import {HighSafeArea} from '../../../../../components';
-import {Content} from '../components';
+import {Content, Header} from '../components';
 import {SigninProps} from '../../../interface/types';
+import {Color} from '../../../../../constants/Color';
 
 export default (props: SigninProps) => {
   const logOut = () => {
     const {logout} = props;
-    InteractionManager.runAfterInteractions(() => {
-      logout();
-    });
+    const awok = Alert.alert(
+      'My Account',
+      'Are you sure you want to log out?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: () => logout(),
+        },
+      ],
+    );
+    InteractionManager.runAfterInteractions(() => awok);
   };
 
+  const {container} = styles;
+  const {profile} = props;
   return (
     <HighSafeArea>
-      <Content onLogOut={logOut} />
+      <View style={container}>
+        <Header />
+        <Content {...props} profile={profile} onLogOut={logOut} />
+      </View>
     </HighSafeArea>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Color.lightgray,
+    flex: 1,
+  },
+});

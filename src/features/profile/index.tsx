@@ -6,13 +6,21 @@ import {
   setToken,
   actionSignIn,
   logout,
+  actionGetProfile,
 } from '../../reduxs/profile/action';
-import {getIsLogin, getFetchSignIn} from '../../reduxs/profile/selector';
+import {
+  getIsLogin,
+  getFetchSignIn,
+  getProfile,
+  getFetchProfile,
+} from '../../reduxs/profile/selector';
 import {SignIn, MyProfile} from './pages/Profile';
 
 const mapStateToProps = (state: any) => ({
   isLogin: getIsLogin(state),
   fetchSignIn: getFetchSignIn(state),
+  profile: getProfile(state),
+  fetchProfile: getFetchProfile(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -22,6 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       actionSignIn: (data: any) => actionSignIn(data),
       setToken: (data: any) => setToken(data),
       logout: () => logout(),
+      actionGetProfile: (token: any) => actionGetProfile(token),
     },
     dispatch,
   );

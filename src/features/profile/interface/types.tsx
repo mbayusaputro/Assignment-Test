@@ -10,6 +10,8 @@ export interface SigninProps extends Props {
   actionSignIn: (data: any) => Promise<void>;
   setToken: (data: any) => void;
   logout: () => void;
+  actionGetProfile: (token: string) => Promise<void>;
+  profile: any;
 }
 
 export interface SignInContent {
@@ -26,4 +28,5 @@ export interface SignInContent {
 
 export interface MyProfileProps {
   onLogOut: () => void;
+  profile: any;
 }

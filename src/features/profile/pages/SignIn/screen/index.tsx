@@ -38,11 +38,9 @@ export default (props: any) => {
   const pressGoogle = () => {
     google(googleAndroid)
       .then((res: any) => {
-        console.log(res);
         signinSocmed(res.credentials.id_token, 'google');
       })
       .catch((err: any) => {
-        console.log(err);
         alert(JSON.stringify(err));
       });
   };
@@ -50,17 +48,15 @@ export default (props: any) => {
   const pressFacebook = () => {
     facebook(facebookConf)
       .then((res: any) => {
-        console.log(res);
         signinSocmed(res.credentials.access_token, 'facebook');
       })
       .catch((err: any) => {
-        console.log(err);
         alert(JSON.stringify(err));
       });
   };
 
   const signinSocmed = (code: string, authType: string) => {
-    const {actionSignIn, setToken} = props;
+    const {actionSignIn} = props;
     const payload = {
       email: '',
       password: '',
@@ -72,14 +68,15 @@ export default (props: any) => {
         if (res.type === 'SIGNIN_FAILED') {
           Alert.alert('Alert', res.message);
         } else {
-          setToken(res.data.access_token);
+          const token = res.data.access_token;
+          gettingProfile(token);
         }
       });
     });
   };
 
   const pressLogin = () => {
-    const {actionSignIn, setToken} = props;
+    const {actionSignIn} = props;
     const payload = {
       email,
       password,
@@ -90,13 +87,22 @@ export default (props: any) => {
           if (res.type === 'SIGNIN_FAILED') {
             Alert.alert('Alert', res.message);
           } else {
-            setToken(res.data.access_token);
+            const tokenNow = res.data.access_token;
+            gettingProfile(tokenNow);
           }
         });
       } else {
         Alert.alert('Alert', 'Please enter all field');
       }
     });
+  };
+
+  const gettingProfile = (token: string) => {
+    const {actionGetProfile, setToken} = props;
+    setToken(token);
+    actionGetProfile(token)
+      .then(() => null)
+      .catch((err: any) => Alert.alert('Alert', err.message));
   };
 
   // Render
