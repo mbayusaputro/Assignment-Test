@@ -1,15 +1,30 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 import {Text} from '../../components';
-const Orders = () => {
+import Header from './components/Header';
+import Tabs from './components/Tabs';
+import Active from './Active';
+import Finished from './Finished';
+import {NavigationScreenProp, NavigationState} from 'react-navigation';
+
+interface Props {
+  navigation: NavigationScreenProp<NavigationState>;
+}
+
+const Orders = (props: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text isUpperCase={false} content={{id: 'Orders', en: 'Orders'}} />
+      <Header title=" My Order" />
+      <Tabs>
+        <Active {...props} title="Active" />
+        <Finished {...props} title="Finished" />
+      </Tabs>
+      {/* <Text isUpperCase={false} content={{id: 'Orders', en: 'Orders'}} /> */}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {alignItems: 'center', flex: 1, justifyContent: 'center'},
+  container: {},
 });
 export default Orders;
