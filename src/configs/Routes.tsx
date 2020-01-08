@@ -1,9 +1,8 @@
-import React, {ReactElement} from 'react';
+import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {View, Image} from 'react-native';
-import {Text} from '../components';
+import {Image} from 'react-native';
 import {
   Flight,
   Orders,
@@ -13,6 +12,7 @@ import {
   BookingDetail,
   ETicketFlight,
   NoFlight,
+  FormRegister,
 } from '../features';
 import {Color} from '../constants/Color';
 
@@ -158,6 +158,12 @@ const STACK = createStackNavigator(
     },
     NoFlight: {
       screen: NoFlight,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    FormRegister: {
+      screen: FormRegister,
       navigationOptions: {
         header: null,
       },

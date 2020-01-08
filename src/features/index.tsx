@@ -6,6 +6,7 @@ import PaymentMethod from './payment/pages/PaymentMethod';
 import BookingDetail from './booking/pages/Detail';
 import ETicketFlight from './eticket/pages/Flight';
 import NoFlight from './flight/pages/NoFlight';
+import {FormRegister} from './register';
 
 export {
   Flight,
@@ -16,4 +17,5 @@ export {
   BookingDetail,
   ETicketFlight,
   NoFlight,
+  FormRegister,
 };

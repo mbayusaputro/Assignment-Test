@@ -36,10 +36,7 @@ export default (props: SignInContent) => {
 
       {/* Socmed Button */}
       <View style={[styles.rowDirection, styles.content]}>
-        <Touch
-          onPress={onPressGoogle}
-          activeOpacity={0.9}
-          style={styles.btnGoogle}>
+        <Touch onPress={onPressGoogle} style={styles.btnGoogle}>
           <Imaging
             source={require('../../../../../assets/icons/profile/icon_google.png')}
             resizeMode={Platform.OS === 'ios' ? 'contain' : 'cover'}
@@ -47,10 +44,7 @@ export default (props: SignInContent) => {
           />
           <Text style={styles.textSemiBold}>Google</Text>
         </Touch>
-        <Touch
-          onPress={onPressFacebook}
-          activeOpacity={0.9}
-          style={styles.btnFb}>
+        <Touch onPress={onPressFacebook} style={styles.btnFb}>
           <Icon name="facebook-f" color={Color.white} size={scale(25)} />
           <Text style={styles.textFB}>Facebook</Text>
         </Touch>

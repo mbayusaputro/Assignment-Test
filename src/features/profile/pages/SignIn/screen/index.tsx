@@ -20,6 +20,15 @@ export default (props: any) => {
     Alert.alert('Alert', txt);
   };
 
+  const goToThe = (target: string) => {
+    const {
+      navigation: {navigate},
+    } = props;
+    InteractionManager.runAfterInteractions(() => {
+      navigate(target);
+    });
+  };
+
   const onChangeText = (type: string, txt: string) => {
     if (type === 'email') {
       let checkMail = validateEmailFormat(txt);
@@ -118,7 +127,7 @@ export default (props: any) => {
         onChangePassword={(text: string) => onChangeText('password', text)}
         onForgot={() => pressed('Forgot Password')}
         onPressLogin={pressLogin}
-        onPressRegister={() => pressed('Register')}
+        onPressRegister={() => goToThe('FormRegister')}
       />
     </HighSafeArea>
   );
