@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ImageSourcePropType,
+} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 import {
   MEDIUM_FONT_SIZE,
@@ -9,14 +16,19 @@ type Props = {
   label: string;
   fieldValue: string;
   onPress: () => void;
+  icons: ImageSourcePropType;
 };
 const FieldData = (props: Props) => {
-  let {label, fieldValue, onPress} = props;
+  let {label, fieldValue, onPress, icons} = props;
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.leftSection}>
         <View>
-          <Text style={styles.title}>ICON</Text>
+          <Image
+            source={icons}
+            style={{tintColor: Color.tealBlue, height: 25, width: 25}}
+            resizeMode="cover"
+          />
         </View>
       </View>
       <View style={styles.rightSection}>

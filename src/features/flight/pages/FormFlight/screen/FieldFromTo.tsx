@@ -1,38 +1,70 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  Image,
+} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 import {
   MEDIUM_FONT_SIZE,
   HEADER_FONT_SIZE,
 } from '../../../../../constants/TextSize';
 
-const FieldFromTo = () => {
+type Props = {
+  fromPressed: () => void;
+  toPressed: () => void;
+  fromCity: string;
+  fromAirport: string;
+  toCity: string;
+  toAirport: string;
+};
+
+const FieldFromTo = (props: Props) => {
+  let {
+    fromPressed,
+    toPressed,
+    fromCity,
+    fromAirport,
+    toCity,
+    toAirport,
+  } = props;
   return (
     <View style={styles.container}>
       <View style={styles.leftSection}>
-        <View>
-          <Text style={styles.label}>From</Text>
-        </View>
-        <View>
-          <Text style={styles.title}>Jakarta</Text>
-        </View>
-        <View>
-          <Text style={styles.title}>(CGK)</Text>
-        </View>
+        <TouchableOpacity onPress={fromPressed}>
+          <View>
+            <Text style={styles.label}>From</Text>
+          </View>
+          <View>
+            <Text style={styles.title}>{fromCity}</Text>
+          </View>
+          <View>
+            <Text style={styles.title}>({fromAirport})</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.middleSection}>
-        <Text>Middle</Text>
+        <Image
+          source={require('../../../../../assets/icons/flight_oneway.png')}
+          style={{tintColor: Color.tealBlue, height: 30, width: 60}}
+          resizeMode="contain"
+        />
       </View>
       <View style={styles.rightSection}>
-        <View>
-          <Text style={styles.label}>To</Text>
-        </View>
-        <View>
-          <Text style={styles.title}>Denpasar</Text>
-        </View>
-        <View>
-          <Text style={styles.title}>(DPS)</Text>
-        </View>
+        <TouchableOpacity onPress={toPressed}>
+          <View style={{alignSelf: 'flex-end'}}>
+            <Text style={styles.label}>To</Text>
+          </View>
+          <View style={{alignSelf: 'flex-end'}}>
+            <Text style={styles.title}>{toCity}</Text>
+          </View>
+          <View style={{alignSelf: 'flex-end'}}>
+            <Text style={styles.title}>({toAirport})</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

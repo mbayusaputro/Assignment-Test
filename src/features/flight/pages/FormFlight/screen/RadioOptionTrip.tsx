@@ -47,6 +47,7 @@ const RadioOptionTrip = (props: Props) => {
 
 const styles = StyleSheet.create({
   radioSection: {
+    marginTop: 10,
     flexDirection: 'row',
   },
   radionOneWay: {

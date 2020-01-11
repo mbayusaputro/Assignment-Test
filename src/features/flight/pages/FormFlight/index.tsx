@@ -1,26 +1,27 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, Text, Alert} from 'react-native';
+import {SafeAreaView, StyleSheet, Alert} from 'react-native';
 import {Color} from '../../../../constants/Color';
 import Header from '../../components/Header';
 import Form from './screen/Form';
-import {NavigationScreenProp, NavigationState} from 'react-navigation';
+import SearchAirport from './screen/SearchAirport';
 
 type Props = {
   handleOptionTripPress: () => void;
   handleFieldPress: () => void;
-  handleSearchPress: () => void;
-  navigation: NavigationScreenProp<NavigationState>;
+  handleSearchFlight: () => void;
+  handleFromToModals: () => void;
 };
 
 const FormFlight = (props: Props) => {
   let {
     handleOptionTripPress,
     handleFieldPress,
-    handleSearchPress,
-    navigation: {navigate},
+    handleSearchFlight,
+    handleFromToModals,
   } = props;
 
   const [optionTrip, setoptionTrip] = useState('oneway');
+  const [isSearching, setSearching] = useState(false);
 
   handleOptionTripPress = () => {
     if (optionTrip === 'oneway') {
@@ -30,23 +31,39 @@ const FormFlight = (props: Props) => {
     }
   };
 
+  handleFromToModals = () => {
+    Alert.alert('handleFromToModals');
+  };
+
   handleFieldPress = () => {
     Alert.alert('handleFieldPress');
   };
 
-  handleSearchPress = () => {
-    navigate('ResultFlight');
+  handleSearchFlight = () => {
+    setSearching(true);
+    setTimeout(() => {
+      setSearching(false);
+    }, 5000);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Booking Your Flights" />
       <Form
+        isSearching={isSearching}
         OptionTripPress={handleOptionTripPress}
         OptionTrip={optionTrip}
         fieldPress={handleFieldPress}
-        searchPress={handleSearchPress}
+        searchFlightPress={handleSearchFlight}
+        fromPressed={handleFromToModals}
+        toPressed={handleFromToModals}
+        fromCity="Jakarta"
+        fromAirport="CGK"
+        toCity="Denpasar"
+        toAirport="DPS"
       />
+
+      <SearchAirport />
     </SafeAreaView>
   );
 };
