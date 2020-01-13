@@ -2,7 +2,10 @@ import {StyleSheet} from 'react-native';
 import fonts from '../../../../../constants/Fonts';
 import {Color} from '../../../../../constants/Color';
 import {scale, verticalScale} from '../../../../../constants/ScaleUtils';
-import {DEFAULT_FONT_SIZE} from '../../../../../constants/TextSize';
+import {
+  DEFAULT_FONT_SIZE,
+  SMALL_FONT_SIZE,
+} from '../../../../../constants/TextSize';
 
 export default StyleSheet.create({
   // Layout
@@ -90,6 +93,11 @@ export default StyleSheet.create({
     fontSize: DEFAULT_FONT_SIZE,
     textAlign: 'center',
     marginHorizontal: 5,
+  },
+  textError: {
+    fontFamily: fonts.fontBold,
+    color: Color.red,
+    fontSize: SMALL_FONT_SIZE,
   },
 
   // Other

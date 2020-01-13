@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageStyle, View} from 'react-native';
+import {ImageStyle, View, StyleProp} from 'react-native';
 import FastImage, {FastImageSource} from 'react-native-fast-image';
 
 const failImg =
@@ -7,7 +7,7 @@ const failImg =
 
 interface Props {
   source: FastImageSource;
-  style?: ImageStyle;
+  style?: StyleProp<ImageStyle>;
   resizeMode: FastImage.ResizeMode;
 }
 

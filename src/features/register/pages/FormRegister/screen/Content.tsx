@@ -10,6 +10,7 @@ export default (props: TabProps) => {
     onRegisterEmail,
     onGoogle,
     onFacebook,
+    validEmail,
   } = props;
   return (
     <TabForm
@@ -19,6 +20,7 @@ export default (props: TabProps) => {
       onRegisterEmail={onRegisterEmail}
       onGoogle={onGoogle}
       onFacebook={onFacebook}
+      validEmail={validEmail}
     />
   );
 };

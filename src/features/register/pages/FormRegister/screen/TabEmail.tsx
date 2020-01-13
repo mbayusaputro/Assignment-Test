@@ -9,7 +9,13 @@ import {Color} from '../../../../../constants/Color';
 import {scale} from '../../../../../constants/ScaleUtils';
 
 export default (props: TabProps) => {
-  const {onChangeEmail, onRegisterEmail, onFacebook, onGoogle} = props;
+  const {
+    onChangeEmail,
+    onRegisterEmail,
+    onFacebook,
+    onGoogle,
+    validEmail,
+  } = props;
   return (
     <View style={[styles.container, styles.content, styles.rowSpace]}>
       <View>
@@ -19,6 +25,11 @@ export default (props: TabProps) => {
           keyboardType="email-address"
           autoCapitalize="none"
         />
+        {validEmail ? null : (
+          <Text style={styles.textError}>
+            Please enter a valid email address
+          </Text>
+        )}
 
         <View style={styles.rowCenter}>
           <AntIcon name="lock" size={30} />

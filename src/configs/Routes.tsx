@@ -13,6 +13,8 @@ import {
   ETicketFlight,
   NoFlight,
   FormRegister,
+  ConfirmOTP,
+  SubmitRegister,
 } from '../features';
 import {Color} from '../constants/Color';
 
@@ -164,6 +166,18 @@ const STACK = createStackNavigator(
     },
     FormRegister: {
       screen: FormRegister,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ConfirmOTP: {
+      screen: ConfirmOTP,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    SubmitRegister: {
+      screen: SubmitRegister,
       navigationOptions: {
         header: null,
       },

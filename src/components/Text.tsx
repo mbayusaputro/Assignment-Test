@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import {SafeAreaView, Text, TextStyle} from 'react-native';
+import {SafeAreaView, Text, TextStyle, StyleProp} from 'react-native';
 import {LanguageContext, Content} from '../helpers/LanguageContext';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   content?: Content;
   isUpperCase?: boolean | undefined;
   fontWeight?: string | undefined;
-  style?: TextStyle;
+  style?: StyleProp<TextStyle>;
 };
 
 const setText = (

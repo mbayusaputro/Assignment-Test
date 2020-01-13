@@ -15,4 +15,5 @@ export interface TabProps {
   onRegisterEmail?: any;
   onGoogle?: () => void;
   onFacebook?: () => void;
+  validEmail?: boolean;
 }

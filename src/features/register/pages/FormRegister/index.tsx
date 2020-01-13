@@ -15,11 +15,13 @@ import {HighSafeArea, Header} from '../../../../components/';
 import Content from './screen/Content';
 import {Props} from '../../interface/types';
 import {googleAndroid, facebookConf} from '../../../../services/signinProvider';
+import {validateEmailFormat} from '../../../../helpers/helpers';
 
 const FormRegister = (props: Props) => {
   // State
   const [mobile, setMobile] = React.useState('');
   const [email, setEmail] = React.useState('');
+  const [isValidEmail, setValidEmail] = React.useState(true);
 
   // Function
   const goToBack = () => {
@@ -31,11 +33,35 @@ const FormRegister = (props: Props) => {
     });
   };
 
+  const onChangeText = (type: string, txt: string) => {
+    if (type === 'email') {
+      let checkMail = validateEmailFormat(txt);
+      if (checkMail) {
+        setEmail(txt);
+        setValidEmail(true);
+      } else {
+        setEmail(txt);
+        setValidEmail(false);
+      }
+    } else if (type === 'mobile') {
+      setMobile(txt);
+    }
+  };
+
   const goRegister = (type: string) => {
+    const {
+      navigation: {navigate},
+    } = props;
     if (type === 'mobile') {
-      alert(mobile);
+      navigate('ConfirmOTP', {
+        typeNav: type,
+      });
+      // alert(mobile);
     } else if (type === 'email') {
-      alert(email);
+      navigate('ConfirmOTP', {
+        typeNav: type,
+      });
+      // alert(email);
     }
   };
 
@@ -86,11 +112,12 @@ const FormRegister = (props: Props) => {
     <HighSafeArea>
       <Header title="New Member" callback={goToBack} />
       <Content
-        onChangeMobile={(text: string) => setMobile(text)}
-        onChangeEmail={(text: string) => setEmail(text)}
+        onChangeMobile={(text: string) => onChangeText('mobile', text)}
+        onChangeEmail={(text: string) => onChangeText('email', text)}
         onRegisterMobile={() => goRegister('mobile')}
-        onRegisterEmail={() => alert(email)}
+        onRegisterEmail={() => goRegister('email')}
         onGoogle={goGoogle}
+        validEmail={isValidEmail}
         onFacebook={goFacebook}
       />
     </HighSafeArea>

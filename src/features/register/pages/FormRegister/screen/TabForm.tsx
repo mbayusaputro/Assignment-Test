@@ -36,9 +36,14 @@ export default class TabForm extends React.PureComponent<TabProps, object> {
       indicatorStyle={{backgroundColor: Color.tealBlue}}
       style={{backgroundColor: Color.white}}
       activeColor={Color.tealBlue}
-      renderLabel={({route}) => (
+      inactiveColor={Color.black}
+      renderLabel={({route, focused, color}) => (
         <Text
-          style={{fontFamily: fonts.fontSemiBold, fontSize: HEADER_FONT_SIZE}}>
+          style={{
+            fontFamily: fonts.fontSemiBold,
+            fontSize: HEADER_FONT_SIZE,
+            color,
+          }}>
           {route.title}
         </Text>
       )}
@@ -47,6 +52,7 @@ export default class TabForm extends React.PureComponent<TabProps, object> {
 
   renderTabContent = ({route}): any => {
     const {
+      validEmail,
       onChangeMobile,
       onChangeEmail,
       onRegisterMobile,
@@ -71,6 +77,7 @@ export default class TabForm extends React.PureComponent<TabProps, object> {
             onRegisterEmail={onRegisterEmail}
             onGoogle={onGoogle}
             onFacebook={onFacebook}
+            validEmail={validEmail}
           />
         );
       default:

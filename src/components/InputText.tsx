@@ -20,6 +20,7 @@ interface PropInputText {
   value?: string;
   onChangeText: () => void;
   autoCapitalize?: AutoCapitalize;
+  maxLength?: number;
 }
 export const InputText = (props: PropInputText) => {
   const {inputText} = styles;
@@ -33,6 +34,7 @@ export const InputText = (props: PropInputText) => {
         value={props.value}
         keyboardType={props.keyboardType ? props.keyboardType : 'default'}
         autoCapitalize={props.autoCapitalize}
+        maxLength={props.maxLength}
       />
     </View>
   );
