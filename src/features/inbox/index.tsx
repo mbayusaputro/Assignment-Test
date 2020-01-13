@@ -1,15 +1,23 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import {Text} from '../../components';
-const Inbox = () => {
+import {SafeAreaView} from 'react-native';
+import Header from './components/Header';
+import Content from './Content';
+import Empty from './Empty';
+import {NavigationScreenProp, NavigationState} from 'react-navigation';
+
+interface Props {
+  navigation: NavigationScreenProp<NavigationState>;
+}
+
+const Orders = (props: Props) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text isUpperCase={false} content={{id: 'Inbox', en: 'Inbox'}} />
+    <SafeAreaView style={{backgroundColor: '#f0f0f0', flex: 1}}>
+      <Header title=" My Order" />
+      {/* <Content {...props} title="Active" /> */}
+      <Empty />
+      {/* <Text isUpperCase={false} content={{id: 'Orders', en: 'Orders'}} /> */}
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {alignItems: 'center', flex: 1, justifyContent: 'center'},
-});
-export default Inbox;
+export default Orders;
