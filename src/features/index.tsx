@@ -8,6 +8,7 @@ import ETicketFlight from './flight/pages/EticketFlight';
 import NoFlight from './flight/pages/NoFlight';
 import {FormRegister, ConfirmOTP, SubmitRegister} from './register';
 import DetailFlight from './flight/pages/DetailFlight';
+import FilterFlight from './flight/pages/FilterFlight';
 
 export {
   Flight,
@@ -22,4 +23,5 @@ export {
   ConfirmOTP,
   SubmitRegister,
   DetailFlight,
+  FilterFlight,
 };

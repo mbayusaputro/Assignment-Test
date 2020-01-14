@@ -16,6 +16,7 @@ import {
   ConfirmOTP,
   SubmitRegister,
   DetailFlight,
+  FilterFlight,
 } from '../features';
 import {Color} from '../constants/Color';
 
@@ -189,9 +190,15 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
+    FilterFlight: {
+      screen: FilterFlight,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
   {
-    initialRouteName: 'Tabs',
+    initialRouteName: 'FilterFlight',
   },
 );
 
