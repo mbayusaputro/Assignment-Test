@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, ScrollView} from 'react-native';
-import Method from './screen/Method';
-import {Header, SubHeader} from '../../components';
+import Method from './Method';
+import {Header, SubHeader} from './components';
 
 const Default = (props: any) => {
   return (

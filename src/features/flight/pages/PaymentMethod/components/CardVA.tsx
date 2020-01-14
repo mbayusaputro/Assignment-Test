@@ -13,7 +13,7 @@ const Card = (props: Props) => {
         <View style={styles.rowva}>
           <Image
             style={styles.logova}
-            source={require('../../../assets/payment/bca-logo.png')}
+            source={require('../../../../../assets/payment/bca-logo.png')}
             resizeMode="contain"
           />
           <View style={{flexDirection: 'row'}}>

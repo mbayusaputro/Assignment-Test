@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Alert} from 'react-native';
-import {Card, CardCC, CardInfo, CardVA} from '../../../components';
+import {Card, CardCC, CardInfo, CardVA} from './components';
 
 const Method = () => {
   return (

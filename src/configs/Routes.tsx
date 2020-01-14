@@ -191,7 +191,7 @@ const STACK = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'DetailFlight',
+    initialRouteName: 'Tabs',
   },
 );
 

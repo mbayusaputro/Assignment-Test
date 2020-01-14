@@ -1,13 +1,13 @@
 import React from 'react';
 import {SafeAreaView, ScrollView} from 'react-native';
-import {Header, SubHeader} from '../../components';
+import {Header, SubHeader} from './components';
 import Content from './screen/Content';
 
-const Default = () => {
+const Default = (props: any) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
-        <Header title="Booking Detail" />
+        <Header title="Jakarta" />
         <SubHeader departure="Jakarta (CGK)" destination="Denpasar (DPS)" />
         <Content />
       </ScrollView>

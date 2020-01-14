@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {Color} from '../../../constants/Color';
-import {HEADER_FONT_SIZE} from '../../../constants/TextSize';
-import {verticalScale, scale} from '../../../constants/ScaleUtils';
+import {Color} from '../../../../../constants/Color';
+import {HEADER_FONT_SIZE} from '../../../../../constants/TextSize';
+import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
 
 interface Props {
   goBack?: boolean;
@@ -13,7 +13,7 @@ const Header = (props: Props) => {
     <View style={styles.container}>
       <Image
         style={{height: verticalScale(16), width: scale(20), marginTop: 5}}
-        source={require('../../../assets/icons/back.png')}
+        source={require('../../../../../assets/icons/back.png')}
         resizeMode="contain"
       />
       <View style={{flexDirection: 'row'}}>
@@ -25,14 +25,14 @@ const Header = (props: Props) => {
             marginTop: 5,
             marginHorizontal: 5,
           }}
-          source={require('../../../assets/icons/icon_header_flight_result.png')}
+          source={require('../../../../../assets/icons/icon_header_flight_result.png')}
           resizeMode="contain"
         />
         <Text style={styles.title}>{props.title}</Text>
       </View>
       <Image
         style={{height: verticalScale(16), width: scale(10), marginTop: 5}}
-        source={require('../../../assets/icons/icon_dot_vertical.png')}
+        source={require('../../../../../assets/icons/icon_dot_vertical.png')}
         resizeMode="contain"
       />
     </View>

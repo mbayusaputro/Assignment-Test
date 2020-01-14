@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {Color} from '../../../constants/Color';
-import {scale, verticalScale} from '../../../constants/ScaleUtils';
+import {Color} from '../../../../../constants/Color';
+import {scale, verticalScale} from '../../../../../constants/ScaleUtils';
 
 interface Props {
   departure: any;
@@ -15,11 +15,22 @@ const Header = (props: Props) => {
         <Text style={styles.id}>{props.departure}</Text>
         <Image
           style={styles.return}
-          source={require('../../../assets/icons/return.png')}
+          source={require('../../../../../assets/icons/return.png')}
           resizeMode="contain"
         />
         <Text style={styles.id}>{props.destination}</Text>
       </View>
+      <View
+        style={{
+          backgroundColor: Color.white,
+          height: 20,
+          position: 'absolute',
+          width: '100%',
+          bottom: 0,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+        }}
+      />
     </View>
   );
 };
@@ -31,7 +42,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.marineBlue,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    borderBottomLeftRadius: 50,
     height: 50,
     width: '100%',
   },

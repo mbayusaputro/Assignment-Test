@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import {scale} from '../../../constants/ScaleUtils';
+import {scale} from '../../../../../constants/ScaleUtils';
 import styles from '../style';
 
 interface Props {
@@ -16,7 +16,7 @@ const Card = (props: Props) => {
         </Text>
         <Image
           style={{width: scale(170)}}
-          source={require('../../../assets/payment/cc.png')}
+          source={require('../../../../../assets/payment/cc.png')}
           resizeMode="contain"
         />
       </View>

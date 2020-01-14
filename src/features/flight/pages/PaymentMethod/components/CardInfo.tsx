@@ -16,7 +16,7 @@ const Card = (props: Props) => {
         <Text style={styles.title}>{props.departure}</Text>
         <Image
           style={styles.return}
-          source={require('../../../assets/payment/return.png')}
+          source={require('../../../../../assets/payment/return.png')}
           resizeMode="contain"
         />
         <Text style={styles.title}>{props.destination}</Text>

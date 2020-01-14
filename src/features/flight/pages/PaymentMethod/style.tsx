@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {scale, verticalScale} from '../../constants/ScaleUtils';
-import {Color} from '../../constants/Color';
+import {scale, verticalScale} from '../../../../constants/ScaleUtils';
+import {Color} from '../../../../constants/Color';
 
 export default StyleSheet.create({
   card: {
