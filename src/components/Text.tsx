@@ -1,6 +1,13 @@
 import React, {ReactNode} from 'react';
-import {SafeAreaView, Text, TextStyle, StyleProp} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  TextStyle,
+  StyleProp,
+  StyleSheet,
+} from 'react-native';
 import {LanguageContext, Content} from '../helpers/LanguageContext';
+import fonts from '../constants/Fonts';
 
 type Props = {
   children?: ReactNode;
@@ -23,13 +30,14 @@ const setText = (
 };
 
 const CustomText = (props: Props) => {
-  let {content, children, isUpperCase, fontWeight} = props;
+  const {content, children, isUpperCase, fontWeight} = props;
+  const {defaultText} = styles;
   return (
     <SafeAreaView>
       <LanguageContext.Consumer>
         {({language}) =>
           content ? (
-            <Text style={props.style}>
+            <Text style={[defaultText, props.style]}>
               {language === 'id'
                 ? setText(content.id, isUpperCase, fontWeight)
                 : setText(content.en, isUpperCase, fontWeight)}
@@ -44,3 +52,9 @@ const CustomText = (props: Props) => {
 };
 
 export default CustomText;
+
+const styles = StyleSheet.create({
+  defaultText: {
+    fontFamily: fonts.fontReguler,
+  },
+});

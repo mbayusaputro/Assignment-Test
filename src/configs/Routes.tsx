@@ -18,6 +18,7 @@ import {
   DetailFlight,
   FilterFlight,
   ResultFlight,
+  ProfileEdit,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -197,6 +198,12 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
+    ProfileEdit: {
+      screen: ProfileEdit,
+      navigationOptions: {
+        header: null,
+      },
+    },
     DetailFlight: {
       screen: DetailFlight,
       navigationOptions: {
@@ -217,7 +224,7 @@ const STACK = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'ResultFlight',
+    initialRouteName: 'Tabs',
     transitionConfig: nav => handleCustomTransition(nav),
   },
 );

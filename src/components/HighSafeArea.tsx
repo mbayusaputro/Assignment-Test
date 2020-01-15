@@ -1,5 +1,11 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import Text from './Text';
 
 const MISSING_ERROR = 'Error was swallowed during propagation.';
@@ -9,6 +15,7 @@ const HighSafeArea = <BaseProps extends {}>(
 ) => {
   type HocProps = {
     // here you can extend hoc with new props
+    style?: StyleProp<ViewStyle>;
   };
   type HocState = {
     readonly error: Error | null | undefined;
@@ -32,12 +39,17 @@ const HighSafeArea = <BaseProps extends {}>(
     render() {
       const {children, ...restProps} = this.props;
       const {error} = this.state;
+      const {content} = styles;
 
       if (error) {
         return <BaseComponent {...restProps as BaseProps} />;
       }
 
-      return children;
+      return (
+        <SafeAreaView style={[this.props.style, content]}>
+          {children}
+        </SafeAreaView>
+      );
     }
   };
 };
@@ -60,5 +72,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  content: {
+    flex: 1,
   },
 });

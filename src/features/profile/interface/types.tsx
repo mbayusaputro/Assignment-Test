@@ -26,7 +26,8 @@ export interface SignInContent {
   onPressRegister: () => void;
 }
 
-export interface MyProfileProps {
+export type MyProfileProps = {
   onLogOut: () => void;
   profile: any;
-}
+  goToProfileEdit: () => void;
+};

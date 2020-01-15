@@ -5,7 +5,6 @@ import fonts from '../../../../../constants/Fonts';
 import {
   HEADER_FONT_SIZE,
   TITLE_FONT_SIZE,
-  DEFAULT_FONT_SIZE,
 } from '../../../../../constants/TextSize';
 
 export default StyleSheet.create({

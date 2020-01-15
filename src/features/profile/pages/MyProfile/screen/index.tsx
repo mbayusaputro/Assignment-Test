@@ -6,9 +6,10 @@ import {SigninProps} from '../../../interface/types';
 import {Color} from '../../../../../constants/Color';
 
 export default (props: SigninProps) => {
+  // Function
   const logOut = () => {
     const {logout} = props;
-    const awok = Alert.alert(
+    const alert = Alert.alert(
       'My Account',
       'Are you sure you want to log out?',
       [
@@ -22,16 +23,28 @@ export default (props: SigninProps) => {
         },
       ],
     );
-    InteractionManager.runAfterInteractions(() => awok);
+    InteractionManager.runAfterInteractions(() => alert);
+  };
+  const navProfileEdit = () => {
+    const {
+      navigation: {navigate},
+    } = props;
+    navigate('ProfileEdit');
   };
 
+  // Main Render
   const {container} = styles;
   const {profile} = props;
   return (
     <HighSafeArea>
       <View style={container}>
         <Header />
-        <Content {...props} profile={profile} onLogOut={logOut} />
+        <Content
+          {...props}
+          profile={profile}
+          onLogOut={logOut}
+          goToProfileEdit={navProfileEdit}
+        />
       </View>
     </HighSafeArea>
   );
@@ -39,7 +52,7 @@ export default (props: SigninProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Color.lightgray,
+    backgroundColor: Color.backWhite,
     flex: 1,
   },
 });
