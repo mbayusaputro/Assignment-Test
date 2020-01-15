@@ -31,25 +31,94 @@ const Active = (props: any) => {
           </Text>
         </View>
         <Card data={state.params} />
-        <View>
-          <Text
-            style={{
-              fontFamily: 'NunitoSans-Bold',
-              marginVertical: 10,
-            }}>
-            No Facilities
-          </Text>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image
-              style={{
-                height: verticalScale(20),
-                width: scale(20),
-              }}
-              source={require('../../../../assets/icons/bag.png')}
-              resizeMode="contain"
-            />
-            <Text style={{marginHorizontal: 10}}>Baggage (buy at booking)</Text>
-          </View>
+        <View style={{paddingBottom: 125}}>
+          {state.params.detail.map((item: any, i: number) => {
+            return (
+              <View>
+                <Text
+                  style={{
+                    fontFamily: 'NunitoSans-Bold',
+                    marginVertical: 10,
+                  }}>
+                  {item.check_in_baggage > 0
+                    ? item.operated_by +
+                      ` (${item.flight_number})` +
+                      ' - Facilities'
+                    : item.operated_by +
+                      ` (${item.flight_number})` +
+                      ' - No Facilities'}
+                </Text>
+                <View style={{flexDirection: 'row', marginBottom: 5}} key={i}>
+                  {item.check_in_baggage > 0 ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        flex: 1,
+                      }}>
+                      <Image
+                        style={{
+                          height: verticalScale(20),
+                          width: scale(20),
+                          tintColor: Color.orange,
+                        }}
+                        source={require('../../../../assets/icons/bag.png')}
+                        resizeMode="contain"
+                      />
+                      <Text
+                        style={{
+                          marginHorizontal: 10,
+                          fontFamily: 'NunitoSans-SemiBold',
+                        }}>
+                        Baggage {item.check_in_baggage} kg
+                      </Text>
+                    </View>
+                  ) : (
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Image
+                        style={{
+                          height: verticalScale(20),
+                          width: scale(20),
+                        }}
+                        source={require('../../../../assets/icons/bag.png')}
+                        resizeMode="contain"
+                      />
+                      <Text style={{marginHorizontal: 10}}>
+                        Baggage (buy at booking)
+                      </Text>
+                    </View>
+                  )}
+                  {item.has_food !== '' ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        flex: 1,
+                      }}>
+                      <Image
+                        style={{
+                          height: verticalScale(20),
+                          width: scale(20),
+                          tintColor: Color.orange,
+                        }}
+                        source={require('../../../../assets/icons/meals.png')}
+                        resizeMode="contain"
+                      />
+                      <Text
+                        style={{
+                          marginHorizontal: 10,
+                          fontFamily: 'NunitoSans-SemiBold',
+                        }}>
+                        Meals
+                      </Text>
+                    </View>
+                  ) : (
+                    []
+                  )}
+                </View>
+              </View>
+            );
+          })}
         </View>
       </ScrollView>
       <View
@@ -57,6 +126,7 @@ const Active = (props: any) => {
           position: 'absolute',
           width: WIDTH_SCREEN,
           bottom: 0,
+          backgroundColor: Color.white,
         }}>
         <View style={styles.bot}>
           <Text style={{fontFamily: 'NunitoSans-Bold'}}>Total Payment</Text>
