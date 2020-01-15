@@ -53,21 +53,27 @@ export default class TabForm extends React.PureComponent<TabProps, object> {
   renderTabContent = ({route}): any => {
     const {
       validEmail,
+      onChangeMobilePre,
+      valueMobilePre,
       onChangeMobile,
       onChangeEmail,
       onRegisterMobile,
       onRegisterEmail,
       onFacebook,
       onGoogle,
+      loading,
     } = this.props;
     switch (route.key) {
       case 'first':
         return (
           <TabMobile
+            onChangeMobilePre={onChangeMobilePre}
+            valueMobilePre={valueMobilePre}
             onChangeMobile={onChangeMobile}
             onRegisterMobile={onRegisterMobile}
             onGoogle={onGoogle}
             onFacebook={onFacebook}
+            loading={loading}
           />
         );
       case 'second':
@@ -78,6 +84,7 @@ export default class TabForm extends React.PureComponent<TabProps, object> {
             onGoogle={onGoogle}
             onFacebook={onFacebook}
             validEmail={validEmail}
+            loading={loading}
           />
         );
       default:

@@ -1,6 +1,12 @@
 import React from 'react';
 import {View, TouchableOpacity as Touch, Platform} from 'react-native';
-import {Text, InputText, Button, Imaging} from '../../../../../components';
+import {
+  Text,
+  InputText,
+  Button,
+  Imaging,
+  ButtonLoading,
+} from '../../../../../components';
 import styles from './styles';
 import {TabProps} from '../../../interface/types';
 import AntIcon from 'react-native-vector-icons/AntDesign';
@@ -15,6 +21,7 @@ export default (props: TabProps) => {
     onFacebook,
     onGoogle,
     validEmail,
+    loading,
   } = props;
   return (
     <View style={[styles.container, styles.content, styles.rowSpace]}>
@@ -36,13 +43,17 @@ export default (props: TabProps) => {
           <Text>Your data will be protected and very safe</Text>
         </View>
 
-        <View style={styles.vertical}>
-          <Button
-            onPress={onRegisterEmail}
-            isUpperCase={true}
-            customStyle={styles.btn}
-            content={{id: 'DAFTAR', en: 'REGISTER'}}
-          />
+        <View style={[styles.vertical, styles.center]}>
+          {loading ? (
+            <ButtonLoading />
+          ) : (
+            <Button
+              onPress={onRegisterEmail}
+              isUpperCase={true}
+              customStyle={styles.btn}
+              content={{id: 'DAFTAR', en: 'REGISTER'}}
+            />
+          )}
         </View>
 
         <View style={[styles.content, styles.rowCenter]}>

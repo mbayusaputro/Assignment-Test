@@ -10,14 +10,31 @@ import {
   GETPROFILE,
   GETPROFILE_SUCCESS,
   GETPROFILE_FAILED,
+  REGISTER1,
+  REGISTER1_SUCCESS,
+  REGISTER1_FAILED,
+  REGISTER2,
+  REGISTER2_SUCCESS,
+  REGISTER2_FAILED,
+  REGISTER3,
+  REGISTER3_SUCCESS,
+  REGISTER3_FAILED,
 } from './types';
 
 const intialState: State = {
   isLogin: false,
   token: '',
   fetchSignIn: false,
+
+  // Get Profile after SignIn
   profile: {},
   fetchProfile: false,
+
+  // SignUp
+  fetchSignUp: false,
+  payloadSignUp1: {},
+  payloadSignUp2: {},
+  payloadSignUp3: {},
 };
 
 export default (state: State = intialState, action: Action): State => {
@@ -41,7 +58,7 @@ export default (state: State = intialState, action: Action): State => {
         token: '',
       };
 
-    // SignIn
+    // ============= SIGNIN =============
     case SIGNIN:
       return {
         ...state,
@@ -61,7 +78,7 @@ export default (state: State = intialState, action: Action): State => {
         fetchSignIn: false,
       };
 
-    // Get Profile User
+    // ============= GET PROFILE =============
     case GETPROFILE:
       return {
         ...state,
@@ -79,6 +96,66 @@ export default (state: State = intialState, action: Action): State => {
       return {
         ...state,
         fetchProfile: false,
+      };
+
+    // ============= SIGNUP 1 {Apply} =============
+    case REGISTER1:
+      return {
+        ...state,
+        fetchSignUp: true,
+      };
+
+    case REGISTER1_SUCCESS:
+      return {
+        ...state,
+        fetchSignUp: false,
+        payloadSignUp1: action.payload,
+      };
+
+    case REGISTER1_FAILED:
+      return {
+        ...state,
+        fetchSignUp: false,
+      };
+
+    // ============= SIGNUP 2 {Verify OTP} =============
+    case REGISTER2:
+      return {
+        ...state,
+        fetchSignUp: true,
+      };
+
+    case REGISTER2_SUCCESS:
+      return {
+        ...state,
+        fetchSignUp: false,
+        payloadSignUp2: action.payload,
+      };
+
+    case REGISTER2_FAILED:
+      return {
+        ...state,
+        fetchSignUp: false,
+      };
+
+    // ============= SIGNUP 3 {Submit Last Step} =============
+    case REGISTER3:
+      return {
+        ...state,
+        fetchSignUp: true,
+      };
+
+    case REGISTER3_SUCCESS:
+      return {
+        ...state,
+        fetchSignUp: false,
+        payloadSignUp3: action.payload,
+      };
+
+    case REGISTER3_FAILED:
+      return {
+        ...state,
+        fetchSignUp: false,
       };
 
     default:

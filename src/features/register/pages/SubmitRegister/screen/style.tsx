@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import fonts from '../../../../../constants/Fonts';
 import {Color} from '../../../../../constants/Color';
+import {SMALL_FONT_SIZE} from '../../../../../constants/TextSize';
 
 export default StyleSheet.create({
   // Layout
@@ -21,11 +22,22 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  viewModal: {
+    width: '100%',
+  },
+  vertical: {
+    marginBottom: 10,
+  },
 
   // Text
   textDesc: {
     textAlign: 'center',
     fontFamily: fonts.fontReguler,
+  },
+  textError: {
+    fontFamily: fonts.fontBold,
+    color: Color.red,
+    fontSize: SMALL_FONT_SIZE,
   },
 
   // Other

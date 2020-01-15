@@ -1,10 +1,20 @@
 import React from 'react';
-import {Text, HighSafeArea} from '../../../../components';
+import {oc} from 'ts-optchain';
+// Redux
+import {connect} from 'react-redux';
+import {Dispatch, bindActionCreators} from 'redux';
+import {actionSignUp2} from '../../../../reduxs/profile/action';
+import {
+  getFetchSignUp,
+  getPayloadSignUp1,
+} from '../../../../reduxs/profile/selector';
+// Components
+import {HighSafeArea} from '../../../../components';
 import {Content, Header} from './screen';
 import {Props} from '../../interface/types';
 import {InteractionManager} from 'react-native';
 
-export default (props: Props) => {
+const ConfirmOTP = (props: Props) => {
   // State
   const [otp, setOtp] = React.useState('');
 
@@ -17,31 +27,51 @@ export default (props: Props) => {
   };
 
   const sendCode = () => {
-    const {
-      navigation: {navigate},
-    } = props;
     const type = getParam('typeNav');
+    const payloadBefore = props.payloadSignUp1;
     let payload: any;
     if (type === 'mobile') {
       payload = {
-        mobileNoPrefix: '62',
-        mobileNo: '85742055558',
+        mobileNoPrefix: oc(payloadBefore).mobileNoPrefix(''),
+        mobileNo: oc(payloadBefore).mobileNo(''),
         otp,
       };
     } else if (type === 'email') {
       payload = {
-        email: 'youremail@gmail.com',
+        email: oc(payloadBefore).email(''),
         otp,
       };
     }
-    navigate('SubmitRegister', {
-      typeNav: type,
+
+    if (otp !== '' || otp.length === 6) {
+      goSubmit(payload, type);
+    } else {
+      alert('Please enter OTP Code until 6 digit');
+    }
+  };
+
+  const goSubmit = (payload: object, typeNav: string) => {
+    const {navigation} = props;
+    let typeAPI: string;
+    if (typeNav === 'mobile') {
+      typeAPI = 'mobileno';
+    } else if (typeNav === 'email') {
+      typeAPI = 'email';
+    }
+
+    props.actionSignUp2(payload, 'apply-verified', typeAPI).then((res: any) => {
+      if (res.type === 'REGISTER2_SUCCESS') {
+        navigation.navigate('SubmitRegister', {typeNav});
+      } else {
+        alert(res.message);
+      }
     });
   };
 
   // Main Render
   const {
     navigation: {getParam},
+    fetchSignUp,
   } = props;
   return (
     <HighSafeArea>
@@ -50,7 +80,27 @@ export default (props: Props) => {
         type={getParam('typeNav')}
         onChangeText={(text: string) => setOtp(text)}
         onSend={sendCode}
+        loading={fetchSignUp}
       />
     </HighSafeArea>
   );
 };
+
+const mapStateToProps = (state: any) => ({
+  fetchSignUp: getFetchSignUp(state),
+  payloadSignUp1: getPayloadSignUp1(state),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      actionSignUp2: (_1: object, _2: string, _3: string) =>
+        actionSignUp2(_1, _2, _3),
+    },
+    dispatch,
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ConfirmOTP);

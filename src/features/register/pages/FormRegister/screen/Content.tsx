@@ -11,6 +11,7 @@ export default (props: TabProps) => {
     onGoogle,
     onFacebook,
     validEmail,
+    loading,
   } = props;
   return (
     <TabForm
@@ -21,6 +22,7 @@ export default (props: TabProps) => {
       onGoogle={onGoogle}
       onFacebook={onFacebook}
       validEmail={validEmail}
+      loading={loading}
     />
   );
 };

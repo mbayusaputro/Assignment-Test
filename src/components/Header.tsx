@@ -27,7 +27,7 @@ export const Header = (props: HeaderProps) => {
           <Touch onPress={props.callback}>
             <Image
               source={require('../assets/icons/back.png')}
-              resizeMode={Platform.OS === 'ios' ? 'contain' : 'cover'}
+              resizeMode="contain"
               style={styles.imgBack}
             />
           </Touch>

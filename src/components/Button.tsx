@@ -109,9 +109,8 @@ const Button = (props: Props) => {
 
 export const ButtonLoading = () => (
   <Button
-    type="secondary"
+    type="four"
     children={<ActivityIndicator size="large" color={Color.red} />}
-    fullWidth
     content={{id: 'Mohon Tunggu..', en: 'Please Wait..'}}
   />
 );

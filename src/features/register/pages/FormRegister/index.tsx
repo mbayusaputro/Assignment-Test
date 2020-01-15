@@ -8,8 +8,12 @@ import {
   actionSignIn,
   actionGetProfile,
   setToken,
+  actionSignUp1,
 } from '../../../../reduxs/profile/action';
-import {getFetchSignIn} from '../../../../reduxs/profile/selector';
+import {
+  getFetchSignIn,
+  getFetchSignUp,
+} from '../../../../reduxs/profile/selector';
 // Local Component
 import {HighSafeArea, Header} from '../../../../components/';
 import Content from './screen/Content';
@@ -19,6 +23,7 @@ import {validateEmailFormat} from '../../../../helpers/helpers';
 
 const FormRegister = (props: Props) => {
   // State
+  const [mobilePre, setMobilePre] = React.useState('62');
   const [mobile, setMobile] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [isValidEmail, setValidEmail] = React.useState(true);
@@ -45,24 +50,48 @@ const FormRegister = (props: Props) => {
       }
     } else if (type === 'mobile') {
       setMobile(txt);
+    } else if (type === 'mobilePre') {
+      setMobilePre(txt);
     }
   };
 
-  const goRegister = (type: string) => {
-    const {
-      navigation: {navigate},
-    } = props;
+  const onRegister = (type: string) => {
     if (type === 'mobile') {
-      navigate('ConfirmOTP', {
-        typeNav: type,
-      });
-      // alert(mobile);
+      const payload = {
+        mobileNoPrefix: mobilePre,
+        mobileNo: mobile,
+      };
+      if (mobilePre !== '' && mobile !== '') {
+        goVerify(payload, type);
+      } else {
+        alert('Please enter your phone code and your mobile number');
+      }
     } else if (type === 'email') {
-      navigate('ConfirmOTP', {
-        typeNav: type,
-      });
-      // alert(email);
+      const payload = {email};
+      if (email !== '') {
+        goVerify(payload, type);
+      } else {
+        alert('Please enter your email');
+      }
     }
+  };
+
+  const goVerify = (payload: object, typeNav: string) => {
+    const {navigation} = props;
+    let typeAPI: string;
+    if (typeNav === 'mobile') {
+      typeAPI = 'mobileno';
+    } else if (typeNav === 'email') {
+      typeAPI = 'email';
+    }
+
+    props.actionSignUp1(payload, 'apply', typeAPI).then((res: any) => {
+      if (res.type === 'REGISTER1_SUCCESS') {
+        navigation.navigate('ConfirmOTP', {typeNav});
+      } else {
+        alert(res.message);
+      }
+    });
   };
 
   const goGoogle = () => {
@@ -112,13 +141,16 @@ const FormRegister = (props: Props) => {
     <HighSafeArea>
       <Header title="New Member" callback={goToBack} />
       <Content
+        onChangeMobilePre={(text: string) => onChangeText('mobilePre', text)}
+        valueMobilePre={mobilePre}
         onChangeMobile={(text: string) => onChangeText('mobile', text)}
         onChangeEmail={(text: string) => onChangeText('email', text)}
-        onRegisterMobile={() => goRegister('mobile')}
-        onRegisterEmail={() => goRegister('email')}
+        onRegisterMobile={() => onRegister('mobile')}
+        onRegisterEmail={() => onRegister('email')}
         onGoogle={goGoogle}
         validEmail={isValidEmail}
         onFacebook={goFacebook}
+        loading={props.fetchSignUp}
       />
     </HighSafeArea>
   );
@@ -127,6 +159,7 @@ const FormRegister = (props: Props) => {
 // Reduxing
 const mapStateToProps = (state: any) => ({
   fetchSignIn: getFetchSignIn(state),
+  fetchSignUp: getFetchSignUp(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -135,6 +168,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       actionSignIn: (payload: object) => actionSignIn(payload),
       actionGetProfile: (token: string) => actionGetProfile(token),
       setToken: (token: string) => setToken(token),
+      actionSignUp1: (payload: object, apply: string, type: string) =>
+        actionSignUp1(payload, apply, type),
     },
     dispatch,
   );

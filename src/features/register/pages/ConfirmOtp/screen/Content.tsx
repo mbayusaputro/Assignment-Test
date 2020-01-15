@@ -6,7 +6,13 @@ import {
   TouchableOpacity as Touch,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {Text, Imaging, InputText, Button} from '../../../../../components';
+import {
+  Text,
+  Imaging,
+  InputText,
+  Button,
+  ButtonLoading,
+} from '../../../../../components';
 import styles from './style';
 import {Color} from '../../../../../constants/Color';
 
@@ -14,6 +20,7 @@ type ContentProps = {
   type: string;
   onChangeText: any;
   onSend: () => void;
+  loading: boolean;
 };
 
 export default (props: ContentProps) => {
@@ -36,14 +43,6 @@ export default (props: ContentProps) => {
     }
   };
 
-  const typeInput = () => {
-    if (type === 'mobile') {
-      return 'Verification Mobile Number';
-    } else if (type === 'email') {
-      return 'Verification Email Address';
-    }
-  };
-
   // Main Render
   return (
     <ScrollView>
@@ -58,9 +57,9 @@ export default (props: ContentProps) => {
         </View>
         <View style={[styles.fullWidth, styles.vertical]}>
           <InputText
-            placeholder={typeInput()}
+            placeholder="Enter OTP Code"
             onChangeText={onChangeText}
-            autoCapitalize="words"
+            autoCapitalize="characters"
             maxLength={6}
           />
         </View>
@@ -76,12 +75,16 @@ export default (props: ContentProps) => {
           </Touch>
         </View>
         <View style={[styles.vertical, styles.fullWidth]}>
-          <Button
-            content={{id: 'Kirim Kode', en: 'Send Code'}}
-            isUpperCase={true}
-            customStyle={styles.btnCode}
-            onPress={onSend}
-          />
+          {props.loading ? (
+            <ButtonLoading />
+          ) : (
+            <Button
+              content={{id: 'Kirim Kode', en: 'Send Code'}}
+              isUpperCase={true}
+              customStyle={styles.btnCode}
+              onPress={onSend}
+            />
+          )}
         </View>
       </View>
     </ScrollView>

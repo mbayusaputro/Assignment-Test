@@ -12,6 +12,24 @@ export async function signIn(payload: object) {
   return response;
 }
 
+export async function signUp(payload: object, applyType: string, type: string) {
+  const uri: string = `${URL}/v1/customers/${applyType}?by=${type}`;
+  const response = await axios
+    .post(uri, payload)
+    .then(res => res.data)
+    .catch(err => err);
+  return response;
+}
+
+export async function signUpLast(payload: object) {
+  const uri: string = `${URL}/v1/customers/register`;
+  const response = await axios
+    .post(uri, payload)
+    .then(res => res.data)
+    .catch(err => err);
+  return response;
+}
+
 export async function getProfile(token: string) {
   const uri: string = `${URL}/v1/customers/me`;
   const config = {
@@ -24,3 +42,14 @@ export async function getProfile(token: string) {
   return response;
 }
 // ====================== PROFILE ======================
+
+// ====================== MASTER ======================
+export async function listCountry() {
+  const uri: string = `${URL}/v1/master/country?limit=300`;
+  const response = await axios
+    .get(uri)
+    .then(res => res.data)
+    .catch(err => err);
+  return response;
+}
+// ====================== MASTER ======================

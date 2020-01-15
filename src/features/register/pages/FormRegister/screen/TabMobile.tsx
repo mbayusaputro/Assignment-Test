@@ -1,6 +1,12 @@
 import React from 'react';
 import {View, TouchableOpacity as Touch, Platform} from 'react-native';
-import {Text, InputText, Button, Imaging} from '../../../../../components';
+import {
+  Text,
+  InputText,
+  Button,
+  Imaging,
+  ButtonLoading,
+} from '../../../../../components';
 import styles from './styles';
 import {TabProps} from '../../../interface/types';
 import AntIcon from 'react-native-vector-icons/AntDesign';
@@ -9,28 +15,53 @@ import {Color} from '../../../../../constants/Color';
 import {scale} from '../../../../../constants/ScaleUtils';
 
 export default (props: TabProps) => {
-  const {onChangeMobile, onRegisterMobile, onFacebook, onGoogle} = props;
+  const {
+    onChangeMobilePre,
+    valueMobilePre,
+    onChangeMobile,
+    onRegisterMobile,
+    onFacebook,
+    onGoogle,
+    loading,
+  } = props;
   return (
     <View style={[styles.container, styles.content, styles.rowSpace]}>
       <View>
-        <InputText
-          placeholder="Mobile Number"
-          onChangeText={onChangeMobile}
-          keyboardType="phone-pad"
-        />
+        <View style={styles.rowBetween}>
+          <View style={{width: '15%'}}>
+            <InputText
+              placeholder="62"
+              value={valueMobilePre}
+              onChangeText={onChangeMobilePre}
+              keyboardType="phone-pad"
+              maxLength={4}
+            />
+          </View>
+          <View style={{width: '83%'}}>
+            <InputText
+              placeholder="Mobile Number"
+              onChangeText={onChangeMobile}
+              keyboardType="phone-pad"
+            />
+          </View>
+        </View>
 
         <View style={styles.rowCenter}>
           <AntIcon name="lock" size={30} />
           <Text>Your data will be protected and very safe</Text>
         </View>
 
-        <View style={styles.vertical}>
-          <Button
-            onPress={onRegisterMobile}
-            isUpperCase={true}
-            customStyle={styles.btn}
-            content={{id: 'DAFTAR', en: 'REGISTER'}}
-          />
+        <View style={[styles.vertical, styles.center]}>
+          {loading ? (
+            <ButtonLoading />
+          ) : (
+            <Button
+              onPress={onRegisterMobile}
+              isUpperCase={true}
+              customStyle={styles.btn}
+              content={{id: 'DAFTAR', en: 'REGISTER'}}
+            />
+          )}
         </View>
 
         <View style={[styles.content, styles.rowCenter]}>
