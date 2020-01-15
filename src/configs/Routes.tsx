@@ -17,8 +17,21 @@ import {
   SubmitRegister,
   DetailFlight,
   FilterFlight,
+  ResultFlight,
 } from '../features';
 import {Color} from '../constants/Color';
+import {fromBottom, fromRight} from 'react-navigation-transitions';
+
+const handleCustomTransition = ({scenes}) => {
+  const prevScene = scenes[scenes.length - 1];
+
+  // Custom transitions go there
+  if (prevScene && prevScene.route.routeName === 'DetailFlight') {
+    return fromBottom();
+  } else {
+    return fromRight();
+  }
+};
 
 const TABS = createBottomTabNavigator(
   {
@@ -196,9 +209,16 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
+    ResultFlight: {
+      screen: ResultFlight,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
   {
-    initialRouteName: 'FilterFlight',
+    initialRouteName: 'ResultFlight',
+    transitionConfig: nav => handleCustomTransition(nav),
   },
 );
 

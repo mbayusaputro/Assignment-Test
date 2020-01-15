@@ -9,21 +9,28 @@ import {Button} from '../../../../components/';
 
 const Active = (props: any) => {
   const {
-    navigation: {navigate},
+    navigation: {navigate, state},
   } = props;
   return (
     <View style={{height: HEIGHT_SCREEN - 125}}>
       <ScrollView style={{margin: 20}}>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <Text style={styles.title}>Jakarta</Text>
+          <Text style={styles.title}>
+            {state.params.detail[0].departure_city_name}
+          </Text>
           <Image
             style={styles.img}
             source={require('../../../../assets/icons/icon_header_flight_result.png')}
             resizeMode="contain"
           />
-          <Text style={styles.title}>Denpasar</Text>
+          <Text style={styles.title}>
+            {
+              state.params.detail[state.params.detail.length - 1]
+                .arrival_city_name
+            }
+          </Text>
         </View>
-        <Card data={dataFlight.flightSelected} />
+        <Card data={state.params} />
         <View>
           <Text
             style={{
@@ -54,7 +61,7 @@ const Active = (props: any) => {
         <View style={styles.bot}>
           <Text style={{fontFamily: 'NunitoSans-Bold'}}>Total Payment</Text>
           <Text style={{fontFamily: 'NunitoSans-Bold', color: Color.orange}}>
-            Rp1.200.600
+            Rp{state.params.price_adult.toLocaleString('id-ID')}
           </Text>
         </View>
         <Button
@@ -80,8 +87,8 @@ const styles = StyleSheet.create({
   img: {
     height: verticalScale(16),
     width: scale(40),
-    marginTop: 5,
-    marginHorizontal: 5,
+    marginTop: 2,
+    marginHorizontal: 10,
     tintColor: Color.orange,
   },
   bot: {

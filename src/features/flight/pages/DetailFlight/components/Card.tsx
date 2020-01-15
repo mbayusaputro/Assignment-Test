@@ -24,7 +24,7 @@ const InfoFlight = (props: Props) => {
                 </View>
                 <View>
                   <Text style={styles.bold}>
-                    {`${item.duration_hour} ${item.duration_minute}`}
+                    {`${item.duration_hour}j ${item.duration_minute}m`}
                   </Text>
                 </View>
                 <View>
@@ -83,8 +83,10 @@ const InfoFlight = (props: Props) => {
                 </View>
               </View>
             </View>
-            {i > 0 && i < item.length ? (
-              <Text style={styles.bold}>Transit</Text>
+            {i == 0 && props.data.detail.length - 1 > 0 ? (
+              <Text style={styles.bold}>
+                Transit - {`${item.arrival_city_name} (${item.arrival_city})`}
+              </Text>
             ) : (
               []
             )}

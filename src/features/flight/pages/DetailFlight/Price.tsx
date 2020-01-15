@@ -6,7 +6,7 @@ import {WIDTH_SCREEN, HEIGHT_SCREEN} from '../../../../constants/Dimension';
 
 const Finished = (props: any) => {
   const {
-    navigation: {navigate},
+    navigation: {navigate, state},
   } = props;
   return (
     <View style={{height: HEIGHT_SCREEN - 125}}>
@@ -17,7 +17,9 @@ const Finished = (props: any) => {
         </View>
         <View style={styles.bot}>
           <Text style={styles.regular}>Adult(x1)</Text>
-          <Text style={styles.semibold}>Rp1.200.600</Text>
+          <Text style={styles.semibold}>
+            Rp{state.params.price_adult.toLocaleString('id-ID')}
+          </Text>
         </View>
         <View
           style={{
@@ -49,7 +51,7 @@ const Finished = (props: any) => {
         <View style={styles.boto}>
           <Text style={{fontFamily: 'NunitoSans-Bold'}}>Total Payment</Text>
           <Text style={{fontFamily: 'NunitoSans-Bold', color: Color.orange}}>
-            Rp1.200.600
+            Rp{state.params.price_adult.toLocaleString('id-ID')}
           </Text>
         </View>
         <Button

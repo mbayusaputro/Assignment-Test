@@ -6,14 +6,14 @@ import Info from './Info';
 import Price from './Price';
 import {NavigationScreenProp, NavigationState} from 'react-navigation';
 
-interface Props {
+type Props = {
   navigation: NavigationScreenProp<NavigationState>;
-}
+};
 
 const Orders = (props: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Detail Flight" />
+      <Header title="Detail Flight" goBack={() => props.navigation.goBack()} />
       <Tabs>
         <Info {...props} title="Flight Info" />
         <Price {...props} title="Price Info" />

@@ -5,4 +5,5 @@ module.exports = {
   getSourceExts() {
     return ['ts', 'tsx', 'js', 'jsx'];
   },
+  assets: ['./src/assets/fonts/'],
 };
