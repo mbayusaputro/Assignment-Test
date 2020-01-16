@@ -2,17 +2,32 @@ import React from 'react';
 import {View, ScrollView} from 'react-native';
 import Date from './Date';
 import ListView from './ListView';
+import Selected from './Selected';
 
 type Props = {
   handleSelectFlight: (payload: object) => void;
   handleDetailFlight: (payload: object) => void;
   dataFlight: Array<object>;
+  selected: any;
 };
 
 const Result = (props: Props) => {
-  const {dataFlight, handleDetailFlight, handleSelectFlight} = props;
+  const {dataFlight, selected, handleDetailFlight, handleSelectFlight} = props;
   return (
     <View style={{marginTop: 50, flex: 1}}>
+      <Selected
+        departure={selected.detail[0].departure_city}
+        arrival={selected.detail[selected.detail.length - 1].arrival_city}
+        departure_time={selected.departure_time}
+        arrival_time={selected.arrival_time}
+        price={selected.price_adult}
+        img={selected.detail[0].img_src}
+        duration={selected.duration}
+        transit={
+          selected.stop.toLowerCase() === 'langsung' ? 'direct' : selected.stop
+        }
+        total_flight={dataFlight.length}
+      />
       <ScrollView style={{marginHorizontal: 10}}>
         <Date />
         <View style={{marginVertical: 5}} />

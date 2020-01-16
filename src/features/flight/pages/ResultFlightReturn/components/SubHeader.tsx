@@ -34,9 +34,12 @@ const Header = (props: Props) => {
         <View style={styles.circle} />
         <Text style={styles.id}>{props.class}</Text>
       </View>
-      <View style={styles.top}>
-        <Text style={styles.ids}>
-          Select Departure Flights From {props.total_flight} Schedule
+      <View style={styles.tops}>
+        <Text style={{fontFamily: 'NunitoSans-ExtraBold', color: Color.orange}}>
+          Departure Flight
+        </Text>
+        <Text style={{fontFamily: 'NunitoSans-Regular'}}>
+          {moment(props.date).format('ddd, DD MMM')}
         </Text>
       </View>
     </View>

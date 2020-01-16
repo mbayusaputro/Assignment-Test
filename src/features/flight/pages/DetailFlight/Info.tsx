@@ -12,7 +12,7 @@ const Active = (props: any) => {
     navigation: {navigate, state},
   } = props;
   return (
-    <View style={{height: HEIGHT_SCREEN - 125}}>
+    <View style={{height: HEIGHT_SCREEN - 150}}>
       <ScrollView style={{margin: 20}}>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <Text style={styles.title}>
@@ -34,7 +34,7 @@ const Active = (props: any) => {
         <View style={{paddingBottom: 125}}>
           {state.params.detail.map((item: any, i: number) => {
             return (
-              <View>
+              <View key={i}>
                 <Text
                   style={{
                     fontFamily: 'NunitoSans-Bold',
@@ -48,7 +48,7 @@ const Active = (props: any) => {
                       ` (${item.flight_number})` +
                       ' - No Facilities'}
                 </Text>
-                <View style={{flexDirection: 'row', marginBottom: 5}} key={i}>
+                <View style={{flexDirection: 'row', marginBottom: 5}}>
                   {item.check_in_baggage > 0 ? (
                     <View
                       style={{

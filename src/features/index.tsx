@@ -11,6 +11,7 @@ import {FormRegister, ConfirmOTP, SubmitRegister} from './register';
 import DetailFlight from './flight/pages/DetailFlight';
 import FilterFlight from './flight/pages/FilterFlight';
 import ResultFlight from './flight/pages/ResultFlight';
+import ResultFlightReturn from './flight/pages/ResultFlightReturn';
 
 export {
   Flight,
@@ -28,4 +29,5 @@ export {
   FilterFlight,
   ResultFlight,
   ProfileEdit,
+  ResultFlightReturn,
 };

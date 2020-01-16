@@ -3,14 +3,22 @@ import {SafeAreaView, StyleSheet, Text, Alert} from 'react-native';
 import {Color} from '../../../../constants/Color';
 import Header from '../../components/Header';
 import Form from './screen/Form';
+import {NavigationScreenProp, NavigationState} from 'react-navigation';
 
 type Props = {
   handleOptionTripPress: () => void;
   handleFieldPress: () => void;
+  handleSearchPress: () => void;
+  navigation: NavigationScreenProp<NavigationState>;
 };
 
 const FormFlight = (props: Props) => {
-  let {handleOptionTripPress, handleFieldPress} = props;
+  let {
+    handleOptionTripPress,
+    handleFieldPress,
+    handleSearchPress,
+    navigation: {navigate},
+  } = props;
 
   const [optionTrip, setoptionTrip] = useState('oneway');
 
@@ -26,6 +34,10 @@ const FormFlight = (props: Props) => {
     Alert.alert('handleFieldPress');
   };
 
+  handleSearchPress = () => {
+    navigate('ResultFlight');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Booking Your Flights" />
@@ -33,6 +45,7 @@ const FormFlight = (props: Props) => {
         OptionTripPress={handleOptionTripPress}
         OptionTrip={optionTrip}
         fieldPress={handleFieldPress}
+        searchPress={handleSearchPress}
       />
     </SafeAreaView>
   );

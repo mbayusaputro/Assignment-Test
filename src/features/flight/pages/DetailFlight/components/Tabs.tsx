@@ -23,7 +23,7 @@ const Tabs = ({children}) => {
           );
         })}
       </View>
-      <View style={{height: HEIGHT_SCREEN}}>{children[actTab]}</View>
+      <View style={{flex: 1}}>{children[actTab]}</View>
     </View>
   );
 };

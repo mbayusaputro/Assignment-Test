@@ -9,7 +9,7 @@ const Finished = (props: any) => {
     navigation: {navigate, state},
   } = props;
   return (
-    <View style={{height: HEIGHT_SCREEN - 125}}>
+    <View style={{height: HEIGHT_SCREEN - 150}}>
       <ScrollView style={{margin: 20}}>
         <View style={styles.bot}>
           <Text style={styles.bold}>Reschedule Available</Text>

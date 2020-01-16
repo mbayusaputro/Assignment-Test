@@ -19,6 +19,7 @@ import {
   FilterFlight,
   ResultFlight,
   ProfileEdit,
+  ResultFlightReturn,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -27,7 +28,10 @@ const handleCustomTransition = ({scenes}) => {
   const prevScene = scenes[scenes.length - 1];
 
   // Custom transitions go there
-  if (prevScene && prevScene.route.routeName === 'DetailFlight') {
+  if (
+    (prevScene && prevScene.route.routeName === 'DetailFlight') ||
+    (prevScene && prevScene.route.routeName === 'ResultFlightReturn')
+  ) {
     return fromBottom();
   } else {
     return fromRight();
@@ -218,6 +222,12 @@ const STACK = createStackNavigator(
     },
     ResultFlight: {
       screen: ResultFlight,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ResultFlightReturn: {
+      screen: ResultFlightReturn,
       navigationOptions: {
         header: null,
       },

@@ -9,9 +9,10 @@ type Props = {
   OptionTripPress: () => void;
   OptionTrip: string;
   fieldPress: () => void;
+  searchPress: () => void;
 };
 const Form = (props: Props) => {
-  let {OptionTripPress, OptionTrip, fieldPress} = props;
+  let {OptionTripPress, OptionTrip, fieldPress, searchPress} = props;
   return (
     <View style={styles.container}>
       <RadioOptionTrip
@@ -41,7 +42,7 @@ const Form = (props: Props) => {
         fullWidth={true}
         isUpperCase={true}
         content={{id: 'Search Flight', en: 'Search Flight'}}
-        onPress={() => Alert.alert('button clicked')}
+        onPress={searchPress}
       />
     </View>
   );

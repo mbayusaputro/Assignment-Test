@@ -13,19 +13,14 @@ type Props = {
 
 const Default = (props: Props) => {
   const {
-    navigation: {navigate, goBack},
+    navigation: {navigate, goBack, state},
   } = props;
   const [select, isSelect] = React.useState({});
-  const [ret, isRet] = React.useState(true);
 
   React.useEffect(() => {}, [select]);
 
   const toSelect = (item: object) => {
-    if (ret) {
-      navigate('ResultFlightReturn', item);
-    } else {
-      isSelect(item);
-    }
+    isSelect(item);
   };
 
   const toDetail = (item: object) => {
@@ -44,6 +39,7 @@ const Default = (props: Props) => {
         total_flight={dataFlight.length}
       />
       <Result
+        selected={state.params}
         dataFlight={dataFlight}
         handleSelectFlight={(item: object) => toSelect(item)}
         handleDetailFlight={(item: object) => toDetail(item)}
