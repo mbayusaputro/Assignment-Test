@@ -5,6 +5,7 @@ import Imaging from './Imaging';
 import {InputPassword, InputText} from './InputText';
 import {SubHeader, Header} from './Header';
 import Card from './Card';
+import BirthDatePicker from './BirthDatePicker';
 
 export {
   Button,
@@ -17,4 +18,5 @@ export {
   SubHeader,
   Header,
   Card,
+  BirthDatePicker,
 };

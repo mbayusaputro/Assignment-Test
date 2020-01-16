@@ -30,13 +30,25 @@ export async function signUpLast(payload: object) {
   return response;
 }
 
-export async function getProfile(token: string) {
+export async function profile(token: string) {
   const uri: string = `${URL}/v1/customers/me`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
   };
   const response = await axios
     .get(uri, config)
+    .then(res => res.data)
+    .catch(err => err);
+  return response;
+}
+
+export async function updateProfile(token: string, payload: object) {
+  const uri: string = `${URL}/v1/customers/me`;
+  const config = {
+    headers: {Authorization: `bearer ${token}`},
+  };
+  const response = await axios
+    .put(uri, payload, config)
     .then(res => res.data)
     .catch(err => err);
   return response;

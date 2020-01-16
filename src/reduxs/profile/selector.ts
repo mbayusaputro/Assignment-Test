@@ -10,6 +10,8 @@ const makeFetchSignUp = (state: AppState) => state.profile.fetchSignUp;
 const makePayloadSignUp1 = (state: AppState) => state.profile.payloadSignUp1;
 const makePayloadSignUp2 = (state: AppState) => state.profile.payloadSignUp2;
 const makePayloadSignUp3 = (state: AppState) => state.profile.payloadSignUp3;
+const makeFetchUpdateProfile = (state: AppState) =>
+  state.profile.fetchUpdateProfile;
 
 export const getIsLogin = createSelector(
   makeIsLogin,
@@ -53,5 +55,10 @@ export const getPayloadSignUp2 = createSelector(
 
 export const getPayloadSignUp3 = createSelector(
   makePayloadSignUp3,
+  i => i,
+);
+
+export const getFetchUpdateProfile = createSelector(
+  makeFetchUpdateProfile,
   i => i,
 );

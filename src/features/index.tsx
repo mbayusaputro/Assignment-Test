@@ -2,7 +2,7 @@ import Flight from './flight/pages/FormFlight/index';
 import Orders from './orders';
 import Inbox from './inbox';
 import Profile from './profile';
-import ProfileEdit from './profile/pages/profileEdit';
+import ProfileEdit from './profile/pages/ProfileEdit';
 import {PaymentMethod} from './payment';
 import BookingDetail from './flight/pages/BookingDetail';
 import ETicketFlight from './flight/pages/EticketFlight';

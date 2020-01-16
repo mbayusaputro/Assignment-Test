@@ -14,6 +14,7 @@ export interface State {
   payloadSignUp1: any;
   payloadSignUp2: any;
   payloadSignUp3: any;
+  fetchUpdateProfile: boolean;
 }
 
 export const SET_LOGIN = 'SET_LOGIN';
@@ -39,3 +40,7 @@ export const REGISTER2_FAILED = 'REGISTER1_FAILED';
 export const REGISTER3 = 'REGISTER3';
 export const REGISTER3_SUCCESS = 'REGISTER3_SUCCESS';
 export const REGISTER3_FAILED = 'REGISTER3_FAILED';
+
+export const UPDATEPROFILE = 'UPDATEPROFILE';
+export const UPDATEPROFILE_SUCCESS = 'UPDATEPROFILE_SUCCESS';
+export const UPDATEPROFILE_FAILED = 'UPDATEPROFILE_FAILED';

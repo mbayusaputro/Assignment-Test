@@ -58,7 +58,7 @@ export default StyleSheet.create({
   },
   hr: {
     width: '100%',
-    height: 0.5,
+    height: 1,
     backgroundColor: Color.lightgray,
     marginVertical: 5,
   },

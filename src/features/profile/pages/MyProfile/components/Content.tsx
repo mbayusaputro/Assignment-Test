@@ -21,11 +21,19 @@ export default (props: MyProfileProps) => {
       {/* Account */}
       <Card>
         <View style={[styles.content, styles.rowDirection]}>
-          <Imaging
-            source={{uri: oc(profile).photo(avatar)}}
-            resizeMode={Platform.OS === 'ios' ? 'contain' : 'cover'}
-            style={styles.imgCircle}
-          />
+          {profile.photo === null ? (
+            <Imaging
+              source={require('../../../../../assets/icons/avatar.png')}
+              resizeMode={Platform.OS === 'ios' ? 'contain' : 'cover'}
+              style={styles.imgCircle}
+            />
+          ) : (
+            <Imaging
+              source={{uri: oc(profile).photo(avatar)}}
+              resizeMode={Platform.OS === 'ios' ? 'contain' : 'cover'}
+              style={styles.imgCircle}
+            />
+          )}
           <View style={styles.leftMargin}>
             <Text style={styles.textExtraBold}>{profile.fullname}</Text>
             <Text style={styles.textSmall}>{profile.email}</Text>

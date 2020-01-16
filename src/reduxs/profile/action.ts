@@ -18,14 +18,24 @@ import {
   REGISTER3_SUCCESS,
   REGISTER2_FAILED,
   REGISTER3_FAILED,
+  UPDATEPROFILE,
+  UPDATEPROFILE_SUCCESS,
+  UPDATEPROFILE_FAILED,
 } from './types';
-import {signIn, getProfile, signUp, signUpLast} from '../../services/api';
+import {
+  signIn,
+  profile,
+  signUp,
+  signUpLast,
+  updateProfile,
+} from '../../services/api';
 
 const signInType = 'signInType';
 const getProfileType = 'getProfileType';
 const signUp1 = 'signUp1';
 const signUp2 = 'signUpp2';
 const signUp3 = 'signUpp3';
+const updateProfileType = 'updateProfileType';
 
 const requestState = (type: string) => {
   if (type === signInType) {
@@ -47,6 +57,10 @@ const requestState = (type: string) => {
   } else if (type === signUp3) {
     return {
       type: REGISTER3,
+    };
+  } else if (type === updateProfileType) {
+    return {
+      type: UPDATEPROFILE,
     };
   }
 };
@@ -79,6 +93,12 @@ const successState = (type: string, data: any, payload: any) => {
   } else if (type === signUp3) {
     return {
       type: REGISTER3_SUCCESS,
+      data,
+      payload,
+    };
+  } else if (type === updateProfileType) {
+    return {
+      type: UPDATEPROFILE_SUCCESS,
       data,
       payload,
     };
@@ -116,6 +136,12 @@ const failedState = (type: string, message: any, payload: any) => {
       message,
       payload,
     };
+  } else if (type === updateProfileType) {
+    return {
+      type: UPDATEPROFILE_FAILED,
+      message,
+      payload,
+    };
   }
 };
 
@@ -138,13 +164,28 @@ export const actionGetProfile = (token: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(requestState(getProfileType));
     try {
-      const res = await getProfile(token);
+      const res = await profile(token);
       if (res.success) {
         return dispatch(successState(getProfileType, res.data, token));
       }
       return dispatch(failedState(getProfileType, res.message, token));
     } catch (err) {
       return dispatch(failedState(getProfileType, err.message, token));
+    }
+  };
+};
+
+export const actionUpdateProfile = (token: string, payload: object) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestState(updateProfileType));
+    try {
+      const res = await updateProfile(token, payload);
+      if (res.success) {
+        return dispatch(successState(updateProfileType, res.data, token));
+      }
+      return dispatch(failedState(updateProfileType, res.message, token));
+    } catch (err) {
+      return dispatch(failedState(updateProfileType, err.message, token));
     }
   };
 };

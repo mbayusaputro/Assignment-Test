@@ -19,6 +19,9 @@ import {
   REGISTER3,
   REGISTER3_SUCCESS,
   REGISTER3_FAILED,
+  UPDATEPROFILE,
+  UPDATEPROFILE_SUCCESS,
+  UPDATEPROFILE_FAILED,
 } from './types';
 
 const intialState: State = {
@@ -35,6 +38,9 @@ const intialState: State = {
   payloadSignUp1: {},
   payloadSignUp2: {},
   payloadSignUp3: {},
+
+  // Update Profile
+  fetchUpdateProfile: false,
 };
 
 export default (state: State = intialState, action: Action): State => {
@@ -56,6 +62,7 @@ export default (state: State = intialState, action: Action): State => {
         ...state,
         isLogin: false,
         token: '',
+        profile: {},
       };
 
     // ============= SIGNIN =============
@@ -156,6 +163,26 @@ export default (state: State = intialState, action: Action): State => {
       return {
         ...state,
         fetchSignUp: false,
+      };
+
+    // ============= UPDATE PROFILE =============
+    case UPDATEPROFILE:
+      return {
+        ...state,
+        fetchUpdateProfile: true,
+      };
+
+    case UPDATEPROFILE_SUCCESS:
+      return {
+        ...state,
+        fetchUpdateProfile: false,
+        profile: action.data,
+      };
+
+    case UPDATEPROFILE_FAILED:
+      return {
+        ...state,
+        fetchUpdateProfile: false,
       };
 
     default:

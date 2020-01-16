@@ -18,10 +18,11 @@ interface PropInputText {
   placeholder: string;
   keyboardType?: KeyboardTypeOptions;
   value?: string;
-  onChangeText: () => void;
+  onChangeText: (text: any) => void;
   autoCapitalize?: AutoCapitalize;
   maxLength?: number;
   editable?: boolean;
+  numberOfLines?: number;
 }
 export const InputText = (props: PropInputText) => {
   const {inputText} = styles;
@@ -37,6 +38,7 @@ export const InputText = (props: PropInputText) => {
         autoCapitalize={props.autoCapitalize}
         maxLength={props.maxLength}
         editable={props.editable}
+        numberOfLines={props.numberOfLines}
       />
     </View>
   );
