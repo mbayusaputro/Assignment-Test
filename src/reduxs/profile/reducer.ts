@@ -22,9 +22,13 @@ import {
   UPDATEPROFILE,
   UPDATEPROFILE_SUCCESS,
   UPDATEPROFILE_FAILED,
+  CHANGEPASSWORDUSER,
+  CHANGEPASSWORDUSER_SUCCESS,
+  CHANGEPASSWORDUSER_FAILED,
 } from './types';
 
 const intialState: State = {
+  // SignIn
   isLogin: false,
   token: '',
   fetchSignIn: false,
@@ -41,6 +45,9 @@ const intialState: State = {
 
   // Update Profile
   fetchUpdateProfile: false,
+
+  // Change Password via User
+  fetchChangePasswordUser: false,
 };
 
 export default (state: State = intialState, action: Action): State => {
@@ -183,6 +190,25 @@ export default (state: State = intialState, action: Action): State => {
       return {
         ...state,
         fetchUpdateProfile: false,
+      };
+
+    // ============= CHANGE PASSWORD VIA USER =============
+    case CHANGEPASSWORDUSER:
+      return {
+        ...state,
+        fetchChangePasswordUser: true,
+      };
+
+    case CHANGEPASSWORDUSER_SUCCESS:
+      return {
+        ...state,
+        fetchChangePasswordUser: false,
+      };
+
+    case CHANGEPASSWORDUSER_FAILED:
+      return {
+        ...state,
+        fetchChangePasswordUser: false,
       };
 
     default:

@@ -19,6 +19,7 @@ import {
   FilterFlight,
   ResultFlight,
   ProfileEdit,
+  ChangePassword,
   ResultFlightReturn,
 } from '../features';
 import {Color} from '../constants/Color';
@@ -204,6 +205,12 @@ const STACK = createStackNavigator(
     },
     ProfileEdit: {
       screen: ProfileEdit,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ChangePassword: {
+      screen: ChangePassword,
       navigationOptions: {
         header: null,
       },

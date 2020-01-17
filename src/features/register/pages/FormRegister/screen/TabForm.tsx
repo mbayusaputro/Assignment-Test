@@ -11,13 +11,13 @@ import TabEmail from './TabEmail';
 import {HEADER_FONT_SIZE} from '../../../../../constants/TextSize';
 import {TabProps} from '../../../interface/types';
 
-const LazyLoad = ({route}): any => (
+const LazyLoad = (): any => (
   <View style={styles.center}>
     <ActivityIndicator size="large" color={Color.marineBlue} />
   </View>
 );
 
-export default class TabForm extends React.PureComponent<TabProps, object> {
+export default class TabForm extends React.PureComponent<TabProps, any> {
   state = {
     index: 0,
     routes: [
@@ -88,25 +88,25 @@ export default class TabForm extends React.PureComponent<TabProps, object> {
           />
         );
       default:
-        return null;
+        return <View />;
     }
   };
 
-  renderLazyLoad = ({route}): any => <LazyLoad route={route} />;
+  renderLazyLoad = (): any => <LazyLoad />;
 
   // Render
   render() {
+    const {index, routes} = this.state;
     return (
       <TabView
         lazy={true}
-        navigationState={this.state}
+        navigationState={{index, routes}}
         onIndexChange={this.handleChange}
         initialLayout={{width: WIDTH_SCREEN}}
         style={styles.container}
         renderScene={this.renderTabContent}
         renderLazyPlaceholder={this.renderLazyLoad}
         renderTabBar={this.renderTabBar}
-        {...this.props}
       />
     );
   }

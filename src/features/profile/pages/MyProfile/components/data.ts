@@ -4,7 +4,7 @@ export const dataMenu = [
     target: 'order',
   },
   {
-    title: 'Password',
-    target: 'changePassword',
+    title: 'Password & Security',
+    target: 'ChangePassword',
   },
 ];

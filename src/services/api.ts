@@ -53,6 +53,18 @@ export async function updateProfile(token: string, payload: object) {
     .catch(err => err);
   return response;
 }
+
+export async function changePasswordUser(token: string, payload: object) {
+  const uri: string = `${URL}/v1/customers/change-password`;
+  const config = {
+    headers: {Authorization: `bearer ${token}`},
+  };
+  const response = await axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err);
+  return response;
+}
 // ====================== PROFILE ======================
 
 // ====================== MASTER ======================

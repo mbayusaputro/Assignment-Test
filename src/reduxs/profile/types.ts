@@ -7,14 +7,23 @@ export interface Action {
 export interface State {
   isLogin: boolean;
   token: string;
+
+  // Sign In & Get Profile
   fetchSignIn: boolean;
   profile: any;
   fetchProfile: boolean;
+
+  // Sign Up
   fetchSignUp: boolean;
   payloadSignUp1: any;
   payloadSignUp2: any;
   payloadSignUp3: any;
+
+  // Update Profile
   fetchUpdateProfile: boolean;
+
+  // Change Password via User
+  fetchChangePasswordUser: boolean;
 }
 
 export const SET_LOGIN = 'SET_LOGIN';
@@ -44,3 +53,7 @@ export const REGISTER3_FAILED = 'REGISTER3_FAILED';
 export const UPDATEPROFILE = 'UPDATEPROFILE';
 export const UPDATEPROFILE_SUCCESS = 'UPDATEPROFILE_SUCCESS';
 export const UPDATEPROFILE_FAILED = 'UPDATEPROFILE_FAILED';
+
+export const CHANGEPASSWORDUSER = 'CHANGEPASSWORDUSER';
+export const CHANGEPASSWORDUSER_SUCCESS = 'CHANGEPASSWORDUSER_SUCCESS';
+export const CHANGEPASSWORDUSER_FAILED = 'CHANGEPASSWORDUSER_FAILED';

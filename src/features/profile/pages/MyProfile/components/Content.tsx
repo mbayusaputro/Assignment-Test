@@ -15,7 +15,7 @@ export default (props: MyProfileProps) => {
     <Icon name="navigate-next" color={Color.oceanBlue} size={30} />
   );
 
-  const {onLogOut, profile, goToProfileEdit} = props;
+  const {onLogOut, profile, goToProfileEdit, navigateMenu} = props;
   return (
     <View style={[styles.content, styles.container]}>
       {/* Account */}
@@ -55,7 +55,9 @@ export default (props: MyProfileProps) => {
       <Card style={styles.vertical}>
         {dataMenu.map((item: any, index: number) => (
           <View key={index}>
-            <Touch style={[styles.content, styles.rowBetween]}>
+            <Touch
+              onPress={() => navigateMenu(item.target)}
+              style={[styles.content, styles.rowBetween]}>
               <View style={styles.rowBetween}>
                 <Text style={styles.rightMargin}>ICON</Text>
                 <Text style={styles.textBold}>{item.title}</Text>

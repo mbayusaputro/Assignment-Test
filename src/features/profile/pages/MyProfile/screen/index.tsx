@@ -31,6 +31,10 @@ export default (props: SigninProps) => {
     } = props;
     navigate('ProfileEdit');
   };
+  const navigateMenu = (menu: any) => {
+    const {navigation} = props;
+    navigation.navigate(menu);
+  };
 
   // Main Render
   const {container} = styles;
@@ -44,6 +48,7 @@ export default (props: SigninProps) => {
           profile={profile}
           onLogOut={logOut}
           goToProfileEdit={navProfileEdit}
+          navigateMenu={(menu: any) => navigateMenu(menu)}
         />
       </View>
     </HighSafeArea>

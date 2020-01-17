@@ -3,6 +3,7 @@ import Orders from './orders';
 import Inbox from './inbox';
 import Profile from './profile';
 import ProfileEdit from './profile/pages/ProfileEdit';
+import ChangePassword from './profile/pages/ChangePassword';
 import {PaymentMethod} from './payment';
 import BookingDetail from './flight/pages/BookingDetail';
 import ETicketFlight from './flight/pages/EticketFlight';
@@ -29,5 +30,6 @@ export {
   FilterFlight,
   ResultFlight,
   ProfileEdit,
+  ChangePassword,
   ResultFlightReturn,
 };

@@ -21,6 +21,9 @@ import {
   UPDATEPROFILE,
   UPDATEPROFILE_SUCCESS,
   UPDATEPROFILE_FAILED,
+  CHANGEPASSWORDUSER,
+  CHANGEPASSWORDUSER_SUCCESS,
+  CHANGEPASSWORDUSER_FAILED,
 } from './types';
 import {
   signIn,
@@ -28,6 +31,7 @@ import {
   signUp,
   signUpLast,
   updateProfile,
+  changePasswordUser,
 } from '../../services/api';
 
 const signInType = 'signInType';
@@ -36,6 +40,7 @@ const signUp1 = 'signUp1';
 const signUp2 = 'signUpp2';
 const signUp3 = 'signUpp3';
 const updateProfileType = 'updateProfileType';
+const changePassUserType = 'changePassUserType';
 
 const requestState = (type: string) => {
   if (type === signInType) {
@@ -61,6 +66,10 @@ const requestState = (type: string) => {
   } else if (type === updateProfileType) {
     return {
       type: UPDATEPROFILE,
+    };
+  } else if (type === changePassUserType) {
+    return {
+      type: CHANGEPASSWORDUSER,
     };
   }
 };
@@ -102,6 +111,12 @@ const successState = (type: string, data: any, payload: any) => {
       data,
       payload,
     };
+  } else if (type === changePassUserType) {
+    return {
+      type: CHANGEPASSWORDUSER_SUCCESS,
+      data,
+      payload,
+    };
   }
 };
 
@@ -139,6 +154,12 @@ const failedState = (type: string, message: any, payload: any) => {
   } else if (type === updateProfileType) {
     return {
       type: UPDATEPROFILE_FAILED,
+      message,
+      payload,
+    };
+  } else if (type === changePassUserType) {
+    return {
+      type: CHANGEPASSWORDUSER_FAILED,
       message,
       payload,
     };
@@ -239,6 +260,21 @@ export const actionSignUp3 = (payloadObject: object) => {
       return dispatch(failedState(signUp3, res.message, payloadObject));
     } catch (err) {
       return dispatch(failedState(signUp3, err.message, payloadObject));
+    }
+  };
+};
+
+export const actionChangePasswordUser = (token: string, payload: object) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestState(changePassUserType));
+    try {
+      const res = await changePasswordUser(token, payload);
+      if (res.success) {
+        return dispatch(successState(changePassUserType, res.data, token));
+      }
+      return dispatch(failedState(changePassUserType, res.message, token));
+    } catch (err) {
+      return dispatch(failedState(changePassUserType, err.message, token));
     }
   };
 };

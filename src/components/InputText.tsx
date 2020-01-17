@@ -47,7 +47,7 @@ export const InputText = (props: PropInputText) => {
 // Password
 interface PropsInputPassword {
   placeholder: string;
-  onChangeText: () => void;
+  onChangeText: (text: any) => void;
   value?: string;
 }
 export const InputPassword = (props: PropsInputPassword) => {
@@ -60,7 +60,7 @@ export const InputPassword = (props: PropsInputPassword) => {
         style={inputText}
         placeholder={placeholder}
         placeholderTextColor={Color.mediumgray}
-        onChangeText={onChangeText}
+        onChangeText={(text: any) => onChangeText(text)}
         value={value}
         keyboardType="default"
         autoCapitalize="none"

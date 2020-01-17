@@ -112,6 +112,7 @@ export const ButtonLoading = () => (
     type="four"
     children={<ActivityIndicator size="large" color={Color.red} />}
     content={{id: 'Mohon Tunggu..', en: 'Please Wait..'}}
+    fullWidth
   />
 );
 

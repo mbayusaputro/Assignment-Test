@@ -1,10 +1,10 @@
 import React, {ReactNode} from 'react';
-import {View, StyleSheet, ViewStyle} from 'react-native';
+import {View, StyleSheet, ViewStyle, StyleProp} from 'react-native';
 import {Color} from '../constants/Color';
 
 type CardProps = {
   children?: ReactNode;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
 };
 export default (props: CardProps) => (
   <View style={[styles.card, props.style]}>{props.children}</View>
