@@ -14,7 +14,7 @@ type Props = {
 const Result = (props: Props) => {
   const {dataFlight, selected, handleDetailFlight, handleSelectFlight} = props;
   return (
-    <View style={{marginTop: 50, flex: 1}}>
+    <View style={{flex: 1}}>
       <Selected
         departure={selected.detail[0].departure_city}
         arrival={selected.detail[selected.detail.length - 1].arrival_city}
@@ -28,7 +28,9 @@ const Result = (props: Props) => {
         }
         total_flight={dataFlight.length}
       />
-      <ScrollView style={{marginHorizontal: 10}}>
+      <ScrollView
+        style={{marginHorizontal: 10}}
+        showsVerticalScrollIndicator={false}>
         <Date />
         <View style={{marginVertical: 5}} />
         {dataFlight.map((item: any, i: number) => {

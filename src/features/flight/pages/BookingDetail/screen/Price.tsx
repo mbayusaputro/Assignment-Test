@@ -5,9 +5,6 @@ import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
 
 interface Props {
   return: boolean;
-  // price_adult: number;
-  // price_child: number;
-  // price_infant: number;
   data: any;
 }
 
@@ -15,7 +12,7 @@ const Card = (form: string, titleForm: string, date: string, props: any) => {
   return (
     <View style={styles.wrap}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        {props.date === 'return' ? (
+        {date === 'return' ? (
           <Image
             style={{
               height: verticalScale(30),
@@ -88,6 +85,7 @@ const styles = StyleSheet.create({
   wrap: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   regular: {
     fontFamily: 'NunitoSans-Regular',

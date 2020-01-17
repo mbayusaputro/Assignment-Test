@@ -1,17 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {Color} from '../../../constants/Color';
+import {Color} from '../../../../../constants/Color';
 
-interface Props {
-  id: string;
-}
-
-const Header = (props: Props) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.id}>{`Order ID ${props.id}`}</Text>
-    </View>
-  );
+const Header = () => {
+  return <View style={styles.container} />;
 };
 
 const styles = StyleSheet.create({

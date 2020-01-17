@@ -20,7 +20,8 @@ const Default = (props: Props) => {
   React.useEffect(() => {}, [select]);
 
   const toSelect = (item: object) => {
-    isSelect(item);
+    navigate('BookingFlight');
+    // isSelect(item);
   };
 
   const toDetail = (item: object) => {

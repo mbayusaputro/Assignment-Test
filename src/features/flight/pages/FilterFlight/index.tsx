@@ -17,7 +17,7 @@ const SortFilter = () => {
   return (
     <SafeAreaView>
       <Header title="Sort & Filter" />
-      <ScrollView style={styles.view}>
+      <ScrollView style={styles.view} showsVerticalScrollIndicator={false}>
         <Sort />
         <Filter name="Filter by" data={transit} />
         <Filter name="Transit Airports" data={airport} />

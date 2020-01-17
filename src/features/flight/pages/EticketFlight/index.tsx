@@ -6,7 +6,7 @@ import Content from './screen/Content';
 const Default = (props: any) => {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Header title="Jakarta" />
         <SubHeader departure="Jakarta (CGK)" destination="Denpasar (DPS)" />
         <Content />

@@ -12,8 +12,10 @@ type Props = {
 const Result = (props: Props) => {
   const {dataFlight, handleDetailFlight, handleSelectFlight} = props;
   return (
-    <View style={{marginTop: 50, flex: 1}}>
-      <ScrollView style={{marginHorizontal: 10}}>
+    <View style={{flex: 1}}>
+      <ScrollView
+        style={{marginHorizontal: 10}}
+        showsVerticalScrollIndicator={false}>
         <Date />
         <View style={{marginVertical: 5}} />
         {dataFlight.map((item: any, i: number) => {

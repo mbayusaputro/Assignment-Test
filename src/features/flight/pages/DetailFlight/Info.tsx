@@ -13,7 +13,7 @@ const Active = (props: any) => {
   } = props;
   return (
     <View style={{height: HEIGHT_SCREEN - 150}}>
-      <ScrollView style={{margin: 20}}>
+      <ScrollView style={{margin: 20}} showsVerticalScrollIndicator={false}>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <Text style={styles.title}>
             {state.params.detail[0].departure_city_name}

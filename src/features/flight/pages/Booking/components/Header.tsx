@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {Color} from '../../../constants/Color';
-import {HEADER_FONT_SIZE} from '../../../constants/TextSize';
-import {verticalScale, scale} from '../../../constants/ScaleUtils';
-import {WIDTH_SCREEN} from '../../../constants/Dimension';
+import {Color} from '../../../../../constants/Color';
+import {HEADER_FONT_SIZE} from '../../../../../constants/TextSize';
+import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
+import {WIDTH_SCREEN} from '../../../../../constants/Dimension';
 
 interface Props {
   goBack?: boolean;
@@ -14,13 +14,13 @@ const Header = (props: Props) => {
     <View style={styles.container}>
       <Image
         style={{height: verticalScale(16), width: scale(20), marginTop: 2}}
-        source={require('../../../assets/icons/back.png')}
+        source={require('../../../../../assets/icons/back.png')}
         resizeMode="contain"
       />
       <Text style={styles.title}>{props.title}</Text>
       <Image
         style={{height: verticalScale(16), width: scale(20), marginTop: 2}}
-        source={require('../../../assets/icons/icon_dot_vertical.png')}
+        source={require('../../../../../assets/icons/icon_dot_vertical.png')}
         resizeMode="contain"
       />
     </View>

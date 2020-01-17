@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white,
     paddingTop: 15,
     paddingBottom: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     borderRadius: 5,
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   content: {
     alignItems: 'center',
-    paddingHorizontal: 11.8,
   },
   circle: {
     height: 5,

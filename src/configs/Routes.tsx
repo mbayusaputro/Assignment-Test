@@ -21,6 +21,7 @@ import {
   ProfileEdit,
   ChangePassword,
   ResultFlightReturn,
+  BookingFlight,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -235,6 +236,12 @@ const STACK = createStackNavigator(
     },
     ResultFlightReturn: {
       screen: ResultFlightReturn,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    BookingFlight: {
+      screen: BookingFlight,
       navigationOptions: {
         header: null,
       },

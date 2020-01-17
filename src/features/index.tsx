@@ -13,6 +13,7 @@ import DetailFlight from './flight/pages/DetailFlight';
 import FilterFlight from './flight/pages/FilterFlight';
 import ResultFlight from './flight/pages/ResultFlight';
 import ResultFlightReturn from './flight/pages/ResultFlightReturn';
+import BookingFlight from './flight/pages/Booking';
 
 export {
   Flight,
@@ -32,4 +33,5 @@ export {
   ProfileEdit,
   ChangePassword,
   ResultFlightReturn,
+  BookingFlight,
 };

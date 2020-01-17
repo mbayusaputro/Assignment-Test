@@ -10,7 +10,7 @@ const Finished = (props: any) => {
   } = props;
   return (
     <View style={{height: HEIGHT_SCREEN - 150}}>
-      <ScrollView style={{margin: 20}}>
+      <ScrollView style={{margin: 20}} showsVerticalScrollIndicator={false}>
         <View style={styles.bot}>
           <Text style={styles.bold}>Reschedule Available</Text>
           <Text style={styles.bold}>Refundable</Text>

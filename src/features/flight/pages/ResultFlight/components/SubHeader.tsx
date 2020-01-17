@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 import moment from 'moment';
+import {verticalScale} from '../../../../../constants/ScaleUtils';
 
 type Props = {
   date: any;
@@ -45,8 +46,6 @@ const Header = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    top: 100,
     backgroundColor: Color.marineBlue,
     justifyContent: 'flex-start',
     alignItems: 'center',
