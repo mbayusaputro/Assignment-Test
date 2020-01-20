@@ -125,7 +125,7 @@ export default (props: any) => {
         onChangeEmail={(text: string) => onChangeText('email', text)}
         validMail={isValidEmail}
         onChangePassword={(text: string) => onChangeText('password', text)}
-        onForgot={() => pressed('Forgot Password')}
+        onForgot={() => goToThe('ForgotPassword')}
         onPressLogin={pressLogin}
         onPressRegister={() => goToThe('FormRegister')}
       />

@@ -1,9 +1,15 @@
 import Flight from './flight/pages/FormFlight/index';
 import Orders from './orders';
 import Inbox from './inbox';
+
+// Profile
 import Profile from './profile';
 import ProfileEdit from './profile/pages/ProfileEdit';
 import ChangePassword from './profile/pages/ChangePassword';
+import ForgotPassword from './profile/pages/ForgotPassword';
+import ForgotPassword2 from './profile/pages/ForgotPassword2';
+import ForgotPassword3 from './profile/pages/ForgotPassword3';
+
 import {PaymentMethod} from './payment';
 import BookingDetail from './flight/pages/BookingDetail';
 import ETicketFlight from './flight/pages/EticketFlight';
@@ -34,4 +40,7 @@ export {
   ChangePassword,
   ResultFlightReturn,
   BookingFlight,
+  ForgotPassword,
+  ForgotPassword2,
+  ForgotPassword3,
 };

@@ -25,6 +25,15 @@ import {
   CHANGEPASSWORDUSER,
   CHANGEPASSWORDUSER_SUCCESS,
   CHANGEPASSWORDUSER_FAILED,
+  FORGOTPASS,
+  FORGOTPASS_SUCCESS,
+  FORGOTPASS_FAILED,
+  FORGOTPASS2,
+  FORGOTPASS2_SUCCESS,
+  FORGOTPASS2_FAILED,
+  FORGOTPASS3,
+  FORGOTPASS3_SUCCESS,
+  FORGOTPASS3_FAILED,
 } from './types';
 
 const intialState: State = {
@@ -48,6 +57,9 @@ const intialState: State = {
 
   // Change Password via User
   fetchChangePasswordUser: false,
+
+  // Forgot Password
+  fetchForgotPass: false,
 };
 
 export default (state: State = intialState, action: Action): State => {
@@ -209,6 +221,63 @@ export default (state: State = intialState, action: Action): State => {
       return {
         ...state,
         fetchChangePasswordUser: false,
+      };
+
+    // ============= FORGOT PASSWORD step 1 =============
+    case FORGOTPASS:
+      return {
+        ...state,
+        fetchForgotPass: true,
+      };
+
+    case FORGOTPASS_SUCCESS:
+      return {
+        ...state,
+        fetchForgotPass: false,
+      };
+
+    case FORGOTPASS_FAILED:
+      return {
+        ...state,
+        fetchForgotPass: false,
+      };
+
+    // ============= FORGOT PASSWORD step 2 =============
+    case FORGOTPASS2:
+      return {
+        ...state,
+        fetchForgotPass: true,
+      };
+
+    case FORGOTPASS2_SUCCESS:
+      return {
+        ...state,
+        fetchForgotPass: false,
+      };
+
+    case FORGOTPASS2_FAILED:
+      return {
+        ...state,
+        fetchForgotPass: false,
+      };
+
+    // ============= FORGOT PASSWORD step 1 =============
+    case FORGOTPASS3:
+      return {
+        ...state,
+        fetchForgotPass: true,
+      };
+
+    case FORGOTPASS3_SUCCESS:
+      return {
+        ...state,
+        fetchForgotPass: false,
+      };
+
+    case FORGOTPASS3_FAILED:
+      return {
+        ...state,
+        fetchForgotPass: false,
       };
 
     default:

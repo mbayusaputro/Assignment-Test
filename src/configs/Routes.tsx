@@ -22,6 +22,9 @@ import {
   ChangePassword,
   ResultFlightReturn,
   BookingFlight,
+  ForgotPassword,
+  ForgotPassword2,
+  ForgotPassword3,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -242,6 +245,24 @@ const STACK = createStackNavigator(
     },
     BookingFlight: {
       screen: BookingFlight,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ForgotPassword: {
+      screen: ForgotPassword,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ForgotPassword2: {
+      screen: ForgotPassword2,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ForgotPassword3: {
+      screen: ForgotPassword3,
       navigationOptions: {
         header: null,
       },

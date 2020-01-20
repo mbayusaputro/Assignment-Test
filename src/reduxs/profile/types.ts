@@ -24,6 +24,9 @@ export interface State {
 
   // Change Password via User
   fetchChangePasswordUser: boolean;
+
+  // Forgot Password
+  fetchForgotPass: boolean;
 }
 
 export const SET_LOGIN = 'SET_LOGIN';
@@ -57,3 +60,15 @@ export const UPDATEPROFILE_FAILED = 'UPDATEPROFILE_FAILED';
 export const CHANGEPASSWORDUSER = 'CHANGEPASSWORDUSER';
 export const CHANGEPASSWORDUSER_SUCCESS = 'CHANGEPASSWORDUSER_SUCCESS';
 export const CHANGEPASSWORDUSER_FAILED = 'CHANGEPASSWORDUSER_FAILED';
+
+export const FORGOTPASS = 'FORGOTPASS';
+export const FORGOTPASS_SUCCESS = 'FORGOTPASS_SUCCESS';
+export const FORGOTPASS_FAILED = 'FORGOTPASS_FAILED';
+
+export const FORGOTPASS2 = 'FORGOTPASS2';
+export const FORGOTPASS2_SUCCESS = 'FORGOTPASS2_SUCCESS';
+export const FORGOTPASS2_FAILED = 'FORGOTPASS2_FAILED';
+
+export const FORGOTPASS3 = 'FORGOTPASS3';
+export const FORGOTPASS3_SUCCESS = 'FORGOTPASS3_SUCCESS';
+export const FORGOTPASS3_FAILED = 'FORGOTPASS3_FAILED';

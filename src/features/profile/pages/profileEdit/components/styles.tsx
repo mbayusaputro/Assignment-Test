@@ -54,7 +54,7 @@ export default StyleSheet.create({
   imgCircle: {
     borderRadius: 50,
     width: scale(75),
-    height: verticalScale(75),
+    height: scale(75),
   },
   hr: {
     width: '100%',

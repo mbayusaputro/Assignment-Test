@@ -65,6 +65,15 @@ export async function changePasswordUser(token: string, payload: object) {
     .catch(err => err);
   return response;
 }
+
+export async function forgotPassword(type: string, payload: object) {
+  const uri: string = `${URL}/v1/customers/forgot-${type}`;
+  const response = await axios
+    .post(uri, payload)
+    .then(res => res.data)
+    .catch(err => err);
+  return response;
+}
 // ====================== PROFILE ======================
 
 // ====================== MASTER ======================

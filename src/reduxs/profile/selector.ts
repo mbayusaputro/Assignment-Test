@@ -14,6 +14,7 @@ const makeFetchUpdateProfile = (state: AppState) =>
   state.profile.fetchUpdateProfile;
 const makeFetchChangePassUser = (state: AppState) =>
   state.profile.fetchChangePasswordUser;
+const makeFetchForgotPass = (state: AppState) => state.profile.fetchForgotPass;
 
 export const getIsLogin = createSelector(
   makeIsLogin,
@@ -67,5 +68,10 @@ export const getFetchUpdateProfile = createSelector(
 
 export const getFetchChangePassUser = createSelector(
   makeFetchChangePassUser,
+  i => i,
+);
+
+export const getFetchForgotPass = createSelector(
+  makeFetchForgotPass,
   i => i,
 );
