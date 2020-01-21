@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, Alert} from 'react-native';
-import {verticalScale, scale} from '../../constants/ScaleUtils';
-import {WIDTH_SCREEN, HEIGHT_SCREEN} from '../../constants/Dimension';
-import {Button} from '../../components';
+import {verticalScale, scale} from '../../../constants/ScaleUtils';
+import {WIDTH_SCREEN, HEIGHT_SCREEN} from '../../../constants/Dimension';
+import {Button} from '../../../components';
 
 const NoEmpty = (props: any) => {
   return (
@@ -13,7 +13,7 @@ const NoEmpty = (props: any) => {
           width: scale(80),
           marginBottom: 10,
         }}
-        source={require('../../assets/order/order.png')}
+        source={require('../../../assets/order/order.png')}
         resizeMode="contain"
       />
       <Text

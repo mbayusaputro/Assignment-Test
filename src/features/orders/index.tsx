@@ -1,30 +1,33 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
-import {Text} from '../../components';
-import Header from './components/Header';
-import Tabs from './components/Tabs';
-import Active from './Active';
-import Finished from './Finished';
-import {NavigationScreenProp, NavigationState} from 'react-navigation';
+import {Dispatch, bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {actionFlightsOrderHistory} from '../../reduxs/flight/action';
+import {
+  getFetchFlightsOrderHistory,
+  getFlightsOrderHistory,
+} from '../../reduxs/flight/selector';
+import {getToken, getIsLogin} from '../../reduxs/profile/selector';
+import Orders from './screens';
 
-interface Props {
-  navigation: NavigationScreenProp<NavigationState>;
-}
-
-const Orders = (props: Props) => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <Header title=" My Order" />
-      <Tabs>
-        <Active {...props} title="Active" />
-        <Finished {...props} title="Finished" />
-      </Tabs>
-      {/* <Text isUpperCase={false} content={{id: 'Orders', en: 'Orders'}} /> */}
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {},
+const mapStateToProps = (state: any) => ({
+  fetchOrder: getFetchFlightsOrderHistory(state),
+  dataFlightOrder: getFlightsOrderHistory(state),
+  isLogin: getIsLogin(state),
+  token: getToken(state),
 });
-export default Orders;
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      actionFlightsOrderHistory: (token: string) =>
+        actionFlightsOrderHistory(token),
+    },
+    dispatch,
+  );
+
+const Default = (props: any) => <Orders {...props} />;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Default);

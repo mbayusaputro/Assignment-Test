@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import Empty from './Empty';
-import Card from './components/Card';
+import Card from '../components/Card';
 
 const Finished = (props: any) => {
   const {

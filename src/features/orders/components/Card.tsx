@@ -1,33 +1,66 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity as Touch} from 'react-native';
 import {verticalScale, scale} from '../../../constants/ScaleUtils';
-import {WIDTH_SCREEN, HEIGHT_SCREEN} from '../../../constants/Dimension';
-import {Button} from '../../../components';
+import {Imaging} from '../../../components';
 import {Color} from '../../../constants/Color';
-import style from '../../payment/style';
+import fonts from '../../../constants/Fonts';
+import {moneyFormat} from '../../../helpers/helpers';
+// import style from '../../payment/style';
 
-interface Props {
+type Props = {
   departure: string;
   destination: string;
   id: string;
-  price: string;
-}
+  price: number;
+  statusPayment: string;
+  imgPlane: string;
+  isReturn: boolean;
+  onPress: (item: any) => void;
+};
 
 const Card = (props: Props) => {
+  // Status Payment
+  const statusPayment = (status: string) => {
+    if (status === 'WAITING_PAYMENT') {
+      return (
+        <View style={[styles.status, {backgroundColor: Color.oceanBlue}]}>
+          <Text style={[styles.regular, {color: Color.white}]}>
+            Waiting for Payment
+          </Text>
+        </View>
+      );
+    } else if (status === 'BOOKED') {
+      return (
+        <View style={styles.status}>
+          <Text style={[styles.regular, {color: Color.white}]}>Booked</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.status}>
+          <Text style={[styles.regular, {color: Color.white}]}>
+            E-ticket has been Published
+          </Text>
+        </View>
+      );
+    }
+  };
+
+  // Main Render
   return (
-    <View style={styles.card}>
-      <Image
+    <Touch
+      style={styles.card}
+      activeOpacity={0.5}
+      onPress={(item: any) => props.onPress(item)}>
+      <Imaging
         style={styles.img}
-        source={{
-          uri:
-            'https://traveloka.s3.amazonaws.com/imageResource/2015/12/17/1450349771401-f7437a87e83b08f17055dc44d3ecb70e.png',
-        }}
+        source={{uri: props.imgPlane}}
         resizeMode="contain"
       />
       <View style={{flex: 1}}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
           <Text style={styles.bold}>{props.departure}</Text>
-          <Image
+          <Imaging
             style={styles.icon}
             source={require('../../../assets/payment/return.png')}
             resizeMode="contain"
@@ -38,30 +71,22 @@ const Card = (props: Props) => {
         <Text style={[styles.regular, {marginTop: 5}]}>
           Booking ID {props.id}
         </Text>
-        <Text style={[styles.bold, {marginVertical: 5}]}>Rp{props.price}</Text>
+        <Text style={[styles.bold, {marginVertical: 5}]}>
+          Rp {moneyFormat(props.price)}
+        </Text>
         {/* </View> */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <View style={styles.status}>
-            <Text style={[styles.regular, {color: Color.white}]}>
-              E-ticket has been Published
-            </Text>
-          </View>
-          <Image
-            style={{
-              height: verticalScale(15),
-              width: scale(15),
-            }}
-            source={require('../../../assets/payment/return.png')}
-            resizeMode="contain"
-          />
+        <View style={styles.rowBetween}>
+          {statusPayment(props.statusPayment)}
+          {props.isReturn && (
+            <Imaging
+              style={styles.iconReturn}
+              source={require('../../../assets/payment/return.png')}
+              resizeMode="contain"
+            />
+          )}
         </View>
       </View>
-    </View>
+    </Touch>
   );
 };
 
@@ -74,12 +99,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 15,
     paddingVertical: 20,
+    marginHorizontal: 20,
+    marginVertical: 5,
+  },
+  rowBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   bold: {
-    fontFamily: 'NunitoSans-Bold',
+    fontFamily: fonts.fontBold,
   },
   regular: {
-    fontFamily: 'NunitoSans-Regular',
+    fontFamily: fonts.fontReguler,
   },
   img: {
     height: verticalScale(30),
@@ -92,6 +124,10 @@ const styles = StyleSheet.create({
     width: scale(15),
     marginTop: 3,
     marginHorizontal: 5,
+  },
+  iconReturn: {
+    height: verticalScale(15),
+    width: scale(15),
   },
   status: {
     backgroundColor: Color.green,
