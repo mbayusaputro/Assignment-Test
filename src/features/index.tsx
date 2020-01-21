@@ -10,6 +10,9 @@ import ForgotPassword from './profile/pages/ForgotPassword';
 import ForgotPassword2 from './profile/pages/ForgotPassword2';
 import ForgotPassword3 from './profile/pages/ForgotPassword3';
 
+// Setting
+import MainSetting from './settings/pages/MainSetting';
+
 import {PaymentMethod} from './payment';
 import BookingDetail from './flight/pages/BookingDetail';
 import ETicketFlight from './flight/pages/EticketFlight';
@@ -43,4 +46,5 @@ export {
   ForgotPassword,
   ForgotPassword2,
   ForgotPassword3,
+  MainSetting,
 };

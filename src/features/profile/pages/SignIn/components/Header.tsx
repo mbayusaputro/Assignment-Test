@@ -1,16 +1,27 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity as Touch, StyleSheet} from 'react-native';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import {Header} from '../../../../../components';
 import {Color} from '../../../../../constants/Color';
-import {HEADER_FONT_SIZE} from '../../../../../constants/TextSize';
 
 interface Props {
   title: string;
+  onSetting?: () => void;
 }
-const Header = (props: Props) => {
+export default (props: Props) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{props.title}</Text>
-    </View>
+    <Header
+      title={props.title}
+      right={
+        <Touch style={styles.rightBtn} onPress={props.onSetting}>
+          <EntypoIcon
+            name="dots-three-vertical"
+            color={Color.white}
+            size={20}
+          />
+        </Touch>
+      }
+    />
   );
 };
 
@@ -21,10 +32,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    color: Color.white,
-    fontSize: HEADER_FONT_SIZE,
-    fontFamily: 'NunitoSans-ExtraBold',
+  rightBtn: {
+    width: '25%',
+    alignItems: 'flex-end',
   },
 });
-export default Header;

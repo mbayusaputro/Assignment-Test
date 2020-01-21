@@ -97,7 +97,7 @@ const Button = (props: Props) => {
                     : setText(content.en, isUpperCase)}
                 </Text>
               ) : (
-                <Text>{children}</Text>
+                <Text style={[textStyle, customTextStyle]}>{children}</Text>
               )
             }
           </LanguageContext.Consumer>

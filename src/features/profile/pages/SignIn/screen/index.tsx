@@ -16,9 +16,6 @@ export default (props: any) => {
   const [isValidEmail, setValidEmail] = React.useState(true);
 
   // Function
-  const pressed = (txt: string) => {
-    Alert.alert('Alert', txt);
-  };
 
   const goToThe = (target: string) => {
     const {
@@ -117,7 +114,7 @@ export default (props: any) => {
   // Render
   return (
     <HighSafeArea>
-      <Header title="Log In" />
+      <Header title="Log In" onSetting={() => goToThe('MainSetting')} />
       <Content
         {...props}
         onPressGoogle={pressGoogle}

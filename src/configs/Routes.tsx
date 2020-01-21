@@ -25,6 +25,7 @@ import {
   ForgotPassword,
   ForgotPassword2,
   ForgotPassword3,
+  MainSetting,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -263,6 +264,12 @@ const STACK = createStackNavigator(
     },
     ForgotPassword3: {
       screen: ForgotPassword3,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    MainSetting: {
+      screen: MainSetting,
       navigationOptions: {
         header: null,
       },
