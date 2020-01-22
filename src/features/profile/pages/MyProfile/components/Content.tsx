@@ -45,7 +45,10 @@ export default (props: MyProfileProps) => {
           style={[styles.content, styles.rowBetween]}>
           <View style={styles.rowBetween}>
             <Text style={styles.rightMargin}>ICON</Text>
-            <Text style={styles.textBold}>Account Setting</Text>
+            <Text
+              content={{id: 'Pengaturan Akun', en: 'Account Setting'}}
+              style={styles.textBold}
+            />
           </View>
           <IconRight />
         </Touch>

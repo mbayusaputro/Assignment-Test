@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {Color} from '../../../constants/Color';
-import {HEADER_FONT_SIZE} from '../../../constants/TextSize';
+import {Color} from '../../../../../constants/Color';
+import {HEADER_FONT_SIZE} from '../../../../../constants/TextSize';
 
 interface Props {
   goBack?: boolean;

@@ -26,6 +26,7 @@ import {
   ForgotPassword2,
   ForgotPassword3,
   MainSetting,
+  FlightOrderDetail,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -270,6 +271,12 @@ const STACK = createStackNavigator(
     },
     MainSetting: {
       screen: MainSetting,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    FlightOrderDetail: {
+      screen: FlightOrderDetail,
       navigationOptions: {
         header: null,
       },

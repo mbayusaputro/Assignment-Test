@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {Color} from '../../../constants/Color';
-import {WIDTH_SCREEN, HEIGHT_SCREEN} from '../../../constants/Dimension';
+import {Color} from '../../../../../constants/Color';
+import {WIDTH_SCREEN, HEIGHT_SCREEN} from '../../../../../constants/Dimension';
 
 const Tabs = ({children}) => {
   const [actTab, setActive] = React.useState(0);

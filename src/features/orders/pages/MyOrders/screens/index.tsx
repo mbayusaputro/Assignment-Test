@@ -1,13 +1,13 @@
 import React from 'react';
-import _ from 'lodash';
+import moment from 'moment';
 import {oc} from 'ts-optchain';
-import {HighSafeArea} from '../../../components';
+import _ from 'lodash';
+import {HighSafeArea} from '../../../../../components';
 import Header from '../components/Header';
 import Tabs from '../components/Tabs';
 import Active from './Active';
 import Finished from './Finished';
-import {OrderProps as Props} from '../interface/types';
-import moment from 'moment';
+import {OrderProps as Props} from '../../../interface/types';
 
 const Orders = (props: Props) => {
   // State
@@ -48,6 +48,15 @@ const Orders = (props: Props) => {
     return removeExpiredDate;
   };
 
+  // OnSelected Order to OrderDetail
+  const onSelectOrder = (item: any) => {
+    const {
+      navigation: {navigate},
+    } = props;
+    navigate('FlightOrderDetail', {itemSelected: item});
+    console.log(item);
+  };
+
   // Main Render
   return (
     <HighSafeArea>
@@ -56,13 +65,12 @@ const Orders = (props: Props) => {
         <Active
           {...props}
           title="Active"
-          // dataOrder={oc(props.dataFlightOrder).data(new Array(0))}
-          dataOrder={dataFlightOrder}
-          onSelected={(item: any) => alert(JSON.stringify(item))}
+          dataOrder={oc(props.dataFlightOrder).data(new Array(0))}
+          // dataOrder={dataFlightOrder}
+          onSelected={(item: any) => onSelectOrder(item)}
         />
         <Finished {...props} title="Finished" />
       </Tabs>
-      {/* <Text isUpperCase={false} content={{id: 'Orders', en: 'Orders'}} /> */}
     </HighSafeArea>
   );
 };

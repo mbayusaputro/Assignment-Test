@@ -1,11 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity as Touch} from 'react-native';
-import {verticalScale, scale} from '../../../constants/ScaleUtils';
-import {Imaging} from '../../../components';
-import {Color} from '../../../constants/Color';
-import fonts from '../../../constants/Fonts';
-import {moneyFormat} from '../../../helpers/helpers';
-// import style from '../../payment/style';
+import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
+import {Imaging} from '../../../../../components';
+import {Color} from '../../../../../constants/Color';
+import fonts from '../../../../../constants/Fonts';
+import {moneyFormat} from '../../../../../helpers/helpers';
 
 type Props = {
   departure: string;
@@ -62,7 +61,7 @@ const Card = (props: Props) => {
           <Text style={styles.bold}>{props.departure}</Text>
           <Imaging
             style={styles.icon}
-            source={require('../../../assets/payment/return.png')}
+            source={require('../../../../../assets/payment/return.png')}
             resizeMode="contain"
           />
           <Text style={styles.bold}>{props.destination}</Text>
@@ -80,7 +79,7 @@ const Card = (props: Props) => {
           {props.isReturn && (
             <Imaging
               style={styles.iconReturn}
-              source={require('../../../assets/payment/return.png')}
+              source={require('../../../../../assets/payment/return.png')}
               resizeMode="contain"
             />
           )}

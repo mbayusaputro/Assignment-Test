@@ -1,5 +1,4 @@
 import Flight from './flight/pages/FormFlight/index';
-import Orders from './orders';
 import Inbox from './inbox';
 
 // Profile
@@ -9,6 +8,10 @@ import ChangePassword from './profile/pages/ChangePassword';
 import ForgotPassword from './profile/pages/ForgotPassword';
 import ForgotPassword2 from './profile/pages/ForgotPassword2';
 import ForgotPassword3 from './profile/pages/ForgotPassword3';
+
+// Order
+import Orders from './orders/pages/MyOrders';
+import FlightOrderDetail from './orders/pages/FlightOrderDetail';
 
 // Setting
 import MainSetting from './settings/pages/MainSetting';
@@ -47,4 +50,5 @@ export {
   ForgotPassword2,
   ForgotPassword3,
   MainSetting,
+  FlightOrderDetail,
 };

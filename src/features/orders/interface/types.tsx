@@ -11,3 +11,5 @@ export interface OrderProps extends Props {
   isLogin: boolean;
   token: string;
 }
+
+export interface FlightOrderDetailProps extends Props {}

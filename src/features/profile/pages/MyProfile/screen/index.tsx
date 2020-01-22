@@ -42,7 +42,7 @@ export default (props: SigninProps) => {
   return (
     <HighSafeArea>
       <View style={container}>
-        <Header />
+        <Header onSetting={() => navigateMenu('MainSetting')} />
         <Content
           {...props}
           profile={profile}
