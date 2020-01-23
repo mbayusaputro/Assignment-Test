@@ -9,7 +9,7 @@ import {Color} from '../../../../../constants/Color';
 type Props = {
   OptionTripPress: () => void;
   OptionTrip: string;
-  fieldPress: () => void;
+  fieldPress: (payload: any) => void;
   searchFlightPress: () => void;
   isSearching: boolean;
   fromPressed: () => void;
@@ -49,14 +49,14 @@ const Form = (props: Props) => {
       />
       <FieldData
         icons={require('../../../../../assets/icons/icon_departure.png')}
-        onPress={fieldPress}
+        onPress={() => fieldPress('date')}
         label="Departure Date"
         fieldValue="Wed, 21 Jan 2020"
       />
       {OptionTrip === 'return' ? (
         <FieldData
           icons={require('../../../../../assets/icons/icon_return.png')}
-          onPress={fieldPress}
+          onPress={() => fieldPress('date')}
           label="Return Date"
           fieldValue="Wed, 21 Jan 2020"
         />
@@ -65,13 +65,13 @@ const Form = (props: Props) => {
       )}
       <FieldData
         icons={require('../../../../../assets/icons/icon_total_passenger.png')}
-        onPress={fieldPress}
+        onPress={() => fieldPress('passenger')}
         label="Passenger"
         fieldValue="1 Adult"
       />
       <FieldData
         icons={require('../../../../../assets/icons/icon_cabin_class.png')}
-        onPress={fieldPress}
+        onPress={() => fieldPress('class')}
         label="Cabin Class"
         fieldValue="Economy"
       />

@@ -4,12 +4,19 @@ import {Color} from '../../../../constants/Color';
 import Header from '../../components/Header';
 import Form from './screen/Form';
 import SearchAirport from './screen/SearchAirport';
+import Calendar from './screen/Calendar';
+import Passenger from './screen/Passenger';
+import {NavigationScreenProp, NavigationState} from 'react-navigation';
+import {airport} from './data';
 
 type Props = {
   handleOptionTripPress: () => void;
-  handleFieldPress: () => void;
+  handleFieldPress: (payload: any) => void;
   handleSearchFlight: () => void;
-  handleFromToModals: () => void;
+  handleFromToModals: (payload: any) => void;
+  handleSelect: (payload: object) => void;
+  handleSelectDate: (payload: object) => void;
+  navigation: NavigationScreenProp<NavigationState>;
 };
 
 const FormFlight = (props: Props) => {
@@ -18,10 +25,20 @@ const FormFlight = (props: Props) => {
     handleFieldPress,
     handleSearchFlight,
     handleFromToModals,
+    navigation: {navigate},
+    handleSelect,
+    handleSelectDate,
   } = props;
 
   const [optionTrip, setoptionTrip] = useState('oneway');
   const [isSearching, setSearching] = useState(false);
+  const [isSearchVisible, setSearchVisible] = useState(false);
+  const [isCalendarVisible, setCalendarVisible] = useState(false);
+  const [isParams, setParams] = useState('');
+  const [isFrom, setFrom] = useState(null);
+  const [isTo, setTo] = useState(null);
+  const [isDate, setDate] = useState(null);
+  const [isDateReturn, setDateReturn] = useState(null);
 
   handleOptionTripPress = () => {
     if (optionTrip === 'oneway') {
@@ -31,12 +48,23 @@ const FormFlight = (props: Props) => {
     }
   };
 
-  handleFromToModals = () => {
-    Alert.alert('handleFromToModals');
+  handleFromToModals = (value: string) => {
+    setSearchVisible(!isSearchVisible);
+    setParams(value);
   };
 
-  handleFieldPress = () => {
-    Alert.alert('handleFieldPress');
+  handleSelect = (item: any) => {
+    isParams === 'from' ? setFrom(item) : setTo(item);
+  };
+
+  handleSelectDate = (date: any) => {
+    optionTrip === 'oneway' ? setDate(date) : setDateReturn(date);
+  };
+
+  handleFieldPress = (value: string) => {
+    value === 'date'
+      ? setCalendarVisible(!isCalendarVisible)
+      : navigate('ResultFlight');
   };
 
   handleSearchFlight = () => {
@@ -55,15 +83,26 @@ const FormFlight = (props: Props) => {
         OptionTrip={optionTrip}
         fieldPress={handleFieldPress}
         searchFlightPress={handleSearchFlight}
-        fromPressed={handleFromToModals}
-        toPressed={handleFromToModals}
+        fromPressed={() => handleFromToModals('from')}
+        toPressed={() => handleFromToModals('to')}
         fromCity="Jakarta"
         fromAirport="CGK"
         toCity="Denpasar"
         toAirport="DPS"
       />
 
-      <SearchAirport />
+      <SearchAirport
+        airport={airport}
+        isModalVisible={isSearchVisible}
+        toggleModal={() => handleFromToModals(isParams)}
+        handleSelect={handleSelect}
+      />
+      <Calendar
+        isModalVisible={isCalendarVisible}
+        toggleModal={() => handleFieldPress('date')}
+        onDateChange={handleSelectDate}
+      />
+      <Passenger />
     </SafeAreaView>
   );
 };

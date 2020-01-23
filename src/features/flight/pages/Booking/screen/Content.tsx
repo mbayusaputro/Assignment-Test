@@ -14,7 +14,7 @@ import {Button} from '../../../../../components';
 const Content = (props: any) => {
   return (
     <ScrollView
-      style={{marginHorizontal: 20}}
+      style={{marginHorizontal: 20, marginTop: -40}}
       showsVerticalScrollIndicator={false}>
       {/* <Modal
         isVisible={props.isVisible}
