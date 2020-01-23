@@ -56,6 +56,7 @@ const SearchAirport = (props: Props) => {
         isVisible={props.isModalVisible}
         backdropColor={Color.lightgray}
         backdropOpacity={1}
+        onBackButtonPress={props.toggleModal}
         style={{marginHorizontal: 0}}>
         <SafeAreaView style={{flex: 1}}>
           <Header title="Select Departure" goBack={props.toggleModal} />

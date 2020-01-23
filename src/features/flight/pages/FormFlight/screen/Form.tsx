@@ -56,7 +56,7 @@ const Form = (props: Props) => {
       {OptionTrip === 'return' ? (
         <FieldData
           icons={require('../../../../../assets/icons/icon_return.png')}
-          onPress={() => fieldPress('date')}
+          onPress={() => fieldPress('return_date')}
           label="Return Date"
           fieldValue="Wed, 21 Jan 2020"
         />

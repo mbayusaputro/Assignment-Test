@@ -129,8 +129,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonPrimary: {
-    backgroundColor: Color.marineBlue,
-    borderColor: Color.marineBlue,
+    backgroundColor: Color.orange,
+    borderColor: Color.orange,
     borderWidth: 1,
   },
   textPrimary: {
@@ -140,11 +140,11 @@ const styles = StyleSheet.create({
   },
   buttonSecondary: {
     backgroundColor: '#FFFFFF',
-    borderColor: Color.red,
+    borderColor: Color.orange,
     borderWidth: 1,
   },
   textSecondary: {
-    color: Color.red,
+    color: Color.orange,
     fontFamily: 'NunitoSans-ExtraBold',
     fontSize: HEADER_FONT_SIZE,
   },
