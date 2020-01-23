@@ -33,14 +33,23 @@ export default (props: TabProps) => {
           autoCapitalize="none"
         />
         {validEmail ? null : (
-          <Text style={styles.textError}>
-            Please enter a valid email address
-          </Text>
+          <Text
+            style={styles.textError}
+            content={{
+              id: 'Mohon masukkan alamat email yang benar',
+              en: 'Please enter a valid email address',
+            }}
+          />
         )}
 
         <View style={styles.rowCenter}>
           <AntIcon name="lock" size={30} />
-          <Text>Your data will be protected and very safe</Text>
+          <Text
+            content={{
+              id: 'Data anda akan dilindungi dan sangat aman',
+              en: 'Your data will be protected and very safe',
+            }}
+          />
         </View>
 
         <View style={[styles.vertical, styles.center]}>

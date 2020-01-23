@@ -28,14 +28,26 @@ export default (props: ContentProps) => {
               style={styles.imgCircle}
             />
           </Touch>
-          <Text style={styles.textLight}>Customize your profile picture</Text>
+          <Text
+            style={styles.textLight}
+            content={{
+              id: 'Kustomisasi gambar profil anda',
+              en: 'Customize your profile picture',
+            }}
+          />
         </View>
         <View style={styles.hr} />
         <View style={styles.content}>
           <View style={styles.rowBetween}>
-            <Text style={styles.textBold}>Fullname</Text>
+            <Text
+              style={styles.textBold}
+              content={{id: 'Nama Lengkap', en: 'Fullname'}}
+            />
             <Touch onPress={props.onShowModalEdit}>
-              <Text style={styles.textBlue}>Edit Profile</Text>
+              <Text
+                style={styles.textBlue}
+                content={{id: 'Sunting Profile', en: 'Edit Profile'}}
+              />
             </Touch>
           </View>
           <View style={styles.hr} />
@@ -62,7 +74,10 @@ export default (props: ContentProps) => {
 
       <Card style={styles.vertical}>
         <View style={styles.content}>
-          <Text style={styles.textBold}>Mobile Number</Text>
+          <Text
+            style={styles.textBold}
+            content={{id: 'Nomor Handphone', en: 'Mobile Number'}}
+          />
           <View style={styles.hr} />
           <Text style={styles.textRegular}>{`+${mobilePre} ${mobileNo}`}</Text>
         </View>
@@ -70,7 +85,10 @@ export default (props: ContentProps) => {
 
       <Card style={styles.vertical}>
         <View style={styles.content}>
-          <Text style={styles.textBold}>Address</Text>
+          <Text
+            style={styles.textBold}
+            content={{id: 'Alamat', en: 'Address'}}
+          />
           <View style={styles.hr} />
           <Text style={styles.textRegular}>{address}</Text>
         </View>

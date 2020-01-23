@@ -4,10 +4,10 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {Header} from '../../../../../components';
 import {Color} from '../../../../../constants/Color';
 
-interface Props {
+type Props = {
   title: string;
   onSetting?: () => void;
-}
+};
 export default (props: Props) => {
   return (
     <Header

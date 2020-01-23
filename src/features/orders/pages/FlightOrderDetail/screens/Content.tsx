@@ -40,10 +40,7 @@ export default (props: Props) => {
         baggage={oc(dataFlight[0]).flight_info.detail[0].check_in_baggage(0)}
       />
       <Policy />
-      <Price
-        data={dataFlight[0]}
-        return={dataFlight.length > 1 ? true : false}
-      />
+      <Price data={dataFlight} return={dataFlight.length > 1 ? true : false} />
       <Total data={dataFlight} />
     </View>
   );

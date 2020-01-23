@@ -35,12 +35,18 @@ export default (props: Props) => {
       children={
         <View style={styles.container}>
           <Touch style={styles.close} onPress={props.onDismiss}>
-            <Text style={styles.textClose}>Close</Text>
+            <Text
+              style={styles.textClose}
+              content={{id: 'Tutup', en: 'Close'}}
+            />
           </Touch>
 
           <ScrollView>
             <View style={styles.vertical}>
-              <Text style={styles.textTitle}>Fullname</Text>
+              <Text
+                style={styles.textTitle}
+                content={{id: 'Nama Panjang', en: 'Fullname'}}
+              />
               <View style={styles.rowBetween}>
                 <View style={{width: '25%'}}>
                   <Picker
@@ -79,14 +85,21 @@ export default (props: Props) => {
                 value={props.valueEmail}
               />
               {props.validMail ? null : (
-                <Text style={styles.textError}>
-                  Please enter a valid email address
-                </Text>
+                <Text
+                  style={styles.textError}
+                  content={{
+                    id: 'Mohon masukkan alamat email yang benar',
+                    en: 'Please enter a valid email address',
+                  }}
+                />
               )}
             </View>
 
             <View style={styles.vertical}>
-              <Text style={styles.textTitle}>Mobile Number</Text>
+              <Text
+                style={styles.textTitle}
+                content={{id: 'Nomor Handphone', en: 'Mobile Number'}}
+              />
               <View style={styles.rowBetween}>
                 <View style={{width: '20%'}}>
                   <InputText
@@ -114,18 +127,24 @@ export default (props: Props) => {
 
             <View style={styles.vertical}>
               <Touch onPress={props.onShowBirthDate}>
-                <Text style={styles.textButton}>BirthDate</Text>
+                <Text
+                  style={styles.textButton}
+                  content={{id: 'Tanggal Lahir', en: 'BirthDate'}}
+                />
               </Touch>
               <InputText
                 placeholder=""
                 value={props.birthDate}
                 editable={false}
-                onChangeText={txt => console.log(txt)}
+                onChangeText={null}
               />
             </View>
 
             <View style={styles.vertical}>
-              <Text style={styles.textTitle}>Address</Text>
+              <Text
+                style={styles.textTitle}
+                content={{id: 'Alamat', en: 'Address'}}
+              />
               <InputText
                 placeholder="Address"
                 onChangeText={(txt: any) => props.onChangeAddress(txt)}

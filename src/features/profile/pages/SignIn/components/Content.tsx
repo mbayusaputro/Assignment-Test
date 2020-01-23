@@ -37,7 +37,13 @@ export default (props: SignInContent) => {
         {/* Greetings */}
         <View style={styles.content}>
           <Text style={styles.textBold}>Hi There</Text>
-          <Text style={styles.textRegular}>Log In to your account here</Text>
+          <Text
+            style={styles.textRegular}
+            content={{
+              id: 'Masuk ke akun anda disini',
+              en: 'Log In to your account here',
+            }}
+          />
         </View>
 
         {/* Socmed Button */}
@@ -59,7 +65,7 @@ export default (props: SignInContent) => {
         {/* OR */}
         <View style={[styles.content, styles.row]}>
           <View style={styles.hr} />
-          <Text style={styles.textRegular}>or</Text>
+          <Text style={styles.textRegular} content={{id: 'atau', en: 'or'}} />
           <View style={styles.hr} />
         </View>
 
@@ -73,9 +79,13 @@ export default (props: SignInContent) => {
             autoCapitalize="none"
           />
           {validMail ? null : (
-            <Text style={styles.textError}>
-              Please enter a valid email address
-            </Text>
+            <Text
+              style={styles.textError}
+              content={{
+                id: 'Mohon masukkan alamat email yang benar',
+                en: 'Please enter a valid email address',
+              }}
+            />
           )}
           <InputPassword
             placeholder="Password"
@@ -86,7 +96,10 @@ export default (props: SignInContent) => {
         {/* Forgot Password */}
         <View style={styles.content}>
           <Touch onPress={onForgot}>
-            <Text style={styles.textRegular}>Forgot your password?</Text>
+            <Text
+              style={styles.textRegular}
+              content={{id: 'Lupa Password?', en: 'Forgot your password?'}}
+            />
           </Touch>
         </View>
 
@@ -107,12 +120,19 @@ export default (props: SignInContent) => {
         {/* Register */}
         <View style={styles.content}>
           <View style={styles.content}>
-            <Text style={styles.textBoldLitle}>
-              New Member? Create your account
-            </Text>
+            <Text
+              style={styles.textBoldLitle}
+              content={{
+                id: 'Member baru? Buat akunmu',
+                en: 'New Member? Create your account',
+              }}
+            />
           </View>
           <Touch onPress={onPressRegister} activeOpacity={0.9}>
-            <Text style={styles.textRegister}>REGISTER</Text>
+            <Text
+              style={styles.textRegister}
+              content={{id: 'DAFTAR', en: 'REGISTER'}}
+            />
           </Touch>
         </View>
       </View>

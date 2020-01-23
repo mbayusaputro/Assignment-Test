@@ -81,9 +81,13 @@ export default (props: ContentProps) => {
                 editable={props.typeEmail}
               />
               {!props.validEmail && (
-                <Text style={styles.textError}>
-                  Please enter a valid email address
-                </Text>
+                <Text
+                  style={styles.textError}
+                  content={{
+                    id: 'Mohon masukkan alamat email yang benar',
+                    en: 'Please enter a valid email address',
+                  }}
+                />
               )}
             </View>
             <View style={styles.vertical}>

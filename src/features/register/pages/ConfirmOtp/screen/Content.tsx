@@ -37,9 +37,19 @@ export default (props: ContentProps) => {
 
   const typeDesc = () => {
     if (type === 'mobile') {
-      return 'We have sent a verification code to your number. Please enter the code to verify your account.';
+      return {
+        id:
+          'Kami telah mengirimkan kode verifikasi ke nomor anda, Silakan masukkan kode untuk memverifikasi akun anda',
+        en:
+          'We have sent a verification code to your number. Please enter the code to verify your account.',
+      };
     } else if (type === 'email') {
-      return 'We have sent verification to your email. Please enter the code to verify your account.';
+      return {
+        id:
+          'Kami telah mengirimkan kode verifikasi ke email anda, Silakan masukkan kode untuk memverifikasi akun anda',
+        en:
+          'We have sent verification to your email. Please enter the code to verify your account.',
+      };
     }
   };
 
@@ -53,7 +63,7 @@ export default (props: ContentProps) => {
       />
       <View style={styles.content}>
         <View style={styles.vertical}>
-          <Text style={styles.textDesc}>{typeDesc()}</Text>
+          <Text style={styles.textDesc} content={typeDesc()} />
         </View>
         <View style={[styles.fullWidth, styles.vertical]}>
           <InputText
@@ -71,7 +81,12 @@ export default (props: ContentProps) => {
               size={14}
               style={styles.iconRefresh}
             />
-            <Text>Resend Verification Code?</Text>
+            <Text
+              content={{
+                id: 'Kirim Ulang Kode Verifikasi',
+                en: 'Resend Verification Code?',
+              }}
+            />
           </Touch>
         </View>
         <View style={[styles.vertical, styles.fullWidth]}>

@@ -20,9 +20,13 @@ export default (props: Props) => {
   return (
     <View style={[styles.container, styles.content]}>
       <View style={styles.vertical}>
-        <Text style={styles.textCenter}>
-          Enter your new password for your accounts
-        </Text>
+        <Text
+          style={styles.textCenter}
+          content={{
+            id: 'Masukkan password baru ke akun anda',
+            en: 'Enter your new password for your accounts',
+          }}
+        />
       </View>
       <View style={styles.vertical}>
         <InputPassword
@@ -36,7 +40,7 @@ export default (props: Props) => {
           <ButtonLoading />
         ) : (
           <Button
-            content={{id: 'Submit', en: 'Submit'}}
+            content={{id: 'Kirimkan', en: 'Submit'}}
             isUpperCase={true}
             onPress={onSubmit}
             fullWidth

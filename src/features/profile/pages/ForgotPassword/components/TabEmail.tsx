@@ -27,16 +27,23 @@ export default (props: Props) => {
           autoCapitalize="none"
         />
         {props.validEmail ? null : (
-          <Text style={styles.textError}>
-            Please enter a valid email address
-          </Text>
+          <Text
+            style={styles.textError}
+            content={{
+              id: 'Mohon masukkan alamat email yang benar',
+              en: 'Please enter a valid email address',
+            }}
+          />
         )}
       </View>
       <View style={styles.rowCenter}>
         <AntIcon name="lock" size={30} />
-        <Text>
-          Your data will be protected and very safe {props.validEmail}
-        </Text>
+        <Text
+          content={{
+            id: 'Data anda akan dilindungi dan sangat aman',
+            en: 'Your data will be protected and very safe',
+          }}
+        />
       </View>
       <View style={styles.vertical}>
         {props.loading ? (

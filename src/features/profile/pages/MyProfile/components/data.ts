@@ -1,10 +1,12 @@
 export const dataMenu = [
   {
-    title: 'My Orders',
+    title: {id: 'My Order', en: 'My Orders'},
     target: 'order',
+    icon: require('../../../../../assets/icons/order_black.png'),
   },
   {
-    title: 'Password & Security',
+    title: {id: 'Keamanan & Kata Sandi', en: 'Password & Security'},
     target: 'ChangePassword',
+    icon: require('../../../../../assets/icons/lock.png'),
   },
 ];

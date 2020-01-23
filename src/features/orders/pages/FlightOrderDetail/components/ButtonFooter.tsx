@@ -19,9 +19,11 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 10,
   },
   btn: {
     padding: 10,
     width: '90%',
+    borderRadius: 50,
   },
 });

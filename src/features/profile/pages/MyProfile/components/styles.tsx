@@ -63,4 +63,8 @@ export default StyleSheet.create({
     height: 1,
     backgroundColor: Color.lightgray,
   },
+  iconMenu: {
+    width: scale(25),
+    height: scale(25),
+  },
 });

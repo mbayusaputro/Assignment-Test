@@ -29,12 +29,21 @@ export default (props: Props) => {
       children={
         <View style={styles.container}>
           <Touch style={styles.close} onPress={props.onDismiss}>
-            <Text style={styles.textClose}>Close</Text>
+            <Text
+              style={styles.textClose}
+              content={{id: 'Tutup', en: 'Close'}}
+            />
           </Touch>
 
           <ScrollView>
             <View style={styles.vertical}>
-              <Text>Enter the old password and new password you want</Text>
+              <Text
+                content={{
+                  id:
+                    'Masukkan kata sandi lama dan kata sandi baru yang anda inginkan',
+                  en: 'Enter the old password and new password you want',
+                }}
+              />
             </View>
 
             <View style={styles.vertical}>

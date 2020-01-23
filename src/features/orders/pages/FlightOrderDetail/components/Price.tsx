@@ -10,9 +10,17 @@ type Props = {
   data: any;
 };
 
-const Card = (form: string, titleForm: string, date: string, props: any) => {
+const zeroArray = new Array(0);
+
+const Card = (
+  key: number,
+  form: string,
+  titleForm: string,
+  date: string,
+  data: any,
+) => {
   return (
-    <View style={styles.wrap}>
+    <View key={key} style={styles.wrap}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         {date === 'return' ? (
           <Image
@@ -37,33 +45,27 @@ const Card = (form: string, titleForm: string, date: string, props: any) => {
         )}
         <Text style={styles.regular}>
           {form === 'child'
-            ? titleForm + ' x' + oc(props.data).cabin_info.child('Child')
+            ? titleForm + ' x' + oc(data).cabin_info.child('Child')
             : form === 'infant'
-            ? titleForm + ' x' + oc(props.data).cabin_info.infant('Infant')
-            : titleForm + ' x' + oc(props.data).cabin_info.adult('Adult')}
+            ? titleForm + ' x' + oc(data).cabin_info.infant('Infant')
+            : titleForm + ' x' + oc(data).cabin_info.adult('Adult')}
         </Text>
       </View>
       <Text style={styles.regular}>
         Rp
         {form === 'child'
           ? (date === 'return'
-              ? oc(props.data).flight_info.price_child(0) *
-                props.data.cabin_info.child
-              : oc(props.data).flight_info.price_child(0) *
-                props.data.cabin_info.child
+              ? oc(data).flight_info.price_child(0) * data.cabin_info.child
+              : oc(data).flight_info.price_child(0) * data.cabin_info.child
             ).toLocaleString('id-ID')
           : form === 'infant'
           ? (date === 'return'
-              ? oc(props.data).flight_info.price_infant(0) *
-                props.data.cabin_info.infant
-              : oc(props.data).flight_info.price_infant(0) *
-                props.data.cabin_info.infant
+              ? oc(data).flight_info.price_infant(0) * data.cabin_info.infant
+              : oc(data).flight_info.price_infant(0) * data.cabin_info.infant
             ).toLocaleString('id-ID')
           : (date === 'return'
-              ? oc(props.data).flight_info.price_adult(0) *
-                props.data.cabin_info.adult
-              : oc(props.data).flight_info.price_adult(0) *
-                props.data.cabin_info.adult
+              ? oc(data).flight_info.price_adult(0) * data.cabin_info.adult
+              : oc(data).flight_info.price_adult(0) * data.cabin_info.adult
             ).toLocaleString('id-ID')}
       </Text>
     </View>
@@ -81,16 +83,48 @@ const Price = (props: Props) => {
         }}
       />
       <View style={{marginVertical: 20}}>
-        {Card('adult', 'Adult', '', props)}
+        {props.data.map((item: any, index: number) => {
+          // item.cabin_info.adult > 0 ? Card('adult', 'Adult', index === 0 ? '' : 'return', item) : zeroArray
+          if (item.cabin_info.adult > 0) {
+            return Card(
+              index,
+              'adult',
+              'Adult',
+              index === 0 ? '' : 'return',
+              item,
+            );
+          }
+          if (item.cabin_info.child > 0) {
+            return Card(
+              index,
+              'child',
+              'Child',
+              index === 0 ? '' : 'return',
+              item,
+            );
+          }
+          if (item.cabin_info.infant > 0) {
+            return Card(
+              index,
+              'infant',
+              'Infant',
+              index === 0 ? '' : 'return',
+              item,
+            );
+          } else {
+            return zeroArray;
+          }
+        })}
+        {/* {Card('adult', 'Adult', '', props)}
         {props.data.cabin_info.child > 0
           ? Card('child', 'Child', '', props)
           : []}
         {props.data.cabin_info.infant > 0
           ? Card('infant', 'Infant', '', props)
-          : []}
-        {props.return ? Card('adult', 'Adult', 'return', props) : []}
+          : []} */}
+        {/* {props.return ? Card('adult', 'Adult', 'return', props) : []}
         {props.return ? Card('child', 'Child', 'return', props) : []}
-        {props.return ? Card('infant', 'Infant', 'return', props) : []}
+        {props.return ? Card('infant', 'Infant', 'return', props) : []} */}
         <View style={styles.linehorizon} />
       </View>
     </View>

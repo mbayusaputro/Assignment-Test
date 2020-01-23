@@ -11,16 +11,25 @@ export default (props: Props) => {
   return (
     <View style={styles.container}>
       <Card style={[styles.card, styles.rowBetween]}>
-        <Text style={styles.textBold}>Password</Text>
+        <Text
+          style={styles.textBold}
+          content={{id: 'Kata Sandi', en: 'Password'}}
+        />
         <Touch onPress={props.onShowModal}>
-          <Text style={styles.textBlue}>Change</Text>
+          <Text style={styles.textBlue} content={{id: 'Ubah', en: 'Change'}} />
         </Touch>
       </Card>
 
       <Card style={[styles.card, styles.vertical]}>
         <View style={styles.rowBetween}>
           <View style={{width: '80%'}}>
-            <Text style={styles.textBold}>Enable log in verification</Text>
+            <Text
+              style={styles.textBold}
+              content={{
+                id: 'Aktifkan verifikasi masuk',
+                en: 'Enable log in verification',
+              }}
+            />
           </View>
           <View style={{width: '15%'}}>
             <Switch
@@ -30,9 +39,14 @@ export default (props: Props) => {
           </View>
         </View>
         <View style={{width: '80%'}}>
-          <Text>
-            Send me a verification code every time I log in from a new device
-          </Text>
+          <Text
+            content={{
+              id:
+                'Kirimi saya kode verifikasi setiap kali saya masuk dari perangkat baru',
+              en:
+                'Send me a verification code every time I log in from a new device',
+            }}
+          />
         </View>
       </Card>
     </View>

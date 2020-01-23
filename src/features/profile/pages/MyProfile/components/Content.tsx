@@ -44,7 +44,11 @@ export default (props: MyProfileProps) => {
           onPress={goToProfileEdit}
           style={[styles.content, styles.rowBetween]}>
           <View style={styles.rowBetween}>
-            <Text style={styles.rightMargin}>ICON</Text>
+            <Imaging
+              source={require('../../../../../assets/icons/account.png')}
+              resizeMode="contain"
+              style={[styles.iconMenu, styles.rightMargin]}
+            />
             <Text
               content={{id: 'Pengaturan Akun', en: 'Account Setting'}}
               style={styles.textBold}
@@ -62,8 +66,12 @@ export default (props: MyProfileProps) => {
               onPress={() => navigateMenu(item.target)}
               style={[styles.content, styles.rowBetween]}>
               <View style={styles.rowBetween}>
-                <Text style={styles.rightMargin}>ICON</Text>
-                <Text style={styles.textBold}>{item.title}</Text>
+                <Imaging
+                  source={item.icon}
+                  resizeMode="contain"
+                  style={[styles.iconMenu, styles.rightMargin]}
+                />
+                <Text style={styles.textBold} content={item.title} />
               </View>
               <IconRight />
             </Touch>
@@ -76,8 +84,15 @@ export default (props: MyProfileProps) => {
       <Card style={styles.vertical}>
         <Touch onPress={onLogOut} style={[styles.content, styles.rowBetween]}>
           <View style={styles.rowBetween}>
-            <Text style={styles.rightMargin}>ICON</Text>
-            <Text style={styles.textBold}>Log Out</Text>
+            <Imaging
+              source={require('../../../../../assets/icons/logout.png')}
+              resizeMode="contain"
+              style={[styles.iconMenu, styles.rightMargin]}
+            />
+            <Text
+              style={styles.textBold}
+              content={{id: 'Keluar', en: 'Log Out'}}
+            />
           </View>
         </Touch>
       </Card>

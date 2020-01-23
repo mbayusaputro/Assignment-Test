@@ -21,10 +21,10 @@ export default (props: Props) => {
     InteractionManager.runAfterInteractions(() => goBack());
   };
 
-  const changeModal = (modal: boolean) => {
+  const changeModal = (bool: boolean) => {
     const {fetchChangePassword} = props;
     if (!fetchChangePassword) {
-      setModal(modal);
+      setModal(bool);
     }
   };
 

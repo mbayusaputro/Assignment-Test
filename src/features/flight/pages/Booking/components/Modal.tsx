@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TouchableOpacity as Touch,
   Picker,
-  ScrollView,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import {
@@ -88,9 +87,13 @@ export default (props: ModalProps) => {
               value={props.valueEmail}
             />
             {props.validMail ? null : (
-              <Text style={styles.textError}>
-                Please enter a valid email address
-              </Text>
+              <Text
+                style={styles.textError}
+                content={{
+                  id: 'Mohon masukkan alamat email yang benar',
+                  en: 'Please enter a valid email address',
+                }}
+              />
             )}
           </View>
 
