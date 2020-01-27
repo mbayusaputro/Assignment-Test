@@ -20,7 +20,7 @@ const Imaging = (props: Props) => {
   // Function
   const [error, onError] = React.useState(false);
   let image: FastImageSource = error ? {uri: failImg} : source;
-  const erroring = () => onError(!error);
+  const erroring = () => onError(true);
 
   return (
     <View>

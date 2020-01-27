@@ -5,3 +5,5 @@ export interface Props {
 }
 
 export interface FormHotelProps extends Props {}
+
+export interface ResultHotelProps extends Props {}

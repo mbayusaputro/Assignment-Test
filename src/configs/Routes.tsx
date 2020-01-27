@@ -28,6 +28,7 @@ import {
   MainSetting,
   FlightOrderDetail,
   FormHotel,
+  ResultHotel,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -288,9 +289,15 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
+    ResultHotel: {
+      screen: ResultHotel,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
   {
-    initialRouteName: 'Tabs',
+    initialRouteName: 'FormHotel',
     transitionConfig: nav => handleCustomTransition(nav),
   },
 );

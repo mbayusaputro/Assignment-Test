@@ -1,5 +1,5 @@
 import React from 'react';
-import {InteractionManager, Text} from 'react-native';
+import {InteractionManager} from 'react-native';
 import dayjs from 'dayjs';
 import {HighSafeArea} from '../../../../../components';
 import {Color} from '../../../../../constants/Color';
@@ -69,14 +69,18 @@ export default (props: Props) => {
   };
 
   const onSubmit = () => {
-    const payload = {
-      destination,
-      checkIn,
-      checkOut,
-      room,
-      guest,
-    };
-    alert(JSON.stringify(payload));
+    const {
+      navigation: {navigate},
+    } = props;
+    navigate('ResultHotel');
+    // const payload = {
+    //   destination,
+    //   checkIn,
+    //   checkOut,
+    //   room,
+    //   guest,
+    // };
+    // alert(JSON.stringify(payload));
   };
 
   // Main Render

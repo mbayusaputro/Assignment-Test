@@ -5,6 +5,11 @@ import dayID from 'dayjs/locale/id';
 import dayEN from 'dayjs/locale/en';
 import {InputButton, styles} from '../components';
 import {Button} from '../../../../../components';
+import {
+  textDestination,
+  textRoomGuest,
+  btnSearchHotelLang,
+} from '../../../interface/string';
 
 type Props = {
   onDestination: () => void;
@@ -25,7 +30,7 @@ export default (props: Props) => {
     <View style={styles.content}>
       <InputButton
         onPress={props.onDestination}
-        labelContent={{id: 'Tujuan', en: 'Destination'}}
+        labelContent={textDestination}
         icons={require('../../../../../assets/icons/map.png')}
         fieldValue={props.destinationValue}
       />
@@ -62,7 +67,7 @@ export default (props: Props) => {
       />
       <InputButton
         onPress={props.onPassenger}
-        labelContent={{id: 'Tamu & Kamar', en: 'Guest & Room'}}
+        labelContent={textRoomGuest}
         icons={require('../../../../../assets/icons/icon_total_passenger.png')}
         contentValue={{
           id: `${props.guest} Tamu, ${props.room} Kamar`,
@@ -71,7 +76,7 @@ export default (props: Props) => {
       />
       <Button
         onPress={props.onSubmit}
-        content={{id: 'Cari Hotels', en: 'Search Hotels'}}
+        content={btnSearchHotelLang}
         isUpperCase={true}
         fullWidth
         customStyle={styles.btnFooter}

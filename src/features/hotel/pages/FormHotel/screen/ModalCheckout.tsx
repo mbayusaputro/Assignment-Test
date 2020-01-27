@@ -1,18 +1,20 @@
 import React from 'react';
 import {View, TouchableOpacity as Touch} from 'react-native';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
-import {Text} from '../../../../../components';
+import {Text, Button} from '../../../../../components';
 import {styles} from '../components';
 import {Color} from '../../../../../constants/Color';
+import {
+  titleDurationLang,
+  subTitleDurationLang,
+  langBtnDone,
+} from '../../../interface/string';
 
 type Props = {
   onDismiss: () => void;
   selectedIndex: number;
   onValueChange: (data: any) => void;
 };
-
-const titleLang = {id: 'Jumlah Durasi', en: 'Number of Duration'};
-const subTitleLang = {id: '/malam', en: '/night'};
 
 export default (props: Props) => {
   return (
@@ -21,8 +23,8 @@ export default (props: Props) => {
         <Text style={styles.textClose}>Check Out</Text>
       </Touch>
       <View style={[styles.vertical, styles.center]}>
-        <Text style={styles.textBold} content={titleLang} />
-        <Text style={styles.textSubTitle} content={subTitleLang} />
+        <Text style={styles.textBold} content={titleDurationLang} />
+        <Text style={styles.textSubTitle} content={subTitleDurationLang} />
       </View>
       <View style={[styles.vertical, styles.rowBetween]}>
         <ScrollPicker
@@ -39,6 +41,13 @@ export default (props: Props) => {
           highlightColor={Color.labelgray}
         />
       </View>
+      <Button
+        isUpperCase
+        onPress={props.onDismiss}
+        content={langBtnDone}
+        customStyle={styles.btnFooter}
+        fullWidth
+      />
     </View>
   );
 };

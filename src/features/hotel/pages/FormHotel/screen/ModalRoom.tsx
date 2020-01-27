@@ -2,9 +2,10 @@ import React from 'react';
 import {View, TouchableOpacity as Touch} from 'react-native';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
 import _ from 'lodash';
-import {Text} from '../../../../../components';
+import {Text, Button} from '../../../../../components';
 import {styles} from '../components';
 import {Color} from '../../../../../constants/Color';
+import {dataTotal, dataDummy} from '../components/data';
 
 type Props = {
   onDismiss: () => void;
@@ -18,30 +19,6 @@ type Props = {
 const closeLang = {id: 'Kamar & Tamu', en: 'Room & Guest'};
 const titleRoom = {id: 'Jumlah Kamar', en: 'Number of Room'};
 const titleGuest = {id: 'Jumlah Tamu', en: 'Number of Guest'};
-
-const dataDummy = ['guest', 'room'];
-const dataTotal = [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-];
 
 export default (props: Props) => {
   const {
@@ -85,6 +62,13 @@ export default (props: Props) => {
           </View>
         ))}
       </View>
+      <Button
+        isUpperCase
+        onPress={props.onDismiss}
+        content={{id: 'Selesai', en: 'done'}}
+        customStyle={styles.btnFooter}
+        fullWidth
+      />
     </View>
   );
 };

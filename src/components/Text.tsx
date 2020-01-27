@@ -43,7 +43,7 @@ const CustomText = (props: Props) => {
                 : setText(content.en, isUpperCase, fontWeight)}
             </Text>
           ) : (
-            <Text style={props.style}>{children}</Text>
+            <Text style={[defaultText, props.style]}>{children}</Text>
           )
         }
       </LanguageContext.Consumer>
