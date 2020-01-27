@@ -7,6 +7,7 @@ export const Color = {
   backWhite: '#F0F0F0',
   red: '#d30000',
   marineBlue: '#002561',
+  blueMarine: '#002550',
   brownGrey: '#969696',
   green: '#0fa031',
   berry: '#a2195b',

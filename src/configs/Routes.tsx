@@ -27,6 +27,7 @@ import {
   ForgotPassword3,
   MainSetting,
   FlightOrderDetail,
+  FormHotel,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -277,6 +278,12 @@ const STACK = createStackNavigator(
     },
     FlightOrderDetail: {
       screen: FlightOrderDetail,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    FormHotel: {
+      screen: FormHotel,
       navigationOptions: {
         header: null,
       },

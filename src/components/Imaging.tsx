@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageStyle, View, StyleProp} from 'react-native';
+import {ImageStyle, View, ActivityIndicator, StyleSheet} from 'react-native';
 import FastImage, {FastImageSource} from 'react-native-fast-image';
 
 const failImg =
@@ -7,26 +7,49 @@ const failImg =
 
 interface Props {
   source: FastImageSource;
-  style?: StyleProp<ImageStyle>;
+  style?: ImageStyle;
   resizeMode: FastImage.ResizeMode;
+  tintColor?: string;
 }
 
 const Imaging = (props: Props) => {
-  const {source, style, resizeMode} = props;
+  // State
+  const [onLoad, setOnLoad] = React.useState(false);
+  const {source, style, resizeMode, tintColor} = props;
+
+  // Function
   const [error, onError] = React.useState(false);
   let image: FastImageSource = error ? {uri: failImg} : source;
   const erroring = () => onError(!error);
 
   return (
     <View>
+      {onLoad && (
+        <View style={[styles.imageOverlay, style]}>
+          <ActivityIndicator />
+        </View>
+      )}
       <FastImage
         style={style}
         source={image}
         onError={erroring}
         resizeMode={resizeMode}
+        tintColor={tintColor}
+        onLoadStart={() => setOnLoad(true)}
+        onLoadEnd={() => setOnLoad(false)}
       />
     </View>
   );
 };
 
 export default Imaging;
+
+const styles = StyleSheet.create({
+  imageOverlay: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+  },
+});

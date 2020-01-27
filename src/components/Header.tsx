@@ -1,40 +1,50 @@
 import React, {ReactNode} from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity as Touch,
-  Platform,
-  Image,
-} from 'react-native';
+import {View, StyleSheet, TouchableHighlight as Touch} from 'react-native';
+import Imaging from './Imaging';
 import Text from './Text';
-import {verticalScale, scale} from '../constants/ScaleUtils';
 import fonts from '../constants/Fonts';
 import {Color} from '../constants/Color';
 import {TITLE_FONT_SIZE} from '../constants/TextSize';
+import normalize from '../constants/normalize';
 
 export const SubHeader = () => <View style={styles.subHeader} />;
 
+type contentTitle = {id: string; en: string};
 type HeaderProps = {
-  title: string;
+  content?: contentTitle;
+  title?: string;
   callback?: () => void;
   right?: ReactNode;
+  iconLeft?: ReactNode;
 };
 export const Header = (props: HeaderProps) => {
   return (
     <View style={styles.header}>
-      <View style={styles.leftHeader}>
-        {props.callback ? (
-          <Touch onPress={props.callback}>
-            <Image
+      {props.callback ? (
+        <Touch
+          style={styles.leftHeader}
+          onPress={props.callback}
+          activeOpacity={0.5}
+          underlayColor={Color.blueMarine}>
+          {props.iconLeft ? (
+            props.iconLeft
+          ) : (
+            <Imaging
               source={require('../assets/icons/back.png')}
               resizeMode="contain"
               style={styles.imgBack}
             />
-          </Touch>
-        ) : null}
-      </View>
+          )}
+        </Touch>
+      ) : (
+        <View style={styles.leftHeader} />
+      )}
       <View style={styles.centerHeader}>
-        <Text style={styles.titleHeader}>{props.title}</Text>
+        {props.content ? (
+          <Text style={styles.titleHeader} content={props.content} />
+        ) : (
+          <Text style={styles.titleHeader}>{props.title}</Text>
+        )}
       </View>
       <View style={styles.rightHeader}>{props.right ? props.right : null}</View>
     </View>
@@ -46,29 +56,32 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     backgroundColor: Color.marineBlue,
-    padding: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    height: normalize(57.5, 'height'),
   },
   centerHeader: {
-    width: '50%',
+    width: '70%',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 20,
   },
   leftHeader: {
-    width: '25%',
-    alignItems: 'flex-start',
+    width: '15%',
+    alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 20,
   },
   rightHeader: {
-    width: '25%',
-    alignItems: 'flex-end',
+    width: '15%',
+    height: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   subHeader: {
     width: '100%',
-    height: verticalScale(50),
+    height: normalize(50, 'height'),
     backgroundColor: Color.marineBlue,
     borderBottomStartRadius: 100,
   },
@@ -82,8 +95,8 @@ const styles = StyleSheet.create({
 
   // Other
   imgBack: {
-    width: scale(22.5),
-    height: verticalScale(20),
-    tintColor: '#FFFFFF',
+    width: normalize(22.5, 'width'),
+    height: normalize(20, 'height'),
+    tintColor: Color.white,
   },
 });
