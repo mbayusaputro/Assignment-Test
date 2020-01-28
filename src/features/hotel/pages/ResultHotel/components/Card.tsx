@@ -5,7 +5,7 @@ import {Card, Imaging, Text} from '../../../../../components';
 import styles from './styles';
 import FastImage from 'react-native-fast-image';
 import {Color} from '../../../../../constants/Color';
-import {moneyFormat} from '../../../../../helpers/helpers';
+import {moneyFormat, starLength} from '../../../../../helpers/helpers';
 
 type Props = {
   title: string;
@@ -17,20 +17,6 @@ type Props = {
 
 export default (props: Props) => {
   // Function
-  const starLength = (length: number) => {
-    const arrays = [];
-    for (let i = 1; i <= length; i++) {
-      arrays.push(
-        <Imaging
-          key={i}
-          source={require('../../../../../assets/icons/stars.png')}
-          resizeMode="stretch"
-          style={styles.iconStar}
-        />,
-      );
-    }
-    return arrays;
-  };
 
   // Main
   const {title, star, location, price, photo} = props;
@@ -44,7 +30,9 @@ export default (props: Props) => {
         />
         <View style={styles.cardContent}>
           <View>
-            <Text style={styles.textTitle}>{title}</Text>
+            <Text style={styles.textTitle} numberOfLines={2}>
+              {title}
+            </Text>
             <View style={styles.rowBetween}>{starLength(star)}</View>
             <View style={styles.rowBetween}>
               <MaterialIcon

@@ -1,5 +1,12 @@
 import React, {ReactNode} from 'react';
-import {View, StyleSheet, TouchableHighlight as Touch} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableHighlight as Touch,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 import Imaging from './Imaging';
 import Text from './Text';
 import fonts from '../constants/Fonts';
@@ -16,16 +23,17 @@ type HeaderProps = {
   callback?: () => void;
   right?: ReactNode;
   iconLeft?: ReactNode;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 };
 export const Header = (props: HeaderProps) => {
   return (
-    <View style={styles.header}>
-      {props.callback ? (
+    <View style={[styles.header, props.style]}>
+      {props.callback || props.iconLeft ? (
         <Touch
           style={styles.leftHeader}
           onPress={props.callback}
-          activeOpacity={0.5}
-          underlayColor={Color.blueMarine}>
+          activeOpacity={0.5}>
           {props.iconLeft ? (
             props.iconLeft
           ) : (
@@ -41,9 +49,14 @@ export const Header = (props: HeaderProps) => {
       )}
       <View style={styles.centerHeader}>
         {props.content ? (
-          <Text style={styles.titleHeader} content={props.content} />
+          <Text
+            style={[styles.titleHeader, props.textStyle]}
+            content={props.content}
+          />
         ) : (
-          <Text style={styles.titleHeader}>{props.title}</Text>
+          <Text style={[styles.titleHeader, props.textStyle]}>
+            {props.title}
+          </Text>
         )}
       </View>
       <View style={styles.rightHeader}>{props.right ? props.right : null}</View>

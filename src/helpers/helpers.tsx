@@ -1,3 +1,6 @@
+import React from 'react';
+import {Imaging} from '../components';
+import normalize from '../constants/normalize';
 import numeral from 'numeral';
 
 export const validateEmailFormat = (email: string) => {
@@ -39,8 +42,27 @@ export const getFirstNameLastname = (string: string, callback: any) => {
     return lastName;
   });
   let response = {
-    firstName: firstName,
-    lastName: lastName,
+    firstName,
+    lastName,
   };
   callback(response);
+};
+
+export const starLength = (length: number) => {
+  const arrays = [];
+  for (let i = 1; i <= length; i++) {
+    arrays.push(
+      <Imaging
+        key={i}
+        source={require('../assets/icons/stars.png')}
+        resizeMode="stretch"
+        style={{
+          width: normalize(20),
+          height: normalize(20),
+          marginRight: 5,
+        }}
+      />,
+    );
+  }
+  return arrays;
 };

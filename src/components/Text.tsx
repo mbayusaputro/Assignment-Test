@@ -15,6 +15,7 @@ type Props = {
   isUpperCase?: boolean | undefined;
   fontWeight?: string | undefined;
   style?: StyleProp<TextStyle>;
+  numberOfLines?: number;
 };
 
 const setText = (
@@ -30,20 +31,26 @@ const setText = (
 };
 
 const CustomText = (props: Props) => {
-  const {content, children, isUpperCase, fontWeight} = props;
+  const {content, children, isUpperCase, fontWeight, numberOfLines} = props;
   const {defaultText} = styles;
   return (
     <SafeAreaView>
       <LanguageContext.Consumer>
         {({language}) =>
           content ? (
-            <Text style={[defaultText, props.style]}>
+            <Text
+              style={[defaultText, props.style]}
+              numberOfLines={numberOfLines}>
               {language === 'id'
                 ? setText(content.id, isUpperCase, fontWeight)
                 : setText(content.en, isUpperCase, fontWeight)}
             </Text>
           ) : (
-            <Text style={[defaultText, props.style]}>{children}</Text>
+            <Text
+              style={[defaultText, props.style]}
+              numberOfLines={numberOfLines}>
+              {children}
+            </Text>
           )
         }
       </LanguageContext.Consumer>

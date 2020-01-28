@@ -1,5 +1,11 @@
 import React from 'react';
-import {ImageStyle, View, ActivityIndicator, StyleSheet} from 'react-native';
+import {
+  ImageStyle,
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  StyleProp,
+} from 'react-native';
 import FastImage, {FastImageSource} from 'react-native-fast-image';
 
 const failImg =
@@ -7,7 +13,7 @@ const failImg =
 
 interface Props {
   source: FastImageSource;
-  style?: ImageStyle;
+  style?: StyleProp<ImageStyle>;
   resizeMode: FastImage.ResizeMode;
   tintColor?: string;
 }

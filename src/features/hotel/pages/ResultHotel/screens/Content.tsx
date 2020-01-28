@@ -56,11 +56,14 @@ export default (props: Props) => {
       </View>
       <View style={styles.hr} />
       <FlatList
-        data={props.loading ? new Array(5) : props.dataHotel}
+        data={props.loading ? new Array(2) : props.dataHotel}
         renderItem={props.loading ? loadingItem : renderItem}
         keyExtractor={keyExtractor}
         contentContainerStyle={{paddingBottom: 200}}
         style={styles.contentPadding}
+        maxToRenderPerBatch={50}
+        initialNumToRender={3}
+        windowSize={10}
       />
     </View>
   );

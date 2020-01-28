@@ -29,6 +29,7 @@ import {
   FlightOrderDetail,
   FormHotel,
   ResultHotel,
+  DetailHotel,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -295,9 +296,15 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
+    DetailHotel: {
+      screen: DetailHotel,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
   {
-    initialRouteName: 'BookingFlight',
+    initialRouteName: 'Tabs',
     transitionConfig: nav => handleCustomTransition(nav),
   },
 );
