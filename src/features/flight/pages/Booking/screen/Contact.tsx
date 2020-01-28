@@ -10,9 +10,9 @@ const Content = (props: any) => {
       </Text>
       <Card
         onPress={props.onPress}
-        title="Contact Person"
+        title={props.name !== null ? props.name.fullname : 'Contact Person'}
         subtitle="*Please fill in contact details"
-        err={true}
+        err={props.name !== null ? false : true}
         textColor={true}
       />
     </View>

@@ -11,3 +11,36 @@ export const moneyFormat = (money: number) => {
     .replace(/,/g, '.');
   return result;
 };
+
+export const generateDate = (begin: number, end: number) => {
+  let array = [];
+  for (let i = begin; i <= end; i++) {
+    array.push((i < 10 ? '0' : '') + i);
+  }
+  return array;
+};
+
+export const generateNumber = (begin: number, end: number) => {
+  let array = [];
+  for (let i = begin; i <= end; i++) {
+    array.push(i);
+  }
+  return array;
+};
+
+export const getFirstNameLastname = (string: string, callback: any) => {
+  let fullName = string.split(' ');
+  let firstName = fullName[0];
+  let lastName = '';
+  fullName.map((data, index) => {
+    if (index > 0) {
+      lastName += data + ' ';
+    }
+    return lastName;
+  });
+  let response = {
+    firstName: firstName,
+    lastName: lastName,
+  };
+  callback(response);
+};

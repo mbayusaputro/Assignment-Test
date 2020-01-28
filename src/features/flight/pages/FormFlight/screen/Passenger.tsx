@@ -4,6 +4,7 @@ import Modal from 'react-native-modal';
 import {Color} from '../../../../../constants/Color';
 import {Text, Button} from '../../../../../components';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
+import {generateNumber} from '../../../../../helpers/helpers';
 
 type Props = {
   isModalVisible: boolean;
@@ -65,7 +66,7 @@ const Passenger = (props: Props) => {
               return (
                 <ScrollPicker
                   key={i}
-                  dataSource={[0, 1, 2, 3, 4, 5, 6, 7]}
+                  dataSource={generateNumber(1, 7)}
                   selectedIndex={
                     item.type === 'Adult'
                       ? props.isPassenger.adult

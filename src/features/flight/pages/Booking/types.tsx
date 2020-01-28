@@ -17,30 +17,23 @@ export type HeaderProps = {
 };
 
 export type ContentProps = {
-  imgProfile: string;
-  salutation: string;
-  fullname: string;
-  email: string;
-  mobilePre: string;
-  mobileNo: string;
-  address: string;
-  birthDate: string;
-  onShowModalEdit: () => void;
-  onImage: () => void;
+  onContactDetail: () => void;
+  contactName: string;
+  dataPassenger: any;
+  active: boolean;
+  onSubmit?: () => void;
+  toggleSwitch: () => void;
+  onPassenger: (form: string, index: number) => void;
 };
 
 export type ModalProps = {
   isVisible: any;
   onDismiss: () => void;
-  onChangeFullname: (txt: string) => void;
-  onChangeSalutation: (txt: any) => void;
-  onChangeEmail: (txt: any) => void;
-  validMail: boolean;
-  onChangeMobileNumber: (txt: any) => void;
-  selectedSalutation: string;
-  valueFullname: string;
-  valueEmail: string;
-  valueMobile: string;
+  onSave: (payload: any) => void;
+  onDob?: (payload: any) => void;
+  form?: string;
+  dataPassenger?: any;
+  handleInput?: (field: string, value: any) => void;
 };
 
 export type BirthDateProps = {
@@ -48,4 +41,11 @@ export type BirthDateProps = {
   onDismiss: () => void;
   onDatesChange: (txt: any) => void;
   date: string;
+};
+
+export type PassengerProps = {
+  toggleSwitch: () => void;
+  active: boolean;
+  dataPassenger: Array<object>;
+  onPress: (form: string, index: number) => void;
 };

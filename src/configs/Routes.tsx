@@ -297,7 +297,7 @@ const STACK = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'FormHotel',
+    initialRouteName: 'BookingFlight',
     transitionConfig: nav => handleCustomTransition(nav),
   },
 );

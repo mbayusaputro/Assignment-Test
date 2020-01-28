@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,12 +6,7 @@ import {
   Picker,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import {
-  Text,
-  InputText,
-  Button,
-  ButtonLoading,
-} from '../../../../../components';
+import {Text, InputText, Button} from '../../../../../components';
 import {Color} from '../../../../../constants/Color';
 import fonts from '../../../../../constants/Fonts';
 import {
@@ -20,61 +15,158 @@ import {
 } from '../../../../../constants/TextSize';
 import {dataSalutation} from './data';
 import {ModalProps} from '../types';
+import ScrollPicker from 'react-native-wheel-scroll-picker';
+import {generateDate} from '../../../../../helpers/helpers';
+import moment from 'moment';
 
 export default (props: ModalProps) => {
+  const {
+    isVisible,
+    onDismiss,
+    form,
+    dataPassenger,
+    handleInput,
+    onSave,
+    onDob,
+  } = props;
+
+  const [salutation, setSalutation] = useState('Mr');
+  const [dob, setDob] = useState(false);
+  const [type, setType] = React.useState(['Day', 'Month', 'Year']);
+  const [year, setYear] = useState(new Date().getFullYear() - 12);
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [day, setDay] = useState(new Date().getDate());
+
+  const onChange = (data: any, item: any) => {
+    item === 'Day'
+      ? setDay(data)
+      : item === 'Month'
+      ? setMonth(data)
+      : setYear(data);
+  };
+
+  const doneDob = () => {
+    onDob(year + '-' + month + '-' + day);
+    setDob(!dob);
+  };
+
   return (
     <Modal
       useNativeDriver={true}
-      isVisible={props.isVisible}
+      isVisible={isVisible}
       avoidKeyboard={true}
-      onBackButtonPress={props.onDismiss}
-      onBackdropPress={props.onDismiss}
+      onBackButtonPress={onDismiss}
+      onBackdropPress={onDismiss}
       style={styles.modal}
       children={
         <View style={styles.container}>
-          <Touch style={styles.close} onPress={props.onDismiss}>
-            <Text style={styles.textClose}>Passenger Details</Text>
+          <Touch style={styles.close} onPress={onDismiss}>
+            <Text style={styles.textClose}>{form.toUpperCase()}</Text>
           </Touch>
-          <View style={styles.vertical}>
-            <View style={styles.rowBetween}>
-              <View style={{width: '25%'}}>
-                <Picker
-                  selectedValue={props.selectedSalutation}
-                  style={{width: '100%'}}
-                  onValueChange={(itemValue: any, itemIndex: number) =>
-                    props.onChangeSalutation(itemValue)
-                  }>
-                  {dataSalutation.map((item: any, index: number) => (
-                    <Picker.Item
-                      key={index}
-                      value={item.title}
-                      label={item.title}
-                    />
-                  ))}
-                </Picker>
+          {dob ? (
+            <View style={[styles.vertical, {marginTop: 10}]}>
+              <View style={[styles.rowBetween, {paddingHorizontal: 40}]}>
+                {type.map((item: any, i: number) => {
+                  return (
+                    <Text
+                      key={i}
+                      style={{fontFamily: 'NunitoSans-Bold', fontSize: 16}}>
+                      {item}
+                    </Text>
+                  );
+                })}
               </View>
-              <View style={{width: '75%'}}>
-                <InputText
-                  style={{borderRadius: 5, borderColor: Color.labelgray}}
-                  placeholder="Full Name"
-                  onChangeText={(text: any) => props.onChangeFullname(text)}
-                  autoCapitalize="words"
-                  value={props.valueFullname}
-                />
+              <View style={styles.rowBetween}>
+                {type.map((item: any, i: number) => {
+                  return (
+                    <ScrollPicker
+                      key={i}
+                      dataSource={
+                        item === 'Day'
+                          ? generateDate(1, 30)
+                          : item === 'Month'
+                          ? generateDate(1, 12)
+                          : generateDate(2008, 2019)
+                      }
+                      onValueChange={(data: any, _: number) =>
+                        onChange(data, item)
+                      }
+                      itemColor={Color.black}
+                      itemHeight={35}
+                      highlightBorderWidth={0.2}
+                      highlightColor={Color.labelgray}
+                      wrapperHeight={100}
+                    />
+                  );
+                })}
               </View>
             </View>
-          </View>
-
+          ) : (
+            <View style={styles.vertical}>
+              <View style={styles.rowBetween}>
+                <View style={{width: '25%'}}>
+                  <Picker
+                    selectedValue={salutation}
+                    style={{width: '100%'}}
+                    onValueChange={(value: any, _: number) =>
+                      setSalutation(value)
+                    }>
+                    {dataSalutation.map((item: any, index: number) => (
+                      <Picker.Item
+                        key={index}
+                        value={item.title}
+                        label={item.title}
+                      />
+                    ))}
+                  </Picker>
+                </View>
+                <View style={{width: '75%'}}>
+                  <InputText
+                    style={{borderRadius: 5, borderColor: Color.labelgray}}
+                    placeholder="Full Name"
+                    onChangeText={(text: string) =>
+                      handleInput('fullName', text)
+                    }
+                    autoCapitalize="words"
+                    value={dataPassenger.fullname}
+                  />
+                </View>
+              </View>
+              {form !== 'adult' ? (
+                <Touch
+                  onPress={() => setDob(!dob)}
+                  style={[styles.rowBetween, {marginBottom: 5}]}>
+                  <Text
+                    style={{fontFamily: 'NunitoSans-SemiBold', fontSize: 16}}>
+                    Birthdate
+                  </Text>
+                  <Text style={{fontFamily: 'NunitoSans-Bold', fontSize: 16}}>
+                    {moment(year + '-' + month + '-' + day).format(
+                      'DD MMMM YYYY',
+                    )}
+                  </Text>
+                </Touch>
+              ) : (
+                []
+              )}
+            </View>
+          )}
           <View style={styles.vertical}>
-            {props.isLoading ? (
-              <ButtonLoading />
+            {dob ? (
+              <Button
+                content={{id: 'Selesai', en: 'Done'}}
+                customStyle={styles.btnUpdate}
+                fullWidth
+                isUpperCase
+                onPress={() => doneDob()}
+              />
             ) : (
               <Button
                 content={{id: 'Simpan Kontak', en: 'Save Contact'}}
                 customStyle={styles.btnUpdate}
                 fullWidth
                 isUpperCase
-                onPress={props.onUpdate}
+                onPress={() => onSave(form)}
               />
             )}
           </View>
