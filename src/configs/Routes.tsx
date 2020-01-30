@@ -30,6 +30,7 @@ import {
   FormHotel,
   ResultHotel,
   DetailHotel,
+  SelectRoomHotel,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -298,6 +299,12 @@ const STACK = createStackNavigator(
     },
     DetailHotel: {
       screen: DetailHotel,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    SelectRoomHotel: {
+      screen: SelectRoomHotel,
       navigationOptions: {
         header: null,
       },

@@ -14,7 +14,7 @@ export default (props: Props) => {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    setTimeout(() => setLoading(false), 3000);
+    setTimeout(() => setLoading(false), 1000);
   }, []);
 
   // Function
@@ -27,13 +27,23 @@ export default (props: Props) => {
   const filter = () => {
     alert('FIlter');
   };
+  const onSelectHotel = (item: any) => {
+    const {
+      navigation: {navigate},
+    } = props;
+    navigate('DetailHotel', {selectedHotel: item});
+  };
 
   // Main Render
   return (
     <HighSafeArea style={{backgroundColor: Color.backWhite}}>
       <Header content={titleLang} callback={onBack} />
       <SubHeader date={new Date()} duration={7} room={2} />
-      <Content dataHotel={dataHotel} loading={loading} />
+      <Content
+        dataHotel={dataHotel}
+        loading={loading}
+        onSelectHotel={(item: any) => onSelectHotel(item)}
+      />
       <FloatFilter onPress={filter} />
     </HighSafeArea>
   );

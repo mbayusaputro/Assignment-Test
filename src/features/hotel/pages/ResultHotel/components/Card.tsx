@@ -13,15 +13,16 @@ type Props = {
   location: string;
   price: number;
   photo: string;
+  onPress: () => void;
 };
 
 export default (props: Props) => {
   // Function
 
   // Main
-  const {title, star, location, price, photo} = props;
+  const {title, star, location, price, photo, onPress} = props;
   return (
-    <Touch activeOpacity={0.5}>
+    <Touch onPress={onPress} activeOpacity={0.5}>
       <Card style={[styles.rowBetween, styles.card]}>
         <Imaging
           source={{uri: photo, priority: FastImage.priority.high}}

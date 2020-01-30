@@ -13,21 +13,25 @@ import {styles, Card} from '../components';
 type Props = {
   dataHotel: Array<any>;
   loading: boolean;
+  onSelectHotel: (item: any) => void;
 };
 
 export default (props: Props) => {
   // Flatlist Conf
   const keyExtractor = (__: any, index: number) => index.toString();
-  const renderItem = ({item, index}: any) => (
-    <Card
-      key={index}
-      title={item.title}
-      star={item.rate}
-      location={item.location}
-      price={item.price}
-      photo={item.photo}
-    />
-  );
+  const renderItem = ({item, index}: any) => {
+    return (
+      <Card
+        key={index}
+        onPress={() => props.onSelectHotel(item)}
+        title={item.title}
+        star={item.rate}
+        location={item.location}
+        price={item.price}
+        photo={item.photo}
+      />
+    );
+  };
   const loadingItem = ({__, index}: any) => (
     <Placeholder
       key={index}

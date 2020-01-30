@@ -2,18 +2,22 @@ import React from 'react';
 import {Animated, TouchableOpacity as Touch} from 'react-native';
 import {styles} from '../components';
 import {Header, Imaging} from '../../../../../components';
+import FastImage from 'react-native-fast-image';
 
 type Props = {
   header: any;
   opacity: any;
   translate: any;
   headerTitle: any;
+  callback: () => void;
+  photo: any;
+  title: string;
 };
 
 export default (props: Props) => {
   // Component
   const leftIcon = () => (
-    <Touch style={styles.btnBack}>
+    <Touch onPress={props.callback} style={styles.btnBack}>
       <Imaging
         source={require('../../../../../assets/icons/arrow_left_black.png')}
         resizeMode="contain"
@@ -22,41 +26,39 @@ export default (props: Props) => {
     </Touch>
   );
 
-  const rightIcon = () => (
-    <Touch onPress={() => alert('asd')} style={styles.btnShare}>
-      <Imaging
-        source={require('../../../../../assets/icons/share_button.png')}
-        resizeMode="contain"
-        style={styles.iconShare}
-      />
-    </Touch>
-  );
+  // const rightIcon = () => (
+  //   <Touch onPress={() => alert('asd')} style={styles.btnShare}>
+  //     <Imaging
+  //       source={require('../../../../../assets/icons/share_button.png')}
+  //       resizeMode="contain"
+  //       style={styles.iconShare}
+  //     />
+  //   </Touch>
+  // );
 
   // Main Render
-  const {header, opacity, translate, headerTitle} = props;
+  const {header, opacity, translate, headerTitle, title} = props;
   return (
     <Animated.View style={[styles.header, {height: header}]}>
-      <Animated.Image
+      <Animated.View
         style={[
           styles.backgroundImage,
           {opacity, transform: [{translateY: translate}]},
-        ]}
-        source={{
-          uri:
-            'https://pix10.agoda.net/hotelImages/104/104972/104972_16072716330044991252.jpg',
-        }}
-      />
-      <Animated.View
-        style={[styles.bar, {opacity, transform: [{translateY: translate}]}]}>
+        ]}>
+        <Imaging
+          source={{uri: props.photo, priority: FastImage.priority.high}}
+          style={styles.backgroundImage}
+          resizeMode="cover"
+        />
         {leftIcon()}
-        {rightIcon()}
+        {/* {rightIcon()} */}
       </Animated.View>
       <Animated.View style={{transform: [{translateY: headerTitle}]}}>
         <Header
-          title="TITLE_HOTEL"
+          title={title}
           style={styles.bar}
           textStyle={styles.headerTitle}
-          callback={() => {}}
+          callback={props.callback}
           iconLeft={
             <Imaging
               source={require('../../../../../assets/icons/arrow_left_black.png')}

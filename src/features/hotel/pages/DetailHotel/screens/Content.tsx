@@ -26,7 +26,14 @@ import {dataFacility} from '../components/data';
 import {starLength} from '../../../../../helpers/helpers';
 import {Color} from '../../../../../constants/Color';
 
-export default (props: any) => {
+type Props = {
+  titleHotel: string;
+  rate: number;
+  photo: any;
+  callback: () => void;
+};
+
+export default (props: Props) => {
   // State
   const [scrollY, setScrollY] = React.useState(new Animated.Value(0));
 
@@ -69,7 +76,7 @@ export default (props: any) => {
           {/* TITLE */}
           <View style={[styles.vertical, styles.content]}>
             <View style={styles.rowBetween}>
-              <Text style={styles.textTitle}>TITLE_HOTEL</Text>
+              <Text style={styles.textTitle}>{props.titleHotel}</Text>
               <Touch>
                 <Imaging
                   source={require('../../../../../assets/icons/bookmark.png')}
@@ -80,7 +87,7 @@ export default (props: any) => {
             </View>
             <View style={styles.rowDirection}>
               <View style={[styles.rowBetween, {marginRight: 10}]}>
-                {starLength(4)}
+                {starLength(props.rate)}
               </View>
               <Text style={styles.textMedium}>Ressort</Text>
             </View>
@@ -174,6 +181,9 @@ export default (props: any) => {
         opacity={imageOpacity}
         translate={imageTranslate}
         headerTitle={headerOpacity}
+        callback={props.callback}
+        photo={props.photo}
+        title={props.titleHotel}
       />
     </View>
   );

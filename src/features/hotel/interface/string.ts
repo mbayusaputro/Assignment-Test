@@ -17,3 +17,10 @@ export const showDirectionLang = {id: 'Tunjukkan Arah', en: 'Show Directions'};
 export const showMapLang = {id: 'Tampilkan Peta', en: 'Show Map'};
 export const startFromLang = {id: 'Mulai dari', en: 'Start from'};
 export const btnSelectRoomLang = {id: 'Pilih Kamar', en: 'Select Room'};
+
+// SELECT ROOM HOTEL
+export const headerSelectRoomLang = {id: 'Pilih Kamar', en: 'Select Room'};
+export const seeDetailLang = {id: 'Lihat Detail', en: 'See Details'};
+export const selectLang = {id: 'PILIH', en: 'SELECT'};
+export const roomLang = {id: 'Kamar', en: 'Room'};
+export const guestLang = {id: 'Tamu', en: 'Guest'};

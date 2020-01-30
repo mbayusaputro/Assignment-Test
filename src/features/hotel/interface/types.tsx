@@ -7,3 +7,7 @@ export interface Props {
 export interface FormHotelProps extends Props {}
 
 export interface ResultHotelProps extends Props {}
+
+export interface DetailHotelProps extends Props {}
+
+export interface SelectRoomHotelProps extends Props {}

@@ -1,0 +1,9 @@
+Step Book a room at Hotel
+
+1. FormHotel
+2. ResultHotel
+3. DetailHotel
+4. SelectRoomHotel
+5. DetailRoomHotel
+6. BookingFormHotel
+7. Payment

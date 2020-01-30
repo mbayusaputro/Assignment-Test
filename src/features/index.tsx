@@ -31,6 +31,7 @@ import BookingFlight from './flight/pages/Booking';
 import FormHotel from './hotel/pages/FormHotel';
 import ResultHotel from './hotel/pages/ResultHotel';
 import DetailHotel from './hotel/pages/DetailHotel';
+import SelectRoomHotel from './hotel/pages/SelectRoomHotel';
 
 export {
   Flight,
@@ -59,4 +60,5 @@ export {
   FormHotel,
   ResultHotel,
   DetailHotel,
+  SelectRoomHotel,
 };
