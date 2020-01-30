@@ -11,3 +11,5 @@ export interface ResultHotelProps extends Props {}
 export interface DetailHotelProps extends Props {}
 
 export interface SelectRoomHotelProps extends Props {}
+
+export interface DetailRoomHotelProps extends Props {}

@@ -318,7 +318,7 @@ const STACK = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'DetailRoomHotel',
+    initialRouteName: 'Tabs',
     transitionConfig: nav => handleCustomTransition(nav),
   },
 );

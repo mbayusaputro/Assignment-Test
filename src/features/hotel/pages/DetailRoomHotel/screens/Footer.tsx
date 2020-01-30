@@ -3,12 +3,16 @@ import {View} from 'react-native';
 import {oc} from 'ts-optchain';
 import {Text, Button} from '../../../../../components';
 import {styles} from '../components';
-import {startFromLang, btnSelectRoomLang} from '../../../interface/string';
+import {
+  startFromLang,
+  btnSelectRoomLang,
+  btnBookLang,
+} from '../../../interface/string';
 import {moneyFormat} from '../../../../../helpers/helpers';
 
 type Props = {
   price: number;
-  onSelectHotel: () => void;
+  onSelectRoom: () => void;
 };
 
 export default (props: Props) => {
@@ -16,13 +20,15 @@ export default (props: Props) => {
     <View style={[styles.footer, styles.rowBetween]}>
       <View>
         <Text style={styles.textSubTitle} content={startFromLang} />
-        <Text style={styles.textBlue}>Rp{moneyFormat(oc(props.price)(0))}</Text>
+        <Text style={styles.textPrice}>
+          Rp{moneyFormat(oc(props.price)(0))}
+        </Text>
       </View>
       <View>
         <Button
-          onPress={props.onSelectHotel}
+          onPress={props.onSelectRoom}
           isUpperCase={true}
-          content={btnSelectRoomLang}
+          content={btnBookLang}
           customStyle={styles.btnFooter}
         />
       </View>

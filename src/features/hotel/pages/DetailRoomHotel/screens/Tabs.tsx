@@ -2,7 +2,7 @@ import React from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
 import {Color} from '../../../../../constants/Color';
-import {styles} from '../components';
+import {styles, TabContext} from '../components';
 import {Text} from '../../../../../components';
 import {tabDetailRoomLang, tabPriceRoomLang} from '../../../interface/string';
 import {WIDTH_SCREEN} from '../../../../../constants/Dimension';
@@ -46,9 +46,24 @@ export default class Tabs extends React.PureComponent<any, any> {
   renderTabContent = ({route}): any => {
     switch (route.key) {
       case 'room':
-        return <TabRoom />;
+        return (
+          <TabContext.Consumer>
+            {({title}) => <TabRoom title={title} />}
+          </TabContext.Consumer>
+        );
       case 'price':
-        return <TabPrice />;
+        return (
+          <TabContext.Consumer>
+            {({title, totalPrice, price, totalRoom}) => (
+              <TabPrice
+                title={title}
+                totalPrice={totalPrice}
+                price={price}
+                totalRoom={totalRoom}
+              />
+            )}
+          </TabContext.Consumer>
+        );
 
       default:
         return <View />;
@@ -62,7 +77,7 @@ export default class Tabs extends React.PureComponent<any, any> {
     const {index, routes} = this.state;
     return (
       <TabView
-        lazy
+        lazy={true}
         navigationState={{index, routes}}
         onIndexChange={this.handleTab}
         initialLayout={{width: WIDTH_SCREEN}}

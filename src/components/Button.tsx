@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontFamily: 'NunitoSans-ExtraBold',
     fontSize: HEADER_FONT_SIZE,
+    textAlign: 'center',
   },
   buttonSecondary: {
     backgroundColor: '#FFFFFF',
@@ -147,6 +148,7 @@ const styles = StyleSheet.create({
     color: Color.orange,
     fontFamily: 'NunitoSans-ExtraBold',
     fontSize: HEADER_FONT_SIZE,
+    textAlign: 'center',
   },
   buttonThird: {
     backgroundColor: Color.lightgray,
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'NunitoSans-Bold',
     fontSize: MEDIUM_FONT_SIZE,
+    textAlign: 'center',
   },
   buttonForth: {
     backgroundColor: Color.lightgray,
@@ -174,6 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'NunitoSans-Bold',
     fontSize: MEDIUM_FONT_SIZE,
+    textAlign: 'center',
   },
   buttonGoogle: {
     backgroundColor: Color.lightgray,
@@ -185,6 +189,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'NunitoSans-Bold',
     fontSize: MEDIUM_FONT_SIZE,
+    textAlign: 'center',
   },
 });
 
