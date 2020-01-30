@@ -1,30 +1,68 @@
 import React from 'react';
-import {SafeAreaView, Alert} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import Result from './screen/Result';
-import {dataFlight} from './data';
-import {NavigationScreenProp, NavigationState} from 'react-navigation';
 import {Header, SubHeader} from './components';
+import {connect} from 'react-redux';
+import {bindActionCreators, Dispatch} from 'redux';
+import {actionGetFlight} from '../../../../reduxs/flight/action';
+import {AppState} from '../../../../reduxs/reducers';
+import {Props} from './types';
+import {oc} from 'ts-optchain';
 
-type Props = {
-  handleSelectFlight: (payload: object) => void;
-  handleDetailFlight: (payload: object) => void;
-  navigation: NavigationScreenProp<NavigationState>;
-};
-
-const Default = (props: Props) => {
+const ResultFlight = (props: Props) => {
   const {
-    navigation: {navigate, goBack},
+    navigation: {navigate, goBack, state},
+    actionGetFlight,
+    isLoading,
   } = props;
-  const [select, isSelect] = React.useState({});
-  const [ret, isRet] = React.useState(true);
+  const {params} = state;
+  const [result, setResult]: any = React.useState([{}]);
 
-  React.useEffect(() => {}, [select]);
+  React.useEffect(() => {
+    getFlight();
+  }, []);
+
+  const getFlight = () => {
+    let payload: any = {
+      command: 'SCHEDULE',
+      product: 'FLIGHT',
+      data: {
+        departure_code: params.from.airport_code,
+        arrival_code: params.to.airport_code,
+        departure_date: params.date,
+        adult: params.passenger.adult,
+        seatClass: params.cabin_class,
+      },
+    };
+    if (params.passenger.child > 0) {
+      payload.data.child = params.passenger.child;
+    }
+    if (params.passenger.infant > 0) {
+      payload.data.infant = params.passenger.infant;
+    }
+    if (params.date_return !== '') {
+      payload.data.return_date = params.date_return;
+    }
+    actionGetFlight(payload).then((res: any) => {
+      if (res.type === 'GET_FLIGHT_SUCCESS') {
+        setResult(res.data);
+      }
+    });
+  };
 
   const toSelect = (item: object) => {
-    if (ret) {
-      navigate('ResultFlightReturn', item);
+    if (params.date_return !== '') {
+      navigate('ResultFlightReturn', {
+        departure_flight: item,
+        params: params,
+        result: result,
+      });
     } else {
-      isSelect(item);
+      navigate('BookingFlight', {
+        departure_flight: item,
+        return_flight: null,
+        params: params,
+      });
     }
   };
 
@@ -34,22 +72,47 @@ const Default = (props: Props) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ededed'}}>
-      <Header goBack={() => goBack()} title={'Jakarta'} />
+      <Header
+        goBack={() => goBack()}
+        from={state.params.from.city_name}
+        to={state.params.to.city_name}
+      />
       <SubHeader
-        date={new Date()}
-        adult={1}
-        child={0}
-        infant={0}
-        class={'Economy'}
-        total_flight={dataFlight.length}
+        date={state.params.date}
+        adult={state.params.passenger.adult}
+        child={state.params.passenger.child}
+        infant={state.params.passenger.infant}
+        cabin_class={state.params.cabin_class}
+        total_flight={oc(result).departures(0).length}
+        isLoading={isLoading}
       />
       <Result
-        dataFlight={dataFlight}
-        handleSelectFlight={(item: object) => toSelect(item)}
-        handleDetailFlight={(item: object) => toDetail(item)}
+        dataFlight={result.departures}
+        handleSelectFlight={toSelect}
+        handleDetailFlight={toDetail}
+        isLoading={isLoading}
       />
     </SafeAreaView>
   );
 };
 
-export default Default;
+const Default = (props: any) => {
+  return <ResultFlight {...props} />;
+};
+
+const mapStateToProps = (state: AppState) => ({
+  isLoading: state.flight.fetchResult,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      actionGetFlight: (payload: object) => actionGetFlight(payload),
+    },
+    dispatch,
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Default);

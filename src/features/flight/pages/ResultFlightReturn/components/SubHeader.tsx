@@ -2,17 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 import moment from 'moment';
+import {SubHeaderProps} from '../types';
 
-type Props = {
-  date: any;
-  adult: number;
-  child: number;
-  infant: number;
-  class: string;
-  total_flight: number;
-};
-
-const Header = (props: Props) => {
+const Header = (props: SubHeaderProps) => {
   return (
     <View style={styles.container}>
       <View

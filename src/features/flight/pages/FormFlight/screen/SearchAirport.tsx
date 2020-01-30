@@ -13,15 +13,9 @@ import Modal from 'react-native-modal';
 import {Color} from '../../../../../constants/Color';
 import {scale, verticalScale} from '../../../../../constants/ScaleUtils';
 import Header from '../../../components/Head';
+import {SearchAirportProps, AirportProps} from '../types';
 
-type Props = {
-  isModalVisible: boolean;
-  toggleModal: () => void;
-  airport: Array<object>;
-  handleSelect: (payload: any) => void;
-};
-
-const Aiports = (props: any) => {
+const Aiports = (props: AirportProps) => {
   return (
     <Touch style={styles.list} activeOpacity={0.7} onPress={props.onPress}>
       <View>
@@ -47,8 +41,28 @@ const Aiports = (props: any) => {
   );
 };
 
-const SearchAirport = (props: Props) => {
+const SearchAirport = (props: SearchAirportProps) => {
   const [isOnFocus, setOnFocus] = useState(false);
+  const [airport, setAirport] = useState([]);
+
+  React.useEffect(() => {
+    setAirport(props.airport);
+  }, []);
+
+  const onChange = (event: string) => {
+    let tempDataFlight = [];
+    if (props.airport.length > 0) {
+      props.airport.filter((dest: any) => {
+        if (
+          dest.city_name.toLowerCase().indexOf(event.toLowerCase()) > -1 ||
+          dest.airport_code.toLowerCase().indexOf(event.toLowerCase()) > -1
+        ) {
+          tempDataFlight.push(dest);
+        }
+      });
+    }
+    setAirport(tempDataFlight);
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -77,7 +91,8 @@ const SearchAirport = (props: Props) => {
                 styles.text,
                 isOnFocus ? {marginLeft: 30} : {textAlign: 'center'},
               ]}
-              onFocus={() => setOnFocus(!isOnFocus)}
+              onChangeText={(text: string) => onChange(text)}
+              onFocus={() => setOnFocus(true)}
             />
           </View>
           <View style={styles.title}>
@@ -91,7 +106,7 @@ const SearchAirport = (props: Props) => {
               Popular Destinations
             </Text>
             <FlatList
-              data={props.airport}
+              data={airport}
               keyExtractor={(__: any, index: number) => index.toString()}
               renderItem={({item, index}) => {
                 return (

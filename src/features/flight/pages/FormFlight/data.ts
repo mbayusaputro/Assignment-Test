@@ -1,3 +1,23 @@
+const from: object = {
+  airport_code: 'CGK',
+  city_name: 'Jakarta',
+  country_code: '360',
+  area_code: 'JKTA',
+  timezone: 'Asia/Pontianak',
+  international_airport_name: 'Soekarno Hatta Intl Airport',
+  icao_code: 'WIII',
+};
+
+const to: object = {
+  airport_code: 'DPS',
+  city_name: 'Bali /Denpasar',
+  country_code: '360',
+  area_code: 'DPS',
+  timezone: 'Asia/Ujung_Pandang',
+  international_airport_name: "Ngurah Rai Int'l",
+  icao_code: 'WADD',
+};
+
 const airport: Array<object> = [
   {
     airport_code: 'ABU',
@@ -6553,4 +6573,4 @@ const airport: Array<object> = [
   },
 ];
 
-export {airport};
+export {airport, from, to};

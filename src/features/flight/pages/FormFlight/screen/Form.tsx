@@ -5,21 +5,9 @@ import FieldFromTo from './FieldFromTo';
 import FieldData from './FieldData';
 import {Button} from '../../../../../components/';
 import {Color} from '../../../../../constants/Color';
+import {FormProps} from '../types';
 
-type Props = {
-  OptionTripPress: () => void;
-  OptionTrip: string;
-  fieldPress: (payload: any) => void;
-  searchFlightPress: () => void;
-  isSearching: boolean;
-  fromPressed: () => void;
-  toPressed: () => void;
-  fromCity: string;
-  fromAirport: string;
-  toCity: string;
-  toAirport: string;
-};
-const Form = (props: Props) => {
+const Form = (props: FormProps) => {
   let {
     OptionTripPress,
     OptionTrip,
@@ -32,6 +20,10 @@ const Form = (props: Props) => {
     fromAirport,
     toCity,
     toAirport,
+    date,
+    dateReturn,
+    passenger,
+    cabinClass,
   } = props;
   return (
     <View style={styles.container}>
@@ -51,14 +43,14 @@ const Form = (props: Props) => {
         icons={require('../../../../../assets/icons/icon_departure.png')}
         onPress={() => fieldPress('date')}
         label="Departure Date"
-        fieldValue="Wed, 21 Jan 2020"
+        fieldValue={date}
       />
       {OptionTrip === 'return' ? (
         <FieldData
           icons={require('../../../../../assets/icons/icon_return.png')}
           onPress={() => fieldPress('return_date')}
           label="Return Date"
-          fieldValue="Wed, 21 Jan 2020"
+          fieldValue={dateReturn}
         />
       ) : (
         <View />
@@ -67,13 +59,15 @@ const Form = (props: Props) => {
         icons={require('../../../../../assets/icons/icon_total_passenger.png')}
         onPress={() => fieldPress('passenger')}
         label="Passenger"
-        fieldValue="1 Adult"
+        fieldValue={`Adult ${passenger.adult}${
+          passenger.child > 0 ? `, Child ${passenger.child}` : []
+        }${passenger.infant > 0 ? `, Infant ${passenger.infant}` : []}`}
       />
       <FieldData
         icons={require('../../../../../assets/icons/icon_cabin_class.png')}
         onPress={() => fieldPress('class')}
         label="Cabin Class"
-        fieldValue="Economy"
+        fieldValue={cabinClass}
       />
       {isSearching ? (
         <ActivityIndicator

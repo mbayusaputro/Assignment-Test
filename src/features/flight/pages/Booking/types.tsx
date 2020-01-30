@@ -5,11 +5,7 @@ export interface GlobalProps {
 }
 
 export interface Props extends GlobalProps {
-  profile: any;
-  fetchUpdate: boolean;
-  isLogin: boolean;
-  token: string;
-  actionUpdateProfile: (token: string, payload: object) => Promise<void>;
+  actionBookingFlight: (payload: object) => Promise<void>;
 }
 
 export type HeaderProps = {
@@ -24,6 +20,8 @@ export type ContentProps = {
   onSubmit?: () => void;
   toggleSwitch: () => void;
   onPassenger: (form: string, index: number) => void;
+  departureFlight: any;
+  returnFlight: any;
 };
 
 export type ModalProps = {

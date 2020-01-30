@@ -5,15 +5,9 @@ import {Color} from '../../../../../constants/Color';
 import {Text, Button} from '../../../../../components';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
 import {generateNumber} from '../../../../../helpers/helpers';
+import {PassengerProps} from '../types';
 
-type Props = {
-  isModalVisible: boolean;
-  toggleModal: () => void;
-  onPassengerChange: (payload: any) => void;
-  isPassenger: any;
-};
-
-const Passenger = (props: Props) => {
+const Passenger = (props: PassengerProps) => {
   const [type, setType] = React.useState([
     {type: 'Adult', desc: 'Age 12+'},
     {type: 'Child', desc: 'Age 2-11'},

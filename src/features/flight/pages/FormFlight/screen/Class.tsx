@@ -10,14 +10,9 @@ import Modal from 'react-native-modal';
 import {Color} from '../../../../../constants/Color';
 import {scale, verticalScale} from '../../../../../constants/ScaleUtils';
 import {Text, Button} from '../../../../../components';
+import {ClassProps} from '../types';
 
-type Props = {
-  isModalVisible: boolean;
-  toggleModal: () => void;
-  onClassChange: (payload: any) => void;
-};
-
-const Class = (props: Props) => {
+const Class = (props: ClassProps) => {
   const [type, setType] = React.useState([
     {type: 'Economy', active: true},
     {type: 'Business', active: false},

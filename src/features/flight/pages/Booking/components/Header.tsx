@@ -1,22 +1,30 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity as Touch,
+} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 import {HEADER_FONT_SIZE} from '../../../../../constants/TextSize';
 import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
 import {WIDTH_SCREEN} from '../../../../../constants/Dimension';
 
 interface Props {
-  goBack?: boolean;
+  goBack?: () => void;
   title: string;
 }
 const Header = (props: Props) => {
   return (
     <View style={styles.container}>
-      <Image
-        style={{height: verticalScale(16), width: scale(20), marginTop: 2}}
-        source={require('../../../../../assets/icons/back.png')}
-        resizeMode="contain"
-      />
+      <Touch onPress={props.goBack}>
+        <Image
+          style={{height: verticalScale(16), width: scale(20), marginTop: 2}}
+          source={require('../../../../../assets/icons/back.png')}
+          resizeMode="contain"
+        />
+      </Touch>
       <Text style={styles.title}>{props.title}</Text>
       <Image
         style={{height: verticalScale(16), width: scale(20), marginTop: 2}}

@@ -1,27 +1,26 @@
 import React from 'react';
-import {SafeAreaView, Alert} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import Result from './screen/Result';
-import {dataFlight} from './data';
-import {NavigationScreenProp, NavigationState} from 'react-navigation';
 import {Header, SubHeader} from './components';
+import {Props} from './types';
+import {oc} from 'ts-optchain';
 
-type Props = {
-  handleSelectFlight: (payload: object) => void;
-  handleDetailFlight: (payload: object) => void;
-  navigation: NavigationScreenProp<NavigationState>;
-};
-
-const Default = (props: Props) => {
+const ResultFlight = (props: Props) => {
   const {
     navigation: {navigate, goBack, state},
   } = props;
-  const [select, isSelect] = React.useState({});
+  const {departure_flight, params, result} = state.params;
 
-  React.useEffect(() => {}, [select]);
+  React.useEffect(() => {
+    console.log(state);
+  }, []);
 
   const toSelect = (item: object) => {
-    navigate('BookingFlight');
-    // isSelect(item);
+    navigate('BookingFlight', {
+      departure_flight: departure_flight,
+      return_flight: item,
+      params: params,
+    });
   };
 
   const toDetail = (item: object) => {
@@ -30,18 +29,22 @@ const Default = (props: Props) => {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ededed'}}>
-      <Header goBack={() => goBack()} title={'Jakarta'} />
+      <Header
+        goBack={() => goBack()}
+        from={params.to.city_name}
+        to={params.from.city_name}
+      />
       <SubHeader
-        date={new Date()}
-        adult={1}
-        child={0}
-        infant={0}
-        class={'Economy'}
-        total_flight={dataFlight.length}
+        date={params.date_return}
+        adult={params.passenger.adult}
+        child={params.passenger.child}
+        infant={params.passenger.infant}
+        class={params.cabin_class}
+        total_flight={oc(result).returns(0).length}
       />
       <Result
-        selected={state.params}
-        dataFlight={dataFlight}
+        selected={departure_flight}
+        dataFlight={result.returns}
         handleSelectFlight={(item: object) => toSelect(item)}
         handleDetailFlight={(item: object) => toDetail(item)}
       />
@@ -49,4 +52,4 @@ const Default = (props: Props) => {
   );
 };
 
-export default Default;
+export default ResultFlight;

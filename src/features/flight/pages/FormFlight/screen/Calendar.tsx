@@ -4,14 +4,9 @@ import Modal from 'react-native-modal';
 import {Color} from '../../../../../constants/Color';
 import Header from '../../../components/Head';
 import CalendarPicker from 'react-native-calendar-picker';
+import {CalendarProps} from '../types';
 
-type Props = {
-  isModalVisible: boolean;
-  toggleModal: () => void;
-  onDateChange: (payload: any) => void;
-};
-
-const Calendar = (props: Props) => {
+const Calendar = (props: CalendarProps) => {
   return (
     <View style={{flex: 1}}>
       <Modal

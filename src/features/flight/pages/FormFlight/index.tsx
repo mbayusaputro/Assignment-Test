@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, Alert} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {Color} from '../../../../constants/Color';
 import Header from '../../components/Header';
 import Form from './screen/Form';
@@ -7,21 +7,9 @@ import SearchAirport from './screen/SearchAirport';
 import Calendar from './screen/Calendar';
 import Passenger from './screen/Passenger';
 import Class from './screen/Class';
-import {NavigationScreenProp, NavigationState} from 'react-navigation';
-import {airport} from './data';
-
-type Props = {
-  handleOptionTripPress: () => void;
-  handleFieldPress: (payload: any) => void;
-  handleSearchFlight: () => void;
-  handleFromToModals: (payload: any) => void;
-  handleSelect: (payload: object) => void;
-  handleSelectDate: (payload: object) => void;
-  handleSelectDateReturn: (payload: object) => void;
-  handleSelectPassenger: (payload: object) => void;
-  handleSelectClass: (payload: object) => void;
-  navigation: NavigationScreenProp<NavigationState>;
-};
+import {airport, from, to} from './data';
+import moment from 'moment';
+import {Props} from './types';
 
 const FormFlight = (props: Props) => {
   let {
@@ -45,8 +33,8 @@ const FormFlight = (props: Props) => {
   const [isPassengerVisible, setPassengerVisible] = useState(false);
   const [isClassVisible, setClassVisible] = useState(false);
   const [isParams, setParams] = useState('');
-  const [isFrom, setFrom] = useState(null);
-  const [isTo, setTo] = useState(null);
+  const [isFrom, setFrom]: any = useState(from);
+  const [isTo, setTo]: any = useState(to);
   const [isDate, setDate] = useState(new Date());
   const [isDateReturn, setDateReturn] = useState(
     new Date(new Date().setDate(new Date().getDate() + 1)),
@@ -105,19 +93,22 @@ const FormFlight = (props: Props) => {
   };
 
   handleSearchFlight = () => {
-    // setSearching(true);
-    // setTimeout(() => {
-    //   setSearching(false);
-    // }, 5000);
+    setSearching(true);
     let payload = {
       from: isFrom,
       to: isTo,
-      date: isDate,
-      date_return: isDateReturn,
+      date: moment(isDate).format('YYYY-MM-DD'),
+      date_return:
+        optionTrip === 'return'
+          ? moment(isDateReturn).format('YYYY-MM-DD')
+          : '',
       passenger: isPassenger,
       cabin_class: isClass,
     };
-    alert(JSON.stringify(payload));
+    setTimeout(() => {
+      setSearching(false);
+      navigate('ResultFlight', payload);
+    }, 500);
   };
 
   return (
@@ -131,10 +122,14 @@ const FormFlight = (props: Props) => {
         searchFlightPress={handleSearchFlight}
         fromPressed={() => handleFromToModals('from')}
         toPressed={() => handleFromToModals('to')}
-        fromCity="Jakarta"
-        fromAirport="CGK"
-        toCity="Denpasar"
-        toAirport="DPS"
+        fromCity={isFrom.city_name}
+        fromAirport={isFrom.airport_code}
+        toCity={isTo.city_name}
+        toAirport={isTo.airport_code}
+        date={moment(isDate).format('ddd, DD MMM YYYY')}
+        dateReturn={moment(isDateReturn).format('ddd, DD MMM YYYY')}
+        passenger={isPassenger}
+        cabinClass={isClass}
       />
 
       <SearchAirport
@@ -174,4 +169,5 @@ const styles = StyleSheet.create({
     backgroundColor: Color.lightgray,
   },
 });
+
 export default FormFlight;

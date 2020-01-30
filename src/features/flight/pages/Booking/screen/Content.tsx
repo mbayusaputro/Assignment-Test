@@ -19,6 +19,8 @@ const Content = (props: ContentProps) => {
     toggleSwitch,
     onPassenger,
     onSubmit,
+    departureFlight,
+    returnFlight,
   } = props;
   return (
     <ScrollView
@@ -26,28 +28,44 @@ const Content = (props: ContentProps) => {
       showsVerticalScrollIndicator={false}>
       <ListView
         title="Departure Flight"
-        date={new Date()}
-        departure="CGK"
-        arrival="DPS"
-        duration="2h 5m"
-        transit="direct"
-        departure_time="05:35"
-        arrival_time="05:35"
-        airline="Citilink"
-        img="https://tvlk.imgix.net/imageResource/2015/12/17/1450350561012-6584b693edd67d75cfc25ecff41c5704.png"
+        date={departureFlight.departure_date}
+        departure={departureFlight.detail[0].departure_city}
+        arrival={
+          departureFlight.detail[departureFlight.detail.length - 1].arrival_city
+        }
+        duration={departureFlight.duration}
+        transit={
+          departureFlight.stop.toLowerCase() === 'langsung'
+            ? 'direct'
+            : departureFlight.stop
+        }
+        departure_time={departureFlight.departure_time}
+        arrival_time={departureFlight.arrival_time}
+        airline={departureFlight.name}
+        img={departureFlight.detail[0].img_src}
       />
-      <ListView
-        title="Return Flight"
-        date={new Date()}
-        departure="CGK"
-        arrival="DPS"
-        duration="2h 5m"
-        transit="direct"
-        departure_time="05:35"
-        arrival_time="05:35"
-        airline="Citilink"
-        img="https://tvlk.imgix.net/imageResource/2015/12/17/1450350561012-6584b693edd67d75cfc25ecff41c5704.png"
-      />
+      {returnFlight === null ? (
+        []
+      ) : (
+        <ListView
+          title="Return Flight"
+          date={returnFlight.departure_date}
+          departure={returnFlight.detail[0].departure_city}
+          arrival={
+            returnFlight.detail[returnFlight.detail.length - 1].arrival_city
+          }
+          duration={returnFlight.duration}
+          transit={
+            returnFlight.stop.toLowerCase() === 'langsung'
+              ? 'direct'
+              : returnFlight.stop
+          }
+          departure_time={returnFlight.departure_time}
+          arrival_time={returnFlight.arrival_time}
+          airline={returnFlight.name}
+          img={returnFlight.detail[0].img_src}
+        />
+      )}
       <Login />
       <Contact onPress={onContactDetail} name={contactName} />
       <Passenger

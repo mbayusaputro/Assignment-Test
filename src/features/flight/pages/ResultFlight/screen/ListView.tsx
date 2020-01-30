@@ -8,21 +8,9 @@ import {
 } from 'react-native';
 import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
 import {Color} from '../../../../../constants/Color';
+import {ListProps} from '../types';
 
-type Props = {
-  departure_time: string;
-  arrival_time: string;
-  departure: string;
-  arrival: string;
-  price: number;
-  img: string;
-  duration: string;
-  transit: string;
-  onPress: () => void;
-  onDetail: () => void;
-};
-
-const ListView = (props: Props) => {
+const ListView = (props: ListProps) => {
   return (
     <Touch style={styles.card} onPress={props.onPress} activeOpacity={0.7}>
       <View style={styles.row}>

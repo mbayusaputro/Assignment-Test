@@ -1,27 +1,20 @@
 import React from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, FlatList} from 'react-native';
 import Date from './Date';
 import ListView from './ListView';
+import {ResultProps} from '../types';
+import {Loading, LoadingDate} from '../components';
 
-type Props = {
-  handleSelectFlight: (payload: object) => void;
-  handleDetailFlight: (payload: object) => void;
-  dataFlight: Array<object>;
-};
-
-const Result = (props: Props) => {
-  const {dataFlight, handleDetailFlight, handleSelectFlight} = props;
+const Result = (props: ResultProps) => {
+  const {dataFlight, handleDetailFlight, handleSelectFlight, isLoading} = props;
   return (
-    <View style={{flex: 1}}>
-      <ScrollView
-        style={{marginHorizontal: 10}}
-        showsVerticalScrollIndicator={false}>
-        <Date />
-        <View style={{marginVertical: 5}} />
-        {dataFlight.map((item: any, i: number) => {
+    <View style={{flex: 1, marginHorizontal: 10}}>
+      <FlatList
+        data={dataFlight}
+        keyExtractor={(__: any, index: number) => index.toString()}
+        renderItem={({item}) => {
           return (
             <ListView
-              key={i}
               onPress={() => handleSelectFlight(item)}
               onDetail={() => handleDetailFlight(item)}
               departure={item.detail[0].departure_city}
@@ -36,8 +29,11 @@ const Result = (props: Props) => {
               }
             />
           );
-        })}
-      </ScrollView>
+        }}
+        ListHeaderComponent={isLoading ? <LoadingDate /> : <Date />}
+        ListHeaderComponentStyle={{marginBottom: 10}}
+        ListEmptyComponent={<Loading />}
+      />
     </View>
   );
 };

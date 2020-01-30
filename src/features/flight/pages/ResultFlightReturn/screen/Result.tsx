@@ -3,15 +3,9 @@ import {View, ScrollView} from 'react-native';
 import Date from './Date';
 import ListView from './ListView';
 import Selected from './Selected';
+import {ResultProps} from '../types';
 
-type Props = {
-  handleSelectFlight: (payload: object) => void;
-  handleDetailFlight: (payload: object) => void;
-  dataFlight: Array<object>;
-  selected: any;
-};
-
-const Result = (props: Props) => {
+const Result = (props: ResultProps) => {
   const {dataFlight, selected, handleDetailFlight, handleSelectFlight} = props;
   return (
     <View style={{flex: 1}}>

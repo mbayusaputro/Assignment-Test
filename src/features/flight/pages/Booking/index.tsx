@@ -3,26 +3,29 @@ import {SafeAreaView, StyleSheet} from 'react-native';
 import {Header, SubHeader} from './components';
 import {Color} from '../../../../constants/Color';
 import Content from './screen/Content';
-import {
-  validateEmailFormat,
-  getFirstNameLastname,
-} from '../../../../helpers/helpers';
+import {getFirstNameLastname} from '../../../../helpers/helpers';
 import {Modal, ModalPassenger} from './components';
+import {connect} from 'react-redux';
+import {bindActionCreators, Dispatch} from 'redux';
+import {actionBookingFlight} from '../../../../reduxs/flight/action';
+import {AppState} from '../../../../reduxs/reducers';
+import {Props} from './types';
 
-const Default = () => {
+const Booking = (props: Props) => {
+  const {
+    navigation: {state, goBack},
+    actionBookingFlight,
+  } = props;
+  const {departure_flight, return_flight, params} = state.params;
   // State
   const [active, setActive] = useState(false);
   const [isVisible, setVisible] = useState(false);
   const [modalForm, setModalForm] = useState('');
   const [modalIndex, setModalIndex] = useState(0);
-  const [year, setYear] = useState('');
-  const [month, setMonth] = useState('');
-  const [day, setDay] = useState('');
   const [contact, setContact] = useState(null);
   const [adult, setAdult] = useState([]);
   const [child, setChild] = useState([]);
   const [infant, setInfant] = useState([]);
-  const [payloadPassenger, setPayload] = useState([]);
   const [dataPassenger, setDataPassenger] = useState({
     adult: [],
     child: [],
@@ -36,8 +39,8 @@ const Default = () => {
 
   useEffect(() => {
     generateStatePassenger(1, 'adult');
-    generateStatePassenger(1, 'child');
-    generateStatePassenger(1, 'infant');
+    generateStatePassenger(0, 'child');
+    generateStatePassenger(0, 'infant');
   }, []);
 
   const generateStatePassenger = (total: number, field: string) => {
@@ -72,11 +75,6 @@ const Default = () => {
     setContact(payload);
     setVisible(!isVisible);
     setModalForm('adult');
-  };
-  const savePassenger = (payload: any) => {
-    // setContact(payload);
-    // setModal(!modal);
-    alert(JSON.stringify(payload));
   };
 
   const generatePayloadPassengers = (field: string) => {
@@ -165,12 +163,44 @@ const Default = () => {
   };
 
   const onSubmit = () => {
-    console.log(adult.concat(child).concat(infant));
+    let payload = {
+      command: 'BOOKING',
+      product: 'FLIGHT',
+      data: {
+        id: 2,
+        partner_trxid: 'PARTNER-001',
+        departure_code: params.from.airport_code,
+        arrival_code: params.to.airport_code,
+        departure_date: params.date,
+        return_date: params.date_return,
+        adult: params.passenger.adult,
+        child: params.passenger.child,
+        infant: params.passenger.infant,
+        schedule_id: departure_flight.schedule_id,
+        return_schedule_id:
+          return_flight === null ? '' : return_flight.schedule_id,
+        class: 'Y',
+        sub_class: 'Y',
+        return_class: '',
+        contact_detail: {
+          salutation: contact.salutation,
+          fullname: contact.fullname,
+          email: contact.email,
+          phone: contact.mobileNumber,
+        },
+        passengers: adult.concat(child).concat(infant),
+      },
+    };
+    actionBookingFlight(payload).then((res: any) => {
+      if (res.data.status) {
+        console.log(res);
+      }
+    });
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Booking Summary" />
+      <Header goBack={() => goBack()} title="Booking Summary" />
       <SubHeader />
       <Content
         toggleSwitch={toggleSwitch}
@@ -182,6 +212,9 @@ const Default = () => {
         dataPassenger={dataPassenger}
         onPassenger={openModal}
         onSubmit={() => onSubmit()}
+        //Flight Seleceted
+        departureFlight={departure_flight}
+        returnFlight={return_flight}
       />
       {modalForm === 'contact' ? (
         <Modal
@@ -204,11 +237,30 @@ const Default = () => {
   );
 };
 
-export default Default;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Color.lightgray,
   },
 });
+
+const Default = (props: any) => {
+  return <Booking {...props} />;
+};
+
+const mapStateToProps = (state: AppState) => ({
+  isLoading: state.flight.fetchBooking,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      actionBookingFlight: (payload: object) => actionBookingFlight(payload),
+    },
+    dispatch,
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Default);

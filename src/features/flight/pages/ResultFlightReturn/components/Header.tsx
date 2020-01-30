@@ -3,12 +3,9 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 import {HEADER_FONT_SIZE} from '../../../../../constants/TextSize';
 import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
+import {HeaderProps} from '../types';
 
-interface Props {
-  goBack?: () => void;
-  title: string;
-}
-const Header = (props: Props) => {
+const Header = (props: HeaderProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={props.goBack}>
@@ -19,7 +16,7 @@ const Header = (props: Props) => {
         />
       </TouchableOpacity>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.title}>{props.from}</Text>
         <Image
           style={{
             height: verticalScale(16),
@@ -29,7 +26,7 @@ const Header = (props: Props) => {
           source={require('../../../../../assets/icons/icon_header_flight_result.png')}
           resizeMode="contain"
         />
-        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.title}>{props.to}</Text>
       </View>
       <Image
         style={{height: verticalScale(16), width: scale(10), marginTop: 5}}

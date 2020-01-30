@@ -2,18 +2,19 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 import moment from 'moment';
-import {verticalScale} from '../../../../../constants/ScaleUtils';
+import {SubHeaderProps} from '../types';
+import {Load} from '../components';
 
-type Props = {
-  date: any;
-  adult: number;
-  child: number;
-  infant: number;
-  class: string;
-  total_flight: number;
-};
-
-const Header = (props: Props) => {
+const Header = (props: SubHeaderProps) => {
+  const {
+    date,
+    adult,
+    child,
+    infant,
+    total_flight,
+    isLoading,
+    cabin_class,
+  } = props;
   return (
     <View style={styles.container}>
       <View
@@ -23,22 +24,24 @@ const Header = (props: Props) => {
           top: -10,
           alignItems: 'center',
         }}>
-        <Text style={styles.id}>
-          {moment(props.date).format('ddd, DD MMM')}
-        </Text>
+        <Text style={styles.id}>{moment(date).format('ddd, DD MMM')}</Text>
         <View style={styles.circle} />
         <Text style={styles.id}>
-          Adult {props.adult}
-          {props.child > 0 ? `, Child ${props.child}` : []}
-          {props.infant > 0 ? `, Infant ${props.infant}` : []}
+          Adult {adult}
+          {child > 0 ? `, Child ${child}` : []}
+          {infant > 0 ? `, Infant ${infant}` : []}
         </Text>
         <View style={styles.circle} />
-        <Text style={styles.id}>{props.class}</Text>
+        <Text style={styles.id}>{cabin_class}</Text>
       </View>
       <View style={styles.top}>
-        <Text style={styles.ids}>
-          Select Departure Flights From {props.total_flight} Schedule
-        </Text>
+        {isLoading ? (
+          <Load />
+        ) : (
+          <Text style={styles.ids}>
+            Select Departure Flights From {total_flight} Schedule
+          </Text>
+        )}
       </View>
     </View>
   );
