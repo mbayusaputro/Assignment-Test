@@ -26,6 +26,13 @@ export default (props: Props) => {
     setFilter(data);
   };
 
+  const navigating = (route: string) => {
+    const {
+      navigation: {navigate},
+    } = props;
+    navigate(route);
+  };
+
   // Main Render
   return (
     <HighSafeArea style={{backgroundColor: Color.backWhite}}>
@@ -42,8 +49,9 @@ export default (props: Props) => {
       <Content
         dataFilter={dataFilter}
         dataRoom={dataRoom}
-        selectFilter={(item: any, index: number) => selectFilter(item, index)}
         selectedFilter={filter}
+        selectFilter={(item: any, index: number) => selectFilter(item, index)}
+        onDetailRoom={() => navigating('DetailRoomHotel')}
       />
     </HighSafeArea>
   );

@@ -16,6 +16,7 @@ type Props = {
   maxGuest: number;
   facility: Array<any>;
   price: number;
+  onDetailRoom: () => void;
 };
 
 export default (props: Props) => {
@@ -24,7 +25,7 @@ export default (props: Props) => {
     <Card style={styles.cardRoom}>
       <View style={styles.rowBetween}>
         <Text style={styles.textTitle}>{title}</Text>
-        <Touch activeOpacity={0.5}>
+        <Touch onPress={props.onDetailRoom} activeOpacity={0.5}>
           <Text style={styles.textDetail} content={seeDetailLang} />
         </Touch>
       </View>

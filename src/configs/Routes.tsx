@@ -31,6 +31,7 @@ import {
   ResultHotel,
   DetailHotel,
   SelectRoomHotel,
+  DetailRoomHotel,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -309,9 +310,15 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
+    DetailRoomHotel: {
+      screen: DetailRoomHotel,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
   {
-    initialRouteName: 'Tabs',
+    initialRouteName: 'DetailRoomHotel',
     transitionConfig: nav => handleCustomTransition(nav),
   },
 );

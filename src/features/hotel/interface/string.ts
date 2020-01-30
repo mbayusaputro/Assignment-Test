@@ -24,3 +24,7 @@ export const seeDetailLang = {id: 'Lihat Detail', en: 'See Details'};
 export const selectLang = {id: 'PILIH', en: 'SELECT'};
 export const roomLang = {id: 'Kamar', en: 'Room'};
 export const guestLang = {id: 'Tamu', en: 'Guest'};
+
+// DETAIL ROOM HOTEL
+export const tabDetailRoomLang = {id: 'Detail Kamar', en: 'Room Details'};
+export const tabPriceRoomLang = {id: 'Detail Harga', en: 'Price Details'};

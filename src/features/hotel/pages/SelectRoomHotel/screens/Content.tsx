@@ -6,8 +6,9 @@ import {styles, Card} from '../components';
 type Props = {
   dataFilter: Array<any>;
   dataRoom: Array<any>;
-  selectFilter: (item: any, index: number) => void;
   selectedFilter: any;
+  selectFilter: (item: any, index: number) => void;
+  onDetailRoom: () => void;
 };
 
 export default (props: Props) => {
@@ -21,6 +22,7 @@ export default (props: Props) => {
       maxGuest={item.maxGuest}
       facility={item.facility}
       price={item.price}
+      onDetailRoom={props.onDetailRoom}
     />
   );
   const renderFilter = ({item, index}: any) => (
