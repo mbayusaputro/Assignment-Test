@@ -33,6 +33,7 @@ import ResultHotel from './hotel/pages/ResultHotel';
 import DetailHotel from './hotel/pages/DetailHotel';
 import SelectRoomHotel from './hotel/pages/SelectRoomHotel';
 import DetailRoomHotel from './hotel/pages/DetailRoomHotel';
+import BookingFormHotel from './hotel/pages/BookingFormHotel';
 
 export {
   Flight,
@@ -63,4 +64,5 @@ export {
   DetailHotel,
   SelectRoomHotel,
   DetailRoomHotel,
+  BookingFormHotel,
 };

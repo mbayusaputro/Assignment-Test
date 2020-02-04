@@ -9,6 +9,7 @@ type Props = {
   selectedFilter: any;
   selectFilter: (item: any, index: number) => void;
   onDetailRoom: () => void;
+  onBookRoom: () => void;
 };
 
 export default (props: Props) => {
@@ -23,6 +24,7 @@ export default (props: Props) => {
       facility={item.facility}
       price={item.price}
       onDetailRoom={props.onDetailRoom}
+      onBookRoom={props.onBookRoom}
     />
   );
   const renderFilter = ({item, index}: any) => (

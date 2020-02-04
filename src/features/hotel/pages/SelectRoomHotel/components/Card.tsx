@@ -17,6 +17,7 @@ type Props = {
   facility: Array<any>;
   price: number;
   onDetailRoom: () => void;
+  onBookRoom: () => void;
 };
 
 export default (props: Props) => {
@@ -66,6 +67,7 @@ export default (props: Props) => {
           content={selectLang}
           isUpperCase
           customStyle={styles.btnFooter}
+          onPress={props.onBookRoom}
         />
       </View>
     </Card>

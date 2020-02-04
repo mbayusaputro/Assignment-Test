@@ -52,6 +52,7 @@ export default (props: Props) => {
         selectedFilter={filter}
         selectFilter={(item: any, index: number) => selectFilter(item, index)}
         onDetailRoom={() => navigating('DetailRoomHotel')}
+        onBookRoom={() => navigating('BookingFormHotel')}
       />
     </HighSafeArea>
   );

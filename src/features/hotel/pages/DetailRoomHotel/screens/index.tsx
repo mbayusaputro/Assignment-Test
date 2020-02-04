@@ -15,6 +15,13 @@ export default (props: Props) => {
     goBack();
   };
 
+  const navigating = (route: string) => {
+    const {
+      navigation: {navigate},
+    } = props;
+    navigate(route);
+  };
+
   // Main Render
   return (
     <HighSafeArea>
@@ -28,7 +35,10 @@ export default (props: Props) => {
         }}>
         <Tabs />
       </TabContext.Provider>
-      <Footer price={3515400} onSelectRoom={() => alert('Pressed')} />
+      <Footer
+        price={3515400}
+        onSelectRoom={() => navigating('BookingFormHotel')}
+      />
     </HighSafeArea>
   );
 };

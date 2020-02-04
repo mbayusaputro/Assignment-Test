@@ -61,3 +61,9 @@ export const tabPriceRoomLang: LangProps = {
   en: 'Price Details',
 };
 export const btnBookLang: LangProps = {id: 'Pesan', en: 'Book'};
+
+// BOOKING FORM HOTEL
+export const bookingSumaryLang: LangProps = {
+  id: 'Ringkasan Pemesanan',
+  en: 'Booking Summary',
+};

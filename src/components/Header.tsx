@@ -14,7 +14,13 @@ import {Color} from '../constants/Color';
 import {TITLE_FONT_SIZE} from '../constants/TextSize';
 import normalize from '../constants/normalize';
 
-export const SubHeader = () => <View style={styles.subHeader} />;
+type SubHeaderProps = {
+  style?: StyleProp<ViewStyle>;
+};
+
+export const SubHeader = (props: SubHeaderProps) => (
+  <View style={[styles.subHeader, props.style]} />
+);
 
 type contentTitle = {id: string; en: string};
 type HeaderProps = {

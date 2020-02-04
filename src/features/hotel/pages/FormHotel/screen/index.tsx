@@ -73,14 +73,6 @@ export default (props: Props) => {
       navigation: {navigate},
     } = props;
     navigate('ResultHotel');
-    // const payload = {
-    //   destination,
-    //   checkIn,
-    //   checkOut,
-    //   room,
-    //   guest,
-    // };
-    // alert(JSON.stringify(payload));
   };
 
   // Main Render
