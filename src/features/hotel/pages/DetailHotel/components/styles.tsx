@@ -49,6 +49,10 @@ export default StyleSheet.create({
   vertical: {
     marginVertical: 10,
   },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   footer: {
     width: WIDTH_SCREEN,
     paddingHorizontal: 20,
@@ -63,6 +67,13 @@ export default StyleSheet.create({
   facilitySpace: {
     width: normalize(100),
     alignItems: 'center',
+  },
+  modalHeaderRounded: {
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+    backgroundColor: Color.white,
   },
 
   // TEXT
@@ -91,6 +102,9 @@ export default StyleSheet.create({
     color: Color.greyish,
     fontSize: DEFAULT_FONT_SIZE,
   },
+  textWhite: {
+    color: Color.white,
+  },
 
   // Other
   backgroundImage: {
@@ -98,9 +112,22 @@ export default StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    width: null,
+    width: WIDTH_SCREEN,
     height: HEADER_MAX_HEIGHT,
-    resizeMode: 'cover',
+    backgroundColor: 'rgba(0,0,0,0.25)',
+  },
+  centerImage: {
+    width: '100%',
+    height: HEADER_MAX_HEIGHT,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageList: {
+    width: WIDTH_SCREEN / 3,
+    height: WIDTH_SCREEN / 3,
+    borderWidth: 0.5,
+    borderColor: Color.white,
+    backgroundColor: Color.backWhite,
   },
   hr: {
     width: '100%',

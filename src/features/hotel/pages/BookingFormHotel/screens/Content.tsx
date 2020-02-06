@@ -27,11 +27,16 @@ export default () => {
           checkout={content.checkout}
         />
         <CardLogin onPress={content.onLogin} />
-        <ContactDetail onShowContact={content.onShowContact} />
+        <ContactDetail
+          onShowContact={content.onShowContact}
+          dataContact={content.dataContact}
+        />
         <Guest
           totalGuest={content.totalGuest}
           onShowGuest={(item: any) => content.onShowGuest(item)}
           guest={content.guestArr}
+          sameContact={content.sameContact}
+          onChangeSame={content.onChangeSame}
         />
         <Price price={content.price} />
         <View style={[styles.content, styles.vertical]}>
@@ -40,6 +45,7 @@ export default () => {
             isUpperCase
             fullWidth
             customStyle={styles.btnFooter}
+            onPress={content.onBook}
           />
         </View>
         <View style={styles.vertical} />

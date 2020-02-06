@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const URL: string = 'https://api.aeroaja.com/v1/';
+const HOTEL_BEDS: string = 'https://apinodegw-dev.aeroaja.com';
 
 // ====================== PROFILE ======================
 export async function signIn(payload: object) {
@@ -93,6 +94,21 @@ export async function bookingFlight(payload: object) {
   return response;
 }
 // ====================== FLIGHT ======================
+
+// ====================== HOTEL ======================
+export async function listDestinationHotel(payload: object) {
+  const uri: string = `${HOTEL_BEDS}/search-destination`;
+  const response = await axios.post(uri, payload).then(res => res.data);
+  return response;
+}
+
+export async function searchHotel(payload: object) {
+  const beds = 'https://apidev.aeroaja.com/v1/gateway/beds';
+  const uri: string = `${beds}/search-hotel`;
+  const response = await axios.post(uri, payload).then(res => res.data);
+  return response;
+}
+// ====================== HOTEL ======================
 
 // ====================== PAYMENT ======================
 export async function paymentMidtrans(payload: object) {

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ViewStyle,
   KeyboardTypeOptions,
+  ReturnKeyTypeOptions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {Color} from '../constants/Color';
@@ -18,11 +19,14 @@ interface PropInputText {
   placeholder: string;
   keyboardType?: KeyboardTypeOptions;
   value?: string;
-  onChangeText: (text: any) => void;
   autoCapitalize?: AutoCapitalize;
   maxLength?: number;
   editable?: boolean;
   numberOfLines?: number;
+  autoFocus?: boolean;
+  returnKeyType?: ReturnKeyTypeOptions;
+  onChangeText?: (text: any) => void;
+  onSubmitEditing?: (item: any) => void;
 }
 export const InputText = (props: PropInputText) => {
   const {inputText} = styles;
@@ -33,6 +37,9 @@ export const InputText = (props: PropInputText) => {
         placeholder={props.placeholder}
         placeholderTextColor={Color.mediumgray}
         onChangeText={props.onChangeText}
+        onSubmitEditing={props.onSubmitEditing}
+        returnKeyType={props.returnKeyType}
+        autoFocus={props.autoFocus}
         value={props.value}
         keyboardType={props.keyboardType ? props.keyboardType : 'default'}
         autoCapitalize={props.autoCapitalize}

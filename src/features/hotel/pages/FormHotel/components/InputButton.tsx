@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import {FastImageSource} from 'react-native-fast-image';
 import {Imaging, Text} from '../../../../../components';
 import {Color} from '../../../../../constants/Color';
@@ -20,12 +26,16 @@ type Props = {
   fieldValue?: string;
   onPress?: () => void;
   icons: FastImageSource;
+  custom?: React.ReactNode;
+  customStyle?: StyleProp<ViewStyle>;
 };
 
 const FieldData = (props: Props) => {
-  let {label, fieldValue, onPress, icons} = props;
+  let {label, fieldValue, onPress, icons, custom} = props;
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.container, props.customStyle]}>
       <View style={styles.leftSection}>
         <View>
           <Imaging
@@ -37,23 +47,29 @@ const FieldData = (props: Props) => {
         </View>
       </View>
       <View style={styles.rightSection}>
-        <View>
-          {props.labelContent ? (
-            <Text style={styles.label} content={props.labelContent} />
-          ) : (
-            <Text style={styles.label}>{label}</Text>
-          )}
-        </View>
-        <View style={styles.rowBetween}>
-          {props.contentValue ? (
-            <Text style={styles.title} content={props.contentValue} />
-          ) : (
-            <Text style={styles.title}>{fieldValue}</Text>
-          )}
-          {props.subContentValue && (
-            <Text style={styles.subTitle} content={props.subContentValue} />
-          )}
-        </View>
+        {custom ? (
+          custom
+        ) : (
+          <View>
+            <View>
+              {props.labelContent ? (
+                <Text style={styles.label} content={props.labelContent} />
+              ) : (
+                <Text style={styles.label}>{label}</Text>
+              )}
+            </View>
+            <View style={styles.rowBetween}>
+              {props.contentValue ? (
+                <Text style={styles.title} content={props.contentValue} />
+              ) : (
+                <Text style={styles.title}>{fieldValue}</Text>
+              )}
+              {props.subContentValue && (
+                <Text style={styles.subTitle} content={props.subContentValue} />
+              )}
+            </View>
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   );

@@ -41,10 +41,10 @@ export default (props: Props) => {
         contentValue={{
           id: dayjs(props.checkIn)
             .locale('id', dayID)
-            .format('dddd, DD MMM YYYY'),
+            .format('ddd, DD MMM YYYY'),
           en: dayjs(props.checkIn)
             .locale('en', dayEN)
-            .format('dddd, DD MMM YYYY'),
+            .format('ddd, DD MMM YYYY'),
         }}
         subContentValue={
           props.duration > 0
@@ -59,10 +59,10 @@ export default (props: Props) => {
         contentValue={{
           id: dayjs(props.checkOut)
             .locale('id', dayID)
-            .format('dddd, DD MMM YYYY'),
+            .format('ddd, DD MMM YYYY'),
           en: dayjs(props.checkOut)
             .locale('en', dayEN)
-            .format('dddd, DD MMM YYYY'),
+            .format('ddd, DD MMM YYYY'),
         }}
       />
       <InputButton

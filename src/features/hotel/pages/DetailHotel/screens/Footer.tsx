@@ -1,10 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
-import {oc} from 'ts-optchain';
 import {Text, Button} from '../../../../../components';
 import {styles} from '../components';
 import {startFromLang, btnSelectRoomLang} from '../../../interface/string';
-import {moneyFormat} from '../../../../../helpers/helpers';
+import {eurToIdr} from '../../../../../helpers/helpers';
 
 type Props = {
   price: number;
@@ -16,7 +15,7 @@ export default (props: Props) => {
     <View style={[styles.footer, styles.rowBetween]}>
       <View>
         <Text style={styles.textSubTitle} content={startFromLang} />
-        <Text style={styles.textBlue}>Rp{moneyFormat(oc(props.price)(0))}</Text>
+        <Text style={styles.textBlue}>Rp{eurToIdr(props.price)}</Text>
       </View>
       <View>
         <Button

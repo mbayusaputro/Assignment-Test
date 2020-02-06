@@ -2,6 +2,7 @@ import React from 'react';
 import {View, TouchableOpacity as Touch, FlatList} from 'react-native';
 import {Text} from '../../../../../components';
 import {styles, Card} from '../components';
+import {eurToIdr, groupingRoomImages} from '../../../../../helpers/helpers';
 
 type Props = {
   dataFilter: Array<any>;
@@ -9,24 +10,34 @@ type Props = {
   selectedFilter: any;
   selectFilter: (item: any, index: number) => void;
   onDetailRoom: () => void;
-  onBookRoom: () => void;
+  onBookRoom: (item: any) => void;
+  path: string;
+  detailHotel: any;
 };
 
 export default (props: Props) => {
   // Flatlist
   const keyExtractor = (__: any, index: number) => index.toString();
-  const renderItem = ({item, index}: any) => (
-    <Card
-      key={index}
-      title={item.title}
-      photo={item.photo}
-      maxGuest={item.maxGuest}
-      facility={item.facility}
-      price={item.price}
-      onDetailRoom={props.onDetailRoom}
-      onBookRoom={props.onBookRoom}
-    />
-  );
+  const renderItem = ({item, index}: any) => {
+    const getImage = (code: any) => {
+      const images = props.detailHotel.images;
+      const rooms = props.dataRoom;
+      const roomImage = groupingRoomImages(images, rooms, code);
+      return props.path + roomImage;
+    };
+    return (
+      <Card
+        key={index}
+        title={item.name}
+        photo={getImage(item.code)}
+        maxGuest={item.rates[0].allotment}
+        facility={[]}
+        price={item.rates[0].net}
+        onDetailRoom={props.onDetailRoom}
+        onBookRoom={() => props.onBookRoom(item)}
+      />
+    );
+  };
   const renderFilter = ({item, index}: any) => (
     <Touch
       key={index}

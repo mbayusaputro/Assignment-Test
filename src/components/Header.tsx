@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import {
   View,
   StyleSheet,
-  TouchableHighlight as Touch,
+  TouchableOpacity as Touch,
   StyleProp,
   ViewStyle,
   TextStyle,
@@ -28,6 +28,7 @@ type HeaderProps = {
   title?: string;
   callback?: () => void;
   right?: ReactNode;
+  homeIcon?: boolean;
   iconLeft?: ReactNode;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
@@ -54,7 +55,17 @@ export const Header = (props: HeaderProps) => {
         <View style={styles.leftHeader} />
       )}
       <View style={styles.centerHeader}>
-        {props.content ? (
+        {props.homeIcon ? (
+          <Imaging
+            source={require('../assets/logo/asita_logo.png')}
+            resizeMode="contain"
+            style={{
+              width: normalize(150),
+              height: normalize(50),
+              marginTop: 30,
+            }}
+          />
+        ) : props.content ? (
           <Text
             style={[styles.titleHeader, props.textStyle]}
             content={props.content}

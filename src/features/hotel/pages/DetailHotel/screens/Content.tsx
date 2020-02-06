@@ -8,7 +8,7 @@ import {
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {Text, Imaging} from '../../../../../components';
-import {styles} from '../components';
+import {styles, DetailHotelContext} from '../components';
 import {
   HEADER_SCROLL_DISTANCE,
   HEADER_MAX_HEIGHT,
@@ -30,12 +30,17 @@ type Props = {
   titleHotel: string;
   rate: number;
   photo: any;
+  accommodationType: string;
+  location: string;
   callback: () => void;
+  openMaps: () => void;
 };
 
 export default (props: Props) => {
+  const context = React.useContext(DetailHotelContext);
+
   // State
-  const [scrollY, setScrollY] = React.useState(new Animated.Value(0));
+  const [scrollY] = React.useState(new Animated.Value(0));
 
   // Scroll Animated
   const headerHeight = scrollY.interpolate({
@@ -89,7 +94,7 @@ export default (props: Props) => {
               <View style={[styles.rowBetween, {marginRight: 10}]}>
                 {starLength(props.rate)}
               </View>
-              <Text style={styles.textMedium}>Ressort</Text>
+              <Text style={styles.textMedium}>{props.accommodationType}</Text>
             </View>
           </View>
 
@@ -118,7 +123,10 @@ export default (props: Props) => {
           </View>
 
           {/* ABOUT */}
-          <Touch activeOpacity={0.5} style={styles.vertical}>
+          <Touch
+            onPress={context.onShowAbout}
+            activeOpacity={0.5}
+            style={styles.vertical}>
             <View style={styles.hr} />
             <View
               style={[
@@ -145,14 +153,15 @@ export default (props: Props) => {
                   size={17.5}
                   color={Color.greyish}
                 />
-                <Text style={styles.textSubTitle}>Jalannya mbahmu</Text>
+                <Text style={styles.textSubTitle}>{props.location}</Text>
               </View>
             </View>
-            <View style={[styles.map, styles.vertical]}>
+            <Touch style={[styles.map, styles.vertical]} activeOpacity={0.75}>
               <Text>MAPS</Text>
-            </View>
+            </Touch>
             <View style={[styles.rowBetween, {marginTop: -35}]}>
               <Touch
+                onPress={props.openMaps}
                 activeOpacity={0.5}
                 style={{width: '50%', alignItems: 'center'}}>
                 <Imaging
@@ -181,9 +190,10 @@ export default (props: Props) => {
         opacity={imageOpacity}
         translate={imageTranslate}
         headerTitle={headerOpacity}
-        callback={props.callback}
         photo={props.photo}
         title={props.titleHotel}
+        callback={props.callback}
+        onShowImage={context.onShowImage}
       />
     </View>
   );

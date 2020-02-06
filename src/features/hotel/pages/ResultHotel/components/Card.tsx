@@ -5,7 +5,7 @@ import {Card, Imaging, Text} from '../../../../../components';
 import styles from './styles';
 import FastImage from 'react-native-fast-image';
 import {Color} from '../../../../../constants/Color';
-import {moneyFormat, starLength} from '../../../../../helpers/helpers';
+import {starLength, eurToIdr} from '../../../../../helpers/helpers';
 
 type Props = {
   title: string;
@@ -24,12 +24,14 @@ export default (props: Props) => {
   return (
     <Touch onPress={onPress} activeOpacity={0.5}>
       <Card style={[styles.rowBetween, styles.card]}>
-        <Imaging
-          source={{uri: photo, priority: FastImage.priority.high}}
-          resizeMode="cover"
-          style={styles.imgCard}
-        />
-        <View style={styles.cardContent}>
+        <View style={{width: '30%'}}>
+          <Imaging
+            source={{uri: photo, priority: FastImage.priority.high}}
+            resizeMode="cover"
+            style={styles.imgCard}
+          />
+        </View>
+        <View style={[styles.cardContent, {width: '70%'}]}>
           <View>
             <Text style={styles.textTitle} numberOfLines={2}>
               {title}
@@ -49,7 +51,7 @@ export default (props: Props) => {
               styles.rowBetween,
               {justifyContent: 'space-between', alignItems: 'center'},
             ]}>
-            <Text style={styles.textPrice}>Rp{moneyFormat(price)}</Text>
+            <Text style={styles.textPrice}>Rp{eurToIdr(price)}</Text>
             <Text
               style={styles.textSubContent}
               content={{id: '/kamar', en: '/room'}}

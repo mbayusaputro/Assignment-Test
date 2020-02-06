@@ -1,5 +1,6 @@
 import React from 'react';
 import {InteractionManager} from 'react-native';
+import {oc} from 'ts-optchain';
 import dayjs from 'dayjs';
 import {HighSafeArea} from '../../../../../components';
 import {Color} from '../../../../../constants/Color';
@@ -10,11 +11,21 @@ import {Modal} from '../components';
 import ModalCheckin from './ModalCheckin';
 import ModalCheckout from './ModalCheckout';
 import ModalRoom from './ModalRoom';
+import ModalDestination from './ModalDestination';
+
+const defaultDestination = {
+  code: 'JAV',
+  type: 'city',
+  name: 'Jakarta',
+};
 
 export default (props: Props) => {
+  const {loadingList} = props;
+
   // State
   const [modal, setModal] = React.useState(null);
-  const [destination, setDestination] = React.useState('');
+  const [destination, setDestination] = React.useState(defaultDestination);
+  const [dataDestination, setDataDestination] = React.useState([]);
   const [checkIn, setCheckIn] = React.useState(null);
   const [checkOut, setCheckOut] = React.useState(null);
   const [room, setRoom] = React.useState(1);
@@ -47,6 +58,26 @@ export default (props: Props) => {
     setModal(id);
   };
 
+  const onSearch = (text: string) => {
+    const {actionListDestinationHotel} = props;
+    const payload = {
+      query: text,
+    };
+    actionListDestinationHotel(payload).then((res: any) => {
+      if (res.type === 'LIST_DESTINATION_SUCCESS') {
+        const result = [...res.data.city, ...res.data.hotels];
+        setDataDestination(result);
+      }
+    });
+  };
+
+  const onSelectDestination = (item: any) => {
+    setDestination(item);
+    setTimeout(() => {
+      onModal(null);
+    }, 500);
+  };
+
   const onCheckDate = (date: any, type: string) => {
     const result = dayjs(date);
     if (type === 'checkin') {
@@ -72,7 +103,34 @@ export default (props: Props) => {
     const {
       navigation: {navigate},
     } = props;
-    navigate('ResultHotel');
+    if (destination === null) {
+      alert('Please select your hotel destination first');
+    } else {
+      const payload = {
+        searchBy: {
+          type: destination.type,
+          code: `${destination.code}`,
+        },
+        stay: {
+          checkIn: dayjs(checkIn).format('YYYY-MM-DD'),
+          checkOut: dayjs(checkIn)
+            .add(checkOut, 'day')
+            .format('YYYY-MM-DD'),
+        },
+        occupancies: [
+          {
+            rooms: room,
+            adults: guest,
+            children: 0,
+          },
+        ],
+        stars: 5,
+        offset: 1,
+        limit: 10,
+      };
+      // actionSearchHotel(payload);
+      navigate('ResultHotel', {payload, checkOut});
+    }
   };
 
   // Main Render
@@ -84,13 +142,27 @@ export default (props: Props) => {
         onCheckIn={() => onModal(2)}
         onCheckOut={() => onModal(3)}
         onPassenger={() => onModal(4)}
-        destinationValue={destination !== '' ? destination : 'Hotels'}
+        destinationValue={destination !== null ? destination.name : 'Hotel'}
         checkIn={checkIn}
         checkOut={dayjs(checkIn).add(checkOut, 'day')}
         duration={checkOut}
         room={room}
         guest={guest}
         onSubmit={onSubmit}
+      />
+
+      <Modal
+        isVisible={modal === 1}
+        onDismiss={() => onModal(null)}
+        children={
+          <ModalDestination
+            onClose={() => onModal(null)}
+            onSearch={(event: any) => onSearch(event)}
+            onSelect={(item: any) => onSelectDestination(item)}
+            data={dataDestination}
+            loading={loadingList}
+          />
+        }
       />
 
       <Modal

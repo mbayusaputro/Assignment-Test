@@ -16,9 +16,12 @@ export default (props: Props) => {
 
   const onSave = () => {
     if (fullname !== '') {
+      const splitName = fullname.split(' ');
       const payload = {
-        id: guest,
-        title: fullname,
+        roomId: guest,
+        type: 'AD',
+        name: fullname,
+        surname: splitName[0],
       };
       onSaveGuest(payload, guest);
     } else {

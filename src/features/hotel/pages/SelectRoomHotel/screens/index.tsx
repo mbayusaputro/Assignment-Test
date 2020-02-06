@@ -9,6 +9,12 @@ import {Color} from '../../../../../constants/Color';
 import {dataFilter, dataRoom} from '../components/data';
 
 export default (props: Props) => {
+  const {
+    navigation: {getParam},
+  } = props;
+  const dataHotel = getParam('selectedHotel');
+  const payload = getParam('payload');
+
   // State
   const [statusSubHeader, setStatusSub] = React.useState(false);
   const [filter, setFilter] = React.useState('');
@@ -26,11 +32,23 @@ export default (props: Props) => {
     setFilter(data);
   };
 
-  const navigating = (route: string) => {
+  const navigating = (route: string, data?: any, room?: any) => {
     const {
       navigation: {navigate},
     } = props;
-    navigate(route);
+    navigate(route, {
+      data,
+      payload,
+      room,
+    });
+  };
+
+  const onBook = (room: any) => {
+    const dataBook = {
+      title: dataHotel.name,
+      price: dataHotel.minRate,
+    };
+    navigating('BookingFormHotel', dataBook, room);
   };
 
   // Main Render
@@ -48,11 +66,13 @@ export default (props: Props) => {
       />
       <Content
         dataFilter={dataFilter}
-        dataRoom={dataRoom}
+        dataRoom={dataHotel.rooms}
+        detailHotel={dataHotel.detail}
+        path={props.pathAsset}
         selectedFilter={filter}
         selectFilter={(item: any, index: number) => selectFilter(item, index)}
         onDetailRoom={() => navigating('DetailRoomHotel')}
-        onBookRoom={() => navigating('BookingFormHotel')}
+        onBookRoom={(item: any) => onBook(item)}
       />
     </HighSafeArea>
   );

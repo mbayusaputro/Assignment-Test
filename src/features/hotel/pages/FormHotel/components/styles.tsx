@@ -4,7 +4,6 @@ import fonts from '../../../../../constants/Fonts';
 import {
   TITLE_FONT_SIZE,
   BIG_FONT_SIZE,
-  SMALL_FONT_SIZE,
   MEDIUM_FONT_SIZE,
 } from '../../../../../constants/TextSize';
 import normalize from '../../../../../constants/normalize';
@@ -53,6 +52,15 @@ export default StyleSheet.create({
     fontSize: MEDIUM_FONT_SIZE,
     color: Color.greyish,
   },
+  textItemDest: {
+    fontFamily: fonts.fontBold,
+    fontSize: TITLE_FONT_SIZE,
+  },
+  textSubItemDest: {
+    fontFamily: fonts.fontReguler,
+    fontSize: MEDIUM_FONT_SIZE,
+    color: Color.greyish,
+  },
 
   // Other
   btnFooter: {
@@ -64,5 +72,18 @@ export default StyleSheet.create({
     paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: Color.backWhite,
+  },
+  typeItem: {
+    padding: 10,
+    backgroundColor: Color.backWhite,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  itemDestination: {
+    paddingHorizontal: 10,
+    marginBottom: 5,
+    paddingBottom: 5,
+    borderBottomWidth: 0.5,
+    borderBottomColor: Color.greyish,
   },
 });

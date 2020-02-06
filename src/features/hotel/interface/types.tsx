@@ -4,13 +4,26 @@ export interface Props {
   navigation: NavigationScreenProp<NavigationState>;
 }
 
-export interface FormHotelProps extends Props {}
+export interface FormHotelProps extends Props {
+  loadingList: boolean;
+  loadingSearch: boolean;
+  actionListDestinationHotel: (payload: object) => Promise<void>;
+  actionSearchHotel: (payload: object) => Promise<void>;
+}
 
-export interface ResultHotelProps extends Props {}
+export interface ResultHotelProps extends Props {
+  loadingSearch: boolean;
+  pathAsset: string;
+  actionSearchHotel: (payload: object) => Promise<void>;
+}
 
-export interface DetailHotelProps extends Props {}
+export interface DetailHotelProps extends Props {
+  pathAsset: string;
+}
 
-export interface SelectRoomHotelProps extends Props {}
+export interface SelectRoomHotelProps extends Props {
+  pathAsset: string;
+}
 
 export interface DetailRoomHotelProps extends Props {}
 

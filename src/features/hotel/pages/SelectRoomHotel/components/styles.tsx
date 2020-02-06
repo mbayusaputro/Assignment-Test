@@ -11,7 +11,7 @@ import {
 export default StyleSheet.create({
   // Layout
   content: {
-    marginTop: -25,
+    marginTop: -75,
     backgroundColor: Color.backWhite,
     borderTopLeftRadius: 15,
   },
@@ -77,6 +77,7 @@ export default StyleSheet.create({
   textDetail: {
     fontFamily: fonts.fontSemiBold,
     color: Color.oceanBlue,
+    textAlign: 'right',
   },
   textPrice: {
     fontFamily: fonts.fontBold,

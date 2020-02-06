@@ -4,6 +4,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {Image} from 'react-native';
 import {
+  Home,
   Flight,
   Orders,
   Inbox,
@@ -54,7 +55,7 @@ const handleCustomTransition = ({scenes}) => {
 const TABS = createBottomTabNavigator(
   {
     Home: {
-      screen: Flight,
+      screen: Home,
       navigationOptions: {
         tabBarLabel: 'Flight',
         tabBarIcon: ({focused}) =>
@@ -169,6 +170,12 @@ const STACK = createStackNavigator(
   {
     Tabs: {
       screen: TABS,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Flight: {
+      screen: Flight,
       navigationOptions: {
         header: null,
       },

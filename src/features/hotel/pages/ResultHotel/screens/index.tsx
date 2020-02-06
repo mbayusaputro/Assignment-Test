@@ -4,17 +4,24 @@ import Content from './Content';
 import {ResultHotelProps as Props} from '../../../interface/types';
 import SubHeader from './SubHeader';
 import {Color} from '../../../../../constants/Color';
-import {dataHotel} from '../components/data';
 import {FloatFilter} from '../components';
+import {CardContext} from '../components/CardContext';
 
 const titleLang = {id: 'Hotel Didekat Anda', en: 'Hotel Near You'};
 
 export default (props: Props) => {
+  const {
+    navigation: {getParam},
+    loadingSearch,
+    pathAsset,
+  } = props;
+  const payload = getParam('payload');
+
   // State
-  const [loading, setLoading] = React.useState(true);
+  const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
+    getData();
   }, []);
 
   // Function
@@ -24,26 +31,49 @@ export default (props: Props) => {
     } = props;
     goBack();
   };
+
+  const getData = () => {
+    const {actionSearchHotel} = props;
+    actionSearchHotel(payload).then((res: any) => {
+      res.type === 'SEARCH_HOTEL_SUCCESS'
+        ? setData(res.data.hotels)
+        : alert(res.message);
+    });
+  };
+
   const filter = () => {
     alert('FIlter');
   };
+
   const onSelectHotel = (item: any) => {
     const {
       navigation: {navigate},
     } = props;
-    navigate('DetailHotel', {selectedHotel: item});
+    navigate('DetailHotel', {
+      selectedHotel: item,
+      payload,
+    });
   };
 
   // Main Render
   return (
     <HighSafeArea style={{backgroundColor: Color.backWhite}}>
       <Header content={titleLang} callback={onBack} />
-      <SubHeader date={new Date()} duration={7} room={2} />
-      <Content
-        dataHotel={dataHotel}
-        loading={loading}
-        onSelectHotel={(item: any) => onSelectHotel(item)}
+      <SubHeader
+        date={payload.stay.checkIn}
+        duration={getParam('checkOut')}
+        room={payload.occupancies[0].rooms}
       />
+      <CardContext.Provider
+        value={{
+          pathAsset,
+        }}>
+        <Content
+          dataHotel={data}
+          loading={loadingSearch}
+          onSelectHotel={(item: any) => onSelectHotel(item)}
+        />
+      </CardContext.Provider>
       <FloatFilter onPress={filter} />
     </HighSafeArea>
   );

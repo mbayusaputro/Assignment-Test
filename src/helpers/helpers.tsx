@@ -15,6 +15,12 @@ export const moneyFormat = (money: number) => {
   return result;
 };
 
+export const eurToIdr = (money: number) => {
+  const rateIdr = 15500;
+  const result = moneyFormat(rateIdr * money);
+  return result;
+};
+
 export const generateDate = (begin: number, end: number) => {
   let array = [];
   for (let i = begin; i <= end; i++) {
@@ -66,3 +72,36 @@ export const starLength = (length: number) => {
   }
   return arrays;
 };
+
+export function groupingRoomImages(images: any, rooms = [], code = '') {
+  let pathResult = '';
+  let _images = images.sort((obj1: any, obj2: any) =>
+    obj2.roomCode < obj1.roomCode ? 1 : -1,
+  );
+  let dataGrouping = [];
+  if (rooms.length > 0) {
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < rooms.length; i++) {
+      let _path = '';
+      // tslint:disable-next-line: prefer-for-of
+      for (let j = 0; j < _images.length; j++) {
+        if (rooms[i].code && _images[j].roomCode) {
+          if (
+            rooms[i].code.toLowerCase() === _images[j].roomCode.toLowerCase()
+          ) {
+            _path = _images[j].path;
+            break;
+          }
+        }
+      }
+      rooms[i].path = _path;
+      dataGrouping.push(rooms[i]);
+    }
+    dataGrouping.map(item => {
+      if (code.toLowerCase() === item.code.toLowerCase()) {
+        pathResult = item.path;
+      }
+    });
+    return pathResult;
+  }
+}

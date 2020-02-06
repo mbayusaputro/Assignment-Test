@@ -9,6 +9,7 @@ import {
 } from 'rn-placeholder';
 import {Text} from '../../../../../components';
 import {styles, Card} from '../components';
+import {CardContext} from '../components/CardContext';
 
 type Props = {
   dataHotel: Array<any>;
@@ -17,6 +18,8 @@ type Props = {
 };
 
 export default (props: Props) => {
+  const {pathAsset} = React.useContext(CardContext);
+
   // Flatlist Conf
   const keyExtractor = (__: any, index: number) => index.toString();
   const renderItem = ({item, index}: any) => {
@@ -24,25 +27,31 @@ export default (props: Props) => {
       <Card
         key={index}
         onPress={() => props.onSelectHotel(item)}
-        title={item.title}
-        star={item.rate}
-        location={item.location}
-        price={item.price}
-        photo={item.photo}
+        title={item.name}
+        star={item.categoryName.substring(0, 1)}
+        location={item.zoneName}
+        price={item.minRate}
+        photo={pathAsset + oc(item).detail.images[0].path('aw.jpg')}
       />
     );
   };
   const loadingItem = ({__, index}: any) => (
-    <Placeholder
+    <View
       key={index}
-      Left={() => <PlaceholderMedia style={styles.imgCard} />}
-      Animation={Fade}
-      style={[styles.card, styles.rowCenter, {borderRadius: 10}]}>
-      <PlaceholderLine width={75} />
-      <PlaceholderLine width={30} />
-      <PlaceholderLine width={50} />
-      <PlaceholderLine width={90} />
-    </Placeholder>
+      style={[styles.rowBetween, styles.card, {borderRadius: 10}]}>
+      <Placeholder
+        Left={() => (
+          <PlaceholderMedia style={[styles.imgCard, {width: '30%'}]} />
+        )}
+        Animation={Fade}>
+        <Placeholder Animation={Fade} style={styles.cardContent}>
+          <PlaceholderLine width={75} height={20} />
+          <PlaceholderLine width={30} height={10} />
+          <PlaceholderLine width={50} height={10} />
+          <PlaceholderLine width={90} height={20} />
+        </Placeholder>
+      </Placeholder>
+    </View>
   );
 
   // Main Render
@@ -50,13 +59,22 @@ export default (props: Props) => {
   return (
     <View style={styles.contentContent}>
       <View style={styles.center}>
-        <Text
-          style={styles.textSemiBold}
-          content={{
-            id: `Tersedia ${totalHotel} Hotel`,
-            en: `Available ${totalHotel} Hotel`,
-          }}
-        />
+        {props.loading ? (
+          <Placeholder Animation={Fade}>
+            <PlaceholderLine
+              width={100}
+              style={{marginHorizontal: 10, width: '30%', alignSelf: 'center'}}
+            />
+          </Placeholder>
+        ) : (
+          <Text
+            style={styles.textSemiBold}
+            content={{
+              id: `Tersedia ${totalHotel} Hotel`,
+              en: `Available ${totalHotel} Hotel`,
+            }}
+          />
+        )}
       </View>
       <View style={styles.hr} />
       <FlatList
@@ -64,7 +82,6 @@ export default (props: Props) => {
         renderItem={props.loading ? loadingItem : renderItem}
         keyExtractor={keyExtractor}
         contentContainerStyle={{paddingBottom: 200}}
-        style={styles.contentPadding}
         maxToRenderPerBatch={50}
         initialNumToRender={3}
         windowSize={10}

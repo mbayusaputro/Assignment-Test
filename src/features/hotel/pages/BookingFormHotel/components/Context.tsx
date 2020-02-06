@@ -14,12 +14,18 @@ export const ContentContext = React.createContext({
 
   // Contact
   onShowContact: () => {},
+  dataContact: null,
 
   // Guest
+  sameContact: false,
+  onChangeSame: () => {},
   totalGuest: 1,
   guestArr: [],
   onShowGuest: (item: any) => {},
 
   // Price
   price: 0,
+
+  // BOook
+  onBook: () => {},
 });

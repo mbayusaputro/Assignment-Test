@@ -56,16 +56,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   imgCard: {
-    width: 105,
+    width: '100%',
     height: 155,
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
   },
   card: {
     marginVertical: 10,
-    width: '100%',
+    width: WIDTH_SCREEN - normalize(40),
     height: 'auto',
     backgroundColor: Color.white,
+    marginHorizontal: 20,
   },
   cardContent: {
     padding: 10,

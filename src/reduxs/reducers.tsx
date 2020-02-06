@@ -5,6 +5,7 @@ import languageReducer from './language/reducer';
 import profileReducer from './profile/reducer';
 import masterReducer from './master/reducer';
 import flightReducer from './flight/reducer';
+import hotelReducer from './hotel/reducer';
 
 const rootReducer = combineReducers({
   chat: chatReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   master: masterReducer,
   language: languageReducer,
   flight: flightReducer,
+  hotel: hotelReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

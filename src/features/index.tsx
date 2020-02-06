@@ -1,5 +1,6 @@
 import Flight from './flight/pages/FormFlight/index';
 import Inbox from './inbox';
+import Home from './home';
 
 // Profile
 import Profile from './profile';
@@ -36,6 +37,7 @@ import DetailRoomHotel from './hotel/pages/DetailRoomHotel';
 import BookingFormHotel from './hotel/pages/BookingFormHotel';
 
 export {
+  Home,
   Flight,
   Orders,
   Inbox,

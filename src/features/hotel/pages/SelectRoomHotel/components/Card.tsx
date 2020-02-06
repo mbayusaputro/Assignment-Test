@@ -8,14 +8,14 @@ import {
   subTitleDurationLang,
   selectLang,
 } from '../../../interface/string';
-import {moneyFormat} from '../../../../../helpers/helpers';
+import {eurToIdr} from '../../../../../helpers/helpers';
 
 type Props = {
   title: string;
   photo: any;
   maxGuest: number;
   facility: Array<any>;
-  price: number;
+  price: any;
   onDetailRoom: () => void;
   onBookRoom: () => void;
 };
@@ -24,9 +24,14 @@ export default (props: Props) => {
   const {title, photo, maxGuest, facility, price} = props;
   return (
     <Card style={styles.cardRoom}>
-      <View style={styles.rowBetween}>
-        <Text style={styles.textTitle}>{title}</Text>
-        <Touch onPress={props.onDetailRoom} activeOpacity={0.5}>
+      <View style={[styles.rowBetween, {alignItems: 'flex-start'}]}>
+        <View style={{width: '70%'}}>
+          <Text style={styles.textTitle}>{title}</Text>
+        </View>
+        <Touch
+          onPress={props.onDetailRoom}
+          activeOpacity={0.5}
+          style={{width: '25%'}}>
           <Text style={styles.textDetail} content={seeDetailLang} />
         </Touch>
       </View>
@@ -60,7 +65,7 @@ export default (props: Props) => {
       </View>
       <View style={styles.rowBetween}>
         <View style={styles.row}>
-          <Text style={styles.textPrice}>Rp{moneyFormat(price)}</Text>
+          <Text style={styles.textPrice}>Rp{eurToIdr(price)}</Text>
           <Text style={styles.textSubTitle} content={subTitleDurationLang} />
         </View>
         <Button
