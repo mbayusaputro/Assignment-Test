@@ -42,6 +42,13 @@ const FormFlight = (props: Props) => {
   const [isPassenger, setPassenger] = useState({adult: 1, child: 0, infant: 0});
   const [isClass, setClass] = useState('Economy');
 
+  const onBack = () => {
+    const {
+      navigation: {goBack},
+    } = props;
+    goBack();
+  };
+
   handleOptionTripPress = () => {
     if (optionTrip === 'oneway') {
       setoptionTrip('return');
@@ -113,7 +120,7 @@ const FormFlight = (props: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Booking Your Flights" />
+      <Header goBack={onBack} />
       <Form
         isSearching={isSearching}
         OptionTripPress={handleOptionTripPress}

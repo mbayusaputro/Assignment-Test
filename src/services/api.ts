@@ -108,6 +108,13 @@ export async function searchHotel(payload: object) {
   const response = await axios.post(uri, payload).then(res => res.data);
   return response;
 }
+
+export async function bookingHotel(payload: object) {
+  const beds = 'https://apidev.aeroaja.com/v1/gateway/beds';
+  const uri: string = `${beds}/booking-hotel`;
+  const response = await axios.post(uri, payload).then(res => res.data);
+  return response;
+}
 // ====================== HOTEL ======================
 
 // ====================== PAYMENT ======================

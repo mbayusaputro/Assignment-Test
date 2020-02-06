@@ -4,7 +4,7 @@ import {Text, Card, Imaging} from '../../../components';
 import {styles, HomeContext} from '../components';
 import {dataMenu} from '../components/data';
 
-export default (props: any) => {
+export default () => {
   const {onNavigate} = React.useContext(HomeContext);
 
   // Main Render

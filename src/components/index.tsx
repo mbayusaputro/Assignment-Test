@@ -6,6 +6,8 @@ import {InputPassword, InputText} from './InputText';
 import {SubHeader, Header} from './Header';
 import Card from './Card';
 import BirthDatePicker from './BirthDatePicker';
+import AlertModal from './AlertModal';
+import ModalLoading from './ModalLoading';
 
 export {
   Button,
@@ -19,4 +21,6 @@ export {
   Header,
   Card,
   BirthDatePicker,
+  AlertModal,
+  ModalLoading,
 };

@@ -67,3 +67,12 @@ export const bookingSumaryLang: LangProps = {
   id: 'Ringkasan Pemesanan',
   en: 'Booking Summary',
 };
+export const askBookingLang: LangProps = {
+  id: 'Apakah detailnya benar?',
+  en: 'Are the details correct?',
+};
+export const btnBookOk: LangProps = {
+  id: 'Ya, semuanya benar',
+  en: 'Yes, everything is correct',
+};
+export const btnBookCancel: LangProps = {id: 'Ganti', en: 'Change'};

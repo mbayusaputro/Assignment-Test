@@ -5,6 +5,7 @@ const makeFetchListDestinationHotel = (state: AppState) =>
   state.hotel.fetchDestination;
 const makeFetchSearchHotel = (state: AppState) => state.hotel.fetchSearch;
 const makePathAsset = (state: AppState) => state.hotel.pathAsset;
+const makeFetchBookHotel = (state: AppState) => state.hotel.fetchBookHotel;
 
 export const getFetchListDestinationHotel = createSelector(
   makeFetchListDestinationHotel,
@@ -18,5 +19,10 @@ export const getFetchSearchHotel = createSelector(
 
 export const getPathAsset = createSelector(
   makePathAsset,
+  i => i,
+);
+
+export const getFetchBookHotel = createSelector(
+  makeFetchBookHotel,
   i => i,
 );

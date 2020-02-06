@@ -1,13 +1,9 @@
 import {connect} from 'react-redux';
+import {getIsLogin} from '../../reduxs/profile/selector';
 import Home from './screen/Home';
-import {AppState} from '../../reduxs/reducers';
-import {sendMessage} from '../../reduxs/chats/action';
 
-const mapStateToProps = (state: AppState) => ({
-  chat: state.chat,
+const mapStateToProps = (state: any) => ({
+  isLogin: getIsLogin(state),
 });
 
-export default connect(
-  mapStateToProps,
-  {sendMessage},
-)(Home);
+export default connect(mapStateToProps)(Home);

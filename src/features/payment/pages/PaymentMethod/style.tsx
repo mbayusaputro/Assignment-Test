@@ -1,6 +1,8 @@
 import {StyleSheet} from 'react-native';
-import {scale, verticalScale} from '../../../../constants/ScaleUtils';
 import {Color} from '../../../../constants/Color';
+import {MEDIUM_FONT_SIZE} from '../../../../constants/TextSize';
+import fonts from '../../../../constants/Fonts';
+import normalize from '../../../../constants/normalize';
 
 export default StyleSheet.create({
   card: {
@@ -17,31 +19,31 @@ export default StyleSheet.create({
     borderRadius: 5,
   },
   titlegray: {
-    fontFamily: 'NunitoSans-Regular',
+    fontFamily: fonts.fontReguler,
     color: Color.labelgray,
     marginVertical: 7,
   },
   subtitle: {
     marginBottom: 7,
     fontSize: 16,
-    color: '#ea6520',
-    fontFamily: 'NunitoSans-Bold',
+    color: Color.tealBlue,
+    fontFamily: fonts.fontBold,
   },
   return: {
-    width: scale(15),
-    height: verticalScale(15),
+    width: normalize(15),
+    height: normalize(15),
     marginHorizontal: 5,
   },
   title: {
-    fontFamily: 'NunitoSans-Bold',
+    fontFamily: fonts.fontBold,
     fontSize: 14,
   },
   view: {
     marginTop: 15,
     marginBottom: 7,
-    fontSize: 14,
-    color: '#ea6520',
-    fontFamily: 'NunitoSans-Bold',
+    fontSize: MEDIUM_FONT_SIZE,
+    color: Color.tealBlue,
+    fontFamily: fonts.fontBold,
   },
   rowva: {
     flexDirection: 'row',
@@ -50,8 +52,8 @@ export default StyleSheet.create({
     paddingVertical: 10,
   },
   logova: {
-    height: verticalScale(30),
-    width: scale(100),
+    height: normalize(30),
+    width: normalize(100),
   },
   circle: {
     backgroundColor: Color.labelgray,

@@ -27,7 +27,7 @@ type Props = {
   fullWidth?: boolean;
   icon?: ImageSourcePropType;
   isUpperCase?: boolean | undefined;
-  customStyle?: ViewStyle;
+  customStyle?: StyleProp<ViewStyle>;
   customTextStyle?: TextStyle;
   onPress?: () => void;
 };

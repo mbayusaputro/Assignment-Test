@@ -1,16 +1,17 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
+import {Text} from '../../../../../components';
 import styles from '../style';
 
 interface Props {
-  title: string;
   sub: any;
+  title: {id: string; en: string};
 }
 
 const Card = (props: Props) => {
   return (
     <View style={styles.card}>
-      <Text style={styles.titlegray}>{props.title}</Text>
+      <Text style={styles.titlegray} content={props.title} />
       <Text style={styles.subtitle}>{props.sub}</Text>
     </View>
   );

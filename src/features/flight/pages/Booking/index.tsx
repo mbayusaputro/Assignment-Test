@@ -10,16 +10,18 @@ import {bindActionCreators, Dispatch} from 'redux';
 import {actionBookingFlight} from '../../../../reduxs/flight/action';
 import {AppState} from '../../../../reduxs/reducers';
 import {Props} from './types';
+import {ModalLoading, AlertModal} from '../../../../components';
 
 const Booking = (props: Props) => {
   const {
     navigation: {state, goBack},
-    actionBookingFlight,
+    onBookingFlight,
   } = props;
   const {departure_flight, return_flight, params} = state.params;
   // State
   const [active, setActive] = useState(false);
   const [isVisible, setVisible] = useState(false);
+  const [otherModal, setOtherModal] = useState(null);
   const [modalForm, setModalForm] = useState('');
   const [modalIndex, setModalIndex] = useState(0);
   const [contact, setContact] = useState(null);
@@ -46,12 +48,12 @@ const Booking = (props: Props) => {
   const generateStatePassenger = (total: number, field: string) => {
     for (let i = 0; i < total; i++) {
       let title = 'MR';
-      if (field != 'adult') {
+      if (field !== 'adult') {
         title = 'MSTR';
       }
       data[field].push({
         titleIndex: 1,
-        title: title,
+        title,
         fullName: '',
         dateOfBirth: '',
       });
@@ -141,21 +143,21 @@ const Booking = (props: Props) => {
   const handleInput = (type: string, value: string) => {
     if (type === 'fullName') {
       if (dataPassenger[modalForm]) {
-        dataPassenger[modalForm][modalIndex]['fullName'] = value;
+        dataPassenger[modalForm][modalIndex].fullName = value;
       }
     } else if (type === 'dob') {
       if (dataPassenger[modalForm]) {
-        dataPassenger[modalForm][modalIndex]['dateOfBirth'] = value;
+        dataPassenger[modalForm][modalIndex].dateOfBirth = value;
       }
     } else if (type === 'sameContact') {
       if (dataPassenger[modalForm]) {
-        dataPassenger[modalForm][modalIndex]['fullName'] = value;
-        dataPassenger[modalForm][modalIndex]['title'] = 'MR';
+        dataPassenger[modalForm][modalIndex].fullName = value;
+        dataPassenger[modalForm][modalIndex].title = 'MR';
         generatePayloadPassengers('adult');
       }
     } else if (type === 'blank') {
       if (dataPassenger[modalForm]) {
-        dataPassenger[modalForm][modalIndex]['fullName'] = value;
+        dataPassenger[modalForm][modalIndex].fullName = value;
       }
       generatePayloadPassengers('adult');
     }
@@ -163,38 +165,63 @@ const Booking = (props: Props) => {
   };
 
   const onSubmit = () => {
-    let payload = {
-      command: 'BOOKING',
-      product: 'FLIGHT',
-      data: {
-        id: 2,
-        partner_trxid: 'PARTNER-001',
-        departure_code: params.from.airport_code,
-        arrival_code: params.to.airport_code,
-        departure_date: params.date,
-        return_date: params.date_return,
-        adult: params.passenger.adult,
-        child: params.passenger.child,
-        infant: params.passenger.infant,
-        schedule_id: departure_flight.schedule_id,
-        return_schedule_id:
-          return_flight === null ? '' : return_flight.schedule_id,
-        class: 'Y',
-        sub_class: 'Y',
-        return_class: '',
-        contact_detail: {
-          salutation: contact.salutation,
-          fullname: contact.fullname,
-          email: contact.email,
-          phone: contact.mobileNumber,
+    setOtherModal(null);
+    setTimeout(() => {
+      setOtherModal(999);
+      const payload = {
+        command: 'BOOKING',
+        product: 'FLIGHT',
+        data: {
+          id: 2,
+          partner_trxid: 'PARTNER-001',
+          departure_code: params.from.airport_code,
+          arrival_code: params.to.airport_code,
+          departure_date: params.date,
+          return_date: params.date_return,
+          adult: params.passenger.adult,
+          child: params.passenger.child,
+          infant: params.passenger.infant,
+          schedule_id: departure_flight.schedule_id,
+          return_schedule_id:
+            return_flight === null ? '' : return_flight.schedule_id,
+          class: 'Y',
+          sub_class: 'Y',
+          return_class: '',
+          contact_detail: {
+            salutation: contact.salutation,
+            fullname: contact.fullname,
+            email: contact.email,
+            phone: contact.mobileNumber,
+          },
+          passengers: adult.concat(child).concat(infant),
         },
-        passengers: adult.concat(child).concat(infant),
-      },
-    };
-    actionBookingFlight(payload).then((res: any) => {
-      if (res.data.status) {
-        console.log(res);
-      }
+      };
+      onBookingFlight(payload).then((res: any) => {
+        setTimeout(() => {
+          if (res.type === 'BOOKING_FLIGHT_SUCCESS') {
+            const dataParam = {
+              data: res.data.data,
+              partner_trxid: res.data.partner_trxid,
+              total: res.data.total,
+            };
+            onNavigate('PaymentMethod', dataParam);
+            setOtherModal(null);
+          } else {
+            alert(res.message);
+            setOtherModal(201);
+          }
+        }, 500);
+      });
+    }, 500);
+  };
+
+  const onNavigate = (route: string, item: any) => {
+    const {
+      navigation: {navigate},
+    } = props;
+    navigate(route, {
+      type: 'flight',
+      item,
     });
   };
 
@@ -205,14 +232,14 @@ const Booking = (props: Props) => {
       <Content
         toggleSwitch={toggleSwitch}
         active={active}
-        //Contact Detail
+        // Contact Detail
         onContactDetail={() => openModal('contact', 0)}
         contactName={contact}
-        //Passenger Detail
+        // Passenger Detail
         dataPassenger={dataPassenger}
         onPassenger={openModal}
-        onSubmit={() => onSubmit()}
-        //Flight Seleceted
+        onSubmit={() => setOtherModal(201)}
+        // Flight Seleceted
         departureFlight={departure_flight}
         returnFlight={return_flight}
       />
@@ -233,6 +260,51 @@ const Booking = (props: Props) => {
           onDob={doneDob}
         />
       )}
+      <ModalLoading isVisible={otherModal === 999} />
+      <AlertModal
+        qna={otherModal === 201}
+        isVisible={otherModal === 201 || otherModal === 404}
+        title={
+          otherModal === 201
+            ? {id: 'Cek Pemesanan', en: 'Booking Check'}
+            : {id: 'Alert', en: 'Alert'}
+        }
+        desc={
+          otherModal === 201
+            ? {
+                id: 'Apakah detailnya benar?',
+                en: 'Are the details correct?',
+              }
+            : {
+                id: 'Terjadi kesalahan',
+                en: 'There is an error',
+              }
+        }
+        btnOk={
+          otherModal === 201
+            ? {
+                id: 'Ya, semuanya benar',
+                en: 'Yes, everything is correct',
+              }
+            : {
+                id: 'OK',
+                en: 'OK',
+              }
+        }
+        btnCancel={
+          otherModal === 201
+            ? {
+                id: 'Ganti',
+                en: 'Change',
+              }
+            : {
+                id: 'Batal',
+                en: 'Cancel',
+              }
+        }
+        onOk={onSubmit}
+        onDismiss={() => setOtherModal(null)}
+      />
     </SafeAreaView>
   );
 };
@@ -255,7 +327,7 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      actionBookingFlight: (payload: object) => actionBookingFlight(payload),
+      onBookingFlight: (payload: object) => actionBookingFlight(payload),
     },
     dispatch,
   );

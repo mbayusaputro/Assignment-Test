@@ -7,6 +7,9 @@ import {
   SEARCH_HOTEL,
   SEARCH_HOTEL_SUCCESS,
   SEARCH_HOTEL_FAILED,
+  BOOK_HOTEL,
+  BOOK_HOTEL_SUCCESS,
+  BOOK_HOTEL_FAILED,
 } from './types';
 
 const initialState: State = {
@@ -16,6 +19,9 @@ const initialState: State = {
   // Search Hotel
   fetchSearch: false,
   pathAsset: '',
+
+  // Book Hotel
+  fetchBookHotel: false,
 };
 
 export default (state: State = initialState, action: Action): State => {
@@ -53,6 +59,23 @@ export default (state: State = initialState, action: Action): State => {
       return {
         ...state,
         fetchSearch: false,
+      };
+
+    // ====================== HOTEL - BOOK HOTEL ======================
+    case BOOK_HOTEL:
+      return {
+        ...state,
+        fetchBookHotel: true,
+      };
+    case BOOK_HOTEL_SUCCESS:
+      return {
+        ...state,
+        fetchBookHotel: false,
+      };
+    case BOOK_HOTEL_FAILED:
+      return {
+        ...state,
+        fetchBookHotel: false,
       };
 
     default:

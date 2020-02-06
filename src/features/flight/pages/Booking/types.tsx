@@ -5,7 +5,7 @@ export interface GlobalProps {
 }
 
 export interface Props extends GlobalProps {
-  actionBookingFlight: (payload: object) => Promise<void>;
+  onBookingFlight: (payload: object) => Promise<void>;
 }
 
 export type HeaderProps = {

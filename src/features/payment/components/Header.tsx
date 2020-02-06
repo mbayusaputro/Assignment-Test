@@ -1,15 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import {Color} from '../../../constants/Color';
+import {Text} from '../../../components';
 import {HEADER_FONT_SIZE} from '../../../constants/TextSize';
 import {verticalScale, scale} from '../../../constants/ScaleUtils';
 import {WIDTH_SCREEN} from '../../../constants/Dimension';
+import fonts from '../../../constants/Fonts';
 
-interface Props {
-  goBack?: boolean;
-  title: string;
-}
-const Header = (props: Props) => {
+const Header = (props: any) => {
   return (
     <View style={styles.container}>
       <Image
@@ -17,7 +15,10 @@ const Header = (props: Props) => {
         source={require('../../../assets/icons/back.png')}
         resizeMode="contain"
       />
-      <Text style={styles.title}>{props.title}</Text>
+      <Text
+        style={styles.title}
+        content={{id: 'Pilih Metode Pembayaran', en: 'Select Payment Method'}}
+      />
       <Image
         style={{height: verticalScale(16), width: scale(20), marginTop: 2}}
         source={require('../../../assets/icons/icon_dot_vertical.png')}
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     marginLeft: WIDTH_SCREEN / 20,
     color: Color.white,
     fontSize: HEADER_FONT_SIZE,
-    fontFamily: 'NunitoSans-ExtraBold',
+    fontFamily: fonts.fontExtraBold,
   },
 });
 export default Header;

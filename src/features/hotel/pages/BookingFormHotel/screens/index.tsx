@@ -2,7 +2,17 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import dayjs from 'dayjs';
 import _ from 'lodash';
-import {HighSafeArea, SubHeader} from '../../../../../components';
+import {
+  HighSafeArea,
+  SubHeader,
+  AlertModal,
+  ModalLoading,
+} from '../../../../../components';
+import {
+  askBookingLang,
+  btnBookOk,
+  btnBookCancel,
+} from '../../../interface/string';
 import Content from './Content';
 import Header from './Header';
 import {BookingFormHotelProps as Props} from '../../../interface/types';
@@ -14,6 +24,7 @@ export default (props: Props) => {
   // Props
   const {
     navigation: {getParam},
+    loadingBook,
   } = props;
   const data = getParam('data'); // Data from Selected Room
   const payload = getParam('payload'); // Payload Form Hotel
@@ -25,6 +36,7 @@ export default (props: Props) => {
   const [sameContact, setSameContact] = React.useState(false);
   const [guest, setGuest] = React.useState([]);
   const [guestNum, setGuestNum] = React.useState(null);
+  const [message, setMessage] = React.useState('');
 
   React.useEffect(() => {
     if (guest.length === 0) {
@@ -93,19 +105,34 @@ export default (props: Props) => {
 
   // On Booking
   const onBook = () => {
-    const payloadBook = {
-      holder: contact,
-      rooms: [
-        {
-          rateKey: room.rates[0].rateKey,
-          paxes: guest,
-        },
-      ],
-      clientReference: 'ORDER-00001',
-      remark: '',
-      tolerance: '5.00',
-    };
-    alert(JSON.stringify(payloadBook));
+    const {actionBookHotel} = props;
+    setModal(null);
+    setTimeout(() => {
+      setModal(201);
+      const payloadBook = {
+        holder: contact,
+        rooms: [
+          {
+            rateKey: room.rates[0].rateKey,
+            paxes: guest,
+          },
+        ],
+        clientReference: 'ORDER-00001',
+        remark: '',
+        tolerance: '5.00',
+      };
+      actionBookHotel(payloadBook).then((res: any) => {
+        setTimeout(() => {
+          if (res.type === 'BOOK_HOTEL_SUCCESS') {
+            alert(JSON.stringify(res.data));
+            setModal(null);
+          } else {
+            alert(res.message);
+            setModal(null);
+          }
+        }, 500);
+      });
+    }, 500);
   };
 
   // Main Render
@@ -137,12 +164,13 @@ export default (props: Props) => {
             // Price
             price: data.price,
             // When Clicked Booking
-            onBook,
+            onBook: () => setModal(999),
           }}>
           <Content />
         </ContentContext.Provider>
       </ScrollView>
 
+      {/* CONTACT */}
       <Modal
         isVisible={modal === 1}
         onDismiss={() => setModal(null)}
@@ -154,6 +182,7 @@ export default (props: Props) => {
         }
       />
 
+      {/* GUEST */}
       <Modal
         isVisible={modal === 2}
         onDismiss={() => setModal(null)}
@@ -164,6 +193,21 @@ export default (props: Props) => {
             onSaveGuest={(item: any, id: any) => setItemGuest(item)}
           />
         }
+      />
+
+      {/* PRICE */}
+
+      {/* OTHER MODAL */}
+      <ModalLoading isVisible={modal === 201} />
+      <AlertModal
+        qna={true}
+        isVisible={modal === 999}
+        title={{id: 'Cek Pemesanan', en: 'Booking Check'}}
+        desc={askBookingLang}
+        btnOk={btnBookOk}
+        btnCancel={btnBookCancel}
+        onOk={onBook}
+        onDismiss={() => setModal(null)}
       />
     </HighSafeArea>
   );

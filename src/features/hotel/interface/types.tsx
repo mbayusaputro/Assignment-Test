@@ -27,4 +27,7 @@ export interface SelectRoomHotelProps extends Props {
 
 export interface DetailRoomHotelProps extends Props {}
 
-export interface BookingFormHotelProps extends Props {}
+export interface BookingFormHotelProps extends Props {
+  loadingBook: boolean;
+  actionBookHotel: (payload: object) => Promise<void>;
+}

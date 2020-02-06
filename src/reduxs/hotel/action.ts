@@ -1,5 +1,9 @@
 import {Dispatch} from 'redux';
-import {listDestinationHotel, searchHotel} from '../../services/api';
+import {
+  listDestinationHotel,
+  searchHotel,
+  bookingHotel,
+} from '../../services/api';
 import {
   LIST_DESTINATION,
   LIST_DESTINATION_SUCCESS,
@@ -7,10 +11,14 @@ import {
   SEARCH_HOTEL,
   SEARCH_HOTEL_SUCCESS,
   SEARCH_HOTEL_FAILED,
+  BOOK_HOTEL,
+  BOOK_HOTEL_SUCCESS,
+  BOOK_HOTEL_FAILED,
 } from './types';
 
 const listDest = 'listDest';
 const searchHot = 'searchHot';
+const bookHot = 'bookHot';
 
 const requestState = (type: string) => {
   if (type === listDest) {
@@ -20,6 +28,10 @@ const requestState = (type: string) => {
   } else if (type === searchHot) {
     return {
       type: SEARCH_HOTEL,
+    };
+  } else if (type === bookHot) {
+    return {
+      type: BOOK_HOTEL,
     };
   }
 };
@@ -37,6 +49,12 @@ const successState = (type: string, data: any, payload: any) => {
       data,
       payload,
     };
+  } else if (type === bookHot) {
+    return {
+      type: BOOK_HOTEL_SUCCESS,
+      data,
+      payload,
+    };
   }
 };
 
@@ -50,6 +68,12 @@ const failedState = (type: string, message: any, payload?: any) => {
   } else if (type === searchHot) {
     return {
       type: SEARCH_HOTEL_FAILED,
+      message,
+      payload,
+    };
+  } else if (type === bookHot) {
+    return {
+      type: BOOK_HOTEL_FAILED,
       message,
       payload,
     };
@@ -76,6 +100,7 @@ export const actionListDestinationHotel = (payload: object) => {
   };
 };
 
+// SEARCH HOTEL
 export const actionSearchHotel = (payload: object) => {
   return async (dispatch: Dispatch) => {
     dispatch(requestState(searchHot));
@@ -87,6 +112,22 @@ export const actionSearchHotel = (payload: object) => {
       return dispatch(failedState(searchHot, res.message, payload));
     } catch (err) {
       return dispatch(failedState(searchHot, err.message, payload));
+    }
+  };
+};
+
+// BOOK HOTEL
+export const actionBookHotel = (payload: object) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestState(bookHot));
+    try {
+      const res = await bookingHotel(payload);
+      if (res.status) {
+        return dispatch(successState(bookHot, res.data, payload));
+      }
+      return dispatch(failedState(bookHot, res.message, payload));
+    } catch (err) {
+      return dispatch(failedState(bookHot, err.message, payload));
     }
   };
 };
