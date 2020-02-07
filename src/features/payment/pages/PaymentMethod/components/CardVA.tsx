@@ -1,31 +1,32 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Image, TouchableOpacity as Touch} from 'react-native';
 import styles from '../style';
+import fonts from '../../../../../constants/Fonts';
+import {Text} from '../../../../../components';
 
-interface Props {
+type Props = {
   onPress: () => void;
-}
+  logo: any;
+  title: string;
+};
 
 const Card = (props: Props) => {
+  // Props
+  const {onPress, logo, title} = props;
+
+  // Main Render
   return (
-    <View style={styles.va}>
-      <TouchableOpacity activeOpacity={0.7} onPress={props.onPress}>
-        <View style={styles.rowva}>
-          <Image
-            style={styles.logova}
-            source={require('../../../../../assets/payment/bca-logo.png')}
-            resizeMode="contain"
-          />
-          <View style={{flexDirection: 'row'}}>
-            <Text
-              style={{fontFamily: 'NunitoSans-SemiBold', marginHorizontal: 10}}>
-              BCA Virtual Account
-            </Text>
-            <View style={styles.circle} />
-          </View>
+    <Touch activeOpacity={0.7} style={styles.va} onPress={props.onPress}>
+      <View style={styles.rowva}>
+        <Image style={styles.logova} source={logo} resizeMode="contain" />
+        <View style={{flexDirection: 'row'}}>
+          <Text style={{fontFamily: fonts.fontSemiBold, marginHorizontal: 10}}>
+            {title}
+          </Text>
+          <View style={styles.circle} />
         </View>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </Touch>
   );
 };
 

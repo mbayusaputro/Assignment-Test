@@ -1,11 +1,14 @@
 import React from 'react';
 import {View, Text, Alert} from 'react-native';
-import {Card, CardCC, CardInfo, CardVA} from './components';
-import {PayMethodContext} from './components/Context';
-import {moneyFormat} from '../../../../helpers/helpers';
+import {Card, CardCC, CardInfo, CardVA} from '../components';
+import {PayMethodContext} from '../components/Context';
+import {moneyFormat} from '../../../../../helpers/helpers';
+import {dataVA} from '../components/data';
 
 const Method = () => {
-  const {price, typeScreen, dataFlight} = React.useContext(PayMethodContext);
+  const {price, typeScreen, dataFlight, onPay} = React.useContext(
+    PayMethodContext,
+  );
 
   // Main Render
   return (
@@ -31,7 +34,9 @@ const Method = () => {
         title={{id: 'Harga yang anda bayar', en: 'Price You Pay'}}
         sub={`Rp${moneyFormat(price)}`}
       />
-      <CardCC onPress={() => Alert.alert('CC')} />
+
+      {/* CREDIT CARD */}
+      <CardCC onPress={() => onPay('credit_card')} />
       <Text
         style={{
           marginVertical: 10,
@@ -40,7 +45,16 @@ const Method = () => {
         }}>
         Virtual Account
       </Text>
-      <CardVA onPress={() => Alert.alert('Virtual Account')} />
+
+      {/* VIRTUAL ACCOUNT */}
+      {dataVA.map((item: any, index: number) => (
+        <CardVA
+          key={index}
+          logo={item.image}
+          title={item.name}
+          onPress={() => onPay(item.id)}
+        />
+      ))}
     </View>
   );
 };

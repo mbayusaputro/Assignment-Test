@@ -18,7 +18,6 @@ import FlightOrderDetail from './orders/pages/FlightOrderDetail';
 // Setting
 import MainSetting from './settings/pages/MainSetting';
 
-import {PaymentMethod} from './payment';
 import BookingDetail from './flight/pages/BookingDetail';
 import ETicketFlight from './flight/pages/EticketFlight';
 import NoFlight from './flight/pages/NoFlight';
@@ -36,13 +35,15 @@ import SelectRoomHotel from './hotel/pages/SelectRoomHotel';
 import DetailRoomHotel from './hotel/pages/DetailRoomHotel';
 import BookingFormHotel from './hotel/pages/BookingFormHotel';
 
+// PAYMENT
+import {PaymentMethod, PaymentWeb} from './payment';
+
 export {
   Home,
   Flight,
   Orders,
   Inbox,
   Profile,
-  PaymentMethod,
   BookingDetail,
   ETicketFlight,
   NoFlight,
@@ -67,4 +68,6 @@ export {
   SelectRoomHotel,
   DetailRoomHotel,
   BookingFormHotel,
+  PaymentMethod,
+  PaymentWeb,
 };

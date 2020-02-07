@@ -16,7 +16,7 @@ const Orders = (props: Props) => {
   // Life Cycle
   React.useEffect(() => {
     getDataOrder();
-  });
+  }, []);
 
   // Function
   const getDataOrder = () => {
@@ -54,7 +54,6 @@ const Orders = (props: Props) => {
       navigation: {navigate},
     } = props;
     navigate('FlightOrderDetail', {itemSelected: item});
-    console.log(item);
   };
 
   // Main Render
@@ -65,8 +64,8 @@ const Orders = (props: Props) => {
         <Active
           {...props}
           title="Active"
-          dataOrder={oc(props.dataFlightOrder).data(new Array(0))}
-          // dataOrder={dataFlightOrder}
+          // dataOrder={oc(props.dataFlightOrder).data(new Array(0))}
+          dataOrder={dataFlightOrder}
           onSelected={(item: any) => onSelectOrder(item)}
         />
         <Finished {...props} title="Finished" />

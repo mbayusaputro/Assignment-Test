@@ -1,7 +1,10 @@
+import {Platform} from 'react-native';
 import axios from 'axios';
 
 const URL: string = 'https://api.aeroaja.com/v1/';
 const HOTEL_BEDS: string = 'https://apinodegw-dev.aeroaja.com';
+
+const appSource = Platform.OS === 'ios' ? 'APP_IOS' : 'APP_AND';
 
 // ====================== PROFILE ======================
 export async function signIn(payload: object) {
@@ -79,7 +82,7 @@ export async function orderHistoryFlight(token: string) {
 export async function getFlight(payload: object) {
   const uri: string = `${URL}gateway/flights`;
   const config = {
-    headers: {'X-Platform-Source': 'APP_AND', 'X-SAI-Source': 'ASITAAJA'},
+    headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},
   };
   const response = await axios.post(uri, payload, config).then(res => res.data);
   return response;
@@ -88,7 +91,7 @@ export async function getFlight(payload: object) {
 export async function bookingFlight(payload: object) {
   const uri: string = `${URL}gateway/flights/booking`;
   const config = {
-    headers: {'X-Platform-Source': 'APP_AND', 'X-SAI-Source': 'ASITAAJA'},
+    headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},
   };
   const response = await axios.post(uri, payload, config).then(res => res.data);
   return response;
@@ -121,9 +124,18 @@ export async function bookingHotel(payload: object) {
 export async function paymentMidtrans(payload: object) {
   const uri: string = `${URL}payment/midtrans`;
   const config = {
-    headers: {'X-Platform-Source': 'APPS', 'X-SAI-Source': 'ASITAAJA'},
+    headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},
   };
   const response = await axios.post(uri, payload, config).then(res => res.data);
+  return response;
+}
+
+export async function checkPaymentMidtrans(trx_id: string, type: string) {
+  const uri: string = `${URL}payment/${trx_id}?type=${type}`;
+  const config = {
+    headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},
+  };
+  const response = await axios.get(uri, config).then(res => res.data);
   return response;
 }
 // ====================== PAYMENT ======================

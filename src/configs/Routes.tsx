@@ -9,7 +9,6 @@ import {
   Orders,
   Inbox,
   Profile,
-  PaymentMethod,
   BookingDetail,
   ETicketFlight,
   NoFlight,
@@ -34,6 +33,8 @@ import {
   SelectRoomHotel,
   DetailRoomHotel,
   BookingFormHotel,
+  PaymentMethod,
+  PaymentWeb,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -180,12 +181,6 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
-    PaymentMethod: {
-      screen: PaymentMethod,
-      navigationOptions: {
-        header: null,
-      },
-    },
     BookingDetail: {
       screen: BookingDetail,
       navigationOptions: {
@@ -326,6 +321,18 @@ const STACK = createStackNavigator(
     },
     BookingFormHotel: {
       screen: BookingFormHotel,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    PaymentMethod: {
+      screen: PaymentMethod,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    PaymentWeb: {
+      screen: PaymentWeb,
       navigationOptions: {
         header: null,
       },
