@@ -1,5 +1,6 @@
 import React from 'react';
-import {HighSafeArea, Header} from '../../../components';
+import {Button} from 'react-native';
+import {HighSafeArea, Header, LoadingBook} from '../../../components';
 import {styles, HomeContext} from '../components';
 import Content from './Content';
 import {Props} from '../types';
@@ -8,6 +9,7 @@ import Login from './Login';
 export default (props: Props) => {
   // Props
   const {isLogin} = props;
+
   // Function
   const onNavigate = (route: string) => {
     const {

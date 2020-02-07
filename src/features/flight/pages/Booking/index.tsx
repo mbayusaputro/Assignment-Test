@@ -10,7 +10,7 @@ import {bindActionCreators, Dispatch} from 'redux';
 import {actionBookingFlight} from '../../../../reduxs/flight/action';
 import {AppState} from '../../../../reduxs/reducers';
 import {Props} from './types';
-import {ModalLoading, AlertModal} from '../../../../components';
+import {LoadingBook, AlertModal} from '../../../../components';
 
 const Booking = (props: Props) => {
   const {
@@ -260,7 +260,7 @@ const Booking = (props: Props) => {
           onDob={doneDob}
         />
       )}
-      <ModalLoading isVisible={otherModal === 999} />
+      <LoadingBook type="flight" isVisible={otherModal === 999} />
       <AlertModal
         qna={otherModal === 201}
         isVisible={otherModal === 201 || otherModal === 404}

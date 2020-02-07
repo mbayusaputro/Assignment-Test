@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
-import {HighSafeArea, ModalLoading} from '../../../../../components';
+import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Method from './Method';
 import {Header, SubHeader} from '../../../components';
 import {PayMethodProps as Props} from '../../../interface/types';
@@ -63,7 +63,7 @@ const Default = (props: Props) => {
           <Method />
         </PayMethodContext.Provider>
       </ScrollView>
-      <ModalLoading isVisible={loading} />
+      <LoadingBook type="flight" isVisible={loading} />
     </HighSafeArea>
   );
 };

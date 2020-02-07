@@ -1,27 +1,44 @@
 import React from 'react';
 import Modal from 'react-native-modal';
 import {StyleSheet, Image, View} from 'react-native';
-import {DotIndicator} from 'react-native-indicators';
+import LottieView from 'lottie-react-native';
 import Card from './Card';
 import Text from './Text';
 import normalize from '../constants/normalize';
 import fonts from '../constants/Fonts';
 import {MEDIUM_FONT_SIZE, TITLE_FONT_SIZE} from '../constants/TextSize';
-import {Color} from '../constants/Color';
 
 type Props = {
   isVisible: any;
+  type: 'flight' | 'hotel';
 };
 
 export default (props: Props) => {
-  const Content = () => {
-    return (
-      <Card style={styles.content}>
+  const typeLoading = () => {
+    if (props.type === 'flight') {
+      return (
+        <LottieView
+          loop
+          autoPlay
+          style={styles.image}
+          source={require('../assets/animation/loading_plane.json')}
+        />
+      );
+    } else if (props.type === 'hotel') {
+      return (
         <Image
           source={require('../assets/img/loading.png')}
           resizeMode="contain"
           style={styles.image}
         />
+      );
+    }
+  };
+
+  const Content = () => {
+    return (
+      <Card style={styles.content}>
+        {typeLoading()}
         <View style={styles.vertical}>
           <Text
             style={styles.textTitle}
@@ -37,7 +54,6 @@ export default (props: Props) => {
             }}
           />
         </View>
-        <DotIndicator color={Color.oceanBlue} style={styles.vertical} />
       </Card>
     );
   };

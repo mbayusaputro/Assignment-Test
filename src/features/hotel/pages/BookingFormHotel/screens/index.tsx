@@ -6,7 +6,7 @@ import {
   HighSafeArea,
   SubHeader,
   AlertModal,
-  ModalLoading,
+  LoadingBook,
 } from '../../../../../components';
 import {
   askBookingLang,
@@ -198,7 +198,7 @@ export default (props: Props) => {
       {/* PRICE */}
 
       {/* OTHER MODAL */}
-      <ModalLoading isVisible={modal === 201} />
+      <LoadingBook type="flight" isVisible={modal === 201} />
       <AlertModal
         qna={true}
         isVisible={modal === 999}

@@ -7,7 +7,7 @@ import {SubHeader, Header} from './Header';
 import Card from './Card';
 import BirthDatePicker from './BirthDatePicker';
 import AlertModal from './AlertModal';
-import ModalLoading from './ModalLoading';
+import LoadingBook from './LoadingBook';
 
 export {
   Button,
@@ -22,5 +22,5 @@ export {
   Card,
   BirthDatePicker,
   AlertModal,
-  ModalLoading,
+  LoadingBook,
 };
