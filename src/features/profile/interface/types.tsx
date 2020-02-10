@@ -12,6 +12,8 @@ export interface SigninProps extends Props {
   logout: () => void;
   actionGetProfile: (token: string) => Promise<void>;
   profile: any;
+  fetchSignIn: boolean;
+  fetchProfile: boolean;
 }
 
 export interface ChangePasswordProps extends Props {
@@ -23,8 +25,8 @@ export interface ChangePasswordProps extends Props {
 export interface SignInContent {
   fetchSignIn?: boolean;
   validMail: boolean;
-  onChangeEmail: () => void;
-  onChangePassword: () => void;
+  onChangeEmail: (text: any) => void;
+  onChangePassword: (text: any) => void;
   onPressGoogle: () => void;
   onPressFacebook: () => void;
   onForgot: () => void;

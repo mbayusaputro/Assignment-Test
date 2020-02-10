@@ -192,8 +192,8 @@ export default (props: Props) => {
           mobileNo={profile.mobileNo}
           onShowModalEdit={() => setModal(1)}
           onImage={handleImage}
-          address={oc(profile).address('')}
-          birthDate={oc(profile).birthDate('NO ADDRESS')}
+          address={oc(profile).address('NO ADDRESS')}
+          birthDate={oc(profile).birthDate(null)}
         />
       </ScrollView>
       <ModalEdit

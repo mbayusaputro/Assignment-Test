@@ -14,7 +14,7 @@ import {
 } from '../../../../reduxs/profile/selector';
 import {getFetchCountry, getCountry} from '../../../../reduxs/master/selector';
 // Components
-import {HighSafeArea} from '../../../../components';
+import {HighSafeArea, LoadingBook, AlertModal} from '../../../../components';
 import {Content, Header} from './screen';
 import {ModalContext, dataCountry} from './components';
 import {Props} from '../../interface/types';
@@ -32,6 +32,7 @@ const SubmitRegister = (props: Props) => {
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [modal, showModal] = React.useState(false);
+  const [modalOut, setModalOut] = React.useState(false);
   const [selectedCountry, chooseCountry] = React.useState('');
   const [typeScreen, setTypeScreen] = React.useState(); // for getTypeNavigation
 
@@ -105,9 +106,6 @@ const SubmitRegister = (props: Props) => {
   };
 
   const submit = () => {
-    const {
-      navigation: {dispatch},
-    } = props;
     const payload = {
       fullname,
       passwd: password,
@@ -128,23 +126,7 @@ const SubmitRegister = (props: Props) => {
       } else {
         props.actionSignUp3(payload).then((res: any) => {
           if (res.type === 'REGISTER3_SUCCESS') {
-            const resetAction = StackActions.reset({
-              index: 0,
-              actions: [
-                NavigationActions.navigate({
-                  routeName: 'Tabs',
-                  action: NavigationActions.navigate({
-                    routeName: 'Profile',
-                  }),
-                }),
-              ],
-            });
-            Alert.alert('Alert', 'Success Register, you can Login right now', [
-              {
-                text: 'OK',
-                onPress: () => dispatch(resetAction),
-              },
-            ]);
+            setModalOut(true);
           } else {
             alert(res.message);
           }
@@ -153,6 +135,25 @@ const SubmitRegister = (props: Props) => {
     } else {
       alert('Please enter all field');
     }
+  };
+
+  const goHome = () => {
+    setModalOut(false);
+    const {
+      navigation: {dispatch},
+    } = props;
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({
+          routeName: 'Tabs',
+          action: NavigationActions.navigate({
+            routeName: 'Profile',
+          }),
+        }),
+      ],
+    });
+    setTimeout(() => dispatch(resetAction), 500);
   };
 
   // Main Render
@@ -186,6 +187,17 @@ const SubmitRegister = (props: Props) => {
           loading={props.fetchSignUp}
         />
       </ModalContext.Provider>
+      <LoadingBook isVisible={props.fetchSignUp} />
+      <AlertModal
+        isVisible={modalOut}
+        title={{id: 'Sukses', en: 'Success'}}
+        desc={{
+          id: 'Berhasil, anda dapat masuk sekarang',
+          en: 'Successful, you can login right now',
+        }}
+        btnOk={{id: 'OK', en: 'OK'}}
+        onOk={goHome}
+      />
     </HighSafeArea>
   );
 };

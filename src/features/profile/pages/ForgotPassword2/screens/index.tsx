@@ -1,6 +1,6 @@
 import React from 'react';
 import {InteractionManager} from 'react-native';
-import {HighSafeArea} from '../../../../../components';
+import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Content from './Content';
 import {ForgotPass2Props} from '../../../interface/types';
 import Header from './Header';
@@ -58,6 +58,7 @@ export default (props: ForgotPass2Props) => {
         onSend={onSend}
         loading={fetchForgotPass}
       />
+      <LoadingBook isVisible={props.fetchForgotPass} />
     </HighSafeArea>
   );
 };

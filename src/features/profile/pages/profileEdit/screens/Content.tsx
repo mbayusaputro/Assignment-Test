@@ -55,9 +55,11 @@ export default (props: ContentProps) => {
             <Text style={styles.textRegular}>
               {salutation}. {fullname}
             </Text>
-            <Text style={styles.textRegular}>
-              {dayjs(birthDate).format('D MMMM, YYYY')}
-            </Text>
+            {birthDate !== null ? (
+              <Text style={styles.textRegular}>
+                {dayjs(birthDate).format('D MMMM, YYYY')}
+              </Text>
+            ) : null}
           </View>
         </View>
       </Card>

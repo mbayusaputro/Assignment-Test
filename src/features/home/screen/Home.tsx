@@ -1,6 +1,5 @@
 import React from 'react';
-import {Button} from 'react-native';
-import {HighSafeArea, Header, LoadingBook} from '../../../components';
+import {HighSafeArea, Header} from '../../../components';
 import {styles, HomeContext} from '../components';
 import Content from './Content';
 import {Props} from '../types';

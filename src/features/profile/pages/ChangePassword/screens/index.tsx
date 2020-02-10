@@ -1,5 +1,5 @@
 import React from 'react';
-import {HighSafeArea} from '../../../../../components';
+import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Header from './Header';
 import Content from './Content';
 import {ChangePasswordProps as Props} from '../../../interface/types';
@@ -72,6 +72,7 @@ export default (props: Props) => {
         onChange={onChangePassword}
         isLoading={props.fetchChangePassword}
       />
+      <LoadingBook isVisible={props.fetchChangePassword} />
     </HighSafeArea>
   );
 };

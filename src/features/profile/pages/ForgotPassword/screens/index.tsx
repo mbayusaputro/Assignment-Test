@@ -1,6 +1,6 @@
 import React from 'react';
 import {InteractionManager} from 'react-native';
-import {HighSafeArea} from '../../../../../components';
+import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Header from './Header';
 import {ForgotPassProps} from '../../../interface/types';
 import Content from './Content';
@@ -67,6 +67,7 @@ export default (props: ForgotPassProps) => {
         onSubmitEmail={() => (!fetchForgotPass ? onSubmit('email') : null)}
         loading={fetchForgotPass}
       />
+      <LoadingBook isVisible={props.fetchForgotPass} />
     </HighSafeArea>
   );
 };

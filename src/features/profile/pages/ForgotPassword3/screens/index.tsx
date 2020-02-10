@@ -1,6 +1,6 @@
 import React from 'react';
 import {StackActions, NavigationActions} from 'react-navigation';
-import {HighSafeArea} from '../../../../../components';
+import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Content from './Content';
 import Header from './Header';
 import {ForgotPass3Props as Props} from '../../../interface/types';
@@ -58,6 +58,7 @@ export default (props: Props) => {
         onSubmit={onSubmit}
         loading={fetchForgotPass}
       />
+      <LoadingBook isVisible={props.fetchForgotPass} />
     </HighSafeArea>
   );
 };

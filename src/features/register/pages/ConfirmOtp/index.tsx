@@ -9,7 +9,7 @@ import {
   getPayloadSignUp1,
 } from '../../../../reduxs/profile/selector';
 // Components
-import {HighSafeArea} from '../../../../components';
+import {HighSafeArea, LoadingBook} from '../../../../components';
 import {Content, Header} from './screen';
 import {Props} from '../../interface/types';
 import {InteractionManager} from 'react-native';
@@ -61,7 +61,9 @@ const ConfirmOTP = (props: Props) => {
 
     props.actionSignUp2(payload, 'apply-verified', typeAPI).then((res: any) => {
       if (res.type === 'REGISTER2_SUCCESS') {
-        navigation.navigate('SubmitRegister', {typeNav});
+        setTimeout(() => {
+          navigation.navigate('SubmitRegister', {typeNav});
+        }, 500);
       } else {
         alert(res.message);
       }
@@ -82,6 +84,7 @@ const ConfirmOTP = (props: Props) => {
         onSend={sendCode}
         loading={fetchSignUp}
       />
+      <LoadingBook isVisible={props.fetchSignUp} />
     </HighSafeArea>
   );
 };

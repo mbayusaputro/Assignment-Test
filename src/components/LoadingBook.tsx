@@ -8,9 +8,16 @@ import normalize from '../constants/normalize';
 import fonts from '../constants/Fonts';
 import {MEDIUM_FONT_SIZE, TITLE_FONT_SIZE} from '../constants/TextSize';
 
+const descLang = {
+  id:
+    'Kami sedang memproses pemesanan Anda. Ini mungkin memakan waktu beberapa menit.',
+  en: 'We are currently processing your booking. This may take a few minutes.',
+};
+const descLoad = {id: 'Mohon tunggu sebentar', en: 'Please wait for a moment'};
+
 type Props = {
   isVisible: any;
-  type: 'flight' | 'hotel';
+  type?: 'flight' | 'hotel';
 };
 
 export default (props: Props) => {
@@ -32,6 +39,15 @@ export default (props: Props) => {
           style={styles.image}
         />
       );
+    } else {
+      return (
+        <LottieView
+          loop
+          autoPlay
+          style={styles.image}
+          source={require('../assets/animation/loading_original.json')}
+        />
+      );
     }
   };
 
@@ -40,18 +56,15 @@ export default (props: Props) => {
       <Card style={styles.content}>
         {typeLoading()}
         <View style={styles.vertical}>
-          <Text
-            style={styles.textTitle}
-            content={{id: 'Santai sejenak', en: 'Relaxed for a moment'}}
-          />
+          {props.type && (
+            <Text
+              style={styles.textTitle}
+              content={{id: 'Santai sejenak', en: 'Relaxed for a moment'}}
+            />
+          )}
           <Text
             style={styles.textSubTitle}
-            content={{
-              id:
-                'Kami sedang memproses pemesanan Anda. Ini mungkin memakan waktu beberapa menit.',
-              en:
-                'We are currently processing your booking. This may take a few minutes.',
-            }}
+            content={props.type === null ? descLang : descLoad}
           />
         </View>
       </Card>

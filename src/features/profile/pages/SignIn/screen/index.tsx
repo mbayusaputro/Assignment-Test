@@ -5,11 +5,12 @@ import {
   googleAndroid,
   facebookConf,
 } from '../../../../../services/signinProvider';
-import {HighSafeArea} from '../../../../../components';
+import {HighSafeArea, LoadingBook} from '../../../../../components';
 import {Header, Content} from '../components';
 import {validateEmailFormat} from '../../../../../helpers/helpers';
+import {SigninProps} from '../../../interface/types';
 
-export default (props: any) => {
+export default (props: SigninProps) => {
   // State
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -94,7 +95,7 @@ export default (props: any) => {
             Alert.alert('Alert', res.message);
           } else {
             const tokenNow = res.data.access_token;
-            gettingProfile(tokenNow);
+            setTimeout(() => gettingProfile(tokenNow), 500);
           }
         });
       } else {
@@ -126,6 +127,7 @@ export default (props: any) => {
         onPressLogin={pressLogin}
         onPressRegister={() => goToThe('FormRegister')}
       />
+      <LoadingBook isVisible={props.fetchProfile || props.fetchSignIn} />
     </HighSafeArea>
   );
 };

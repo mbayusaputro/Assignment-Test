@@ -15,7 +15,7 @@ import {
   getFetchSignUp,
 } from '../../../../reduxs/profile/selector';
 // Local Component
-import {HighSafeArea, Header} from '../../../../components/';
+import {HighSafeArea, Header, LoadingBook} from '../../../../components/';
 import Content from './screen/Content';
 import {Props} from '../../interface/types';
 import {googleAndroid, facebookConf} from '../../../../services/signinProvider';
@@ -87,7 +87,9 @@ const FormRegister = (props: Props) => {
 
     props.actionSignUp1(payload, 'apply', typeAPI).then((res: any) => {
       if (res.type === 'REGISTER1_SUCCESS') {
-        navigation.navigate('ConfirmOTP', {typeNav});
+        setTimeout(() => {
+          navigation.navigate('ConfirmOTP', {typeNav});
+        }, 500);
       } else {
         alert(res.message);
       }
@@ -152,6 +154,7 @@ const FormRegister = (props: Props) => {
         onFacebook={goFacebook}
         loading={props.fetchSignUp}
       />
+      <LoadingBook isVisible={props.fetchSignUp} />
     </HighSafeArea>
   );
 };

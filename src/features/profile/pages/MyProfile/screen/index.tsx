@@ -1,30 +1,24 @@
 import React from 'react';
-import {InteractionManager, View, StyleSheet, Alert} from 'react-native';
-import {HighSafeArea} from '../../../../../components';
+import {View, StyleSheet} from 'react-native';
+import {HighSafeArea, AlertModal, LoadingBook} from '../../../../../components';
 import {Content, Header} from '../components';
 import {SigninProps} from '../../../interface/types';
 import {Color} from '../../../../../constants/Color';
 
 export default (props: SigninProps) => {
+  // State
+  const [modal, setModal] = React.useState(false);
+
   // Function
-  const logOut = () => {
-    const {logout} = props;
-    const alert = Alert.alert(
-      'My Account',
-      'Are you sure you want to log out?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Yes',
-          onPress: () => logout(),
-        },
-      ],
-    );
-    InteractionManager.runAfterInteractions(() => alert);
+  const showModalLogout = () => {
+    setModal(true);
   };
+  const onLogOut = () => {
+    setModal(false);
+    const {logout} = props;
+    setTimeout(() => logout(), 500);
+  };
+
   const navProfileEdit = () => {
     const {
       navigation: {navigate},
@@ -38,7 +32,7 @@ export default (props: SigninProps) => {
 
   // Main Render
   const {container} = styles;
-  const {profile} = props;
+  const {profile, fetchProfile} = props;
   return (
     <HighSafeArea>
       <View style={container}>
@@ -46,11 +40,25 @@ export default (props: SigninProps) => {
         <Content
           {...props}
           profile={profile}
-          onLogOut={logOut}
+          onLogOut={showModalLogout}
           goToProfileEdit={navProfileEdit}
           navigateMenu={(menu: any) => navigateMenu(menu)}
         />
       </View>
+      <AlertModal
+        qna={true}
+        isVisible={modal}
+        title={{id: 'Keluar', en: 'Log Out'}}
+        desc={{
+          id: 'Anda yakin ingin keluar?',
+          en: 'Are you sure want log out?',
+        }}
+        btnOk={{id: 'Ya, keluar sekarang', en: 'Yes, log out now'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
+        onDismiss={() => setModal(false)}
+        onOk={onLogOut}
+      />
+      <LoadingBook isVisible={fetchProfile} />
     </HighSafeArea>
   );
 };
