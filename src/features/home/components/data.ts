@@ -11,7 +11,7 @@ export const dataMenu = [
   },
   {
     title: {id: 'Liburan', en: 'Holiday'},
-    route: '',
+    route: 'HolidayList',
     img: require('../../../assets/menu/holiday.png'),
   },
 ];

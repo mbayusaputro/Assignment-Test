@@ -35,8 +35,12 @@ import SelectRoomHotel from './hotel/pages/SelectRoomHotel';
 import DetailRoomHotel from './hotel/pages/DetailRoomHotel';
 import BookingFormHotel from './hotel/pages/BookingFormHotel';
 
+// HOLIDAY
+import HolidayList from './holiday/pages/HolidayList';
+import HolidayDetail from './holiday/pages/HolidayDetail';
+
 // PAYMENT
-import {PaymentMethod, PaymentWeb} from './payment';
+import {PaymentMethod, PaymentWeb, ETicket} from './payment';
 
 export {
   Home,
@@ -70,4 +74,7 @@ export {
   BookingFormHotel,
   PaymentMethod,
   PaymentWeb,
+  ETicket,
+  HolidayList,
+  HolidayDetail,
 };

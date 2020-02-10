@@ -263,45 +263,20 @@ const Booking = (props: Props) => {
       <LoadingBook type="flight" isVisible={otherModal === 999} />
       <AlertModal
         qna={otherModal === 201}
-        isVisible={otherModal === 201 || otherModal === 404}
-        title={
-          otherModal === 201
-            ? {id: 'Cek Pemesanan', en: 'Booking Check'}
-            : {id: 'Alert', en: 'Alert'}
-        }
-        desc={
-          otherModal === 201
-            ? {
-                id: 'Apakah detailnya benar?',
-                en: 'Are the details correct?',
-              }
-            : {
-                id: 'Terjadi kesalahan',
-                en: 'There is an error',
-              }
-        }
-        btnOk={
-          otherModal === 201
-            ? {
-                id: 'Ya, semuanya benar',
-                en: 'Yes, everything is correct',
-              }
-            : {
-                id: 'OK',
-                en: 'OK',
-              }
-        }
-        btnCancel={
-          otherModal === 201
-            ? {
-                id: 'Ganti',
-                en: 'Change',
-              }
-            : {
-                id: 'Batal',
-                en: 'Cancel',
-              }
-        }
+        isVisible={otherModal === 201}
+        title={{id: 'Cek Pemesanan', en: 'Booking Check'}}
+        desc={{id: 'Apakah detailnya benar?', en: 'Are the details correct?'}}
+        btnOk={{id: 'Ya, semuanya benar', en: 'Yes, everything is correct'}}
+        btnCancel={{id: 'Ganti', en: 'Change'}}
+        onOk={onSubmit}
+        onDismiss={() => setOtherModal(null)}
+      />
+      <AlertModal
+        isVisible={otherModal === 404}
+        title={{id: 'Alert', en: 'Alert'}}
+        desc={{id: 'Terjadi kesalahan', en: 'There is an error'}}
+        btnOk={{id: 'OK', en: 'OK'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
         onOk={onSubmit}
         onDismiss={() => setOtherModal(null)}
       />

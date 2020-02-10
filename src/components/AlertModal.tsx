@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   textSubTitle: {
     fontFamily: fonts.fontReguler,
     fontSize: MEDIUM_FONT_SIZE,
+    textAlign: 'center',
   },
 
   // BTN

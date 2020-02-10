@@ -35,6 +35,9 @@ import {
   BookingFormHotel,
   PaymentMethod,
   PaymentWeb,
+  ETicket,
+  HolidayList,
+  HolidayDetail,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -333,6 +336,24 @@ const STACK = createStackNavigator(
     },
     PaymentWeb: {
       screen: PaymentWeb,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ETicket: {
+      screen: ETicket,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    HolidayList: {
+      screen: HolidayList,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    HolidayDetail: {
+      screen: HolidayDetail,
       navigationOptions: {
         header: null,
       },

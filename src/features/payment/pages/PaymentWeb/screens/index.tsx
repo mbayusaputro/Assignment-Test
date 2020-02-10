@@ -82,7 +82,7 @@ export default class PaymentWeb extends PureComponent<Props, State> {
     const trx_id = getParam('productID');
     actionCheckPaymentMidtrans(trx_id, type).then((res: any) => {
       if (res.type === 'CHECK_PAYMENT_SUCCESS') {
-        if (res.data.status !== 'WAITING_PAYMENT') {
+        if (res.data.Status !== 'WAITING_PAYMENT') {
           this.goHome();
         }
       } else {
