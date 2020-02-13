@@ -51,7 +51,7 @@ export default (props: SignInContent) => {
           <Touch onPress={onPressGoogle} style={styles.btnGoogle}>
             <Imaging
               source={require('../../../../../assets/icons/profile/icon_google.png')}
-              resizeMode={Platform.OS === 'ios' ? 'contain' : 'cover'}
+              resizeMode="contain"
               style={styles.iconGoogle}
             />
             <Text style={styles.textSemiBold}>Google</Text>

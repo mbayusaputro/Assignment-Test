@@ -8,16 +8,32 @@ import {
   HEADER_MAX_HEIGHT,
   HEADER_MIN_HEIGHT,
 } from '../components/valueScroll';
-import {HolidayDetailContext as Context} from '../components';
-import {HighSafeArea} from '../../../../../components';
+import {HolidayDetailContext as Context, Modal} from '../components';
+import {HighSafeArea, LoadingBook} from '../../../../../components';
+import ModalParticipant from './ModalParticipant';
+import {HolidayDetailProps as Props} from '../../../interface/types';
+import {oc} from 'ts-optchain';
 
-export default props => {
+export default (props: Props) => {
+  const Participant = React.memo(ModalParticipant);
+  // Props
   const {
     navigation: {getParam},
   } = props;
-  const dataParam = getParam('item');
+  const idParam = getParam('id');
+
   // State
+  const [dataDetail, setDataDetail] = React.useState(null);
   const [scrollY] = React.useState(new Animated.Value(0));
+  const [modal, setModal] = React.useState(false);
+  const [selectedDate, setSelectedDate] = React.useState(0);
+  const [totalAdult, setTotalAdult] = React.useState(2);
+  const [totalChild, setTotalChild] = React.useState(0);
+  const [totalPrice, setTotalPrice] = React.useState(0);
+
+  React.useEffect(() => {
+    getDetail();
+  }, []);
 
   // Function
   const onBack = () => {
@@ -25,6 +41,67 @@ export default props => {
       navigation: {goBack},
     } = props;
     goBack();
+  };
+
+  // Get Detail Holiday
+  const getDetail = () => {
+    const {isLogin, token, actionHolidayDetail} = props;
+    if (dataDetail === null) {
+      actionHolidayDetail(isLogin ? token : null, idParam).then((res: any) => {
+        if (res.type === 'HOLIDAYDETAIL_SUCCESS') {
+          setDataDetail(res.data);
+          setTotalAdult(res.data.min_pax);
+          setTotalPrice(res.data.price.price_adult);
+        } else {
+          alert(res.message);
+        }
+      });
+    }
+  };
+
+  const modifTotal = (type: string, matic: string) => {
+    if (type === 'adult') {
+      if (totalAdult < 2) {
+        setTotalAdult(2);
+      } else {
+        matic === '+'
+          ? setTotalAdult(totalAdult + 1)
+          : setTotalAdult(totalAdult - 1);
+      }
+    } else if (type === 'child') {
+      if (totalChild < 0) {
+        setTotalChild(0);
+      } else {
+        matic === '+'
+          ? setTotalChild(totalChild + 1)
+          : setTotalChild(totalChild - 1);
+      }
+    }
+  };
+
+  const onContinue = () => {
+    setModal(false);
+    const {
+      navigation: {navigate},
+    } = props;
+    const total = totalAdult + totalChild;
+    const item = {
+      adult: totalAdult,
+      child: totalChild,
+      id: idParam,
+    };
+    const detail = {
+      title: dataDetail.title,
+      date: dataDetail.trip_date[selectedDate],
+      tour: dataDetail.host,
+      price: totalPrice * total,
+    };
+    setTimeout(() => {
+      navigate('HolidayBooking', {
+        item,
+        detail,
+      });
+    }, 500);
   };
 
   // Scroll Animated
@@ -57,7 +134,14 @@ export default props => {
     <HighSafeArea style={{flex: 1}}>
       <Context.Provider
         value={{
-          title: dataParam.title,
+          title: oc(dataDetail).title(''),
+          by: oc(dataDetail).host(''),
+          selectedDate,
+          onSelectDate: (item: any) => setSelectedDate(item),
+          dataDate: oc(dataDetail).trip_date(null),
+          dataVisit: oc(dataDetail).visit_cities(null),
+          dataInclude: oc(dataDetail).info_included(null),
+          dataExclude: oc(dataDetail).info_excluded(null),
         }}>
         <Animated.ScrollView
           scrollEventThrottle={16}
@@ -73,11 +157,27 @@ export default props => {
           translate={imageTranslate}
           headerTitle={headerOpacity}
           callback={onBack}
-          photo={dataParam.img}
-          title={dataParam.title}
+          photo={oc(dataDetail).media[0].url('https://awok.png')}
+          title={oc(dataDetail).title('')}
         />
-        <Footer price={34124} onSelect={() => alert('Selected Holiday')} />
+        <Footer price={oc(totalPrice)(0)} onSelect={() => setModal(true)} />
+        <Modal isVisible={modal} onDismiss={() => setModal(false)}>
+          <Participant
+            addAdult={() => modifTotal('adult', '+')}
+            minAdult={() =>
+              totalAdult === 2 ? null : modifTotal('adult', '-')
+            }
+            addChild={() => modifTotal('child', '+')}
+            minChild={() =>
+              totalChild === 0 ? null : modifTotal('child', '-')
+            }
+            totalAdult={totalAdult}
+            totalChild={totalChild}
+            onPress={onContinue}
+          />
+        </Modal>
       </Context.Provider>
+      <LoadingBook isVisible={props.fetchDetail} />
     </HighSafeArea>
   );
 };

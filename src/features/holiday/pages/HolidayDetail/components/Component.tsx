@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {TouchableOpacity as Touch} from 'react-native';
 import {Imaging, Text} from '../../../../../components';
 import styles from './styles';
-import {show_more} from '../../../interface/strings';
+import {show_more, show_less} from '../../../interface/strings';
 
 export const Bookmark = () => (
   <Imaging
@@ -31,15 +31,19 @@ export const CloseRed = () => (
 
 type ShowProps = {
   onPress: () => void;
+  more: boolean;
 };
 export const ShowMore = (props: ShowProps) => (
   <Touch
     onPress={props.onPress}
     activeOpacity={0.75}
     style={[styles.row, styles.btnShowMore]}>
-    <Text style={styles.textSmallBold} content={show_more} />
+    <Text
+      style={styles.textSmallBold}
+      content={props.more ? show_less : show_more}
+    />
     <Icon
-      name="chevron-down"
+      name={props.more ? 'chevron-up' : 'chevron-down'}
       size={25}
       style={{marginTop: 2.5, marginLeft: 5}}
     />

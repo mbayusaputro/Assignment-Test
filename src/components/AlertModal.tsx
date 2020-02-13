@@ -11,8 +11,8 @@ import {Color} from '../constants/Color';
 type Props = {
   desc: {id: string; en: string};
   title: {id: string; en: string};
-  qna?: boolean;
   isVisible: any;
+  qna?: boolean;
   btnOk?: {id: string; en: string};
   btnCancel?: {id: string; en: string};
   onOk?: () => void;

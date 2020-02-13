@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, TouchableOpacity as Touch} from 'react-native';
 import {Color} from '../../../constants/Color';
 import {Text} from '../../../components';
 import {HEADER_FONT_SIZE} from '../../../constants/TextSize';
@@ -7,14 +7,20 @@ import {verticalScale, scale} from '../../../constants/ScaleUtils';
 import {WIDTH_SCREEN} from '../../../constants/Dimension';
 import fonts from '../../../constants/Fonts';
 
-const Header = (props: any) => {
+type Props = {
+  callback: () => void;
+};
+
+const Header = (props: Props) => {
   return (
     <View style={styles.container}>
-      <Image
-        style={{height: verticalScale(16), width: scale(20), marginTop: 2}}
-        source={require('../../../assets/icons/back.png')}
-        resizeMode="contain"
-      />
+      <Touch activeOpacity={0.5} onPress={props.callback}>
+        <Image
+          style={{height: verticalScale(16), width: scale(20), marginTop: 2}}
+          source={require('../../../assets/icons/back.png')}
+          resizeMode="contain"
+        />
+      </Touch>
       <Text
         style={styles.title}
         content={{id: 'Pilih Metode Pembayaran', en: 'Select Payment Method'}}

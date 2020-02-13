@@ -28,6 +28,9 @@ export default StyleSheet.create({
   vertical: {
     marginVertical: 10,
   },
+  pinkColor: {
+    backgroundColor: Color.berry,
+  },
 
   // Component
   hr: {
@@ -42,6 +45,11 @@ export default StyleSheet.create({
     marginHorizontal: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 10,
+  },
+  cardModal: {
+    padding: 15,
+    width: '90%',
   },
   footer: {
     width: WIDTH_SCREEN,
@@ -56,6 +64,12 @@ export default StyleSheet.create({
   },
   btnFooter: {
     borderRadius: 25,
+  },
+  btnCircle: {
+    padding: 0,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Color.tealBlue,
   },
 
   // Header
@@ -85,8 +99,8 @@ export default StyleSheet.create({
     right: 0,
     width: null,
     height: HEADER_MAX_HEIGHT,
-    resizeMode: 'cover',
     paddingTop: Platform.OS === 'ios' ? 50 : 0, // ios
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   iconBack: {
     width: 60,

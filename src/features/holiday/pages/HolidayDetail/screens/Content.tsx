@@ -2,19 +2,23 @@ import React from 'react';
 import {View, ScrollView, TouchableOpacity as Touch} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import dayjs from 'dayjs';
-import {Text, Card} from '../../../../../components';
+import dayID from 'dayjs/locale/id';
+import dayEN from 'dayjs/locale/en';
+import {Text} from '../../../../../components';
 import {
   styles,
   HolidayDetailContext as Context,
   CheckGreen,
   ShowMore,
 } from '../components';
-import {dataVisit, dataInclude, dataExclude} from '../components/data';
 import {CloseRed, Bookmark} from '../components/Component';
 
-const data = Array.apply(null, Array(20));
-
 export default () => {
+  // State
+  const [showVisited, setShowVisited] = React.useState(false);
+  const [showInclude, setShowInclude] = React.useState(false);
+  const [showExclude, setShowExclude] = React.useState(false);
+
   // Context
   const context = React.useContext(Context);
 
@@ -33,7 +37,7 @@ export default () => {
           <Text style={styles.textTitle}>{context.title}</Text>
           <IconBookmark />
         </View>
-        <Text>By: Asita Tour</Text>
+        <Text>By: {context.by}</Text>
       </View>
 
       {/* DATE */}
@@ -43,19 +47,40 @@ export default () => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{paddingHorizontal: 10, marginTop: 10}}>
-          {data.map((__: any, index: number) => (
-            <Card style={styles.cardHorizontal} key={index}>
-              <Text style={styles.textSmallBold}>
-                {index + 1} - {index + 2}
-              </Text>
-              <Text
-                content={{
-                  id: dayjs().format('MMM YYYY'),
-                  en: dayjs().format('MMM YYYY'),
-                }}
-              />
-            </Card>
-          ))}
+          {context.dataDate !== null
+            ? context.dataDate.map((item: any, index: number) => (
+                <Touch
+                  activeOpacity={0.5}
+                  onPress={() => context.onSelectDate(index)}
+                  style={[
+                    styles.cardHorizontal,
+                    context.selectedDate === index ? styles.pinkColor : {},
+                  ]}
+                  key={index}>
+                  <Text
+                    style={[
+                      styles.textSmallBold,
+                      context.selectedDate === index ? {color: '#FFF'} : {},
+                    ]}>
+                    {dayjs(item.start_date).format(
+                      context.selectedDate === index ? 'D MMM' : 'D',
+                    )}{' '}
+                    -{' '}
+                    {dayjs(item.end_date).format(
+                      context.selectedDate === index ? 'D MMM' : 'D',
+                    )}
+                  </Text>
+                  <Text
+                    style={
+                      context.selectedDate === index ? {color: '#fff'} : {}
+                    }>
+                    {dayjs(item.start_date).format(
+                      context.selectedDate === index ? 'YYYY' : 'MMM YYYY',
+                    )}
+                  </Text>
+                </Touch>
+              ))
+            : null}
         </ScrollView>
       </View>
 
@@ -65,42 +90,78 @@ export default () => {
       <View style={[styles.content, styles.vertical]}>
         <Text style={styles.textMedium}>Visited Place</Text>
         <View style={styles.vertical}>
-          {dataVisit.map((item, index) => (
-            <View style={[styles.row, {marginBottom: 5}]} key={index}>
-              <IconCheck />
-              <Text>{item}</Text>
-            </View>
-          ))}
+          {context.dataVisit !== null
+            ? context.dataVisit.map((item, index) =>
+                index < 2 ? (
+                  <View style={[styles.row, {marginBottom: 5}]} key={index}>
+                    <IconCheck />
+                    <Text>{item.name}</Text>
+                  </View>
+                ) : showVisited ? (
+                  <View style={[styles.row, {marginBottom: 5}]} key={index}>
+                    <IconCheck />
+                    <Text>{item.name}</Text>
+                  </View>
+                ) : null,
+              )
+            : null}
         </View>
-        <BtnShowMore onPress={() => alert('Show More Visited Place')} />
+        <BtnShowMore
+          more={showVisited}
+          onPress={() => setShowVisited(!showVisited)}
+        />
       </View>
 
-      {/* BENEFIT */}
+      {/* INCLUDE */}
       <View style={[styles.content, styles.vertical]}>
         <Text style={styles.textMedium}>Include</Text>
         <View style={styles.vertical}>
-          {dataInclude.map((item, index) => (
-            <View style={[styles.row, {marginBottom: 5}]} key={index}>
-              <IconCheck />
-              <Text>{item}</Text>
-            </View>
-          ))}
+          {context.dataInclude !== null
+            ? context.dataInclude.map((item, index) =>
+                index < 2 ? (
+                  <View style={[styles.row, {marginBottom: 5}]} key={index}>
+                    <IconCheck />
+                    <Text>{item}</Text>
+                  </View>
+                ) : showInclude ? (
+                  <View style={[styles.row, {marginBottom: 5}]} key={index}>
+                    <IconCheck />
+                    <Text>{item}</Text>
+                  </View>
+                ) : null,
+              )
+            : null}
         </View>
-        <BtnShowMore onPress={() => alert('Show More Include')} />
+        <BtnShowMore
+          more={showInclude}
+          onPress={() => setShowInclude(!showInclude)}
+        />
       </View>
 
-      {/* CONS BENEFIT */}
+      {/* EXCLUDE */}
       <View style={[styles.content, styles.vertical]}>
         <Text style={styles.textMedium}>Exclude</Text>
         <View style={styles.vertical}>
-          {dataExclude.map((item, index) => (
-            <View style={[styles.row, {marginBottom: 5}]} key={index}>
-              <IconClose />
-              <Text>{item}</Text>
-            </View>
-          ))}
+          {context.dataExclude !== null
+            ? context.dataExclude.map((item, index) =>
+                index < 2 ? (
+                  <View style={[styles.row, {marginBottom: 5}]} key={index}>
+                    <IconClose />
+                    <Text>{item}</Text>
+                  </View>
+                ) : showExclude ? (
+                  <View style={[styles.row, {marginBottom: 5}]} key={index}>
+                    <IconClose />
+                    <Text>{item}</Text>
+                  </View>
+                ) : null,
+              )
+            : null}
         </View>
-        <BtnShowMore onPress={() => alert('Show More Exclude')} />
+        <BtnShowMore
+          more={showExclude}
+          onPress={() => setShowExclude(!showExclude)}
+        />
       </View>
 
       <View style={[styles.hr, styles.vertical]} />

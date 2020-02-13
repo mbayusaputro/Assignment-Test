@@ -10,6 +10,9 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: Color.backWhite,
   },
+  content: {
+    paddingHorizontal: 15,
+  },
   contentMenu: {
     backgroundColor: Color.white,
     flexWrap: 'wrap',
@@ -32,8 +35,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
   },
+  rowDirection: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
   vertical: {
     marginVertical: 10,
+  },
+  contentPopular: {
+    backgroundColor: Color.white,
+    paddingTop: 10,
   },
 
   // Component
@@ -47,6 +59,25 @@ export default StyleSheet.create({
     backgroundColor: Color.berry,
     borderRadius: 20,
     borderWidth: 0,
+  },
+  imgFirst: {
+    width: normalize(200),
+  },
+  imgSlider: {
+    width: normalize(300),
+    height: normalize(250),
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  imgContent: {
+    position: 'absolute',
+    padding: 10,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    width: normalize(300),
+    height: normalize(250),
+    borderRadius: 10,
+    marginRight: 10,
+    justifyContent: 'space-between',
   },
 
   // ICON
@@ -64,5 +95,13 @@ export default StyleSheet.create({
   textSubTitle: {
     fontSize: MEDIUM_FONT_SIZE,
     textAlign: 'center',
+  },
+  textWhite: {
+    color: Color.white,
+  },
+  textPrice: {
+    color: Color.dustyOrange,
+    fontSize: TITLE_FONT_SIZE,
+    fontFamily: fonts.fontBold,
   },
 });

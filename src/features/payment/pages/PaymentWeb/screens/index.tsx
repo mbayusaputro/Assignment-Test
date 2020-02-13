@@ -54,6 +54,13 @@ export default class PaymentWeb extends PureComponent<Props, State> {
   };
 
   // Navigate to Home
+  goTicket = () => {
+    const {
+      navigation: {dispatch, navigate},
+    } = this.props;
+    navigate('ETicket');
+  };
+
   goHome = () => {
     const {
       navigation: {dispatch},
@@ -64,7 +71,7 @@ export default class PaymentWeb extends PureComponent<Props, State> {
         NavigationActions.navigate({
           routeName: 'Tabs',
           action: NavigationActions.navigate({
-            routeName: 'Order',
+            routeName: 'Home',
           }),
         }),
       ],
@@ -83,10 +90,8 @@ export default class PaymentWeb extends PureComponent<Props, State> {
     actionCheckPaymentMidtrans(trx_id, type).then((res: any) => {
       if (res.type === 'CHECK_PAYMENT_SUCCESS') {
         if (res.data.Status !== 'WAITING_PAYMENT') {
-          this.goHome();
+          this.goTicket();
         }
-      } else {
-        alert(res.message);
       }
     });
   };

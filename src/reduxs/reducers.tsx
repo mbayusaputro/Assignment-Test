@@ -6,6 +6,7 @@ import profileReducer from './profile/reducer';
 import masterReducer from './master/reducer';
 import flightReducer from './flight/reducer';
 import hotelReducer from './hotel/reducer';
+import holidayReducer from './holiday/reducer';
 import paymentReducer from './payment/reducer';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   language: languageReducer,
   flight: flightReducer,
   hotel: hotelReducer,
+  holiday: holidayReducer,
   payment: paymentReducer,
 });
 

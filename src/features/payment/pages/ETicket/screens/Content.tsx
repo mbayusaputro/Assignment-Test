@@ -16,7 +16,7 @@ export default () => (
       source={require('../../../../../assets/animation/correct_check.json')}
     />
     <Text style={styles.textTitleBold} content={payment_success} />
-    <Text style={styles.textSubTitle}>{email}</Text>
+    {/* <Text style={styles.textSubTitle}>{email}</Text> */}
     <View style={[styles.hr, styles.vertical]} />
     <View style={[styles.vertical, styles.content]}>
       <Text

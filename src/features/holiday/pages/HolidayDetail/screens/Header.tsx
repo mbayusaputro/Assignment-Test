@@ -2,6 +2,7 @@ import React from 'react';
 import {Animated, TouchableOpacity as Touch, Image} from 'react-native';
 import styles from '../components/styles';
 import {Imaging, Header} from '../../../../../components';
+import FastImage from 'react-native-fast-image';
 
 type Props = {
   callback: () => void;
@@ -44,10 +45,10 @@ export default (props: Props) => {
           styles.backgroundImage,
           {opacity, transform: [{translateY: translate}]},
         ]}>
-        <Imaging
+        <Image
           source={{uri: props.photo}}
           style={styles.backgroundImage}
-          resizeMode="cover"
+          resizeMode="contain"
         />
         {leftIcon()}
         {/* {rightIcon()} */}

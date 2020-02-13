@@ -17,3 +17,5 @@ export interface PayWebProps extends GlobalProps {
 export interface PayWebState {
   isVisible: any;
 }
+
+export interface ETicketProps extends GlobalProps {}

@@ -3,9 +3,16 @@ import {View, TouchableOpacity as Touch} from 'react-native';
 import {styles} from '../components';
 import {Imaging} from '../../../../../components';
 
-export default () => (
+type Props = {
+  callback: () => void;
+};
+
+export default (props: Props) => (
   <View style={styles.center}>
-    <Touch activeOpacity={0.75} style={styles.btnFooter}>
+    <Touch
+      onPress={props.callback}
+      activeOpacity={0.75}
+      style={styles.btnFooter}>
       <Imaging
         source={require('../../../../../assets/icons/close.png')}
         resizeMode="contain"

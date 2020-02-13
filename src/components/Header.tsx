@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import {
   View,
   StyleSheet,
-  TouchableOpacity as Touch,
+  TouchableHighlight as Touch,
   StyleProp,
   ViewStyle,
   TextStyle,
@@ -40,7 +40,7 @@ export const Header = (props: HeaderProps) => {
         <Touch
           style={styles.leftHeader}
           onPress={props.callback}
-          activeOpacity={0.5}>
+          underlayColor="rgba(0,0,0,0.5)">
           {props.iconLeft ? (
             props.iconLeft
           ) : (

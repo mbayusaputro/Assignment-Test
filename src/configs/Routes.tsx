@@ -38,6 +38,7 @@ import {
   ETicket,
   HolidayList,
   HolidayDetail,
+  HolidayBooking,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -354,6 +355,12 @@ const STACK = createStackNavigator(
     },
     HolidayDetail: {
       screen: HolidayDetail,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    HolidayBooking: {
+      screen: HolidayBooking,
       navigationOptions: {
         header: null,
       },

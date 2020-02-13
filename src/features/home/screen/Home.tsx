@@ -4,10 +4,19 @@ import {styles, HomeContext} from '../components';
 import Content from './Content';
 import {Props} from '../types';
 import Login from './Login';
+import PopularHoliday from './PopularHoliday';
+import {ScrollView, ActivityIndicator} from 'react-native';
 
 export default (props: Props) => {
+  // State
+  const [popularHoliday, setPopularHoliday] = React.useState([]);
+
+  React.useEffect(() => {
+    loadPopular();
+  }, []);
+
   // Props
-  const {isLogin} = props;
+  const {isLogin, fetchList} = props;
 
   // Function
   const onNavigate = (route: string) => {
@@ -17,18 +26,43 @@ export default (props: Props) => {
     navigate(route);
   };
 
+  const loadPopular = () => {
+    const {token, actionHolidayList} = props;
+    if (popularHoliday.length === 0) {
+      actionHolidayList(isLogin ? token : null).then((res: any) => {
+        if (res.type === 'HOLIDAYLIST_SUCCESS') {
+          setPopularHoliday(res.data);
+        } else {
+          alert(res.message);
+        }
+      });
+    }
+  };
+
+  const onDetail = (item: any) => {
+    const {
+      navigation: {navigate},
+    } = props;
+    navigate('HolidayDetail', {id: item.id});
+  };
+
   // Main Render
   return (
     <HighSafeArea style={styles.container}>
       <Header homeIcon={true} />
-      <HomeContext.Provider
-        value={{
-          onNavigate: (item: any) => onNavigate(item),
-          onLogin: () => onNavigate('Account'),
-        }}>
-        <Content />
-        {!isLogin && <Login />}
-      </HomeContext.Provider>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <HomeContext.Provider
+          value={{
+            onNavigate: (item: any) => onNavigate(item),
+            onLogin: () => onNavigate('Account'),
+            onDetail: (item: any) => onDetail(item),
+            dataPopular: popularHoliday,
+          }}>
+          <Content />
+          {!isLogin && <Login />}
+          {!fetchList ? <PopularHoliday /> : <ActivityIndicator />}
+        </HomeContext.Provider>
+      </ScrollView>
     </HighSafeArea>
   );
 };
