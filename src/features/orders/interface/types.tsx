@@ -6,7 +6,6 @@ export interface Props {
 
 export interface OrderProps extends Props {
   fetchOrder: boolean;
-  dataFlightOrder: any;
   actionFlightsOrderHistory: (token: string) => Promise<void>;
   isLogin: boolean;
   token: string;

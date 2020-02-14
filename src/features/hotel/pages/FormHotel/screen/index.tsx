@@ -1,6 +1,5 @@
 import React from 'react';
 import {InteractionManager} from 'react-native';
-import {oc} from 'ts-optchain';
 import dayjs from 'dayjs';
 import {HighSafeArea} from '../../../../../components';
 import {Color} from '../../../../../constants/Color';

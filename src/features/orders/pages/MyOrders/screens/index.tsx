@@ -11,41 +11,43 @@ import {OrderProps as Props} from '../../../interface/types';
 
 const Orders = (props: Props) => {
   // State
-  const [statusOrder, setStatusOrder] = React.useState(false);
+  const [data, setData] = React.useState([]);
 
   // Life Cycle
   React.useEffect(() => {
-    getDataOrder();
+    if (data.length === 0) {
+      getDataOrder();
+    }
   }, []);
 
   // Function
   const getDataOrder = () => {
     const {isLogin, token, actionFlightsOrderHistory} = props;
     if (isLogin) {
-      if (!statusOrder) {
-        actionFlightsOrderHistory(token);
-        setStatusOrder(true);
-      }
+      actionFlightsOrderHistory(token).then((res: any) => {
+        if (res.type === 'FLIGHTORDERHISTORY_SUCCESS') {
+          dataFlightOrder(res.data.data);
+        } else {
+          alert(res.message);
+        }
+      });
     }
   };
 
   // Get real data
-  const dataFlightOrder = () => {
-    const dataOrder: Array<any> = oc(props.dataFlightOrder).data(new Array(0));
+  const dataFlightOrder = (item: Array<any>) => {
     const removeNullFlight =
-      dataOrder.length > 0
-        ? _.reject(dataOrder, ['flight_data', null])
-        : dataOrder;
+      item.length > 0 ? _.reject(item, ['flight_data', null]) : item;
     const removeExpiredDate =
       removeNullFlight.length > 0
-        ? _.remove(removeNullFlight, n => {
+        ? _.reject(removeNullFlight, n => {
             return (
               moment(n.created_at).format('YYYY-MM-DD') >
               moment(new Date()).format('YYYY-MM-DD')
             );
           })
         : removeNullFlight;
-    return removeExpiredDate;
+    setData(removeExpiredDate);
   };
 
   // OnSelected Order to OrderDetail
@@ -64,9 +66,11 @@ const Orders = (props: Props) => {
         <Active
           {...props}
           title="Active"
-          // dataOrder={oc(props.dataFlightOrder).data(new Array(0))}
-          dataOrder={dataFlightOrder}
+          // dataOrder={oc(dataFlightOrder(data))(new Array(0))}
+          dataOrder={data}
           onSelected={(item: any) => onSelectOrder(item)}
+          onRefresh={getDataOrder}
+          loading={props.fetchOrder}
         />
         <Finished {...props} title="Finished" />
       </Tabs>

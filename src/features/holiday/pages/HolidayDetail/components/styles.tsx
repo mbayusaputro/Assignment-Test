@@ -31,6 +31,16 @@ export default StyleSheet.create({
   pinkColor: {
     backgroundColor: Color.berry,
   },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  centerImage: {
+    width: '100%',
+    height: HEADER_MAX_HEIGHT,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
   // Component
   hr: {
@@ -70,6 +80,13 @@ export default StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: Color.tealBlue,
+  },
+  imageList: {
+    width: WIDTH_SCREEN / 3,
+    height: WIDTH_SCREEN / 3,
+    borderWidth: 0.5,
+    borderColor: Color.white,
+    backgroundColor: Color.backWhite,
   },
 
   // Header
@@ -155,5 +172,8 @@ export default StyleSheet.create({
   },
   textSmallBold: {
     fontFamily: fonts.fontBold,
+  },
+  textWhite: {
+    color: Color.white,
   },
 });

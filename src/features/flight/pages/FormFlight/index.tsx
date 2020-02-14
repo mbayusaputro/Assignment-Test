@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import {Color} from '../../../../constants/Color';
 import Header from '../../components/Header';
 import Form from './screen/Form';
@@ -10,6 +10,7 @@ import Class from './screen/Class';
 import {airport, from, to} from './data';
 import moment from 'moment';
 import {Props} from './types';
+import {HighSafeArea} from '../../../../components';
 
 const FormFlight = (props: Props) => {
   let {
@@ -119,54 +120,56 @@ const FormFlight = (props: Props) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <HighSafeArea style={styles.container}>
       <Header goBack={onBack} />
-      <Form
-        isSearching={isSearching}
-        OptionTripPress={handleOptionTripPress}
-        OptionTrip={optionTrip}
-        fieldPress={handleFieldPress}
-        searchFlightPress={handleSearchFlight}
-        fromPressed={() => handleFromToModals('from')}
-        toPressed={() => handleFromToModals('to')}
-        fromCity={isFrom.city_name}
-        fromAirport={isFrom.airport_code}
-        toCity={isTo.city_name}
-        toAirport={isTo.airport_code}
-        date={moment(isDate).format('ddd, DD MMM YYYY')}
-        dateReturn={moment(isDateReturn).format('ddd, DD MMM YYYY')}
-        passenger={isPassenger}
-        cabinClass={isClass}
-      />
+      <ScrollView>
+        <Form
+          isSearching={isSearching}
+          OptionTripPress={handleOptionTripPress}
+          OptionTrip={optionTrip}
+          fieldPress={handleFieldPress}
+          searchFlightPress={handleSearchFlight}
+          fromPressed={() => handleFromToModals('from')}
+          toPressed={() => handleFromToModals('to')}
+          fromCity={isFrom.city_name}
+          fromAirport={isFrom.airport_code}
+          toCity={isTo.city_name}
+          toAirport={isTo.airport_code}
+          date={moment(isDate).format('ddd, DD MMM YYYY')}
+          dateReturn={moment(isDateReturn).format('ddd, DD MMM YYYY')}
+          passenger={isPassenger}
+          cabinClass={isClass}
+        />
 
-      <SearchAirport
-        airport={airport}
-        isModalVisible={isSearchVisible}
-        toggleModal={() => handleFromToModals(isParams)}
-        handleSelect={handleSelect}
-      />
-      <Calendar
-        isModalVisible={isCalendarVisible}
-        toggleModal={() => handleFieldPress('date')}
-        onDateChange={handleSelectDate}
-      />
-      <Calendar
-        isModalVisible={isCalendar1Visible}
-        toggleModal={() => handleFieldPress('return_date')}
-        onDateChange={handleSelectDateReturn}
-      />
-      <Passenger
-        isModalVisible={isPassengerVisible}
-        toggleModal={() => handleFieldPress('passenger')}
-        onPassengerChange={handleSelectPassenger}
-        isPassenger={isPassenger}
-      />
-      <Class
-        isModalVisible={isClassVisible}
-        toggleModal={() => handleFieldPress('class')}
-        onClassChange={handleSelectClass}
-      />
-    </SafeAreaView>
+        <SearchAirport
+          airport={airport}
+          isModalVisible={isSearchVisible}
+          toggleModal={() => handleFromToModals(isParams)}
+          handleSelect={handleSelect}
+        />
+        <Calendar
+          isModalVisible={isCalendarVisible}
+          toggleModal={() => handleFieldPress('date')}
+          onDateChange={handleSelectDate}
+        />
+        <Calendar
+          isModalVisible={isCalendar1Visible}
+          toggleModal={() => handleFieldPress('return_date')}
+          onDateChange={handleSelectDateReturn}
+        />
+        <Passenger
+          isModalVisible={isPassengerVisible}
+          toggleModal={() => handleFieldPress('passenger')}
+          onPassengerChange={handleSelectPassenger}
+          isPassenger={isPassenger}
+        />
+        <Class
+          isModalVisible={isClassVisible}
+          toggleModal={() => handleFieldPress('class')}
+          onClassChange={handleSelectClass}
+        />
+      </ScrollView>
+    </HighSafeArea>
   );
 };
 

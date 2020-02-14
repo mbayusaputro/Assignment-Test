@@ -11,6 +11,13 @@ import {
   CheckGreen,
   ShowMore,
 } from '../components';
+import {
+  holiday_date,
+  visited_place,
+  include,
+  exclude,
+  itinary,
+} from '../../../interface/strings';
 import {CloseRed, Bookmark} from '../components/Component';
 
 export default () => {
@@ -42,7 +49,10 @@ export default () => {
 
       {/* DATE */}
       <View style={styles.vertical}>
-        <Text style={[styles.textMedium, styles.content]}>Holiday Date</Text>
+        <Text
+          style={[styles.textMedium, styles.content]}
+          content={holiday_date}
+        />
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -88,7 +98,7 @@ export default () => {
 
       {/* BENEFIT */}
       <View style={[styles.content, styles.vertical]}>
-        <Text style={styles.textMedium}>Visited Place</Text>
+        <Text style={styles.textMedium} content={visited_place} />
         <View style={styles.vertical}>
           {context.dataVisit !== null
             ? context.dataVisit.map((item, index) =>
@@ -114,7 +124,7 @@ export default () => {
 
       {/* INCLUDE */}
       <View style={[styles.content, styles.vertical]}>
-        <Text style={styles.textMedium}>Include</Text>
+        <Text style={styles.textMedium} content={include} />
         <View style={styles.vertical}>
           {context.dataInclude !== null
             ? context.dataInclude.map((item, index) =>
@@ -140,7 +150,7 @@ export default () => {
 
       {/* EXCLUDE */}
       <View style={[styles.content, styles.vertical]}>
-        <Text style={styles.textMedium}>Exclude</Text>
+        <Text style={styles.textMedium} content={exclude} />
         <View style={styles.vertical}>
           {context.dataExclude !== null
             ? context.dataExclude.map((item, index) =>
@@ -167,7 +177,7 @@ export default () => {
       <View style={[styles.hr, styles.vertical]} />
 
       <Touch style={[styles.content, styles.rowBetween, {marginBottom: 100}]}>
-        <Text>Itinary</Text>
+        <Text content={itinary} />
         <Icon name="chevron-right" size={20} />
       </Touch>
     </View>

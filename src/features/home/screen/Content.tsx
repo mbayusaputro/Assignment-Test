@@ -11,20 +11,18 @@ export default () => {
   return (
     <View style={styles.contentMenu}>
       {dataMenu.map((item: any, index) => (
-        <Touch
-          onPress={() => onNavigate(item.route)}
-          activeOpacity={0.5}
-          key={index}
-          style={styles.rowMenu}>
-          <Card style={styles.itemMenu}>
-            <Imaging
-              source={item.img}
-              resizeMode="contain"
-              style={styles.iconMenu}
-            />
-          </Card>
+        <View key={index} style={styles.rowMenu}>
+          <Touch onPress={() => onNavigate(item.route)} activeOpacity={0.9}>
+            <Card style={styles.itemMenu}>
+              <Imaging
+                source={item.img}
+                resizeMode="contain"
+                style={styles.iconMenu}
+              />
+            </Card>
+          </Touch>
           <Text content={item.title} />
-        </Touch>
+        </View>
       ))}
     </View>
   );

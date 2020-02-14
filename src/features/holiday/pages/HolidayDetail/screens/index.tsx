@@ -13,6 +13,7 @@ import {HighSafeArea, LoadingBook} from '../../../../../components';
 import ModalParticipant from './ModalParticipant';
 import {HolidayDetailProps as Props} from '../../../interface/types';
 import {oc} from 'ts-optchain';
+import ModalImage from './ModalImage';
 
 export default (props: Props) => {
   const Participant = React.memo(ModalParticipant);
@@ -25,7 +26,7 @@ export default (props: Props) => {
   // State
   const [dataDetail, setDataDetail] = React.useState(null);
   const [scrollY] = React.useState(new Animated.Value(0));
-  const [modal, setModal] = React.useState(false);
+  const [modal, setModal] = React.useState(null);
   const [selectedDate, setSelectedDate] = React.useState(0);
   const [totalAdult, setTotalAdult] = React.useState(2);
   const [totalChild, setTotalChild] = React.useState(0);
@@ -159,9 +160,10 @@ export default (props: Props) => {
           callback={onBack}
           photo={oc(dataDetail).media[0].url('https://awok.png')}
           title={oc(dataDetail).title('')}
+          onShowImage={() => setModal(2)}
         />
-        <Footer price={oc(totalPrice)(0)} onSelect={() => setModal(true)} />
-        <Modal isVisible={modal} onDismiss={() => setModal(false)}>
+        <Footer price={oc(totalPrice)(0)} onSelect={() => setModal(1)} />
+        <Modal isVisible={modal === 1} onDismiss={() => setModal(null)}>
           <Participant
             addAdult={() => modifTotal('adult', '+')}
             minAdult={() =>
@@ -174,6 +176,12 @@ export default (props: Props) => {
             totalAdult={totalAdult}
             totalChild={totalChild}
             onPress={onContinue}
+          />
+        </Modal>
+        <Modal isVisible={modal === 2} onDismiss={() => setModal(null)}>
+          <ModalImage
+            onClose={() => setModal(null)}
+            data={oc(dataDetail).media([])}
           />
         </Modal>
       </Context.Provider>

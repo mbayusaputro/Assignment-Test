@@ -2,16 +2,12 @@ import React from 'react';
 import {Dispatch, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {actionFlightsOrderHistory} from '../../../../reduxs/flight/action';
-import {
-  getFetchFlightsOrderHistory,
-  getFlightsOrderHistory,
-} from '../../../../reduxs/flight/selector';
+import {getFetchFlightsOrderHistory} from '../../../../reduxs/flight/selector';
 import {getToken, getIsLogin} from '../../../../reduxs/profile/selector';
 import Orders from '../MyOrders/screens';
 
 const mapStateToProps = (state: any) => ({
   fetchOrder: getFetchFlightsOrderHistory(state),
-  dataFlightOrder: getFlightsOrderHistory(state),
   isLogin: getIsLogin(state),
   token: getToken(state),
 });

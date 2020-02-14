@@ -21,7 +21,7 @@ const headerLang = {id: 'Halaman Pembayaran', en: 'Payment Page'};
 export default class PaymentWeb extends PureComponent<Props, State> {
   // Declaration Function
   backButton: any;
-  setInterval: any;
+  setInterval: number;
 
   // State
   constructor(props: any) {

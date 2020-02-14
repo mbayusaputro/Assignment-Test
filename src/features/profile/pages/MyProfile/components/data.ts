@@ -1,7 +1,7 @@
 export const dataMenu = [
   {
     title: {id: 'My Order', en: 'My Orders'},
-    target: 'order',
+    target: 'Order',
     icon: require('../../../../../assets/icons/order_black.png'),
   },
   {

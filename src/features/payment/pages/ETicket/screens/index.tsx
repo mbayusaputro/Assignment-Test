@@ -6,7 +6,7 @@ import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
 import {ETicketProps as Props} from '../../../interface/types';
-import {StackActions, NavigationActions} from 'react-navigation';
+import {StackActions, NavigationActions, ScrollView} from 'react-navigation';
 
 export default class ETicket extends React.PureComponent<Props, any> {
   // Declaration Function
@@ -46,9 +46,11 @@ export default class ETicket extends React.PureComponent<Props, any> {
     // Main Render
     return (
       <HighSafeArea style={styles.container}>
-        <Header />
-        <Content />
-        <Footer callback={this.goHome} />
+        <ScrollView style={{width: '100%'}}>
+          <Header />
+          <Content />
+          <Footer callback={this.goHome} />
+        </ScrollView>
       </HighSafeArea>
     );
   }

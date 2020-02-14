@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Color} from '../../../../../constants/Color';
-import {WIDTH_SCREEN, HEIGHT_SCREEN} from '../../../../../constants/Dimension';
+import {HEIGHT_SCREEN} from '../../../../../constants/Dimension';
 
 const Tabs = ({children}) => {
   const [actTab, setActive] = React.useState(0);
@@ -34,21 +34,21 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: Color.white,
-    width: WIDTH_SCREEN,
+    width: '100%',
     height: 40,
     justifyContent: 'space-between',
   },
   active: {
     borderBottomWidth: 3,
     borderColor: Color.orange,
-    width: WIDTH_SCREEN / 2,
+    width: '50%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   nonactive: {
     borderBottomWidth: 1,
     borderColor: Color.labelgray,
-    width: WIDTH_SCREEN / 2,
+    width: '50%',
     justifyContent: 'center',
     alignItems: 'center',
   },

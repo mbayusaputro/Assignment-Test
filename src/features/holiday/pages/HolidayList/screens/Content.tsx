@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, TouchableOpacity as Touch, FlatList} from 'react-native';
-import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Text, Imaging} from '../../../../../components';
 import {moneyFormat} from '../../../../../helpers/helpers';

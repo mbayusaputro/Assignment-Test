@@ -24,6 +24,7 @@ export default StyleSheet.create({
     borderBottomEndRadius: 75,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     width: (WIDTH_SCREEN * 75) / 100,
   },
   center: {

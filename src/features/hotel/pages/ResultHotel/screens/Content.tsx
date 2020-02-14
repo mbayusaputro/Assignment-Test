@@ -8,7 +8,7 @@ import {
   Fade,
 } from 'rn-placeholder';
 import {Text} from '../../../../../components';
-import {styles, Card} from '../components';
+import {styles, Card, Empty} from '../components';
 import {CardContext} from '../components/CardContext';
 
 type Props = {
@@ -77,15 +77,19 @@ export default (props: Props) => {
         )}
       </View>
       <View style={styles.hr} />
-      <FlatList
-        data={props.loading ? new Array(2) : props.dataHotel}
-        renderItem={props.loading ? loadingItem : renderItem}
-        keyExtractor={keyExtractor}
-        contentContainerStyle={{paddingBottom: 200}}
-        maxToRenderPerBatch={50}
-        initialNumToRender={3}
-        windowSize={10}
-      />
+      {props.dataHotel.length === 0 ? (
+        <Empty />
+      ) : (
+        <FlatList
+          data={props.loading ? new Array(2) : props.dataHotel}
+          renderItem={props.loading ? loadingItem : renderItem}
+          keyExtractor={keyExtractor}
+          contentContainerStyle={{paddingBottom: 200}}
+          maxToRenderPerBatch={50}
+          initialNumToRender={3}
+          windowSize={10}
+        />
+      )}
     </View>
   );
 };

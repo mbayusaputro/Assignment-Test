@@ -7,5 +7,7 @@ type Props = {
 
 export default (props: Props) => {
   const {callback} = props;
-  return <Header callback={callback} title="Settings" />;
+  return (
+    <Header callback={callback} content={{id: 'Pengaturan', en: 'Settings'}} />
+  );
 };

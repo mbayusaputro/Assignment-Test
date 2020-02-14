@@ -1,6 +1,11 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {HighSafeArea, AlertModal, LoadingBook} from '../../../../../components';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {
+  HighSafeArea,
+  AlertModal,
+  LoadingBook,
+  SubHeader,
+} from '../../../../../components';
 import {Content, Header} from '../components';
 import {SigninProps} from '../../../interface/types';
 import {Color} from '../../../../../constants/Color';
@@ -35,16 +40,19 @@ export default (props: SigninProps) => {
   const {profile, fetchProfile} = props;
   return (
     <HighSafeArea>
-      <View style={container}>
-        <Header onSetting={() => navigateMenu('MainSetting')} />
-        <Content
-          {...props}
-          profile={profile}
-          onLogOut={showModalLogout}
-          goToProfileEdit={navProfileEdit}
-          navigateMenu={(menu: any) => navigateMenu(menu)}
-        />
-      </View>
+      <Header onSetting={() => navigateMenu('MainSetting')} />
+      <ScrollView>
+        <View style={container}>
+          <SubHeader />
+          <Content
+            {...props}
+            profile={profile}
+            onLogOut={showModalLogout}
+            goToProfileEdit={navProfileEdit}
+            navigateMenu={(menu: any) => navigateMenu(menu)}
+          />
+        </View>
+      </ScrollView>
       <AlertModal
         qna={true}
         isVisible={modal}

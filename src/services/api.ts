@@ -101,14 +101,14 @@ export async function bookingFlight(payload: object) {
 
 // ====================== HOTEL ======================
 export async function listDestinationHotel(payload: object) {
-  const uri: string = `${HOTEL_BEDS}/search-destination`;
+  const uri: string = `https://api-gateway-flight-dev.aeroaja.com/search-destination`;
   const response = await axios.post(uri, payload).then(res => res.data);
   return response;
 }
 
 export async function searchHotel(payload: object) {
-  const beds = 'https://apidev.aeroaja.com/v1/gateway/beds';
-  const uri: string = `${beds}/search-hotel`;
+  const beds = 'https://api-gateway-hotel-dev.aeroaja.com/';
+  const uri: string = `${beds}/apihotel/search`;
   const response = await axios.post(uri, payload).then(res => res.data);
   return response;
 }

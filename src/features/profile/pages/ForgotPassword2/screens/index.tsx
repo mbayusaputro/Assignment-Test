@@ -1,5 +1,5 @@
 import React from 'react';
-import {InteractionManager} from 'react-native';
+import {InteractionManager, ScrollView} from 'react-native';
 import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Content from './Content';
 import {ForgotPass2Props} from '../../../interface/types';
@@ -52,12 +52,14 @@ export default (props: ForgotPass2Props) => {
   return (
     <HighSafeArea>
       <Header callback={onBack} />
-      <Content
-        type={getParam('typeNav')}
-        onChangeText={(text: string) => setOTP(text)}
-        onSend={onSend}
-        loading={fetchForgotPass}
-      />
+      <ScrollView>
+        <Content
+          type={getParam('typeNav')}
+          onChangeText={(text: string) => setOTP(text)}
+          onSend={onSend}
+          loading={fetchForgotPass}
+        />
+      </ScrollView>
       <LoadingBook isVisible={props.fetchForgotPass} />
     </HighSafeArea>
   );

@@ -4,7 +4,7 @@ import Content from './Content';
 import {ResultHotelProps as Props} from '../../../interface/types';
 import SubHeader from './SubHeader';
 import {Color} from '../../../../../constants/Color';
-import {FloatFilter} from '../components';
+// import {FloatFilter} from '../components';
 import {CardContext} from '../components/CardContext';
 
 const titleLang = {id: 'Hotel Didekat Anda', en: 'Hotel Near You'};
@@ -21,7 +21,9 @@ export default (props: Props) => {
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
-    getData();
+    if (data.length === 0) {
+      getData();
+    }
   }, []);
 
   // Function
@@ -39,10 +41,6 @@ export default (props: Props) => {
         ? setData(res.data.hotels)
         : alert(res.message);
     });
-  };
-
-  const filter = () => {
-    alert('FIlter');
   };
 
   const onSelectHotel = (item: any) => {
@@ -74,7 +72,7 @@ export default (props: Props) => {
           onSelectHotel={(item: any) => onSelectHotel(item)}
         />
       </CardContext.Provider>
-      <FloatFilter onPress={filter} />
+      {/* <FloatFilter onPress={filter} /> */}
     </HighSafeArea>
   );
 };

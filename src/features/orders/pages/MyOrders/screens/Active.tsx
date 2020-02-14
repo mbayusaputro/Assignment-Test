@@ -1,13 +1,16 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, RefreshControl} from 'react-native';
 import {oc} from 'ts-optchain';
 import Empty from './Empty';
 import Card from '../components/Card';
+import Loading from '../components/Loading';
 
 type Props = {
   dataOrder: any;
   title: string;
   onSelected: (item: any) => void;
+  loading: boolean;
+  onRefresh: () => void;
 };
 
 const Active = (props: Props) => {
@@ -45,19 +48,20 @@ const Active = (props: Props) => {
       />
     );
   };
-
-  const getItemLayout = (data: any, index: number) => ({
-    length: 10,
-    offset: 70 * index,
-    index,
-  });
+  const renderLoad = ({item, index}) => <Loading key={index} />;
 
   // Main Render
   return (
     <FlatList
-      data={props.dataOrder}
+      data={props.loading ? [1, 2, 3, 4] : props.dataOrder}
       keyExtractor={keyExtractor}
-      renderItem={renderItem}
+      renderItem={props.loading ? renderLoad : renderItem}
+      refreshControl={
+        <RefreshControl
+          refreshing={props.loading}
+          onRefresh={props.onRefresh}
+        />
+      }
       ListEmptyComponent={<Empty />}
       style={{paddingVertical: 20}}
       contentContainerStyle={{paddingBottom: 200}}

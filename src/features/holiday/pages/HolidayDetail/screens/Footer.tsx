@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import {Button} from '../../../../../components';
-import {btn_footer} from '../../../interface/strings';
+import {View} from 'react-native';
+import {Button, Text} from '../../../../../components';
+import {btn_footer, start_from} from '../../../interface/strings';
 import {moneyFormat} from '../../../../../helpers/helpers';
 import styles from '../components/styles';
 
@@ -15,7 +15,7 @@ export default (props: Props) => {
   return (
     <View style={[styles.footer, styles.rowBetween]}>
       <View style={{width: '45%'}}>
-        <Text style={styles.textSubTitle}>Start from</Text>
+        <Text style={styles.textSubTitle} content={start_from} />
         <Text style={styles.textBlue}>Rp{moneyFormat(props.price)}</Text>
       </View>
       <View style={{width: '50%'}}>

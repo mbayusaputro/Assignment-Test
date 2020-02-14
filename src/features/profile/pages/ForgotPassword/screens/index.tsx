@@ -1,5 +1,5 @@
 import React from 'react';
-import {InteractionManager} from 'react-native';
+import {InteractionManager, ScrollView} from 'react-native';
 import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Header from './Header';
 import {ForgotPassProps} from '../../../interface/types';
@@ -59,14 +59,16 @@ export default (props: ForgotPassProps) => {
   return (
     <HighSafeArea>
       <Header callback={onBack} />
-      <Content
-        onChangeMobile={(text: string) => onChange('mobile', text)}
-        onChangeEmail={(text: string) => onChange('email', text)}
-        validEmail={validMail}
-        onSubmitMobile={() => (!fetchForgotPass ? onSubmit('mobile') : null)}
-        onSubmitEmail={() => (!fetchForgotPass ? onSubmit('email') : null)}
-        loading={fetchForgotPass}
-      />
+      <ScrollView>
+        <Content
+          onChangeMobile={(text: string) => onChange('mobile', text)}
+          onChangeEmail={(text: string) => onChange('email', text)}
+          validEmail={validMail}
+          onSubmitMobile={() => (!fetchForgotPass ? onSubmit('mobile') : null)}
+          onSubmitEmail={() => (!fetchForgotPass ? onSubmit('email') : null)}
+          loading={fetchForgotPass}
+        />
+      </ScrollView>
       <LoadingBook isVisible={props.fetchForgotPass} />
     </HighSafeArea>
   );

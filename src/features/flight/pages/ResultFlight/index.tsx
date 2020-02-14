@@ -12,7 +12,6 @@ import {oc} from 'ts-optchain';
 const ResultFlight = (props: Props) => {
   const {
     navigation: {navigate, goBack, state},
-    actionGetFlight,
     isLoading,
   } = props;
   const {params} = state;
@@ -43,7 +42,7 @@ const ResultFlight = (props: Props) => {
     if (params.date_return !== '') {
       payload.data.return_date = params.date_return;
     }
-    actionGetFlight(payload).then((res: any) => {
+    props.actionGetFlight(payload).then((res: any) => {
       if (res.type === 'GET_FLIGHT_SUCCESS') {
         setResult(res.data);
       }
@@ -54,14 +53,14 @@ const ResultFlight = (props: Props) => {
     if (params.date_return !== '') {
       navigate('ResultFlightReturn', {
         departure_flight: item,
-        params: params,
-        result: result,
+        params,
+        result,
       });
     } else {
       navigate('BookingFlight', {
         departure_flight: item,
         return_flight: null,
-        params: params,
+        params,
       });
     }
   };

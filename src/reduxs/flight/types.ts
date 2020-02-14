@@ -6,7 +6,6 @@ export interface Action {
 
 export interface State {
   fetchFlightsOrderHistory: boolean;
-  flightsOrderHistory: any;
   fetchResult: boolean;
   fetchBooking: boolean;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity as Touch} from 'react-native';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import {SubHeader, Header} from '../../../../../components';
+import {Header} from '../../../../../components';
 import {Color} from '../../../../../constants/Color';
 
 type Props = {
@@ -19,7 +19,6 @@ export default (props: Props) => {
   return (
     <View>
       <Header title="My Account" right={rightContent()} />
-      <SubHeader />
     </View>
   );
 };

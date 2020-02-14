@@ -12,7 +12,7 @@ import {
 import {HighSafeArea, LoadingBook} from '../../../../components';
 import {Content, Header} from './screen';
 import {Props} from '../../interface/types';
-import {InteractionManager} from 'react-native';
+import {InteractionManager, ScrollView} from 'react-native';
 
 const ConfirmOTP = (props: Props) => {
   // State
@@ -78,12 +78,14 @@ const ConfirmOTP = (props: Props) => {
   return (
     <HighSafeArea>
       <Header callback={onBack} />
-      <Content
-        type={getParam('typeNav')}
-        onChangeText={(text: string) => setOtp(text)}
-        onSend={sendCode}
-        loading={fetchSignUp}
-      />
+      <ScrollView>
+        <Content
+          type={getParam('typeNav')}
+          onChangeText={(text: string) => setOtp(text)}
+          onSend={sendCode}
+          loading={fetchSignUp}
+        />
+      </ScrollView>
       <LoadingBook isVisible={props.fetchSignUp} />
     </HighSafeArea>
   );

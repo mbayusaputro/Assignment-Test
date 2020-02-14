@@ -15,10 +15,6 @@ import {
 const initialState: State = {
   // Flights - Order History
   fetchFlightsOrderHistory: false,
-  flightsOrderHistory: {
-    data: null,
-    meta: null,
-  },
   // Flights - Search
   fetchResult: false,
   // Flights - Booking
@@ -38,10 +34,6 @@ export default (state: State = initialState, action: Action): State => {
       return {
         ...state,
         fetchFlightsOrderHistory: false,
-        flightsOrderHistory: {
-          data: action.data.data,
-          meta: action.data.meta,
-        },
       };
 
     case FLIGHTORDERHISTORY_FAILED:

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StackActions, NavigationActions} from 'react-navigation';
+import {StackActions, NavigationActions, ScrollView} from 'react-navigation';
 import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Content from './Content';
 import Header from './Header';
@@ -52,12 +52,14 @@ export default (props: Props) => {
   return (
     <HighSafeArea>
       <Header callback={onBack} />
-      <Content
-        onChangePassword={(text: string) => setPassword(text)}
-        value={password}
-        onSubmit={onSubmit}
-        loading={fetchForgotPass}
-      />
+      <ScrollView>
+        <Content
+          onChangePassword={(text: string) => setPassword(text)}
+          value={password}
+          onSubmit={onSubmit}
+          loading={fetchForgotPass}
+        />
+      </ScrollView>
       <LoadingBook isVisible={props.fetchForgotPass} />
     </HighSafeArea>
   );

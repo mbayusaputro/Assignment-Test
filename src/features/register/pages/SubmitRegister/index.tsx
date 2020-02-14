@@ -1,6 +1,6 @@
 import React from 'react';
-import {InteractionManager, Alert} from 'react-native';
-import {NavigationActions, StackActions} from 'react-navigation';
+import {InteractionManager} from 'react-native';
+import {NavigationActions, StackActions, ScrollView} from 'react-navigation';
 import {oc} from 'ts-optchain';
 import _ from 'lodash';
 // Redux
@@ -162,30 +162,32 @@ const SubmitRegister = (props: Props) => {
       <Header callback={onBack} />
       <ModalContext.Provider
         value={{countryID: oc(theCountry).nicename(''), isVisible: modal}}>
-        <Content
-          onChangeFullname={(text: string) => setFullname(text)}
-          onChangeEmail={(text: string) => changeEmail(text)}
-          onChangeMobilePrefix={(text: string) => setMobilePre(text)}
-          onChangeMobileNumber={(text: string) => setMobileNumber(text)}
-          onChangeNationality={(text: string) => searchCountry(text)}
-          onChangePassword={(text: string) => setPassword(text)}
-          onChangeConfirmPassword={(text: string) => setConfirmPassword(text)}
-          valueEmail={email}
-          validEmail={validMail}
-          typeEmail={typeScreen === 'email' ? false : true}
-          typeMobile={typeScreen === 'mobile' ? false : true}
-          valueMobilePrefix={mobilePre}
-          valueMobileNumber={mobileNumber}
-          onSubmit={submit}
-          // Modal
-          onShowModal={() => onModal(true)}
-          onDismiss={() => onModal(false)}
-          onSelectCountry={setUpCountry}
-          dataCountry={nationality}
-          titleCountry={theCountry}
-          // Loading
-          loading={props.fetchSignUp}
-        />
+        <ScrollView>
+          <Content
+            onChangeFullname={(text: string) => setFullname(text)}
+            onChangeEmail={(text: string) => changeEmail(text)}
+            onChangeMobilePrefix={(text: string) => setMobilePre(text)}
+            onChangeMobileNumber={(text: string) => setMobileNumber(text)}
+            onChangeNationality={(text: string) => searchCountry(text)}
+            onChangePassword={(text: string) => setPassword(text)}
+            onChangeConfirmPassword={(text: string) => setConfirmPassword(text)}
+            valueEmail={email}
+            validEmail={validMail}
+            typeEmail={typeScreen === 'email' ? false : true}
+            typeMobile={typeScreen === 'mobile' ? false : true}
+            valueMobilePrefix={mobilePre}
+            valueMobileNumber={mobileNumber}
+            onSubmit={submit}
+            // Modal
+            onShowModal={() => onModal(true)}
+            onDismiss={() => onModal(false)}
+            onSelectCountry={setUpCountry}
+            dataCountry={nationality}
+            titleCountry={theCountry}
+            // Loading
+            loading={props.fetchSignUp}
+          />
+        </ScrollView>
       </ModalContext.Provider>
       <LoadingBook isVisible={props.fetchSignUp} />
       <AlertModal

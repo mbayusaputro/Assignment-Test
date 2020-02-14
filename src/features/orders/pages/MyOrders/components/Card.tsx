@@ -91,7 +91,7 @@ const Card = (props: Props) => {
 
 export default Card;
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   card: {
     backgroundColor: Color.white,
     borderRadius: 5,

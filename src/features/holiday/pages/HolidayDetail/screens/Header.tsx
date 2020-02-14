@@ -1,11 +1,12 @@
 import React from 'react';
 import {Animated, TouchableOpacity as Touch, Image} from 'react-native';
 import styles from '../components/styles';
-import {Imaging, Header} from '../../../../../components';
+import {Imaging, Header, Text} from '../../../../../components';
 import FastImage from 'react-native-fast-image';
 
 type Props = {
   callback: () => void;
+  onShowImage: () => void;
   header: any;
   opacity: any;
   translate: any;
@@ -45,11 +46,25 @@ export default (props: Props) => {
           styles.backgroundImage,
           {opacity, transform: [{translateY: translate}]},
         ]}>
-        <Image
-          source={{uri: props.photo}}
-          style={styles.backgroundImage}
-          resizeMode="contain"
-        />
+        <Touch
+          onPress={props.onShowImage}
+          activeOpacity={0.5}
+          style={styles.backgroundImage}>
+          <Image
+            source={{uri: props.photo}}
+            style={styles.backgroundImage}
+            resizeMode="contain"
+          />
+          <Animated.View style={styles.centerImage}>
+            <Text
+              style={[styles.textMedium, styles.textWhite]}
+              content={{
+                id: 'Tampilkan gambar lebih banyak',
+                en: 'Show more image',
+              }}
+            />
+          </Animated.View>
+        </Touch>
         {leftIcon()}
         {/* {rightIcon()} */}
       </Animated.View>
