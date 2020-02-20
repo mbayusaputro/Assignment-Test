@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
+import {oc} from 'ts-optchain';
 import {Header, SubHeader} from './components';
 import {Color} from '../../../../constants/Color';
 import Content from './screen/Content';
@@ -10,7 +11,8 @@ import {bindActionCreators, Dispatch} from 'redux';
 import {actionBookingFlight} from '../../../../reduxs/flight/action';
 import {AppState} from '../../../../reduxs/reducers';
 import {Props} from './types';
-import {LoadingBook, AlertModal} from '../../../../components';
+import {LoadingBook, AlertModal, LoginModal} from '../../../../components';
+import {getIsLogin} from '../../../../reduxs/profile/selector';
 
 const Booking = (props: Props) => {
   const {
@@ -164,6 +166,16 @@ const Booking = (props: Props) => {
     setDataPassenger(dataPassenger);
   };
 
+  const handleLoginButton = (profile: any) => {
+    const payload = {
+      salutation: oc(profile).salutation('Mr'),
+      fullname: oc(profile).fullname(''),
+      email: oc(profile).email(''),
+      mobileNumber: `0${oc(profile).mobileNo('9999')}`,
+    };
+    setContact(payload);
+  };
+
   const onSubmit = () => {
     setOtherModal(null);
     setTimeout(() => {
@@ -196,6 +208,7 @@ const Booking = (props: Props) => {
           passengers: adult.concat(child).concat(infant),
         },
       };
+
       onBookingFlight(payload).then((res: any) => {
         setTimeout(() => {
           if (res.type === 'BOOKING_FLIGHT_SUCCESS') {
@@ -215,7 +228,7 @@ const Booking = (props: Props) => {
     }, 500);
   };
 
-  const onNavigate = (route: string, item: any) => {
+  const onNavigate = (route: string, item?: any) => {
     const {
       navigation: {navigate},
     } = props;
@@ -232,6 +245,9 @@ const Booking = (props: Props) => {
       <Content
         toggleSwitch={toggleSwitch}
         active={active}
+        // Login
+        isLogin={props.isLogin}
+        onLogin={() => setOtherModal(101)}
         // Contact Detail
         onContactDetail={() => openModal('contact', 0)}
         contactName={contact}
@@ -260,7 +276,6 @@ const Booking = (props: Props) => {
           onDob={doneDob}
         />
       )}
-      <LoadingBook type="flight" isVisible={otherModal === 999} />
       <AlertModal
         qna={otherModal === 201}
         isVisible={otherModal === 201}
@@ -280,6 +295,12 @@ const Booking = (props: Props) => {
         onOk={onSubmit}
         onDismiss={() => setOtherModal(null)}
       />
+      <LoadingBook type="flight" isVisible={otherModal === 999} />
+      <LoginModal
+        isVisible={otherModal === 101}
+        onDismiss={() => setOtherModal(null)}
+        callbackLogin={(item: any) => handleLoginButton(item)}
+      />
     </SafeAreaView>
   );
 };
@@ -297,6 +318,7 @@ const Default = (props: any) => {
 
 const mapStateToProps = (state: AppState) => ({
   isLoading: state.flight.fetchBooking,
+  isLogin: getIsLogin(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

@@ -8,6 +8,8 @@ export interface Props extends GlobalProps {
   handleSelectFlight: (payload: object) => void;
   handleDetailFlight: (payload: object) => void;
   result: any;
+  addon: boolean;
+  onDataFlight: (data: object) => void;
 }
 
 export type HeaderProps = {

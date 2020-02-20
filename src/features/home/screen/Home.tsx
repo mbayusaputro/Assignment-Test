@@ -1,17 +1,17 @@
-import React from 'react';
-import {HighSafeArea, Header} from '../../../components';
+import React, {useState, useEffect} from 'react';
+import {HighSafeArea, Header, LoginModal} from '../../../components';
 import {styles, HomeContext} from '../components';
 import Content from './Content';
 import {Props} from '../types';
 import Login from './Login';
 import PopularHoliday from './PopularHoliday';
-import {ScrollView, ActivityIndicator} from 'react-native';
+import {ScrollView, ActivityIndicator, Button} from 'react-native';
 
 export default (props: Props) => {
   // State
-  const [popularHoliday, setPopularHoliday] = React.useState([]);
+  const [popularHoliday, setPopularHoliday] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     loadPopular();
   }, []);
 

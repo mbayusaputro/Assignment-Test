@@ -14,6 +14,7 @@ export interface Props extends GlobalProps {
   handleSelectDateReturn: (payload: object) => void;
   handleSelectPassenger: (payload: object) => void;
   handleSelectClass: (payload: object) => void;
+  addon: boolean;
 }
 
 export type FormProps = {

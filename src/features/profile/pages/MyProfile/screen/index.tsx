@@ -39,7 +39,7 @@ export default (props: SigninProps) => {
   const {container} = styles;
   const {profile, fetchProfile} = props;
   return (
-    <HighSafeArea>
+    <HighSafeArea style={styles.container}>
       <Header onSetting={() => navigateMenu('MainSetting')} />
       <ScrollView>
         <View style={container}>

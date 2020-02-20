@@ -1,11 +1,21 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity as Touch,
+} from 'react-native';
 import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
 import {Color} from '../../../../../constants/Color';
 
-const Login = () => {
+type Props = {
+  onPress: () => void;
+};
+
+const Login = (props: Props) => {
   return (
-    <View style={styles.card}>
+    <Touch onPress={props.onPress} activeOpacity={0.75} style={styles.card}>
       <View style={{flex: 0.3}}>
         <Image
           style={{
@@ -21,7 +31,7 @@ const Login = () => {
           Log In or Register to enjoy this member-only benefit
         </Text>
       </View>
-    </View>
+    </Touch>
   );
 };
 

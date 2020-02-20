@@ -77,19 +77,16 @@ export default (props: Props) => {
         )}
       </View>
       <View style={styles.hr} />
-      {props.dataHotel.length === 0 ? (
-        <Empty />
-      ) : (
-        <FlatList
-          data={props.loading ? new Array(2) : props.dataHotel}
-          renderItem={props.loading ? loadingItem : renderItem}
-          keyExtractor={keyExtractor}
-          contentContainerStyle={{paddingBottom: 200}}
-          maxToRenderPerBatch={50}
-          initialNumToRender={3}
-          windowSize={10}
-        />
-      )}
+      <FlatList
+        data={props.loading ? new Array(2) : props.dataHotel}
+        renderItem={props.loading ? loadingItem : renderItem}
+        keyExtractor={keyExtractor}
+        contentContainerStyle={{paddingBottom: 200}}
+        maxToRenderPerBatch={50}
+        ListEmptyComponent={<Empty />}
+        initialNumToRender={3}
+        windowSize={10}
+      />
     </View>
   );
 };

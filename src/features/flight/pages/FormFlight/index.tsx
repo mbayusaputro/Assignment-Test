@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import {Color} from '../../../../constants/Color';
 import Header from '../../components/Header';
@@ -11,6 +11,9 @@ import {airport, from, to} from './data';
 import moment from 'moment';
 import {Props} from './types';
 import {HighSafeArea} from '../../../../components';
+import {connect} from 'react-redux';
+import {Dispatch, bindActionCreators} from 'redux';
+import {getAddon} from '../../../../reduxs/holiday/selector';
 
 const FormFlight = (props: Props) => {
   let {
@@ -42,6 +45,17 @@ const FormFlight = (props: Props) => {
   );
   const [isPassenger, setPassenger] = useState({adult: 1, child: 0, infant: 0});
   const [isClass, setClass] = useState('Economy');
+
+  useEffect(() => {
+    checkOptionAddOn();
+  }, []);
+
+  const checkOptionAddOn = () => {
+    const {addon} = props;
+    if (addon) {
+      setoptionTrip('return');
+    }
+  };
 
   const onBack = () => {
     const {
@@ -180,4 +194,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FormFlight;
+const mapStateToProps = (state: any) => ({
+  addon: getAddon(state),
+});
+
+export default connect(mapStateToProps)(FormFlight);

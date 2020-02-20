@@ -21,7 +21,7 @@ export default (props: MyProfileProps) => {
       {/* Account */}
       <Card>
         <View style={[styles.content, styles.rowDirection]}>
-          {profile.photo === null ? (
+          {oc(profile).photo(null) === null ? (
             <Imaging
               source={require('../../../../../assets/icons/avatar.png')}
               resizeMode={Platform.OS === 'ios' ? 'contain' : 'cover'}
@@ -35,8 +35,8 @@ export default (props: MyProfileProps) => {
             />
           )}
           <View style={styles.leftMargin}>
-            <Text style={styles.textExtraBold}>{profile.fullname}</Text>
-            <Text style={styles.textSmall}>{profile.email}</Text>
+            <Text style={styles.textExtraBold}>{oc(profile).fullname('')}</Text>
+            <Text style={styles.textSmall}>{oc(profile).email('')}</Text>
           </View>
         </View>
         <View style={styles.hr} />

@@ -6,7 +6,7 @@ import Header from './Header';
 import {SelectRoomHotelProps as Props} from '../../../interface/types';
 import SubHeader from './SubHeader';
 import {Color} from '../../../../../constants/Color';
-import {dataFilter, dataRoom} from '../components/data';
+import {dataFilter} from '../components/data';
 
 export default (props: Props) => {
   const {
@@ -44,11 +44,18 @@ export default (props: Props) => {
   };
 
   const onBook = (room: any) => {
+    const {addon, actionDataHotel} = props;
     const dataBook = {
       title: dataHotel.name,
       price: dataHotel.minRate,
+      room,
     };
-    navigating('BookingFormHotel', dataBook, room);
+    if (addon) {
+      actionDataHotel(dataBook);
+      setTimeout(() => navigating('HolidayAddon'), 500);
+    } else {
+      navigating('BookingFormHotel', dataBook, room);
+    }
   };
 
   // Main Render

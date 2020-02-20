@@ -1,9 +1,14 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
+import {oc} from 'ts-optchain';
 import Result from './screen/Result';
 import {Header, SubHeader} from './components';
 import {Props} from './types';
-import {oc} from 'ts-optchain';
+
+import {connect} from 'react-redux';
+import {Dispatch, bindActionCreators} from 'redux';
+import {actionDataFlight} from '../../../../reduxs/holiday/action';
+import {getAddon} from '../../../../reduxs/holiday/selector';
 
 const ResultFlight = (props: Props) => {
   const {
@@ -11,16 +16,19 @@ const ResultFlight = (props: Props) => {
   } = props;
   const {departure_flight, params, result} = state.params;
 
-  React.useEffect(() => {
-    console.log(state);
-  }, []);
-
   const toSelect = (item: object) => {
-    navigate('BookingFlight', {
-      departure_flight: departure_flight,
+    const {addon, onDataFlight} = props;
+    const payload = {
+      departure_flight,
       return_flight: item,
-      params: params,
-    });
+      params,
+    };
+    if (addon) {
+      onDataFlight(payload);
+      setTimeout(() => navigate('HolidayAddon'), 500);
+    } else {
+      navigate('BookingFlight', payload);
+    }
   };
 
   const toDetail = (item: object) => {
@@ -52,4 +60,19 @@ const ResultFlight = (props: Props) => {
   );
 };
 
-export default ResultFlight;
+const mapStateToProps = (state: any) => ({
+  addon: getAddon(state),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      onDataFlight: (data: object) => actionDataFlight(data),
+    },
+    dispatch,
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ResultFlight);

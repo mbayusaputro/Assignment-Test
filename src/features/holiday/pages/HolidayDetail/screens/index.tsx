@@ -84,6 +84,8 @@ export default (props: Props) => {
     setModal(false);
     const {
       navigation: {navigate},
+      actionAddon,
+      actionDataHoliday,
     } = props;
     const total = totalAdult + totalChild;
     const item = {
@@ -97,8 +99,10 @@ export default (props: Props) => {
       tour: dataDetail.host,
       price: totalPrice * total,
     };
+    actionAddon(true);
+    actionDataHoliday({item, detail});
     setTimeout(() => {
-      navigate('HolidayBooking', {
+      navigate('HolidayAddon', {
         item,
         detail,
       });

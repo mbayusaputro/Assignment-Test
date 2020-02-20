@@ -61,7 +61,7 @@ export const Header = (props: HeaderProps) => {
             resizeMode="contain"
             style={{
               width: normalize(150),
-              height: normalize(50),
+              height: normalize(40),
               marginTop: 30,
             }}
           />

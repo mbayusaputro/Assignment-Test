@@ -6,6 +6,7 @@ export interface GlobalProps {
 
 export interface Props extends GlobalProps {
   onBookingFlight: (payload: object) => Promise<void>;
+  isLogin: boolean;
 }
 
 export type HeaderProps = {
@@ -20,6 +21,8 @@ export type ContentProps = {
   onSubmit?: () => void;
   toggleSwitch: () => void;
   onPassenger: (form: string, index: number) => void;
+  onLogin: () => void;
+  isLogin: boolean;
   departureFlight: any;
   returnFlight: any;
 };

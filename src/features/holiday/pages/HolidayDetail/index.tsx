@@ -1,7 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch, bindActionCreators} from 'redux';
-import {actionHolidayDetail} from '../../../../reduxs/holiday/action';
+import {
+  actionHolidayDetail,
+  actionAddon,
+  actionDataHoliday,
+} from '../../../../reduxs/holiday/action';
 import {getFetchHolidayDetail} from '../../../../reduxs/holiday/selector';
 import {getIsLogin, getToken} from '../../../../reduxs/profile/selector';
 import HolidayDetail from './screens';
@@ -17,6 +21,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       actionHolidayDetail: (token: string, id: number) =>
         actionHolidayDetail(token, id),
+      actionAddon: (data: boolean) => actionAddon(data),
+      actionDataHoliday: (data: any) => actionDataHoliday(data),
     },
     dispatch,
   );

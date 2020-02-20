@@ -1,11 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {Color} from '../../../../../constants/Color';
-import {scale, verticalScale} from '../../../../../constants/ScaleUtils';
 import {
   TITLE_FONT_SIZE,
   SMALL_FONT_SIZE,
 } from '../../../../../constants/TextSize';
 import fonts from '../../../../../constants/Fonts';
+import normalize from '../../../../../constants/normalize';
 
 export default StyleSheet.create({
   // Layout
@@ -102,13 +102,13 @@ export default StyleSheet.create({
 
   // Other
   hr: {
-    width: scale(50),
+    width: normalize(50),
     height: 1,
     backgroundColor: Color.greyish,
     marginHorizontal: 10,
   },
   iconGoogle: {
-    width: scale(25),
-    height: verticalScale(25),
+    width: normalize(25),
+    height: normalize(25),
   },
 });

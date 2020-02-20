@@ -38,6 +38,7 @@ import {
   ETicket,
   HolidayList,
   HolidayDetail,
+  HolidayAddon,
   HolidayBooking,
 } from '../features';
 import {Color} from '../constants/Color';
@@ -355,6 +356,12 @@ const STACK = createStackNavigator(
     },
     HolidayDetail: {
       screen: HolidayDetail,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    HolidayAddon: {
+      screen: HolidayAddon,
       navigationOptions: {
         header: null,
       },

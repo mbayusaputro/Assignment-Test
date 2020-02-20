@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Alert} from 'react-native';
+import {ScrollView} from 'react-native';
 import ListView from './ListView';
 import {Login} from '../components';
 import Contact from './Contact';
@@ -21,6 +21,8 @@ const Content = (props: ContentProps) => {
     onSubmit,
     departureFlight,
     returnFlight,
+    onLogin,
+    isLogin,
   } = props;
   return (
     <ScrollView
@@ -66,7 +68,7 @@ const Content = (props: ContentProps) => {
           img={returnFlight.detail[0].img_src}
         />
       )}
-      <Login />
+      {props.isLogin ? null : <Login onPress={onLogin} />}
       <Contact onPress={onContactDetail} name={contactName} />
       <Passenger
         onPress={onPassenger}

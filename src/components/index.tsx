@@ -8,6 +8,7 @@ import Card from './Card';
 import BirthDatePicker from './BirthDatePicker';
 import AlertModal from './AlertModal';
 import LoadingBook from './LoadingBook';
+import LoginModal from './LoginModal';
 
 export {
   Button,
@@ -23,4 +24,5 @@ export {
   BirthDatePicker,
   AlertModal,
   LoadingBook,
+  LoginModal,
 };

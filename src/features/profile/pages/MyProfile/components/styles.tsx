@@ -1,11 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {scale, verticalScale} from '../../../../../constants/ScaleUtils';
 import {Color} from '../../../../../constants/Color';
 import fonts from '../../../../../constants/Fonts';
 import {
   HEADER_FONT_SIZE,
   TITLE_FONT_SIZE,
 } from '../../../../../constants/TextSize';
+import normalize from '../../../../../constants/normalize';
 
 export default StyleSheet.create({
   container: {
@@ -39,8 +39,8 @@ export default StyleSheet.create({
   // Component
   imgCircle: {
     borderRadius: 50,
-    width: scale(75),
-    height: scale(75),
+    width: normalize(75),
+    height: normalize(75),
   },
 
   // Text
@@ -64,7 +64,7 @@ export default StyleSheet.create({
     backgroundColor: Color.lightgray,
   },
   iconMenu: {
-    width: scale(25),
-    height: scale(25),
+    width: normalize(25),
+    height: normalize(25),
   },
 });

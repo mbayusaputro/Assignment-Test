@@ -9,6 +9,10 @@ import {
   HOLIDAYBOOKING,
   HOLIDAYBOOKING_SUCCESS,
   HOLIDAYBOOKING_FAILED,
+  ADDON,
+  DATAHOLIDAY,
+  DATAHOTEL,
+  DATAFLIGHT,
 } from './types';
 import {holidayList, holidayDetail, holidayBooking} from '../../services/api';
 
@@ -122,3 +126,23 @@ export const actionHolidayBook = (id: number, payload: object) => {
     }
   };
 };
+
+export const actionAddon = (data: any) => ({
+  type: ADDON,
+  data,
+});
+
+export const actionDataHoliday = (data: any) => ({
+  type: DATAHOLIDAY,
+  data,
+});
+
+export const actionDataHotel = (data: any) => ({
+  type: DATAHOTEL,
+  data,
+});
+
+export const actionDataFlight = (data: any) => ({
+  type: DATAFLIGHT,
+  data,
+});

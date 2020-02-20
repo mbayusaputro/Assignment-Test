@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  View,
-  TouchableOpacity as Touch,
-  Platform,
-  ScrollView,
-} from 'react-native';
+import {View, TouchableOpacity as Touch, ScrollView} from 'react-native';
 import {
   Text,
   InputText,
@@ -36,7 +31,10 @@ export default (props: SignInContent) => {
       <View style={styles.container}>
         {/* Greetings */}
         <View style={styles.content}>
-          <Text style={styles.textBold}>Hi There</Text>
+          <Text
+            style={styles.textBold}
+            content={{id: 'Halo yang disana', en: 'Hi There'}}
+          />
           <Text
             style={styles.textRegular}
             content={{

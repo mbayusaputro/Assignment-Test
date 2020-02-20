@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Alert, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import RadioOptionTrip from './RadioOptionTrip';
 import FieldFromTo from './FieldFromTo';
 import FieldData from './FieldData';

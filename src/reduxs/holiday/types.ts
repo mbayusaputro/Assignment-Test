@@ -8,6 +8,12 @@ export interface State {
   fetchHolidayList: boolean;
   fetchHolidayDetail: boolean;
   fetchHolidayBooking: boolean;
+
+  // new feature
+  addon: boolean;
+  dataHoliday: any;
+  dataHotel: any;
+  dataFlight: any;
 }
 
 // Holiday List
@@ -24,3 +30,9 @@ export const HOLIDAYDETAIL_FAILED = 'HOLIDAYDETAIL_FAILED';
 export const HOLIDAYBOOKING = 'HOLIDAYBOOKING';
 export const HOLIDAYBOOKING_SUCCESS = 'HOLIDAYBOOKING_SUCCESS';
 export const HOLIDAYBOOKING_FAILED = 'HOLIDAYBOOKING_FAILED';
+
+// ADD ON NEW FEATURE
+export const ADDON = 'ADDON';
+export const DATAHOLIDAY = 'DATAHOLIDAY';
+export const DATAHOTEL = 'DATAHOTEL';
+export const DATAFLIGHT = 'DATAFLIGHT';

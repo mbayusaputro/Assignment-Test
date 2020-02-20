@@ -23,6 +23,8 @@ export interface DetailHotelProps extends Props {
 
 export interface SelectRoomHotelProps extends Props {
   pathAsset: string;
+  addon: boolean;
+  actionDataHotel: (data: object) => void;
 }
 
 export interface DetailRoomHotelProps extends Props {}

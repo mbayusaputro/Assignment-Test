@@ -75,6 +75,7 @@ export const InputPassword = (props: PropsInputPassword) => {
       />
       <View style={buttonPassword}>
         <Touch
+          activeOpacity={0.75}
           onPress={() => (hidePassword ? onPassword(false) : onPassword(true))}>
           <Icon
             color={Color.greyish}

@@ -43,7 +43,7 @@ const intialState: State = {
   fetchSignIn: false,
 
   // Get Profile after SignIn
-  profile: {},
+  profile: null,
   fetchProfile: false,
 
   // SignUp
@@ -81,7 +81,7 @@ export default (state: State = intialState, action: Action): State => {
         ...state,
         isLogin: false,
         token: '',
-        profile: {},
+        profile: null,
       };
 
     // ============= SIGNIN =============

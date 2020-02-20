@@ -38,6 +38,7 @@ import BookingFormHotel from './hotel/pages/BookingFormHotel';
 // HOLIDAY
 import HolidayList from './holiday/pages/HolidayList';
 import HolidayDetail from './holiday/pages/HolidayDetail';
+import HolidayAddon from './holiday/pages/HolidayAddon';
 import HolidayBooking from './holiday/pages/HolidayBooking';
 
 // PAYMENT
@@ -78,5 +79,6 @@ export {
   ETicket,
   HolidayList,
   HolidayDetail,
+  HolidayAddon,
   HolidayBooking,
 };

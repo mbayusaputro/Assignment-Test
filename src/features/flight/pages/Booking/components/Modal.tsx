@@ -38,10 +38,10 @@ export default (props: ModalProps) => {
 
   const onSave = () => {
     let payload = {
-      salutation: salutation,
-      fullname: fullname,
-      email: email,
-      mobileNumber: mobileNumber,
+      salutation,
+      fullname,
+      email,
+      mobileNumber,
     };
     props.onSave(payload);
   };
