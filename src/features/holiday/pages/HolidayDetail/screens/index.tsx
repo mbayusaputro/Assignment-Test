@@ -95,8 +95,9 @@ export default (props: Props) => {
     };
     const detail = {
       title: dataDetail.title,
-      date: dataDetail.trip_date[selectedDate],
+      trip_date: dataDetail.trip_date[selectedDate],
       tour: dataDetail.host,
+      tour_package: dataDetail.id,
       price: totalPrice * total,
     };
     actionAddon(true);

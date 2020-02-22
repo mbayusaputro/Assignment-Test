@@ -66,6 +66,16 @@ export default class HolidayAddon extends PureComponent<Props, any> {
     actionDataFlight(null);
   };
 
+  // Continue To Booking
+  onContinueBook = () => {
+    const {
+      navigation: {navigate},
+      holiday,
+    } = this.props;
+    // console.log("HOLIDAY DATA", holiday);
+    navigate('HolidayBooking', holiday);
+  };
+
   render() {
     // Props
     const {holiday, hotel, flight} = this.props;
@@ -92,7 +102,7 @@ export default class HolidayAddon extends PureComponent<Props, any> {
             <Content />
           </Context.Provider>
         </ScrollView>
-        <Footer price={3500000} onContinue={() => {}} />
+        <Footer price={3500000} onContinue={this.onContinueBook} />
       </HighSafeArea>
     );
   }

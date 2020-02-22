@@ -6,6 +6,7 @@ import {
   getFetchHolidayBook,
   getDataFlight,
   getDataHotel,
+  getDataHoliday,
 } from '../../../../reduxs/holiday/selector';
 import HolidayBooking from './screens';
 
@@ -13,6 +14,7 @@ const mapStateToProps = (state: any) => ({
   fetchBook: getFetchHolidayBook(state),
   flight: getDataFlight(state),
   hotel: getDataHotel(state),
+  holiday: getDataHoliday(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

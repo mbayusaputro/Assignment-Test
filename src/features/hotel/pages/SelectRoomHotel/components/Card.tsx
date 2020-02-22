@@ -8,7 +8,7 @@ import {
   subTitleDurationLang,
   selectLang,
 } from '../../../interface/string';
-import {eurToIdr} from '../../../../../helpers/helpers';
+import {eurToIdr, moneyFormat} from '../../../../../helpers/helpers';
 
 type Props = {
   title: string;
@@ -65,7 +65,7 @@ export default (props: Props) => {
       </View>
       <View style={styles.rowBetween}>
         <View style={styles.row}>
-          <Text style={styles.textPrice}>Rp{eurToIdr(price)}</Text>
+          <Text style={styles.textPrice}>Rp{moneyFormat(price)}</Text>
           <Text style={styles.textSubTitle} content={subTitleDurationLang} />
         </View>
         <Button

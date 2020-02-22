@@ -2,6 +2,7 @@ import React from 'react';
 import {View, TouchableOpacity as Touch, Switch} from 'react-native';
 import {Text, Card, Imaging} from '../../../../../components';
 import styles from './styles';
+import {oc} from 'ts-optchain';
 
 type Props = {
   totalGuest: number;
@@ -25,9 +26,9 @@ export default (props: Props) => {
           <Card style={[styles.rowBetween, styles.cardItem, styles.vertical]}>
             <Text style={styles.textSemi}>
               #{i + 1}{' '}
-              {guest[i].first_name === ''
-                ? numGuest[i].type
-                : guest[i].first_name + guest[i].last_name}
+              {oc(guest[i]).fullName('') === ''
+                ? oc(numGuest[i]).title('')
+                : `${oc(guest[i]).fullName('')}`}
             </Text>
             <Imaging
               source={require('../../../../../assets/icons/chevron_right.png')}
@@ -35,7 +36,7 @@ export default (props: Props) => {
               style={{width: 30, height: 30}}
             />
           </Card>
-          {guest[i].name === '' && (
+          {oc(guest[i]).fullName('') === '' && (
             <View>
               <Text style={styles.textRed}>
                 *Please fill in contact details

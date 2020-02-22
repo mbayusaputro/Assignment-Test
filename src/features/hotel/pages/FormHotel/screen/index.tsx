@@ -13,7 +13,7 @@ import ModalRoom from './ModalRoom';
 import ModalDestination from './ModalDestination';
 
 const defaultDestination = {
-  code: 'JAV',
+  code: 'Jakarta',
   type: 'city',
   name: 'Jakarta',
 };
@@ -125,7 +125,7 @@ export default (props: Props) => {
         ],
         stars: 5,
         offset: 1,
-        limit: 10,
+        limit: 50,
       };
       // actionSearchHotel(payload);
       navigate('ResultHotel', {payload, checkOut});

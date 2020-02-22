@@ -14,15 +14,26 @@ type Props = {
 const dataSalutation = [
   {
     id: 1,
-    title: 'Mr',
+    title: 'MR',
   },
   {
     id: 2,
-    title: 'Mrs',
+    title: 'MRS',
   },
   {
     id: 3,
-    title: 'Ms',
+    title: 'MS',
+  },
+];
+
+const dataSalutChild = [
+  {
+    id: 1,
+    title: 'MSTR',
+  },
+  {
+    id: 1,
+    title: 'MS',
   },
 ];
 
@@ -30,9 +41,7 @@ export default (props: Props) => {
   const {onClose, onSaveGuest, guest, type} = props;
 
   const [fullname, setFullname] = React.useState('');
-  const [salutation, setSalutation] = React.useState(
-    type === 'adult' ? 'Mr' : 'Ms',
-  );
+  const [salutation, setSalutation] = React.useState('MR');
   const [birthDate, setBirthDate] = React.useState('2000-01-01');
   const [email, setEmail] = React.useState('');
   const [validMail, setValidMail] = React.useState(true);
@@ -46,20 +55,12 @@ export default (props: Props) => {
 
   const onSave = () => {
     if (fullname !== '') {
-      const splitName = fullname.split(' ');
       const payload = {
-        salutation,
-        first_name: splitName[0],
-        last_name: splitName[1],
-        birth_date: birthDate,
-        email,
-        phone,
+        titleIndex: guest,
+        title: salutation,
+        fullName: fullname,
+        dateOfBirth: type === 'child' || type === 'infant' ? '2016-01-01' : '',
         type,
-        nationality: 'ID',
-        card_number: '123232323',
-        card_issue_date: '2017-01-01',
-        card_expire_date: '2022-01-01',
-        identity_number: `${guest}`,
       };
       onSaveGuest(payload, type);
     } else {
@@ -82,16 +83,14 @@ export default (props: Props) => {
             selectedValue={salutation}
             style={{width: '100%'}}
             onValueChange={(item: any, index: number) => setSalutation(item)}>
-            {type === 'adult' ? (
-              dataSalutation.map((item: any, index: number) => (
+            {(type === 'adult' ? dataSalutation : dataSalutChild).map(
+              (item: any, index: number) => (
                 <Picker.Item
                   key={index}
                   value={item.title}
                   label={item.title}
                 />
-              ))
-            ) : (
-              <Picker.Item value={salutation} label={salutation} />
+              ),
             )}
           </Picker>
         </View>
@@ -104,35 +103,6 @@ export default (props: Props) => {
             autoCapitalize="words"
           />
         </View>
-      </View>
-      <View>
-        <Text content={{id: 'Email', en: 'Email'}} />
-        <InputText
-          placeholder=""
-          onChangeText={(text: string) => onCheckMail(text)}
-          value={email}
-          autoCapitalize="none"
-          keyboardType="email-address"
-        />
-        {validMail ? null : (
-          <Text
-            style={styles.textRed}
-            content={{
-              id: 'Mohon masukkan alamat email yang benar',
-              en: 'Please enter a valid email address',
-            }}
-          />
-        )}
-      </View>
-      <View>
-        <Text content={{id: 'Nomor Handphone', en: 'Mobile Number'}} />
-        <InputText
-          placeholder=""
-          onChangeText={(text: string) => setPhone(text)}
-          value={phone}
-          autoCapitalize="none"
-          keyboardType="phone-pad"
-        />
       </View>
       <Button
         fullWidth

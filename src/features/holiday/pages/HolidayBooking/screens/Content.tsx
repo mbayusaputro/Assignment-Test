@@ -19,9 +19,9 @@ export default () => {
     <View>
       <View>
         <CardDetail
-          // date={JSON.stringify(content.dataDetail.date)}
-          checkin={content.dataDetail.date.start_date}
-          checkout={content.dataDetail.date.end_date}
+          // date={JSON.stringify(content.dataDetail.trip_date)}
+          checkin={content.dataDetail.trip_date.start_date}
+          checkout={content.dataDetail.trip_date.end_date}
           title={content.dataDetail.title}
           tour={content.dataDetail.tour}
         />

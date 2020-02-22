@@ -28,8 +28,8 @@ export default (props: Props) => {
         key={index}
         onPress={() => props.onSelectHotel(item)}
         title={item.name}
-        star={item.categoryName.substring(0, 1)}
-        location={item.zoneName}
+        star={parseInt(item.categoryName.split(' ')[1], 0)}
+        location={item.destinationName}
         price={item.minRate}
         photo={pathAsset + oc(item).detail.images[0].path('aw.jpg')}
       />

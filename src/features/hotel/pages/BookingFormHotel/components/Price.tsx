@@ -4,7 +4,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import {Text, Card} from '../../../../../components';
 import styles from './styles';
 import {Color} from '../../../../../constants/Color';
-import {eurToIdr} from '../../../../../helpers/helpers';
+import {eurToIdr, moneyFormat} from '../../../../../helpers/helpers';
 
 type Props = {
   price: number;
@@ -26,7 +26,7 @@ export default (props: Props) => {
       <Touch activeOpacity={0.5}>
         <Card style={[styles.rowBetween, styles.cardItem, styles.vertical]}>
           <Text style={styles.textSemi}>Price You Pay</Text>
-          <Text style={styles.textPrice}>Rp{eurToIdr(price)}</Text>
+          <Text style={styles.textPrice}>Rp{moneyFormat(price)}</Text>
         </Card>
       </Touch>
     </View>

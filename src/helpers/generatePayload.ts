@@ -28,6 +28,7 @@ export const generateStatePassenger = (
       title,
       fullName: '',
       dateOfBirth: '',
+      type: field,
     });
   }
   // response after all data generated;
@@ -37,7 +38,7 @@ export const generateStatePassenger = (
 export const generatePayloadTravelers = (
   field: string,
   value: number,
-  dataPassenger: Array<any>,
+  dataPassenger: any,
   index: number,
   callback: (response: any) => void,
 ) => {
@@ -83,7 +84,7 @@ export const generatePayloadTravelers = (
 export const generatePayloadGuest = (
   field: string,
   value: number,
-  dataPassenger: Array<any>,
+  dataPassenger: any,
   index: number,
   callback: (response: any) => void,
 ) => {
@@ -111,10 +112,10 @@ export const generatePayloadGuest = (
 export const generatePayloadPassenger = (
   field: string,
   value: number,
-  dataPassenger: Array<any>,
+  dataPassenger: any,
   contact: any,
   index: number,
-  callback: (response: any) => void,
+  callback?: (response: any) => void,
 ) => {
   let validDob = true;
   let tempArr = [];
@@ -242,7 +243,7 @@ export const payloadTour = (req: any, callback: (response: any) => void) => {
               },
             },
     },
-    tourId: req.tour.tour_package.id,
+    tourId: req.tour.tour_package,
     propertyId: req.hotel === null ? '' : 71864,
     roomId: req.hotel === null ? '' : 11545762,
     apiKey: '4OGG3-U8RDM-29NXL-KYE6S-MWW15',

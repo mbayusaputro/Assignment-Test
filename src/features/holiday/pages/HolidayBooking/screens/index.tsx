@@ -13,6 +13,13 @@ import {styles, Context, Modal} from '../components';
 import {ScrollView} from 'react-native';
 import ModalContact from './ModalContact';
 import ModalGuest from './ModalGuest';
+import {
+  generateStatePassenger,
+  generatePayloadPassenger,
+  generatePayloadTravelers,
+  generatePayloadGuest,
+  payloadTour,
+} from '../../../../../helpers/generatePayload';
 
 export default (props: Props) => {
   // Props
@@ -26,21 +33,123 @@ export default (props: Props) => {
   const [modal, setModal] = React.useState(null);
   const [contact, setContact] = React.useState(null);
   const [sameContact, setSameContact] = React.useState(false);
-  const [guest, setGuest] = React.useState([]);
-  const [guestNum, setGuestNum] = React.useState(null);
+  const [guestNum, setGuestNum] = React.useState(0);
   const [typeGuest, setTypeGuest] = React.useState('adult');
-  const [salutation, setSalutation] = React.useState('Mr');
-  const [fullname, setFullname] = React.useState('');
-  const [birthDate, setBirthDate] = React.useState('2007-04-08');
-  const [email, setEmail] = React.useState('');
-  const [phone, setPhone] = React.useState('');
+
+  const [dataPassenger, setDataPassenger] = React.useState({
+    adult: [],
+    child: [],
+  });
+  const [adult, setAdult] = React.useState([]);
+  const [adultHotel, setAdultHotel] = React.useState([]);
+  const [adultFlight, setAdultFlight] = React.useState([]);
+  const [child, setChild] = React.useState([]);
+  const [childFlight, setChildFlight] = React.useState([]);
 
   React.useEffect(() => {
-    if (guest.length === 0) {
-      const {adult, child} = dataParam;
-      onSetDataGuest(adult, child);
-    }
+    checkFirst();
   }, []);
+
+  const checkFirst = () => {
+    let data = {adult: [], child: []};
+    // Generate Adult
+    generateStatePassenger(dataParam.adult, 'adult', (res: any) => {
+      data.adult = res;
+    });
+    // Generate Child
+    generateStatePassenger(dataParam.child, 'child', (res: any) => {
+      data.child = res;
+    });
+    setDataPassenger(data);
+    console.log('DATA', data);
+  };
+
+  // Generate Data Passenger
+  const generatePayloadPassengers = (field: string, value: number) => {
+    generatePayloadTravelers(
+      field,
+      value,
+      dataPassenger,
+      guestNum,
+      (res: any) => {
+        if (field === 'adult') {
+          setAdult(res.tempArr);
+        } else if (field === 'child') {
+          setChild(res.tempArr);
+        }
+        setTimeout(() => {
+          if (res.validDob) {
+            setModal(null);
+            setTypeGuest('adutl');
+          } else {
+            alert('DOB not valid!' + res.validDob);
+          }
+        }, 500);
+      },
+    );
+    generatePayloadGuest(field, value, dataPassenger, guestNum, (res: any) => {
+      if (field === 'adult') {
+        setAdultHotel(res);
+      }
+    });
+    generatePayloadPassenger(
+      field,
+      value,
+      dataPassenger,
+      contact,
+      guestNum,
+      (res: any) => {
+        if (field === 'adult') {
+          setAdultFlight(res.tempArr);
+        } else if (field === 'child') {
+          setChildFlight(res.tempArr);
+        }
+        setTimeout(() => {
+          if (res.validDob) {
+            setModal(null);
+          } else {
+            alert('DOB not valid!' + res.validDob);
+          }
+        }, 500);
+      },
+    );
+  };
+
+  const handleInput = (type: string, value?: any) => {
+    if (type === 'fullName') {
+      if (dataPassenger[typeGuest]) {
+        dataPassenger[typeGuest][guestNum].fullName = value;
+      }
+    } else if (type === 'dob') {
+      if (dataPassenger[typeGuest]) {
+        dataPassenger[typeGuest][guestNum].dateOfBirth = value;
+      }
+    } else if (type === 'sameContact') {
+      if (dataPassenger[typeGuest]) {
+        dataPassenger[typeGuest][guestNum].fullName = value;
+        dataPassenger[typeGuest][guestNum].title =
+          contact === null ? 'MR' : contact.salutation;
+        generatePayloadPassengers(
+          'adult',
+          contact === null ? 'MR' : contact.salutation,
+        );
+      }
+    } else if (type === 'blank') {
+      if (dataPassenger[typeGuest]) {
+        dataPassenger[typeGuest][guestNum].fullName = value;
+      }
+      generatePayloadPassengers('adult', null);
+    } else if (type === 'modalform') {
+      if (dataPassenger[typeGuest]) {
+        dataPassenger[typeGuest][
+          typeGuest === 'child' ? guestNum - dataParam.adult : guestNum
+        ] = value;
+        generatePayloadPassengers(typeGuest, value.title);
+      }
+    }
+    setDataPassenger(dataPassenger);
+    console.log(dataPassenger, typeGuest, guestNum, value);
+  };
 
   // When Back is Pressed
   const onBack = () => {
@@ -48,30 +157,6 @@ export default (props: Props) => {
       navigation: {goBack},
     } = props;
     goBack();
-  };
-
-  // Set Guest Data
-  const onSetDataGuest = (adult: number, child: number) => {
-    let arr = [];
-    const total = adult + child;
-    for (let i = 0; i < total; i++) {
-      let data = {
-        salutation: 'Mr',
-        first_name: '',
-        last_name: '',
-        birth_date: '1988-04-08',
-        email: '',
-        phone: '',
-        type: i < adult ? 'adult' : 'child',
-        nationality: 'ID',
-        card_number: '123232323',
-        card_issue_date: '2017-01-01',
-        card_expire_date: '2022-01-01',
-        identity_number: `${i}`,
-      };
-      arr.push(data);
-    }
-    setGuest(arr);
   };
 
   // Show Modal Guest
@@ -91,68 +176,60 @@ export default (props: Props) => {
   const onChangeSame = (item: boolean) => {
     if (contact !== null) {
       setSameContact(item);
-      const splitName = contact.fullname.split(' ');
-      const dataGuest = {
-        salutation,
-        first_name: item ? splitName[0] : '',
-        last_name: item ? splitName[1] : '',
-        birth_date: birthDate,
-        email: contact.email,
-        phone: contact.phoneNumber,
-        type: 'adult',
-        nationality: 'ID',
-        card_number: '123232323',
-        card_issue_date: '2017-01-01',
-        card_expire_date: '2022-01-01',
-        identity_number: `${0}`,
-      };
-      setItemGuest(dataGuest, 'adult');
+      handleInput('sameContact', contact.fullname);
     }
-  };
-
-  // Save Item by Guest Number
-  const setItemGuest = (item: any, type: string) => {
-    let arr = guest;
-    let index = _.findIndex(arr, {
-      identity_number: item.identity_number,
-      type: type,
-    });
-    arr[index >= 0 ? index : arr.length] = item;
-    setGuest(arr);
-    setTimeout(() => setModal(null), 500);
   };
 
   // On BOOK
   const onBook = () => {
+    const {holiday, flight, hotel, actionHolidayBook} = props;
     setModal(null);
+    const request = {
+      tour: holiday.detail,
+      contact,
+      travelers: [...adult, ...child],
+      flight,
+      passengers: [...adultFlight, ...childFlight],
+      hotel,
+      guest: adultHotel,
+    };
+    payloadTour(request, (response: any) => {
+      actionHolidayBook(holiday.detail.tour_package, response).then(
+        (res: any) => {
+          console.log(res);
+          console.log(request);
+          setTimeout(() => setModal(null), 500);
+        },
+      );
+    });
     setTimeout(() => {
-      const {
-        actionHolidayBook,
-        navigation: {navigate},
-      } = props;
-      const payload = {
-        trip_date_id: dataDetail.date.id,
-        contact_detail: contact,
-        travelers: guest,
-      };
       setModal(201);
-      setTimeout(() => {
-        actionHolidayBook(dataParam.id, payload).then((res: any) => {
-          if (res.type === 'HOLIDAYBOOKING_SUCCESS') {
-            const dataSend = {
-              data: res.data.data,
-              partner_trxid: res.data.booking_code,
-              total: res.data.total,
-            };
-            onNavigate('PaymentMethod', dataSend);
-            setModal(null);
-          } else {
-            alert(res.message);
-            setModal(null);
-          }
-        });
-      }, 500);
     }, 500);
+    // setTimeout(() => {
+    //   const {actionHolidayBook} = props;
+    //   const payload = {
+    //     trip_date_id: dataDetail.date.id,
+    //     contact_detail: contact,
+    //     travelers: dataPassenger,
+    //   };
+    //   setModal(201);
+    //   setTimeout(() => {
+    //     actionHolidayBook(dataParam.id, payload).then((res: any) => {
+    //       if (res.type === 'HOLIDAYBOOKING_SUCCESS') {
+    //         const dataSend = {
+    //           data: res.data.data,
+    //           partner_trxid: res.data.booking_code,
+    //           total: res.data.total,
+    //         };
+    //         onNavigate('PaymentMethod', dataSend);
+    //         setModal(null);
+    //       } else {
+    //         alert(res.message);
+    //         setModal(null);
+    //       }
+    //     });
+    //   }, 500);
+    // }, 500);
   };
 
   // Navigation to Other Route
@@ -184,8 +261,8 @@ export default (props: Props) => {
             // Guest
             sameContact,
             onChangeSame: () => onChangeSame(!sameContact),
-            totalGuest: guest.length,
-            guestArr: guest,
+            totalGuest: [...dataPassenger.adult, dataPassenger.child].length,
+            guestArr: [...dataPassenger.adult, ...dataPassenger.child],
             onShowGuest: (item: any, type: string) =>
               showModalGuest(item, 2, type),
             // Price
@@ -218,7 +295,9 @@ export default (props: Props) => {
             guest={guestNum}
             type={typeGuest}
             onClose={() => setModal(null)}
-            onSaveGuest={(item: any, type: any) => setItemGuest(item, type)}
+            onSaveGuest={(item: any, type: any) =>
+              handleInput('modalform', item)
+            }
           />
         }
       />

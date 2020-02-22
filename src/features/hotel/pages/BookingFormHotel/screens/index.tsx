@@ -120,11 +120,18 @@ export default (props: Props) => {
         clientReference: 'ORDER-00001',
         remark: '',
         tolerance: '5.00',
+        searchId: 'SRCH-0001',
+        amount: data.price,
       };
       actionBookHotel(payloadBook).then((res: any) => {
         setTimeout(() => {
           if (res.type === 'BOOK_HOTEL_SUCCESS') {
-            alert(JSON.stringify(res.data));
+            const dataParam = {
+              data: res.data.data,
+              partner_trxid: res.data.bookingCode,
+              total: res.data.amount,
+            };
+            onNavigate(dataParam);
             setModal(null);
           } else {
             alert(res.message);
@@ -133,6 +140,16 @@ export default (props: Props) => {
         }, 500);
       });
     }, 500);
+  };
+
+  const onNavigate = (item: object) => {
+    const {
+      navigation: {navigate},
+    } = props;
+    navigate('PaymentMethod', {
+      type: 'hotel',
+      item,
+    });
   };
 
   // Main Render

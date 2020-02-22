@@ -65,14 +65,12 @@ export default (props: Props) => {
         <Content
           callback={onBack}
           titleHotel={selectedHotel.name}
-          rate={selectedHotel.categoryName.substring(0, 1)}
+          rate={parseInt(selectedHotel.categoryName.split(' ')[1], 0)}
           photo={pathAsset + oc(selectedHotel).detail.images[0].path('aw.jpg')}
           accommodationType={oc(selectedHotel).detail.accommodationTypeCode(
             'Hotel',
           )}
-          location={`${selectedHotel.destinationName}, ${
-            selectedHotel.zoneName
-          }`}
+          location={selectedHotel.detail.address.content}
           openMaps={openMaps}
         />
       </DetailHotelContext.Provider>

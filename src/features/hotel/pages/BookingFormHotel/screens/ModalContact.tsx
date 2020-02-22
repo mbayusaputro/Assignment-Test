@@ -22,7 +22,7 @@ export default (props: Props) => {
   const {onClose} = props;
 
   // State
-  const [salutation, setSalutation] = React.useState('Mr');
+  const [salutation, setSalutation] = React.useState('MR');
   const [fullname, setFullname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [validMail, setValidMail] = React.useState(true);
@@ -42,10 +42,12 @@ export default (props: Props) => {
 
   const onSave = () => {
     let payload = {
+      salutation,
       name: '',
       surname: '',
       email,
       phoneNumber: mobileNumber,
+      customerId: 1,
     };
     getFirstNameLastname(fullname, (res: any) => {
       (payload.name = res.firstName), (payload.surname = res.lastName);
