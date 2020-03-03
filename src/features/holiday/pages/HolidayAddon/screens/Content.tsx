@@ -55,12 +55,8 @@ export default () => {
             <Text
               style={styles.textDesc}
               content={{
-                id: `${dataDetail.item.adult} Dewasa, ${
-                  dataDetail.item.child
-                } Anak-anak `,
-                en: `${dataDetail.item.adult} Adult, ${
-                  dataDetail.item.child
-                } Child `,
+                id: `${dataDetail.item.adult} Dewasa, ${dataDetail.item.child} Anak-anak `,
+                en: `${dataDetail.item.adult} Adult, ${dataDetail.item.child} Child `,
               }}
             />
           </View>
@@ -97,11 +93,7 @@ export default () => {
         <CardItem
           type={{id: 'Pesawat', en: 'Flight'}}
           onCancel={onClearFlight}
-          title={`${
-            dataFlight.departure_flight.detail[0].departure_city_name
-          }(${dataFlight.departure_flight.detail[0].departure_city}) - ${
-            dataFlight.departure_flight.detail[0].arrival_city_name
-          }(${dataFlight.departure_flight.detail[0].arrival_city})`}
+          title={`${dataFlight.departure_flight.detail[0].departure_city_name}(${dataFlight.departure_flight.detail[0].departure_city}) - ${dataFlight.departure_flight.detail[0].arrival_city_name}(${dataFlight.departure_flight.detail[0].arrival_city})`}
           start_date={dataFlight.departure_flight.departure_date}
           end_date={dataFlight.departure_flight.arrival_date}
           price={

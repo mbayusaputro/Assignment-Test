@@ -111,7 +111,7 @@ export const generatePayloadGuest = (
 
 export const generatePayloadPassenger = (
   field: string,
-  value: number,
+  value: any,
   dataPassenger: any,
   contact: any,
   index: number,

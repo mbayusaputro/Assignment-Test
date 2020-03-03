@@ -20,7 +20,4 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 const Default = (props: any) => <ForgotPassword2 {...props} />;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Default);
+export default connect(mapStateToProps, mapDispatchToProps)(Default);

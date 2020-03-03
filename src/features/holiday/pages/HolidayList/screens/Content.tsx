@@ -72,9 +72,7 @@ export default () => {
               <Text
                 style={styles.textSubTitle}
                 content={{
-                  id: `${item.duration_days} hari, ${
-                    item.duration_night
-                  } malam`,
+                  id: `${item.duration_days} hari, ${item.duration_night} malam`,
                   en: `${item.duration_days} day, ${item.duration_night} night`,
                 }}
               />

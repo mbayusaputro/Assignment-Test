@@ -30,7 +30,7 @@ export type ContentProps = {
 export type ModalProps = {
   isVisible: any;
   onDismiss: () => void;
-  onSave: (payload: any) => void;
+  onSave: (payload: any, value: any) => void;
   onDob?: (payload: any) => void;
   form?: string;
   dataPassenger?: any;

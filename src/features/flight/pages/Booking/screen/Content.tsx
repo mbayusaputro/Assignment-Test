@@ -24,6 +24,18 @@ const Content = (props: ContentProps) => {
     onLogin,
     isLogin,
   } = props;
+
+  let price_dept =
+    departureFlight.price_adult * dataPassenger.adult.length +
+    departureFlight.price_child * dataPassenger.child.length +
+    departureFlight.price_infant * dataPassenger.infant.length;
+  let price_retn =
+    returnFlight === null
+      ? 0
+      : departureFlight.price_adult * dataPassenger.adult.length +
+        departureFlight.price_child * dataPassenger.child.length +
+        departureFlight.price_infant * dataPassenger.infant.length;
+  let price_total = price_dept + price_retn;
   return (
     <ScrollView
       style={{marginHorizontal: 20, marginTop: -40}}
@@ -68,7 +80,7 @@ const Content = (props: ContentProps) => {
           img={returnFlight.detail[0].img_src}
         />
       )}
-      {props.isLogin ? null : <Login onPress={onLogin} />}
+      {isLogin ? null : <Login onPress={onLogin} />}
       <Contact onPress={onContactDetail} name={contactName} />
       <Passenger
         onPress={onPassenger}
@@ -76,9 +88,13 @@ const Content = (props: ContentProps) => {
         active={active}
         toggleSwitch={toggleSwitch}
       />
-      <Baggage />
-      <Price />
-      <Total />
+      {/* <Baggage /> */}
+      <Price
+        departure={departureFlight}
+        returns={returnFlight}
+        data={dataPassenger}
+      />
+      <Total total={price_total} />
       <Button
         customStyle={{
           marginVertical: 20,

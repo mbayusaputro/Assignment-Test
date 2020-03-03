@@ -40,7 +40,4 @@ const Default = (props: any) => {
   return isLogin ? <MyProfile {...props} /> : <SignIn {...props} />;
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Default);
+export default connect(mapStateToProps, mapDispatchToProps)(Default);

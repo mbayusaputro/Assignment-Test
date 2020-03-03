@@ -105,7 +105,4 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch,
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ConfirmOTP);
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmOTP);

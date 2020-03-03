@@ -12,17 +12,8 @@ export const getFetchListDestinationHotel = createSelector(
   i => i,
 );
 
-export const getFetchSearchHotel = createSelector(
-  makeFetchSearchHotel,
-  i => i,
-);
+export const getFetchSearchHotel = createSelector(makeFetchSearchHotel, i => i);
 
-export const getPathAsset = createSelector(
-  makePathAsset,
-  i => i,
-);
+export const getPathAsset = createSelector(makePathAsset, i => i);
 
-export const getFetchBookHotel = createSelector(
-  makeFetchBookHotel,
-  i => i,
-);
+export const getFetchBookHotel = createSelector(makeFetchBookHotel, i => i);

@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 
 const Total = (props: any) => {
+  const {total} = props;
   return (
     <View style={{marginVertical: 10}}>
       <Text style={{fontFamily: 'NunitoSans-Bold', fontSize: 16}}>
@@ -17,7 +18,7 @@ const Total = (props: any) => {
         <View style={styles.row}>
           <Text style={{fontFamily: 'NunitoSans-SemiBold'}}>Price You Pay</Text>
           <Text style={{fontFamily: 'NunitoSans-Bold', color: Color.orange}}>
-            Rp 0
+            Rp{total.toLocaleString('id-ID')}
           </Text>
         </View>
       </View>

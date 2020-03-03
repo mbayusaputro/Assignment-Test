@@ -15,10 +15,7 @@ const makeDataHoliday = (state: AppState) => state.holiday.dataHoliday;
 const makeDataHotel = (state: AppState) => state.holiday.dataHotel;
 const makeDataFlight = (state: AppState) => state.holiday.dataFlight;
 
-export const getFetchHolidayList = createSelector(
-  makeFetchHolidayList,
-  i => i,
-);
+export const getFetchHolidayList = createSelector(makeFetchHolidayList, i => i);
 
 export const getFetchHolidayDetail = createSelector(
   makeFetchHolidayDetail,
@@ -30,22 +27,10 @@ export const getFetchHolidayBook = createSelector(
   i => i,
 );
 
-export const getAddon = createSelector(
-  makeAddOn,
-  i => i,
-);
+export const getAddon = createSelector(makeAddOn, i => i);
 
-export const getDataHoliday = createSelector(
-  makeDataHoliday,
-  i => i,
-);
+export const getDataHoliday = createSelector(makeDataHoliday, i => i);
 
-export const getDataHotel = createSelector(
-  makeDataHotel,
-  i => i,
-);
+export const getDataHotel = createSelector(makeDataHotel, i => i);
 
-export const getDataFlight = createSelector(
-  makeDataFlight,
-  i => i,
-);
+export const getDataFlight = createSelector(makeDataFlight, i => i);

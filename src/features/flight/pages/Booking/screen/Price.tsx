@@ -4,6 +4,7 @@ import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
 import {Color} from '../../../../../constants/Color';
 
 const Card = (form: string, titleForm: string, date: string, props: any) => {
+  const {departure, returns, data} = props;
   return (
     <View>
       {date !== '1' ? (
@@ -28,28 +29,33 @@ const Card = (form: string, titleForm: string, date: string, props: any) => {
           )}
           <Text style={styles.regular}>
             {form === 'child'
-              ? titleForm + ' x' + 1
+              ? titleForm + ' x' + data.child.length
               : form === 'infant'
-              ? titleForm + ' x' + 1
-              : titleForm + ' x' + 1}
+              ? titleForm + ' x' + data.infant.length
+              : titleForm + ' x' + data.adult.length}
           </Text>
         </View>
         <Text style={styles.regular}>
-          Rp1.900.000
-          {/* {form === 'child'
-          ? (date === 'return'
-              ? props.data.flightSelectedReturn.price_child * props.data.child
-              : props.data.flightSelected.price_child * props.data.child
-            ).toLocaleString('id-ID')
-          : form === 'infant'
-          ? (date === 'return'
-              ? props.data.flightSelectedReturn.price_infant * props.data.infant
-              : props.data.flightSelected.price_infant * props.data.infant
-            ).toLocaleString('id-ID')
-          : (date === 'return'
-              ? props.data.flightSelectedReturn.price_adult * props.data.adult
-              : props.data.flightSelected.price_adult * props.data.adult
-            ).toLocaleString('id-ID')} */}
+          {form === 'child'
+            ? (date === 'return'
+                ? returns === null
+                  ? 0
+                  : returns.price_child * data.child.length
+                : departure.price_child * data.child.length
+              ).toLocaleString('id-ID')
+            : form === 'infant'
+            ? (date === 'return'
+                ? returns === null
+                  ? 0
+                  : returns.price_infant * data.infant.length
+                : departure.price_infant * data.infant.length
+              ).toLocaleString('id-ID')
+            : (date === 'return'
+                ? returns === null
+                  ? 0
+                  : returns.price_adult * data.adult.length
+                : departure.price_adult * data.adult.length
+              ).toLocaleString('id-ID')}
         </Text>
       </View>
     </View>
@@ -57,14 +63,23 @@ const Card = (form: string, titleForm: string, date: string, props: any) => {
 };
 
 const Price = (props: any) => {
+  const {returns, data} = props;
   return (
     <View style={{marginVertical: 10}}>
       <Text style={{fontFamily: 'NunitoSans-Bold', fontSize: 16}}>
-        Price Departure & Return
+        {`Price Departure${returns === null ? '' : '& Return'}`}
       </Text>
       <View style={styles.card}>
         {Card('adult', 'Adult', '1', props)}
-        {Card('adult', 'Adult', 'return', props)}
+        {data.child.length > 0 ? Card('child', 'Child', '', props) : []}
+        {data.infant.length > 0 ? Card('infant', 'Infant', '', props) : []}
+        {returns === null ? [] : Card('adult', 'Adult', 'return', props)}
+        {data.child.length > -1 && returns === null
+          ? []
+          : Card('child', 'Child', 'return', props)}
+        {data.infant.length > 0 && returns === null
+          ? []
+          : Card('infant', 'Infant', 'return', props)}
       </View>
     </View>
   );

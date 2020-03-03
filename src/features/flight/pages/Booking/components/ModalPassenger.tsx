@@ -30,7 +30,7 @@ export default (props: ModalProps) => {
     onDob,
   } = props;
 
-  const [salutation, setSalutation] = useState('Mr');
+  const [salutation, setSalutation] = useState('MR');
   const [dob, setDob] = useState(false);
   const [type, setType] = React.useState(['Day', 'Month', 'Year']);
   const [year, setYear] = useState(new Date().getFullYear() - 12);
@@ -46,7 +46,7 @@ export default (props: ModalProps) => {
   };
 
   const doneDob = () => {
-    onDob(year + '-' + month + '-' + day);
+    onDob(`${year}-${month}-${day}`);
     setDob(!dob);
   };
 
@@ -141,9 +141,7 @@ export default (props: ModalProps) => {
                     Birthdate
                   </Text>
                   <Text style={{fontFamily: 'NunitoSans-Bold', fontSize: 16}}>
-                    {moment(year + '-' + month + '-' + day).format(
-                      'DD MMMM YYYY',
-                    )}
+                    {moment(new Date(year, month, day)).format('DD MMMM YYYY')}
                   </Text>
                 </Touch>
               ) : (
@@ -166,7 +164,7 @@ export default (props: ModalProps) => {
                 customStyle={styles.btnUpdate}
                 fullWidth
                 isUpperCase
-                onPress={() => onSave(form)}
+                onPress={() => onSave(form, salutation)}
               />
             )}
           </View>

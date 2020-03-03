@@ -42,7 +42,7 @@ const HighSafeArea = <BaseProps extends {}>(
       const {content} = styles;
 
       if (error) {
-        return <BaseComponent {...restProps as BaseProps} />;
+        return <BaseComponent {...(restProps as BaseProps)} />;
       }
 
       return (

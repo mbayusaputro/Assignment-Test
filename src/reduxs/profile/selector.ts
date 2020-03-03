@@ -16,50 +16,23 @@ const makeFetchChangePassUser = (state: AppState) =>
   state.profile.fetchChangePasswordUser;
 const makeFetchForgotPass = (state: AppState) => state.profile.fetchForgotPass;
 
-export const getIsLogin = createSelector(
-  makeIsLogin,
-  i => i,
-);
+export const getIsLogin = createSelector(makeIsLogin, i => i);
 
-export const getToken = createSelector(
-  makeToken,
-  i => i,
-);
+export const getToken = createSelector(makeToken, i => i);
 
-export const getFetchSignIn = createSelector(
-  makeFetchSignIn,
-  i => i,
-);
+export const getFetchSignIn = createSelector(makeFetchSignIn, i => i);
 
-export const getProfile = createSelector(
-  makeProfile,
-  i => i,
-);
+export const getProfile = createSelector(makeProfile, i => i);
 
-export const getFetchProfile = createSelector(
-  makeFetchProfile,
-  i => i,
-);
+export const getFetchProfile = createSelector(makeFetchProfile, i => i);
 
-export const getFetchSignUp = createSelector(
-  makeFetchSignUp,
-  i => i,
-);
+export const getFetchSignUp = createSelector(makeFetchSignUp, i => i);
 
-export const getPayloadSignUp1 = createSelector(
-  makePayloadSignUp1,
-  i => i,
-);
+export const getPayloadSignUp1 = createSelector(makePayloadSignUp1, i => i);
 
-export const getPayloadSignUp2 = createSelector(
-  makePayloadSignUp2,
-  i => i,
-);
+export const getPayloadSignUp2 = createSelector(makePayloadSignUp2, i => i);
 
-export const getPayloadSignUp3 = createSelector(
-  makePayloadSignUp3,
-  i => i,
-);
+export const getPayloadSignUp3 = createSelector(makePayloadSignUp3, i => i);
 
 export const getFetchUpdateProfile = createSelector(
   makeFetchUpdateProfile,
@@ -71,7 +44,4 @@ export const getFetchChangePassUser = createSelector(
   i => i,
 );
 
-export const getFetchForgotPass = createSelector(
-  makeFetchForgotPass,
-  i => i,
-);
+export const getFetchForgotPass = createSelector(makeFetchForgotPass, i => i);

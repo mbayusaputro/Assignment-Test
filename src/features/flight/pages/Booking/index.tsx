@@ -13,6 +13,10 @@ import {AppState} from '../../../../reduxs/reducers';
 import {Props} from './types';
 import {LoadingBook, AlertModal, LoginModal} from '../../../../components';
 import {getIsLogin} from '../../../../reduxs/profile/selector';
+import {
+  generateStatePassenger,
+  generatePayloadPassenger,
+} from '../../../../helpers/generatePayload';
 
 const Booking = (props: Props) => {
   const {
@@ -42,26 +46,19 @@ const Booking = (props: Props) => {
   };
 
   useEffect(() => {
-    generateStatePassenger(1, 'adult');
-    generateStatePassenger(0, 'child');
-    generateStatePassenger(0, 'infant');
+    generateStatePassenger(params.passenger.adult, 'adult', res => {
+      data.adult = res;
+      setDataPassenger(data);
+    });
+    generateStatePassenger(params.passenger.child, 'child', res => {
+      data.child = res;
+      setDataPassenger(data);
+    });
+    generateStatePassenger(params.passenger.infant, 'infant', res => {
+      data.infant = res;
+      setDataPassenger(data);
+    });
   }, []);
-
-  const generateStatePassenger = (total: number, field: string) => {
-    for (let i = 0; i < total; i++) {
-      let title = 'MR';
-      if (field !== 'adult') {
-        title = 'MSTR';
-      }
-      data[field].push({
-        titleIndex: 1,
-        title,
-        fullName: '',
-        dateOfBirth: '',
-      });
-    }
-    setDataPassenger(data);
-  };
 
   const toggleSwitch = () => {
     let value = contact === null ? '' : contact.fullname;
@@ -81,61 +78,31 @@ const Booking = (props: Props) => {
     setModalForm('adult');
   };
 
-  const generatePayloadPassengers = (field: string) => {
-    let validDob: boolean = true;
-    let tempArr: any = [];
-    dataPassenger[field].map((item: any, index: number) => {
-      let tempObj: any = {};
-      if (item.fullName !== '') {
-        if (field !== 'adult' && item.dateOfBirth === '') {
-          validDob = false;
-          alert('Please enter data correctly');
-        } else {
-          validDob = true;
-          let primaryData = false;
-          let dobb = item.dateOfBirth;
-          if (field === 'adult') {
-            if (index === 0) {
-              primaryData = true;
-            }
-            dobb = '1988-04-04';
-          }
-          getFirstNameLastname(item.fullName, (res: any) => {
-            (tempObj.first_name = res.firstName),
-              (tempObj.last_name = res.lastName);
-          });
-          // item.dateOfBirth
-          (tempObj.email = 'mandatory@abc.xyz'),
-            (tempObj.phone = '0855101010101'),
-            (tempObj.birth_date = dobb),
-            (tempObj.primary = primaryData),
-            (tempObj.salutation = item.title),
-            (tempObj.type = field),
-            (tempObj.seat = ''),
-            (tempObj.nationality = 'ID'),
-            (tempObj.card_number = '123232323'),
-            (tempObj.card_issue_date = '2017-01-01'),
-            (tempObj.card_expire_date = '2022-01-01'),
-            (tempObj.luggage = 1);
-          tempArr.push(tempObj);
+  const generatePayloadPassengers = (field: string, value: string) => {
+    generatePayloadPassenger(
+      field,
+      value,
+      dataPassenger,
+      contact,
+      modalIndex,
+      (res: any) => {
+        if (field === 'adult') {
+          setAdult(res.tempArr);
+        } else if (field === 'child') {
+          setChild(res.tempArr);
+        } else if (field === 'infant') {
+          setInfant(res.tempArr);
         }
-      }
-    });
-    if (field === 'adult') {
-      setAdult(tempArr);
-    } else if (field === 'child') {
-      setChild(tempArr);
-    } else if (field === 'infant') {
-      setInfant(tempArr);
-    }
-    setTimeout(() => {
-      if (validDob) {
-        setVisible(false);
-        setModalForm('adult');
-      } else {
-        alert('DOB not valid! ' + validDob);
-      }
-    }, 100);
+        setTimeout(() => {
+          if (res.validDob) {
+            setVisible(false);
+            setModalForm('adult');
+          } else {
+            alert('DOB not valid! ' + res.validDob);
+          }
+        }, 100);
+      },
+    );
   };
 
   const doneDob = (value: string) => {
@@ -154,21 +121,28 @@ const Booking = (props: Props) => {
     } else if (type === 'sameContact') {
       if (dataPassenger[modalForm]) {
         dataPassenger[modalForm][modalIndex].fullName = value;
-        dataPassenger[modalForm][modalIndex].title = 'MR';
-        generatePayloadPassengers('adult');
+        dataPassenger[modalForm][modalIndex].title =
+          contact === null ? 'MR' : contact.salutation;
+        generatePayloadPassengers(
+          'adult',
+          contact === null ? 'MR' : contact.salutation,
+        );
       }
     } else if (type === 'blank') {
       if (dataPassenger[modalForm]) {
         dataPassenger[modalForm][modalIndex].fullName = value;
       }
-      generatePayloadPassengers('adult');
+      generatePayloadPassengers(
+        'adult',
+        contact === null ? 'MR' : contact.salutation,
+      );
     }
     setDataPassenger(dataPassenger);
   };
 
   const handleLoginButton = (profile: any) => {
     const payload = {
-      salutation: oc(profile).salutation('Mr'),
+      salutation: oc(profile).salutation('MR'),
       fullname: oc(profile).fullname(''),
       email: oc(profile).email(''),
       mobileNumber: `0${oc(profile).mobileNo('9999')}`,
@@ -329,7 +303,4 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch,
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Default);
+export default connect(mapStateToProps, mapDispatchToProps)(Default);

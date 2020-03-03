@@ -28,7 +28,4 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 const Default = (props: any) => <HolidayBooking {...props} />;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Default);
+export default connect(mapStateToProps, mapDispatchToProps)(Default);
