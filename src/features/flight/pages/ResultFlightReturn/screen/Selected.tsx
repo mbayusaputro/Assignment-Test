@@ -3,6 +3,7 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
 import {Color} from '../../../../../constants/Color';
 import {WIDTH_SCREEN} from '../../../../../constants/Dimension';
+import {moneyFormat} from '../../../../../helpers/helpers';
 
 type Props = {
   departure_time: string;
@@ -52,7 +53,7 @@ const ListView = (props: Props) => {
           source={{uri: props.img}}
           resizeMode="contain"
         />
-        <Text style={styles.bold}>Rp{props.price.toLocaleString('id-ID')}</Text>
+        <Text style={styles.bold}>Rp {moneyFormat(props.price)}</Text>
       </View>
       <View
         style={{

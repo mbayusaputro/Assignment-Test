@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Color} from '../../../../../constants/Color';
+import {moneyFormat} from '../../../../../helpers/helpers';
 
 const Total = (props: any) => {
   const {total} = props;
@@ -10,15 +11,15 @@ const Total = (props: any) => {
         Total Payment
       </Text>
       <View style={styles.card}>
-        <View style={styles.row}>
+        {/* <View style={styles.row}>
           <Text>Baggage Charge</Text>
           <Text>Rp 0</Text>
         </View>
-        <View style={styles.line} />
+        <View style={styles.line} /> */}
         <View style={styles.row}>
           <Text style={{fontFamily: 'NunitoSans-SemiBold'}}>Price You Pay</Text>
           <Text style={{fontFamily: 'NunitoSans-Bold', color: Color.orange}}>
-            Rp{total.toLocaleString('id-ID')}
+            Rp {moneyFormat(total)}
           </Text>
         </View>
       </View>

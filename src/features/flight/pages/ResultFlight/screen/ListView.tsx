@@ -68,7 +68,7 @@ const ListView = (props: ListProps) => {
           source={{uri: props.img}}
           resizeMode="contain"
         />
-        <Text style={styles.bold}>Rp{props.price.toLocaleString('id-ID')}</Text>
+        <Text style={styles.bold}>Rp {props.price}</Text>
       </View>
     </Touch>
   );

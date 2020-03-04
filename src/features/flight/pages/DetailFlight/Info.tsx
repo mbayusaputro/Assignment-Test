@@ -6,6 +6,7 @@ import {verticalScale, scale} from '../../../../constants/ScaleUtils';
 import {Color} from '../../../../constants/Color';
 import {WIDTH_SCREEN, HEIGHT_SCREEN} from '../../../../constants/Dimension';
 import {Button} from '../../../../components/';
+import {moneyFormat} from '../../../../helpers/helpers';
 
 const Active = (props: any) => {
   const {
@@ -131,7 +132,7 @@ const Active = (props: any) => {
         <View style={styles.bot}>
           <Text style={{fontFamily: 'NunitoSans-Bold'}}>Total Payment</Text>
           <Text style={{fontFamily: 'NunitoSans-Bold', color: Color.orange}}>
-            Rp{state.params.price_adult.toLocaleString('id-ID')}
+            Rp {moneyFormat(state.params.price_adult)}
           </Text>
         </View>
         <Button

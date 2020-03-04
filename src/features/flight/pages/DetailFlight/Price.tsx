@@ -3,6 +3,7 @@ import {View, StyleSheet, Text, ScrollView, Alert} from 'react-native';
 import {Color} from '../../../../constants/Color';
 import {Button} from '../../../../components/';
 import {WIDTH_SCREEN, HEIGHT_SCREEN} from '../../../../constants/Dimension';
+import {moneyFormat} from '../../../../helpers/helpers';
 
 const Finished = (props: any) => {
   const {
@@ -18,7 +19,7 @@ const Finished = (props: any) => {
         <View style={styles.bot}>
           <Text style={styles.regular}>Adult(x1)</Text>
           <Text style={styles.semibold}>
-            Rp{state.params.price_adult.toLocaleString('id-ID')}
+            Rp {moneyFormat(state.params.price_adult)}
           </Text>
         </View>
         <View
@@ -51,7 +52,7 @@ const Finished = (props: any) => {
         <View style={styles.boto}>
           <Text style={{fontFamily: 'NunitoSans-Bold'}}>Total Payment</Text>
           <Text style={{fontFamily: 'NunitoSans-Bold', color: Color.orange}}>
-            Rp{state.params.price_adult.toLocaleString('id-ID')}
+            Rp {moneyFormat(state.params.price_adult)}
           </Text>
         </View>
         <Button

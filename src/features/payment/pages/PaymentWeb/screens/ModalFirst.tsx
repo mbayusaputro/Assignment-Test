@@ -9,8 +9,7 @@ const alertLang = {
   id: `* Harap jangan keluar dari halaman ini sampai proses pembayaran Anda
 selesai. Proses pembayaran ini memakan waktu, pastikan untuk memasukkan data
 benar.`,
-  en: `*Please do not back from this page until your payment process is
-completed. This payment process take, make sure to enter data
+  en: `*Please do not back from this page until your payment process is completed.\nThis payment process take, make sure to enter data
 correctly.`,
 };
 
@@ -36,6 +35,7 @@ const styles = StyleSheet.create({
   textSubTitle: {
     fontFamily: fonts.fontRegulerItalic,
     color: Color.red,
-    textAlign: 'center',
+    textAlign: 'justify',
+    paddingTop: 5,
   },
 });

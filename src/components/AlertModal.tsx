@@ -5,7 +5,11 @@ import Card from './Card';
 import Text from './Text';
 import Button from './Button';
 import fonts from '../constants/Fonts';
-import {TITLE_FONT_SIZE, MEDIUM_FONT_SIZE} from '../constants/TextSize';
+import {
+  TITLE_FONT_SIZE,
+  MEDIUM_FONT_SIZE,
+  HEADER_FONT_SIZE,
+} from '../constants/TextSize';
 import {Color} from '../constants/Color';
 
 type Props = {
@@ -38,7 +42,7 @@ export default (props: Props) => {
             type="third"
             content={props.btnCancel}
             fullWidth
-            customStyle={[styles.btn, {marginTop: 5}]}
+            customStyle={[styles.btn]}
           />
         )}
       </View>
@@ -47,7 +51,6 @@ export default (props: Props) => {
 
   const MyContent = React.memo(Content);
 
-  // Main Render
   return (
     <Modal
       useNativeDriver={true}
@@ -75,10 +78,10 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   vertical: {
-    marginVertical: 10,
+    marginVertical: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-
-  // Text
   textTitle: {
     fontFamily: fonts.fontBold,
     fontSize: TITLE_FONT_SIZE,
@@ -86,13 +89,13 @@ const styles = StyleSheet.create({
   },
   textSubTitle: {
     fontFamily: fonts.fontReguler,
-    fontSize: MEDIUM_FONT_SIZE,
+    fontSize: HEADER_FONT_SIZE,
     textAlign: 'center',
+    paddingTop: 5,
   },
-
-  // BTN
   btn: {
     borderRadius: 10,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
+    marginHorizontal: 5,
   },
 });

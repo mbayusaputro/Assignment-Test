@@ -4,11 +4,11 @@ import Date from './Date';
 import ListView from './ListView';
 import {ResultProps} from '../types';
 import {Loading, LoadingDate, Empty} from '../components';
+import {moneyFormat} from '../../../../../helpers/helpers';
 
 const Result = (props: ResultProps) => {
   const {dataFlight, handleDetailFlight, handleSelectFlight, isLoading} = props;
 
-  // Flatlist
   const renderItem = ({item, index}) => (
     <ListView
       key={index}
@@ -18,7 +18,7 @@ const Result = (props: ResultProps) => {
       arrival={item.detail[item.detail.length - 1].arrival_city}
       departure_time={item.departure_time}
       arrival_time={item.arrival_time}
-      price={item.price_adult}
+      price={moneyFormat(item.price_adult)}
       img={item.detail[0].img_src}
       duration={item.duration}
       transit={item.stop.toLowerCase() === 'langsung' ? 'direct' : item.stop}

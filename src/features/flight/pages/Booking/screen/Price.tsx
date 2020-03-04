@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
 import {Color} from '../../../../../constants/Color';
+import {moneyFormat} from '../../../../../helpers/helpers';
 
 const Card = (form: string, titleForm: string, date: string, props: any) => {
   const {departure, returns, data} = props;
@@ -37,25 +38,22 @@ const Card = (form: string, titleForm: string, date: string, props: any) => {
         </View>
         <Text style={styles.regular}>
           {form === 'child'
-            ? (date === 'return'
-                ? returns === null
-                  ? 0
-                  : returns.price_child * data.child.length
-                : departure.price_child * data.child.length
-              ).toLocaleString('id-ID')
+            ? date === 'return'
+              ? returns === null
+                ? 0
+                : moneyFormat(returns.price_child * data.child.length)
+              : moneyFormat(departure.price_child * data.child.length)
             : form === 'infant'
-            ? (date === 'return'
-                ? returns === null
-                  ? 0
-                  : returns.price_infant * data.infant.length
-                : departure.price_infant * data.infant.length
-              ).toLocaleString('id-ID')
-            : (date === 'return'
-                ? returns === null
-                  ? 0
-                  : returns.price_adult * data.adult.length
-                : departure.price_adult * data.adult.length
-              ).toLocaleString('id-ID')}
+            ? date === 'return'
+              ? returns === null
+                ? 0
+                : moneyFormat(returns.price_infant * data.infant.length)
+              : moneyFormat(departure.price_infant * data.infant.length)
+            : date === 'return'
+            ? returns === null
+              ? 0
+              : moneyFormat(returns.price_adult * data.adult.length)
+            : moneyFormat(departure.price_adult * data.adult.length)}
         </Text>
       </View>
     </View>
@@ -67,7 +65,7 @@ const Price = (props: any) => {
   return (
     <View style={{marginVertical: 10}}>
       <Text style={{fontFamily: 'NunitoSans-Bold', fontSize: 16}}>
-        {`Price Departure${returns === null ? '' : '& Return'}`}
+        {`Price Departure ${returns === null ? '' : '& Return'}`}
       </Text>
       <View style={styles.card}>
         {Card('adult', 'Adult', '1', props)}

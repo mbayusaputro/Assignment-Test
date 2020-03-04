@@ -13,13 +13,13 @@ const Method = () => {
   // Main Render
   return (
     <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
-      <Card
+      {/* <Card
         title={{
           id: 'Silakan lengkapi pembayaran ini dalam',
           en: 'Please complete this payment in',
         }}
-        sub="time limit"
-      />
+        sub="time limitxxx"
+      /> */}
 
       {/* FLIGHT */}
       {typeScreen === 'flight' && (
@@ -27,7 +27,7 @@ const Method = () => {
           departure={`(${dataFlight.details[0].departure_code})`}
           destination={`(${dataFlight.details[0].arrival_code})`}
           date="Wed, 21 Jan 2019"
-          onPress={() => Alert.alert('View Detail')}
+          onPress={() => {}}
         />
       )}
       <Card

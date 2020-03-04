@@ -120,14 +120,14 @@ export default class PaymentWeb extends PureComponent<Props, State> {
           qna={true}
           isVisible={isVisible === 2}
           title={{
-            id: 'Anda yakin ingin keluar?',
-            en: 'Are you sure you want to leave?',
+            id: 'Konfirmasi Pembayaran',
+            en: 'Payment Confirmation',
           }}
           desc={{
-            id: 'Anda bisa melanjutkannya nanti melalui My Order',
-            en: 'You can continue later through My Order',
+            id: 'Apakah Anda yakin untuk keluar dari halaman pembayaran?',
+            en: 'Are you sure to leave from this payment page?',
           }}
-          btnOk={{id: 'Ya, keluar sekarang', en: 'Yes, leave now'}}
+          btnOk={{id: 'Ya', en: 'Yes'}}
           btnCancel={{id: 'Batal', en: 'Cancel'}}
           onDismiss={() => this.setState({isVisible: null})}
           onOk={this.goHome}

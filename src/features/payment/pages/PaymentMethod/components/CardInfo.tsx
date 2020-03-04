@@ -36,12 +36,12 @@ const Card = (props: Props) => {
             .format('dddd, DD MMMM YYYY'),
         }}
       />
-      <TouchableOpacity activeOpacity={0.7} onPress={props.onPress}>
+      {/* <TouchableOpacity activeOpacity={0.7} onPress={props.onPress}>
         <Text
           style={styles.view}
           content={{id: 'Lihat Detail', en: 'View Detail'}}
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

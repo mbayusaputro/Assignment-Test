@@ -39,7 +39,7 @@ export type ListProps = {
   arrival_time: string;
   departure: string;
   arrival: string;
-  price: number;
+  price: string;
   img: string;
   duration: string;
   transit: string;

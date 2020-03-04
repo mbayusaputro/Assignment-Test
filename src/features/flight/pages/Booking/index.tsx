@@ -253,10 +253,13 @@ const Booking = (props: Props) => {
       <AlertModal
         qna={otherModal === 201}
         isVisible={otherModal === 201}
-        title={{id: 'Cek Pemesanan', en: 'Booking Check'}}
-        desc={{id: 'Apakah detailnya benar?', en: 'Are the details correct?'}}
-        btnOk={{id: 'Ya, semuanya benar', en: 'Yes, everything is correct'}}
-        btnCancel={{id: 'Ganti', en: 'Change'}}
+        title={{id: 'Konfirmasi Pemesanan', en: 'Booking Confirmation'}}
+        desc={{
+          id: 'Mohon pastikan order Anda telah benar.',
+          en: 'Please make sure your order is correct',
+        }}
+        btnOk={{id: 'Oke', en: 'Ok'}}
+        btnCancel={{id: 'Ganti', en: 'Cancel'}}
         onOk={onSubmit}
         onDismiss={() => setOtherModal(null)}
       />
