@@ -24,7 +24,12 @@ import {
 export default (props: Props) => {
   // Props
   const {
-    navigation: {getParam},
+    navigation: {getParam, goBack, navigate},
+    holiday,
+    flight,
+    hotel,
+    actionHolidayBook,
+    isLoading,
   } = props;
   const dataParam = getParam('item');
   const dataDetail = getParam('detail');
@@ -61,7 +66,6 @@ export default (props: Props) => {
       data.child = res;
     });
     setDataPassenger(data);
-    console.log('DATA', data);
   };
 
   // Generate Data Passenger
@@ -80,7 +84,7 @@ export default (props: Props) => {
         setTimeout(() => {
           if (res.validDob) {
             setModal(null);
-            setTypeGuest('adutl');
+            setTypeGuest('adult');
           } else {
             alert('DOB not valid!' + res.validDob);
           }
@@ -148,14 +152,10 @@ export default (props: Props) => {
       }
     }
     setDataPassenger(dataPassenger);
-    console.log(dataPassenger, typeGuest, guestNum, value);
   };
 
   // When Back is Pressed
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     goBack();
   };
 
@@ -182,61 +182,41 @@ export default (props: Props) => {
 
   // On BOOK
   const onBook = () => {
-    const {holiday, flight, hotel, actionHolidayBook} = props;
     setModal(null);
-    const request = {
-      tour: holiday.detail,
-      contact,
-      travelers: [...adult, ...child],
-      flight,
-      passengers: [...adultFlight, ...childFlight],
-      hotel,
-      guest: adultHotel,
-    };
-    payloadTour(request, (response: any) => {
-      actionHolidayBook(holiday.detail.tour_package, response).then(
-        (res: any) => {
-          console.log(res);
-          console.log(request);
-          setTimeout(() => setModal(null), 500);
-        },
-      );
-    });
     setTimeout(() => {
-      setModal(201);
+      const request = {
+        tour: holiday.detail,
+        contact,
+        travelers: [...adult, ...child],
+        flight,
+        passengers: [...adultFlight, ...childFlight],
+        hotel,
+        guest: adultHotel,
+      };
+      payloadTour(request, (response: any) => {
+        actionHolidayBook(holiday.detail.tour_package, response).then(
+          (res: any) => {
+            if (res.type === 'HOLIDAYBOOKING_SUCCESS') {
+              const dataSend = {
+                data: res.data,
+                partner_trxid: res.data.partner_trxid,
+                total: res.data.amount,
+                info: {dataDetail, dataParam},
+              };
+              onNavigate('PaymentMethod', dataSend);
+            } else {
+              setTimeout(() => {
+                setModal(404);
+              }, 500);
+            }
+          },
+        );
+      });
     }, 500);
-    // setTimeout(() => {
-    //   const {actionHolidayBook} = props;
-    //   const payload = {
-    //     trip_date_id: dataDetail.date.id,
-    //     contact_detail: contact,
-    //     travelers: dataPassenger,
-    //   };
-    //   setModal(201);
-    //   setTimeout(() => {
-    //     actionHolidayBook(dataParam.id, payload).then((res: any) => {
-    //       if (res.type === 'HOLIDAYBOOKING_SUCCESS') {
-    //         const dataSend = {
-    //           data: res.data.data,
-    //           partner_trxid: res.data.booking_code,
-    //           total: res.data.total,
-    //         };
-    //         onNavigate('PaymentMethod', dataSend);
-    //         setModal(null);
-    //       } else {
-    //         alert(res.message);
-    //         setModal(null);
-    //       }
-    //     });
-    //   }, 500);
-    // }, 500);
   };
 
   // Navigation to Other Route
   const onNavigate = (route: string, item: any) => {
-    const {
-      navigation: {navigate},
-    } = props;
     navigate(route, {
       type: 'tour',
       item,
@@ -302,7 +282,7 @@ export default (props: Props) => {
         }
       />
 
-      <LoadingBook type="flight" isVisible={modal === 201} />
+      <LoadingBook type="flight" isVisible={isLoading} />
 
       <AlertModal
         qna={true}
@@ -313,11 +293,20 @@ export default (props: Props) => {
           en: 'Are the details correct?',
         }}
         btnOk={{
-          id: 'Ya, semuanya benar',
-          en: 'Yes, everything is correct',
+          id: 'Ya',
+          en: 'Yes',
         }}
-        btnCancel={{id: 'Ganti', en: 'Change'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
         onOk={onBook}
+        onDismiss={() => setModal(null)}
+      />
+      <AlertModal
+        isVisible={modal === 404}
+        title={{id: 'Alert', en: 'Alert'}}
+        desc={{id: 'Terjadi kesalahan', en: 'There is an error'}}
+        btnOk={{id: 'OK', en: 'OK'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
+        onOk={() => setModal(null)}
         onDismiss={() => setModal(null)}
       />
     </HighSafeArea>

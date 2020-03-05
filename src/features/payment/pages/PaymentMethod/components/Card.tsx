@@ -6,13 +6,15 @@ import styles from '../style';
 interface Props {
   sub: any;
   title: {id: string; en: string};
+  children?: any;
 }
 
 const Card = (props: Props) => {
+  const {sub, title, children} = props;
   return (
     <View style={styles.card}>
-      <Text style={styles.titlegray} content={props.title} />
-      <Text style={styles.subtitle}>{props.sub}</Text>
+      <Text style={styles.titlegray} content={title} />
+      {sub === 'time' ? children : <Text style={styles.subtitle}>{sub}</Text>}
     </View>
   );
 };

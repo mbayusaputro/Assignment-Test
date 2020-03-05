@@ -34,8 +34,9 @@ export default (props: any) => {
           <ImageSlider
             key={index}
             onPress={() => onDetail(item)}
-            title={item.city_name}
-            img={item.city_image}
+            title={item.tour.title}
+            img={item.image}
+            price={item.tour.price_adult}
             style={index === 0 ? styles.imgFirst : null}
           />
         ))}

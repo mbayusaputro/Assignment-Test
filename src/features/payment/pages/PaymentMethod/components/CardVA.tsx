@@ -16,8 +16,8 @@ const Card = (props: Props) => {
 
   // Main Render
   return (
-    <Touch activeOpacity={0.7} style={styles.va} onPress={props.onPress}>
-      <View style={styles.rowva}>
+    <Touch activeOpacity={0.7} onPress={onPress}>
+      <View style={[styles.card, styles.rowva]}>
         <Image style={styles.logova} source={logo} resizeMode="contain" />
         <View style={{flexDirection: 'row'}}>
           <Text style={{fontFamily: fonts.fontSemiBold, marginHorizontal: 10}}>

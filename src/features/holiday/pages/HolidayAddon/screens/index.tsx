@@ -5,6 +5,7 @@ import Content from './Content';
 import {HolidayAddon as Props} from '../../../interface/types';
 import {styles, Context} from '../components';
 import Footer from './Footer';
+import {oc} from 'ts-optchain';
 
 export default class HolidayAddon extends PureComponent<Props, any> {
   // Declare Method
@@ -72,14 +73,12 @@ export default class HolidayAddon extends PureComponent<Props, any> {
       navigation: {navigate},
       holiday,
     } = this.props;
-    // console.log("HOLIDAY DATA", holiday);
     navigate('HolidayBooking', holiday);
   };
 
   render() {
     // Props
     const {holiday, hotel, flight} = this.props;
-
     // Main Render
     return (
       <HighSafeArea style={styles.container}>
@@ -102,7 +101,10 @@ export default class HolidayAddon extends PureComponent<Props, any> {
             <Content />
           </Context.Provider>
         </ScrollView>
-        <Footer price={3500000} onContinue={this.onContinueBook} />
+        <Footer
+          price={oc(holiday).detail.price(0)}
+          onContinue={this.onContinueBook}
+        />
       </HighSafeArea>
     );
   }

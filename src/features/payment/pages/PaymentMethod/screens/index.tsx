@@ -9,7 +9,7 @@ import {PayMethodContext} from '../components/Context';
 const Default = (props: Props) => {
   // Props
   const {
-    navigation: {getParam, navigate},
+    navigation: {getParam, navigate, goBack},
   } = props;
   const typeScreen: string = getParam('type');
   const itemScreen = getParam('item');
@@ -19,9 +19,6 @@ const Default = (props: Props) => {
 
   // BACK SCREEN
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     goBack();
   };
 
@@ -66,7 +63,8 @@ const Default = (props: Props) => {
           value={{
             typeScreen,
             price: itemScreen.total,
-            dataFlight: itemScreen.data,
+            dataParam: itemScreen.info,
+            dataItem: itemScreen.data,
             onPay: (item: any) => doPayment(item),
           }}>
           <Method />

@@ -38,7 +38,7 @@ export default (props: Props) => {
     const {
       navigation: {navigate},
     } = props;
-    navigate('HolidayDetail', {id: item.id});
+    navigate('HolidayDetail', {id: item.tour_id});
   };
 
   // Main Render

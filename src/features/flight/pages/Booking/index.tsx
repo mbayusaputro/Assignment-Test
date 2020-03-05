@@ -4,7 +4,6 @@ import {oc} from 'ts-optchain';
 import {Header, SubHeader} from './components';
 import {Color} from '../../../../constants/Color';
 import Content from './screen/Content';
-import {getFirstNameLastname} from '../../../../helpers/helpers';
 import {Modal, ModalPassenger} from './components';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
@@ -22,6 +21,7 @@ const Booking = (props: Props) => {
   const {
     navigation: {state, goBack},
     onBookingFlight,
+    isLoading,
   } = props;
   const {departure_flight, return_flight, params} = state.params;
   // State
@@ -153,7 +153,6 @@ const Booking = (props: Props) => {
   const onSubmit = () => {
     setOtherModal(null);
     setTimeout(() => {
-      setOtherModal(999);
       const payload = {
         command: 'BOOKING',
         product: 'FLIGHT',
@@ -182,22 +181,19 @@ const Booking = (props: Props) => {
           passengers: adult.concat(child).concat(infant),
         },
       };
-
       onBookingFlight(payload).then((res: any) => {
-        setTimeout(() => {
-          if (res.type === 'BOOKING_FLIGHT_SUCCESS') {
-            const dataParam = {
-              data: res.data.data,
-              partner_trxid: res.data.partner_trxid,
-              total: res.data.total,
-            };
-            onNavigate('PaymentMethod', dataParam);
-            setOtherModal(null);
-          } else {
-            alert(res.message);
-            setOtherModal(201);
-          }
-        }, 500);
+        if (res.type === 'BOOKING_FLIGHT_SUCCESS') {
+          const dataParam = {
+            data: res.data.data,
+            partner_trxid: res.data.partner_trxid,
+            total: res.data.total,
+          };
+          onNavigate('PaymentMethod', dataParam);
+        } else {
+          setTimeout(() => {
+            setOtherModal(404);
+          }, 500);
+        }
       });
     }, 500);
   };
@@ -269,10 +265,10 @@ const Booking = (props: Props) => {
         desc={{id: 'Terjadi kesalahan', en: 'There is an error'}}
         btnOk={{id: 'OK', en: 'OK'}}
         btnCancel={{id: 'Batal', en: 'Cancel'}}
-        onOk={onSubmit}
+        onOk={() => setOtherModal(null)}
         onDismiss={() => setOtherModal(null)}
       />
-      <LoadingBook type="flight" isVisible={otherModal === 999} />
+      <LoadingBook type="flight" isVisible={isLoading} />
       <LoginModal
         isVisible={otherModal === 101}
         onDismiss={() => setOtherModal(null)}

@@ -72,7 +72,6 @@ export default (props: Props) => {
   };
 
   const MyContent = React.memo(Content);
-
   // Main Render
   return (
     <Modal

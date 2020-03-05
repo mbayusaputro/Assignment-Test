@@ -95,9 +95,8 @@ export default (props: Props) => {
           </Picker>
         </View>
         <View style={{width: '70%'}}>
-          <Text content={{id: 'Nama Lengkap', en: 'Fullname'}} />
           <InputText
-            placeholder=""
+            placeholder="Fullname"
             onChangeText={(text: string) => setFullname(text)}
             value={fullname}
             autoCapitalize="words"

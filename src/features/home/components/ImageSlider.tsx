@@ -15,6 +15,7 @@ type Props = {
   style: StyleProp<ImageStyle>;
   title: string;
   img: string;
+  price: number;
   onPress: (item: any) => void;
 };
 
@@ -35,7 +36,7 @@ export default (props: Props) => {
         </View>
         <View>
           <Text style={styles.textWhite} content={start_from} />
-          <Text style={styles.textPrice}>IDR {moneyFormat(3000000)}</Text>
+          <Text style={styles.textPrice}>IDR {moneyFormat(props.price)}</Text>
         </View>
       </View>
     </Touch>

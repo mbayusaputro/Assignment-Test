@@ -11,7 +11,7 @@ import {
 import HolidayBooking from './screens';
 
 const mapStateToProps = (state: any) => ({
-  fetchBook: getFetchHolidayBook(state),
+  isLoading: getFetchHolidayBook(state),
   flight: getDataFlight(state),
   hotel: getDataHotel(state),
   holiday: getDataHoliday(state),

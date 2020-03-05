@@ -74,8 +74,8 @@ export default () => {
                     ]}>
                     {dayjs(item.start_date).format(
                       context.selectedDate === index ? 'D MMM' : 'D',
-                    )}{' '}
-                    -{' '}
+                    )}
+                    -
                     {dayjs(item.end_date).format(
                       context.selectedDate === index ? 'D MMM' : 'D',
                     )}
@@ -131,12 +131,12 @@ export default () => {
                 index < 2 ? (
                   <View style={[styles.row, {marginBottom: 5}]} key={index}>
                     <IconCheck />
-                    <Text>{item}</Text>
+                    <Text>{JSON.parse(item).title}</Text>
                   </View>
                 ) : showInclude ? (
                   <View style={[styles.row, {marginBottom: 5}]} key={index}>
                     <IconCheck />
-                    <Text>{item}</Text>
+                    <Text>{JSON.parse(item).title}</Text>
                   </View>
                 ) : null,
               )
@@ -157,12 +157,12 @@ export default () => {
                 index < 2 ? (
                   <View style={[styles.row, {marginBottom: 5}]} key={index}>
                     <IconClose />
-                    <Text>{item}</Text>
+                    <Text>{JSON.parse(item).title}</Text>
                   </View>
                 ) : showExclude ? (
                   <View style={[styles.row, {marginBottom: 5}]} key={index}>
                     <IconClose />
-                    <Text>{item}</Text>
+                    <Text>{JSON.parse(item).title}</Text>
                   </View>
                 ) : null,
               )

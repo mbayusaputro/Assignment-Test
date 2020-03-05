@@ -16,7 +16,7 @@ interface Props {
 const Card = (props: Props) => {
   return (
     <View style={styles.card}>
-      <View style={{flexDirection: 'row', marginTop: 7, alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Text style={styles.title}>{props.departure}</Text>
         <Image
           style={styles.return}
@@ -26,7 +26,7 @@ const Card = (props: Props) => {
         <Text style={styles.title}>{props.destination}</Text>
       </View>
       <Text
-        style={[styles.titlegray, {marginVertical: 0}]}
+        style={[styles.titlegray, {marginTop: 5}]}
         content={{
           id: dayJS(props.date)
             .locale('id', dayID)

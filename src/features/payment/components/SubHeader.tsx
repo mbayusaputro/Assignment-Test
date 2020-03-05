@@ -17,6 +17,8 @@ const Header = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
+    top: 0,
     backgroundColor: Color.marineBlue,
     justifyContent: 'flex-start',
     alignItems: 'center',

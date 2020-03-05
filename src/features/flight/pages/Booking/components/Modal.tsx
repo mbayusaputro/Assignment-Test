@@ -19,7 +19,7 @@ import {ModalProps} from '../types';
 import {validateEmailFormat} from '../../../../../helpers/helpers';
 
 export default (props: ModalProps) => {
-  const [salutation, setSalutation] = React.useState('Mr');
+  const [salutation, setSalutation] = React.useState('MR');
   const [fullname, setFullname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [validMail, setValidMail] = React.useState(true);

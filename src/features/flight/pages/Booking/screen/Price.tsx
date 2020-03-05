@@ -65,7 +65,7 @@ const Price = (props: any) => {
   return (
     <View style={{marginVertical: 10}}>
       <Text style={{fontFamily: 'NunitoSans-Bold', fontSize: 16}}>
-        {`Price Departure ${returns === null ? '' : '& Return'}`}
+        {`Price Departure${returns === null ? '' : '& Return'}`}
       </Text>
       <View style={styles.card}>
         {Card('adult', 'Adult', '1', props)}
@@ -75,7 +75,7 @@ const Price = (props: any) => {
         {data.child.length > -1 && returns === null
           ? []
           : Card('child', 'Child', 'return', props)}
-        {data.infant.length > 0 && returns === null
+        {data.infant.length > -1 && returns === null
           ? []
           : Card('infant', 'Infant', 'return', props)}
       </View>

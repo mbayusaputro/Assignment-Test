@@ -1,14 +1,14 @@
 export const dataSalutation = [
   {
     id: 1,
-    title: 'Mr',
+    title: 'MR',
   },
   {
     id: 2,
-    title: 'Mrs',
+    title: 'MRS',
   },
   {
     id: 3,
-    title: 'Ms',
+    title: 'MS',
   },
 ];

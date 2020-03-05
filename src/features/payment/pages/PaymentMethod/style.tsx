@@ -6,25 +6,20 @@ import normalize from '../../../../constants/normalize';
 
 export default StyleSheet.create({
   card: {
-    marginVertical: 5,
+    marginVertical: 10,
     backgroundColor: Color.white,
-    padding: 10,
-    borderRadius: 5,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    borderRadius: 6.66,
     alignItems: 'center',
-  },
-  va: {
-    marginVertical: 5,
-    backgroundColor: Color.white,
-    padding: 10,
-    borderRadius: 5,
   },
   titlegray: {
     fontFamily: fonts.fontReguler,
     color: Color.labelgray,
-    marginVertical: 7,
+    fontSize: 13,
   },
   subtitle: {
-    marginBottom: 7,
+    marginTop: 7,
     fontSize: 16,
     color: Color.tealBlue,
     fontFamily: fonts.fontBold,
@@ -36,24 +31,26 @@ export default StyleSheet.create({
   },
   title: {
     fontFamily: fonts.fontBold,
-    fontSize: 14,
+    fontSize: 16,
   },
   view: {
-    marginTop: 15,
-    marginBottom: 7,
+    marginTop: 14,
     fontSize: MEDIUM_FONT_SIZE,
     color: Color.tealBlue,
     fontFamily: fonts.fontBold,
   },
+  cc: {
+    fontSize: MEDIUM_FONT_SIZE,
+    fontFamily: fonts.fontBold,
+    letterSpacing: 1.5,
+  },
   rowva: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
   },
   logova: {
-    height: normalize(30),
-    width: normalize(100),
+    height: normalize(20),
+    width: normalize(70),
   },
   circle: {
     backgroundColor: Color.labelgray,

@@ -6,7 +6,8 @@ export const PayMethodContext = React.createContext({
   price: 0,
 
   // FLIGHT
-  dataFlight: null,
+  dataParam: null,
+  dataItem: null,
 
   // Go To Payment Screen
   onPay: (__: any) => {},

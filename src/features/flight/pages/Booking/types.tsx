@@ -7,6 +7,7 @@ export interface GlobalProps {
 export interface Props extends GlobalProps {
   onBookingFlight: (payload: object) => Promise<void>;
   isLogin: boolean;
+  isLoading: boolean;
 }
 
 export type HeaderProps = {
@@ -30,7 +31,7 @@ export type ContentProps = {
 export type ModalProps = {
   isVisible: any;
   onDismiss: () => void;
-  onSave: (payload: any, value: any) => void;
+  onSave: (payload: any, value?: any) => void;
   onDob?: (payload: any) => void;
   form?: string;
   dataPassenger?: any;

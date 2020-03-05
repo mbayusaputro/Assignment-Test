@@ -19,10 +19,11 @@ export default (props: Props) => {
   const Participant = React.memo(ModalParticipant);
   // Props
   const {
-    navigation: {getParam},
+    navigation: {getParam, goBack, navigate},
+    actionAddon,
+    actionDataHoliday,
   } = props;
   const idParam = getParam('id');
-
   // State
   const [dataDetail, setDataDetail] = React.useState(null);
   const [scrollY] = React.useState(new Animated.Value(0));
@@ -38,9 +39,6 @@ export default (props: Props) => {
 
   // Function
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     goBack();
   };
 
@@ -52,7 +50,7 @@ export default (props: Props) => {
         if (res.type === 'HOLIDAYDETAIL_SUCCESS') {
           setDataDetail(res.data);
           setTotalAdult(res.data.min_pax);
-          setTotalPrice(res.data.price.price_adult);
+          setTotalPrice(res.data.price_adult);
         } else {
           alert(res.message);
         }
@@ -82,11 +80,6 @@ export default (props: Props) => {
 
   const onContinue = () => {
     setModal(false);
-    const {
-      navigation: {navigate},
-      actionAddon,
-      actionDataHoliday,
-    } = props;
     const total = totalAdult + totalChild;
     const item = {
       adult: totalAdult,
@@ -95,10 +88,12 @@ export default (props: Props) => {
     };
     const detail = {
       title: dataDetail.title,
-      trip_date: dataDetail.trip_date[selectedDate],
-      tour: dataDetail.host,
+      trip_date: dataDetail.tour_trip_dates[selectedDate],
+      tour: dataDetail.tour_hoster.name,
       tour_package: dataDetail.id,
       price: totalPrice * total,
+      day: dataDetail.duration_days,
+      night: dataDetail.duration_night,
     };
     actionAddon(true);
     actionDataHoliday({item, detail});
@@ -141,7 +136,8 @@ export default (props: Props) => {
       <Context.Provider
         value={{
           title: oc(dataDetail).title(''),
-          by: oc(dataDetail).host(''),
+          by:
+            dataDetail && dataDetail.tour_hoster && dataDetail.tour_hoster.name,
           selectedDate,
           onSelectDate: (item: any) => setSelectedDate(item),
           dataDate: oc(dataDetail).trip_date(null),
@@ -172,7 +168,9 @@ export default (props: Props) => {
           <Participant
             addAdult={() => modifTotal('adult', '+')}
             minAdult={() =>
-              totalAdult === 2 ? null : modifTotal('adult', '-')
+              totalAdult === oc(dataDetail).min_pax(2)
+                ? null
+                : modifTotal('adult', '-')
             }
             addChild={() => modifTotal('child', '+')}
             minChild={() =>

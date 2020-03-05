@@ -56,7 +56,7 @@ export default class PaymentWeb extends PureComponent<Props, State> {
   // Navigate to Home
   goTicket = () => {
     const {
-      navigation: {dispatch, navigate},
+      navigation: {navigate},
     } = this.props;
     navigate('ETicket');
   };
@@ -104,12 +104,16 @@ export default class PaymentWeb extends PureComponent<Props, State> {
     return getParam('source');
   };
 
+  goBack = () => {
+    this.props.navigation.goBack();
+  };
+
   // Main Render
   render() {
     const {isVisible} = this.state;
     return (
       <HighSafeArea>
-        <Header content={headerLang} />
+        <Header content={headerLang} callback={this.goBack} />
         <WebView source={{uri: this.sourceURI()}} />
         <Modal
           isVisible={isVisible === 1}

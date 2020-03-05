@@ -20,15 +20,15 @@ type Props = {
 const dataSalutation = [
   {
     id: 1,
-    title: 'Mr',
+    title: 'MR',
   },
   {
     id: 2,
-    title: 'Mrs',
+    title: 'MRS',
   },
   {
     id: 3,
-    title: 'Ms',
+    title: 'MS',
   },
 ];
 
@@ -90,27 +90,24 @@ export default (props: Props) => {
             </Picker>
           </View>
           <View style={{width: '75%'}}>
-            <Text content={{id: 'Nama Lengkap', en: 'Fullname'}} />
             <InputText
-              placeholder=""
+              placeholder="Fullnam"
               onChangeText={(text: any) => setFullname(text)}
             />
           </View>
         </View>
 
-        <View>
-          <Text content={{id: 'Nomor Handphone', en: 'Mobile Number'}} />
+        <View style={styles.vertical}>
           <InputText
-            placeholder=""
+            placeholder="Phone Number"
             onChangeText={(text: string) => setMobileNumber(text)}
             keyboardType="number-pad"
           />
         </View>
 
-        <View>
-          <Text content={{id: 'Alamat Email', en: 'Email Address'}} />
+        <View style={styles.vertical}>
           <InputText
-            placeholder=""
+            placeholder="Email Address"
             onChangeText={(text: string) => changeEmail(text)}
             keyboardType="email-address"
             autoCapitalize="none"
