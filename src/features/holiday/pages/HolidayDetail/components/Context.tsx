@@ -9,4 +9,5 @@ export const HolidayDetailContext = React.createContext({
   dataVisit: [],
   dataInclude: [],
   dataExclude: [],
+  onItinerary: () => {},
 });

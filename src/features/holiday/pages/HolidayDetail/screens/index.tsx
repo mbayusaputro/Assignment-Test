@@ -144,6 +144,10 @@ export default (props: Props) => {
           dataVisit: oc(dataDetail).visit_cities(null),
           dataInclude: oc(dataDetail).info_included(null),
           dataExclude: oc(dataDetail).info_excluded(null),
+          onItinerary: () =>
+            navigate('HolidayItinerary', {
+              data: oc(dataDetail).tour_itineraries(null),
+            }),
         }}>
         <Animated.ScrollView
           scrollEventThrottle={16}

@@ -2,8 +2,6 @@ import React from 'react';
 import {View, ScrollView, TouchableOpacity as Touch} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import dayjs from 'dayjs';
-import dayID from 'dayjs/locale/id';
-import dayEN from 'dayjs/locale/en';
 import {Text} from '../../../../../components';
 import {
   styles,
@@ -176,9 +174,11 @@ export default () => {
 
       <View style={[styles.hr, styles.vertical]} />
 
-      <Touch style={[styles.content, styles.rowBetween, {marginBottom: 100}]}>
+      <Touch
+        onPress={() => context.onItinerary()}
+        style={[styles.content, styles.rowBetween, {marginBottom: 100}]}>
         <Text content={itinary} />
-        <Icon name="chevron-right" size={20} />
+        <Icon name="chevron-right" size={25} />
       </Touch>
     </View>
   );

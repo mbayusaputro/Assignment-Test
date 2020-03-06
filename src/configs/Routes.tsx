@@ -40,6 +40,7 @@ import {
   HolidayDetail,
   HolidayAddon,
   HolidayBooking,
+  HolidayItinerary,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -368,6 +369,12 @@ const STACK = createStackNavigator(
     },
     HolidayBooking: {
       screen: HolidayBooking,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    HolidayItinerary: {
+      screen: HolidayItinerary,
       navigationOptions: {
         header: null,
       },

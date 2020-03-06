@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: normalize(57.5, 'height'),
+    height: normalize(50, 'height'),
   },
   centerHeader: {
     width: '70%',
