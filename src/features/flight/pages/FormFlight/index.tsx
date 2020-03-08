@@ -47,7 +47,7 @@ const FormFlight = (props: Props) => {
   const [isClass, setClass] = useState('Economy');
 
   useEffect(() => {
-    checkOptionAddOn();
+    // checkOptionAddOn();
   }, []);
 
   const checkOptionAddOn = () => {
