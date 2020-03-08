@@ -94,6 +94,8 @@ export default (props: Props) => {
       price: totalPrice * total,
       day: dataDetail.duration_days,
       night: dataDetail.duration_night,
+      flight: dataDetail.info_flight,
+      hotel: dataDetail.info_hotel,
     };
     actionAddon(true);
     actionDataHoliday({item, detail});
@@ -140,7 +142,7 @@ export default (props: Props) => {
             dataDetail && dataDetail.tour_hoster && dataDetail.tour_hoster.name,
           selectedDate,
           onSelectDate: (item: any) => setSelectedDate(item),
-          dataDate: oc(dataDetail).trip_date(null),
+          dataDate: oc(dataDetail).tour_trip_dates(null),
           dataVisit: oc(dataDetail).visit_cities(null),
           dataInclude: oc(dataDetail).info_included(null),
           dataExclude: oc(dataDetail).info_excluded(null),

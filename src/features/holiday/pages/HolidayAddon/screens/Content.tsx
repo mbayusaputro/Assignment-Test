@@ -43,13 +43,19 @@ export default () => {
               style={styles.textDesc}
               content={{
                 id: `${dateDetail(
-                  dataDetail.detail.start_date,
+                  dataDetail.detail.trip_date.start_date,
                   dayID,
-                )} - ${dateDetail(dataDetail.detail.end_date, dayID)}`,
+                )} - ${dateDetail(
+                  dataDetail.detail.trip_date.end_date,
+                  dayID,
+                )}`,
                 en: `${dateDetail(
-                  dataDetail.detail.start_date,
+                  dataDetail.detail.trip_date.start_date,
                   dayEN,
-                )} - ${dateDetail(dataDetail.detail.end_date, dayEN)}`,
+                )} - ${dateDetail(
+                  dataDetail.detail.trip_date.end_date,
+                  dayEN,
+                )}`,
               }}
             />
             <Text
@@ -99,7 +105,10 @@ export default () => {
           price={
             dataFlight.departure_flight.price_adult +
             dataFlight.departure_flight.price_child +
-            dataFlight.departure_flight.price_infant
+            dataFlight.departure_flight.price_infant +
+            dataFlight.return_flight.price_adult +
+            dataFlight.return_flight.price_child +
+            dataFlight.return_flight.price_infant
           }
         />
       ) : (

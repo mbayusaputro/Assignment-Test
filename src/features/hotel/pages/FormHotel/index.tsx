@@ -10,10 +10,12 @@ import {
   getFetchSearchHotel,
 } from '../../../../reduxs/hotel/selector';
 import FormHotel from './screen';
+import {getAddon} from '../../../../reduxs/holiday/selector';
 
 const mapStateToProps = (state: any) => ({
   loadingList: getFetchListDestinationHotel(state),
   loadingSearch: getFetchSearchHotel(state),
+  addon: getAddon(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

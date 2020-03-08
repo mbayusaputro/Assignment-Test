@@ -7,6 +7,7 @@ export interface Props {
 export interface FormHotelProps extends Props {
   loadingList: boolean;
   loadingSearch: boolean;
+  addon: boolean;
   actionListDestinationHotel: (payload: object) => Promise<void>;
   actionSearchHotel: (payload: object) => Promise<void>;
 }

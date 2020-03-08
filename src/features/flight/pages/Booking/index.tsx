@@ -34,7 +34,7 @@ const Booking = (props: Props) => {
   const [adult, setAdult] = useState([]);
   const [child, setChild] = useState([]);
   const [infant, setInfant] = useState([]);
-  const [errorMessageServer, setEerrorMessageServer] = useState("");
+  const [errorMessageServer, setEerrorMessageServer] = useState('');
   const [dataPassenger, setDataPassenger] = useState({
     adult: [],
     child: [],
@@ -150,38 +150,38 @@ const Booking = (props: Props) => {
     };
     setContact(payload);
   };
-  
+
   const isDataValid = (parameter: any, passenger: any) => {
-    let adults = parameter.passenger.adult
-    let childs = parameter.passenger.child
-    let infants = parameter.passenger.infant
-    let isAdultValid = true
-    let isChildValid = true
-    let isInfantValid = true
-    if(adults > 0) {
+    let adults = parameter.passenger.adult;
+    let childs = parameter.passenger.child;
+    let infants = parameter.passenger.infant;
+    let isAdultValid = true;
+    let isChildValid = true;
+    let isInfantValid = true;
+    if (adults > 0) {
       // tslint:disable-next-line: prefer-for-of
-      for(let i=0; i<passenger.adult.length; i++) {
-        if(passenger.adult[i].fullName === "") {
+      for (let i = 0; i < passenger.adult.length; i++) {
+        if (passenger.adult[i].fullName === '') {
           isAdultValid = false;
           break;
         }
       }
     }
 
-    if(childs > 0) {
+    if (childs > 0) {
       // tslint:disable-next-line: prefer-for-of
-      for(let i=0; i<passenger.child.length; i++) {
-        if(passenger.child[i].fullName === "") {
+      for (let i = 0; i < passenger.child.length; i++) {
+        if (passenger.child[i].fullName === '') {
           isChildValid = false;
           break;
         }
       }
     }
 
-    if(infants > 0) {
+    if (infants > 0) {
       // tslint:disable-next-line: prefer-for-of
-      for(let i=0; i<passenger.infant.length; i++) {
-        if(passenger.infant[i].fullName === "") {
+      for (let i = 0; i < passenger.infant.length; i++) {
+        if (passenger.infant[i].fullName === '') {
           isInfantValid = false;
           break;
         }
@@ -189,36 +189,36 @@ const Booking = (props: Props) => {
     }
 
     const result = {
-      adult: (adults > 0) ? isAdultValid : null,
-      child: (childs > 0) ? isChildValid : null,
-      infant: (infants > 0) ? isInfantValid : null
-    }
+      adult: adults > 0 ? isAdultValid : null,
+      child: childs > 0 ? isChildValid : null,
+      infant: infants > 0 ? isInfantValid : null,
+    };
 
-    return result
-  } 
+    return result;
+  };
   const onSubmit = () => {
     setOtherModal(null);
-    if(contact) {
-      let isSubmited = false
-      let childs = params.passenger.child
-      let infants = params.passenger.infant
-      const validate = isDataValid(params, dataPassenger)
-      if(!validate.adult) {
+    if (contact) {
+      let isSubmited = false;
+      let childs = params.passenger.child;
+      let infants = params.passenger.infant;
+      const validate = isDataValid(params, dataPassenger);
+      if (!validate.adult) {
         setOtherModal(500);
       } else {
-        isSubmited = true
-        if(childs > 0 && validate.child) {
-          isSubmited = true
-        } else if(childs > 0 && !validate.child) {
-          isSubmited = false
+        isSubmited = true;
+        if (childs > 0 && validate.child) {
+          isSubmited = true;
+        } else if (childs > 0 && !validate.child) {
+          isSubmited = false;
         }
-        if(infants > 0 && validate.infant) {
-          isSubmited = true
-        } else if(infants > 0 && !validate.infant) {
-          isSubmited = false
+        if (infants > 0 && validate.infant) {
+          isSubmited = true;
+        } else if (infants > 0 && !validate.infant) {
+          isSubmited = false;
         }
       }
-      if(isSubmited) {
+      if (isSubmited) {
         setTimeout(() => {
           const payload = {
             command: 'BOOKING',
@@ -258,7 +258,7 @@ const Booking = (props: Props) => {
               onNavigate('PaymentMethod', dataParam);
             } else {
               setTimeout(() => {
-                setEerrorMessageServer(res.message)
+                setEerrorMessageServer(res.message);
                 setOtherModal(404);
               }, 500);
             }
@@ -266,9 +266,9 @@ const Booking = (props: Props) => {
         }, 500);
       }
     } else {
-      setTimeout(()=> {
+      setTimeout(() => {
         setOtherModal(500);
-      }, 1000)
+      }, 1000);
     }
   };
 
@@ -342,10 +342,13 @@ const Booking = (props: Props) => {
         onOk={() => setOtherModal(null)}
         onDismiss={() => setOtherModal(null)}
       />
-       <AlertModal
+      <AlertModal
         isVisible={otherModal === 500}
         title={{id: 'Booking', en: 'Booking'}}
-        desc={{id: 'Mohon isi semua data dengan benar', en: 'Please enter all the data correctly'}}
+        desc={{
+          id: 'Mohon isi semua data dengan benar',
+          en: 'Please enter all the data correctly',
+        }}
         btnOk={{id: 'OK', en: 'OK'}}
         btnCancel={{id: 'Batal', en: 'Cancel'}}
         onOk={() => setOtherModal(null)}

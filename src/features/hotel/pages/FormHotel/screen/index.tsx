@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {InteractionManager} from 'react-native';
 import dayjs from 'dayjs';
 import {HighSafeArea} from '../../../../../components';
@@ -19,25 +19,39 @@ const defaultDestination = {
 };
 
 export default (props: Props) => {
-  const {loadingList} = props;
+  const {
+    loadingList,
+    navigation: {goBack, navigate, state},
+    actionListDestinationHotel,
+    addon,
+  } = props;
 
   // State
-  const [modal, setModal] = React.useState(null);
-  const [destination, setDestination] = React.useState(defaultDestination);
-  const [dataDestination, setDataDestination] = React.useState([]);
-  const [checkIn, setCheckIn] = React.useState(null);
-  const [checkOut, setCheckOut] = React.useState(null);
-  const [room, setRoom] = React.useState(1);
-  const [guest, setGuest] = React.useState(1);
+  const [modal, setModal] = useState(null);
+  const [destination, setDestination] = useState(defaultDestination);
+  const [dataDestination, setDataDestination] = useState([]);
+  const [checkIn, setCheckIn] = useState(null);
+  const [checkOut, setCheckOut] = useState(null);
+  const [room, setRoom] = useState(1);
+  const [guest, setGuest] = useState(1);
 
   // LifeCycle
-  React.useEffect(() => {
-    if (checkIn === null) {
+  useEffect(() => {
+    checkOptionAddOn();
+  }, []);
+
+  const checkOptionAddOn = () => {
+    const {params} = state;
+    if (addon) {
+      // setDestination(params.detail.hotel)
+      setCheckIn(params.detail.trip_date.start_date);
+      setCheckOut(params.detail.day);
+      setGuest(params.item.adult);
+    } else {
       setCheckIn(dayFormat(new Date()));
-    } else if (checkOut === null) {
       setCheckOut(1);
     }
-  });
+  };
 
   // Function
   const dayFormat = (day: Date) => {
@@ -48,9 +62,6 @@ export default (props: Props) => {
   };
 
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     InteractionManager.runAfterInteractions(() => goBack());
   };
   const onModal = (id: number) => {
@@ -58,7 +69,6 @@ export default (props: Props) => {
   };
 
   const onSearch = (text: string) => {
-    const {actionListDestinationHotel} = props;
     const payload = {
       query: text,
     };
@@ -99,9 +109,6 @@ export default (props: Props) => {
   };
 
   const onSubmit = () => {
-    const {
-      navigation: {navigate},
-    } = props;
     if (destination === null) {
       alert('Please select your hotel destination first');
     } else {

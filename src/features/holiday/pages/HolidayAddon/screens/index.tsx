@@ -76,9 +76,27 @@ export default class HolidayAddon extends PureComponent<Props, any> {
     navigate('HolidayBooking', holiday);
   };
 
+  onAddOn = (to: string) => {
+    const {
+      navigation: {navigate},
+      holiday,
+    } = this.props;
+    navigate(to, holiday);
+  };
+
   render() {
     // Props
     const {holiday, hotel, flight} = this.props;
+    let priceFlight =
+      flight === null
+        ? 0
+        : flight.departure_flight.price_adult +
+          flight.departure_flight.price_child +
+          flight.departure_flight.price_infant +
+          flight.return_flight.price_adult +
+          flight.return_flight.price_child +
+          flight.return_flight.price_infant;
+    let total = oc(holiday).detail.price(0) + priceFlight + oc(hotel).price(0);
     // Main Render
     return (
       <HighSafeArea style={styles.container}>
@@ -93,18 +111,15 @@ export default class HolidayAddon extends PureComponent<Props, any> {
               dataDetail: holiday,
               dataHotel: hotel,
               dataFlight: flight,
-              onSelectHotel: () => this.navigation('FormHotel'),
-              onSelectFlight: () => this.navigation('Flight'),
+              onSelectHotel: () => this.onAddOn('FormHotel'),
+              onSelectFlight: () => this.onAddOn('Flight'),
               onClearHotel: this.onClearHotel,
               onClearFlight: this.onClearFlight,
             }}>
             <Content />
           </Context.Provider>
         </ScrollView>
-        <Footer
-          price={oc(holiday).detail.price(0)}
-          onContinue={this.onContinueBook}
-        />
+        <Footer price={total} onContinue={this.onContinueBook} />
       </HighSafeArea>
     );
   }

@@ -170,7 +170,6 @@ export const generatePayloadPassenger = (
 };
 
 export const payloadTour = (req: any, callback: (response: any) => void) => {
-  console.log(req);
   let response = {
     tour: {
       trip_date_id: req.tour.trip_date.id,

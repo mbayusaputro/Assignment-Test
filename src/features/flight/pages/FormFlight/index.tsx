@@ -21,12 +21,13 @@ const FormFlight = (props: Props) => {
     handleFieldPress,
     handleSearchFlight,
     handleFromToModals,
-    navigation: {navigate},
+    navigation: {navigate, goBack, state},
     handleSelect,
     handleSelectDate,
     handleSelectDateReturn,
     handleSelectPassenger,
     handleSelectClass,
+    addon,
   } = props;
 
   const [optionTrip, setoptionTrip] = useState('oneway');
@@ -47,20 +48,26 @@ const FormFlight = (props: Props) => {
   const [isClass, setClass] = useState('Economy');
 
   useEffect(() => {
-    // checkOptionAddOn();
+    checkOptionAddOn();
   }, []);
 
   const checkOptionAddOn = () => {
-    const {addon} = props;
+    const {params} = state;
+    let payload = {
+      adult: params && params.item.adult,
+      child: params && params.item.child,
+      infant: 0,
+    };
     if (addon) {
       setoptionTrip('return');
+      setTo(params.detail.flight);
+      setDate(params.detail.trip_date.start_date);
+      setDateReturn(params.detail.trip_date.end_date);
+      setPassenger(payload);
     }
   };
 
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     goBack();
   };
 
