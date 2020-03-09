@@ -41,6 +41,8 @@ import {
   HolidayAddon,
   HolidayBooking,
   HolidayItinerary,
+  TopUp,
+  Withdraw,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -375,6 +377,18 @@ const STACK = createStackNavigator(
     },
     HolidayItinerary: {
       screen: HolidayItinerary,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    TopUp: {
+      screen: TopUp,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Withdraw: {
+      screen: Withdraw,
       navigationOptions: {
         header: null,
       },

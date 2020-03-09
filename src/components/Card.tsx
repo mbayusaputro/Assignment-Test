@@ -12,7 +12,7 @@ export default (props: CardProps) => (
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 10,
+    borderRadius: 6.66,
     backgroundColor: Color.white,
   },
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import dayjs from 'dayjs';
 import _ from 'lodash';
@@ -23,22 +23,27 @@ import ModalGuest from './ModalGuest';
 export default (props: Props) => {
   // Props
   const {
-    navigation: {getParam},
+    navigation: {getParam, goBack, navigate},
+    actionBookHotel,
     loadingBook,
   } = props;
   const data = getParam('data'); // Data from Selected Room
   const payload = getParam('payload'); // Payload Form Hotel
   const room = getParam('room'); // Room Selected
 
-  // State
-  const [modal, setModal] = React.useState(null);
-  const [contact, setContact] = React.useState(null);
-  const [sameContact, setSameContact] = React.useState(false);
-  const [guest, setGuest] = React.useState([]);
-  const [guestNum, setGuestNum] = React.useState(null);
-  const [message, setMessage] = React.useState('');
+  let night =
+    parseInt(dayjs(payload.stay.checkOut).format('DD')) -
+    parseInt(dayjs(payload.stay.checkIn).format('DD'));
 
-  React.useEffect(() => {
+  // State
+  const [modal, setModal] = useState(null);
+  const [contact, setContact] = useState(null);
+  const [sameContact, setSameContact] = useState(false);
+  const [guest, setGuest] = useState([]);
+  const [guestNum, setGuestNum] = useState(null);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
     if (guest.length === 0) {
       const totalGuest = payload.occupancies[0].adults;
       setTotalGuest(totalGuest);
@@ -47,9 +52,6 @@ export default (props: Props) => {
 
   // Function
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     goBack();
   };
 
@@ -105,11 +107,13 @@ export default (props: Props) => {
 
   // On Booking
   const onBook = () => {
-    const {actionBookHotel} = props;
     setModal(null);
     setTimeout(() => {
       setModal(201);
       const payloadBook = {
+        code: payload.searchBy.code,
+        checkIn: payload.stay.checkIn,
+        checkOut: payload.stay.checkOut,
         holder: contact,
         rooms: [
           {
@@ -121,7 +125,7 @@ export default (props: Props) => {
         remark: '',
         tolerance: '5.00',
         searchId: 'SRCH-0001',
-        amount: data.price,
+        amount: data.price * night,
       };
       actionBookHotel(payloadBook).then((res: any) => {
         setTimeout(() => {
@@ -143,9 +147,6 @@ export default (props: Props) => {
   };
 
   const onNavigate = (item: object) => {
-    const {
-      navigation: {navigate},
-    } = props;
     navigate('PaymentMethod', {
       type: 'hotel',
       item,
@@ -163,7 +164,7 @@ export default (props: Props) => {
             // Detail Hotel
             guest: payload.occupancies[0].adults,
             room: payload.occupancies[0].rooms,
-            night: 1,
+            night: night,
             title: data.title,
             checkin: dayjs(payload.stay.checkIn).format('YYYY-MM-DD'),
             checkout: dayjs(payload.stay.checkOut).format('YYYY-MM-DD'),
@@ -179,7 +180,7 @@ export default (props: Props) => {
             guestArr: guest,
             onShowGuest: (item: any) => showModalGuest(item, 2),
             // Price
-            price: data.price,
+            price: data.price * night,
             // When Clicked Booking
             onBook: () => setModal(999),
           }}>
