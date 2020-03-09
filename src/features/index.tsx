@@ -46,7 +46,6 @@ import HolidayItinerary from './holiday/pages/HolidayItinerary';
 import {PaymentMethod, PaymentWeb, ETicket} from './payment';
 
 // Agent
-import TopUp from './profile/pages/TopUp';
 import Withdraw from './profile/pages/Withdraw';
 
 export {
@@ -87,6 +86,5 @@ export {
   HolidayAddon,
   HolidayBooking,
   HolidayItinerary,
-  TopUp,
   Withdraw,
 };

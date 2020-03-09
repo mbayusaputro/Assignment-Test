@@ -41,7 +41,7 @@ import {
   HolidayAddon,
   HolidayBooking,
   HolidayItinerary,
-  TopUp,
+  // TopUp,
   Withdraw,
 } from '../features';
 import {Color} from '../constants/Color';
@@ -80,7 +80,7 @@ const TABS = createBottomTabNavigator(
           ) : (
             <Image
               source={require('../../src/assets/tabs/home.png')}
-              style={{width: 25, height: 25, resizeMode: 'center'}}
+              style={{width: 25, height: 25, resizeMode: 'contain'}}
             />
           ),
       },
@@ -96,13 +96,13 @@ const TABS = createBottomTabNavigator(
               style={{
                 width: 25,
                 height: 25,
-                resizeMode: 'center',
+                resizeMode: 'contain',
               }}
             />
           ) : (
             <Image
               source={require('../../src/assets/tabs/orders.png')}
-              style={{width: 25, height: 25, resizeMode: 'center'}}
+              style={{width: 25, height: 25, resizeMode: 'contain'}}
             />
           ),
       },
@@ -118,13 +118,13 @@ const TABS = createBottomTabNavigator(
               style={{
                 width: 25,
                 height: 25,
-                resizeMode: 'center',
+                resizeMode: 'contain',
               }}
             />
           ) : (
             <Image
               source={require('../../src/assets/tabs/inbox.png')}
-              style={{width: 25, height: 25, resizeMode: 'center'}}
+              style={{width: 25, height: 25, resizeMode: 'contain'}}
             />
           ),
       },
@@ -140,13 +140,13 @@ const TABS = createBottomTabNavigator(
               style={{
                 width: 25,
                 height: 25,
-                resizeMode: 'center',
+                resizeMode: 'contain',
               }}
             />
           ) : (
             <Image
               source={require('../../src/assets/tabs/profile.png')}
-              style={{width: 25, height: 25, resizeMode: 'center'}}
+              style={{width: 25, height: 25, resizeMode: 'contain'}}
             />
           ),
       },
@@ -381,12 +381,12 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
-    TopUp: {
-      screen: TopUp,
-      navigationOptions: {
-        header: null,
-      },
-    },
+    // TopUp: {
+    //   screen: TopUp,
+    //   navigationOptions: {
+    //     header: null,
+    //   },
+    // },
     Withdraw: {
       screen: Withdraw,
       navigationOptions: {

@@ -13,9 +13,6 @@ export default (props: Props) => {
       callback={props.goBack}
       content={{id: 'Pesan Penerbangan Anda', en: 'Booking Your Flights'}}
     />
-    // <View style={styles.container}>
-    //   <Text style={styles.title}>{props.title}</Text>
-    // </View>
   );
 };
 
