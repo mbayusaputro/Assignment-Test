@@ -129,8 +129,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonPrimary: {
-    backgroundColor: Color.orange,
-    borderColor: Color.orange,
+    backgroundColor: Color.berry,
+    borderColor: Color.berry,
     borderWidth: 1,
   },
   textPrimary: {

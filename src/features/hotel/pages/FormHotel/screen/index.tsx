@@ -131,7 +131,7 @@ export default (props: Props) => {
           },
         ],
         stars: 5,
-        offset: 1,
+        offset: 0,
         limit: 50,
       };
       // actionSearchHotel(payload);

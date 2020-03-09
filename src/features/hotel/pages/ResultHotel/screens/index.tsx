@@ -11,11 +11,13 @@ const titleLang = {id: 'Hotel Didekat Anda', en: 'Hotel Near You'};
 
 export default (props: Props) => {
   const {
-    navigation: {getParam},
+    navigation: {getParam, navigate, goBack},
     loadingSearch,
     pathAsset,
+    actionSearchHotel,
   } = props;
   const payload = getParam('payload');
+  payload;
 
   // State
   const [data, setData] = React.useState([]);
@@ -28,14 +30,10 @@ export default (props: Props) => {
 
   // Function
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     goBack();
   };
 
   const getData = () => {
-    const {actionSearchHotel} = props;
     actionSearchHotel(payload).then((res: any) => {
       res.type === 'SEARCH_HOTEL_SUCCESS'
         ? setData(res.data.hotels)
@@ -44,9 +42,6 @@ export default (props: Props) => {
   };
 
   const onSelectHotel = (item: any) => {
-    const {
-      navigation: {navigate},
-    } = props;
     navigate('DetailHotel', {
       selectedHotel: item,
       payload,

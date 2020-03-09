@@ -19,6 +19,7 @@ type Props = {
 
 export default (props: Props) => {
   const {pathAsset} = React.useContext(CardContext);
+  console.log(props.dataHotel);
 
   // Flatlist Conf
   const keyExtractor = (__: any, index: number) => index.toString();
@@ -28,7 +29,7 @@ export default (props: Props) => {
         key={index}
         onPress={() => props.onSelectHotel(item)}
         title={item.name}
-        star={parseInt(item.categoryName.split(' ')[1], 0)}
+        star={parseInt(item.categoryName.split(' ')[0], 0)}
         location={item.destinationName}
         price={item.minRate}
         photo={pathAsset + oc(item).detail.images[0].path('aw.jpg')}

@@ -5,22 +5,28 @@ import Footer from './Footer';
 import {DetailRoomHotelProps as Props} from '../../../interface/types';
 import Tabs from './Tabs';
 import {TabContext} from '../components';
+import moment from 'moment';
 
 export default (props: Props) => {
+  const {
+    navigation: {goBack, navigate, getParam},
+  } = props;
+  const data = getParam('data'); // Data from Selected Room
+  const payload = getParam('payload'); // Payload Form Hotel
+  const room = getParam('room'); // Room Selected
+
   // Function
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     goBack();
   };
 
   const navigating = (route: string) => {
-    const {
-      navigation: {navigate},
-    } = props;
-    navigate(route);
+    navigate(route, {data, payload, room});
   };
+
+  let night =
+    parseInt(moment(payload.stay.checkOut).format('DD')) -
+    parseInt(moment(payload.stay.checkIn).format('DD'));
 
   // Main Render
   return (
@@ -28,15 +34,15 @@ export default (props: Props) => {
       <Content callback={onBack} />
       <TabContext.Provider
         value={{
-          title: 'Premiere Deluxe',
-          totalPrice: 3515400,
-          price: 500000,
-          totalRoom: Array.from({length: 17}),
+          title: data.title,
+          totalPrice: room.rates[0].net * night,
+          price: room.rates[0].net,
+          totalRoom: Array.from({length: night}),
         }}>
         <Tabs />
       </TabContext.Provider>
       <Footer
-        price={3515400}
+        price={room.rates[0].net * night}
         onSelectRoom={() => navigating('BookingFormHotel')}
       />
     </HighSafeArea>

@@ -72,7 +72,7 @@ export const askBookingLang: LangProps = {
   en: 'Are the details correct?',
 };
 export const btnBookOk: LangProps = {
-  id: 'Ya, semuanya benar',
-  en: 'Yes, everything is correct',
+  id: 'OK',
+  en: 'OK',
 };
-export const btnBookCancel: LangProps = {id: 'Ganti', en: 'Change'};
+export const btnBookCancel: LangProps = {id: 'Batal', en: 'Cancel'};

@@ -9,7 +9,7 @@ type Props = {
   dataRoom: Array<any>;
   selectedFilter: any;
   selectFilter: (item: any, index: number) => void;
-  onDetailRoom: () => void;
+  onDetailRoom: (item: any) => void;
   onBookRoom: (item: any) => void;
   path: string;
   detailHotel: any;
@@ -33,7 +33,7 @@ export default (props: Props) => {
         maxGuest={item.rates[0].allotment}
         facility={[]}
         price={item.rates[0].net}
-        onDetailRoom={props.onDetailRoom}
+        onDetailRoom={() => props.onDetailRoom(item)}
         onBookRoom={() => props.onBookRoom(item)}
       />
     );

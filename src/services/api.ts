@@ -1,8 +1,7 @@
 import {Platform} from 'react-native';
 import axios from 'axios';
 
-const URL: string = 'https://api.aeroaja.com/v1/';
-const HOTEL_BEDS: string = 'https://apinodegw-dev.aeroaja.com';
+const URL: string = 'https://apidev.aeroaja.com/v1/';
 
 const appSource = Platform.OS === 'ios' ? 'APP_IOS' : 'APP_AND';
 
@@ -107,16 +106,16 @@ export async function listDestinationHotel(payload: object) {
 }
 
 export async function searchHotel(payload: object) {
-  // const beds = 'https://apidev.aeroaja.com/v1/gateway/beds';
-  // const uri: string = `${beds}/search-hotel`;
-  const uri: string = `https://api-gateway-hotel-dev.aeroaja.com/apihotel/search`;
+  // const uri: string = `https://api-gateway-hotel-dev.aeroaja.com/apihotel/search`;
+  const uri: string = `${URL}gateway/traveloka/search-hotel`;
   const response = await axios.post(uri, payload).then(res => res.data);
   return response;
 }
 
 export async function bookingHotel(payload: object) {
-  const beds = 'https://apidev.aeroaja.com/v1/gateway/beds';
-  const uri: string = `${beds}/booking`;
+  // const beds = `${URL}gateway/beds`;
+  // const uri: string = `${beds}/booking`;
+  const uri: string = `${URL}gateway/traveloka/booking`;
   const response = await axios.post(uri, payload).then(res => res.data);
   return response;
 }

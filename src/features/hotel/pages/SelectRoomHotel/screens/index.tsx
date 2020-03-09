@@ -10,7 +10,9 @@ import {dataFilter} from '../components/data';
 
 export default (props: Props) => {
   const {
-    navigation: {getParam},
+    navigation: {getParam, goBack, navigate},
+    addon,
+    actionDataHotel,
   } = props;
   const dataHotel = getParam('selectedHotel');
   const payload = getParam('payload');
@@ -21,9 +23,6 @@ export default (props: Props) => {
 
   // Function
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     goBack();
   };
 
@@ -33,9 +32,6 @@ export default (props: Props) => {
   };
 
   const navigating = (route: string, data?: any, room?: any) => {
-    const {
-      navigation: {navigate},
-    } = props;
     navigate(route, {
       data,
       payload,
@@ -43,18 +39,18 @@ export default (props: Props) => {
     });
   };
 
-  const onBook = (room: any) => {
-    const {addon, actionDataHotel} = props;
+  const onBook = (room: any, detail: boolean) => {
     const dataBook = {
       title: dataHotel.name,
-      price: dataHotel.minRate,
-      room,
+      price: room.rates[0].net,
     };
     if (addon) {
       actionDataHotel(dataBook);
       setTimeout(() => navigating('HolidayAddon'), 500);
     } else {
-      navigating('BookingFormHotel', dataBook, room);
+      detail
+        ? navigating('DetailRoomHotel', dataBook, room)
+        : navigating('BookingFormHotel', dataBook, room);
     }
   };
 
@@ -78,8 +74,8 @@ export default (props: Props) => {
         path={props.pathAsset}
         selectedFilter={filter}
         selectFilter={(item: any, index: number) => selectFilter(item, index)}
-        onDetailRoom={() => navigating('DetailRoomHotel')}
-        onBookRoom={(item: any) => onBook(item)}
+        onDetailRoom={(item: any) => onBook(item, true)}
+        onBookRoom={(item: any) => onBook(item, false)}
       />
     </HighSafeArea>
   );
