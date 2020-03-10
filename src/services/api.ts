@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
 import axios from 'axios';
 
-const URL: string = 'https://apidev.aeroaja.com/v1/';
+const URL: string = 'https://api.aeroaja.com/v1/';
 
 const appSource = Platform.OS === 'ios' ? 'APP_IOS' : 'APP_AND';
 
