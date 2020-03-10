@@ -103,16 +103,12 @@ export default (props: SignInContent) => {
 
         {/* Log In */}
         <View style={styles.content}>
-          {fetchSignIn ? (
-            <ButtonLoading />
-          ) : (
-            <Button
-              content={{id: 'Masuk', en: 'Log In'}}
-              isUpperCase={true}
-              customStyle={styles.btn}
-              onPress={onPressLogin}
-            />
-          )}
+          <Button
+            content={{id: 'Masuk', en: 'Log In'}}
+            isUpperCase={true}
+            customStyle={styles.btn}
+            onPress={onPressLogin}
+          />
         </View>
 
         {/* Register */}

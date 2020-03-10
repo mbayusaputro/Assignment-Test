@@ -13,8 +13,8 @@ const Finished = (props: any) => {
     <View style={{height: HEIGHT_SCREEN - 150}}>
       <ScrollView style={{margin: 20}} showsVerticalScrollIndicator={false}>
         <View style={styles.bot}>
-          <Text style={styles.bold}>Reschedule Available</Text>
-          <Text style={styles.bold}>Refundable</Text>
+          {/* <Text style={styles.bold}>Reschedule Available</Text>
+          <Text style={styles.bold}>Refundable</Text> */}
         </View>
         <View style={styles.bot}>
           <Text style={styles.regular}>Adult(x1)</Text>

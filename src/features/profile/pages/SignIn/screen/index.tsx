@@ -16,12 +16,18 @@ export default (props: SigninProps) => {
   const [password, setPassword] = React.useState('');
   const [isValidEmail, setValidEmail] = React.useState(true);
 
-  // Function
+  // Props
+  const {
+    navigation: {navigate},
+    actionSignIn,
+    actionGetProfile,
+    setToken,
+    fetchProfile,
+    fetchSignIn,
+  } = props;
 
+  // Function
   const goToThe = (target: string) => {
-    const {
-      navigation: {navigate},
-    } = props;
     InteractionManager.runAfterInteractions(() => {
       navigate(target);
     });
@@ -63,7 +69,6 @@ export default (props: SigninProps) => {
   };
 
   const signinSocmed = (code: string, authType: string) => {
-    const {actionSignIn} = props;
     const payload = {
       email: '',
       password: '',
@@ -72,18 +77,16 @@ export default (props: SigninProps) => {
     };
     InteractionManager.runAfterInteractions(() => {
       actionSignIn(payload).then((res: any) => {
-        if (res.type === 'SIGNIN_FAILED') {
-          Alert.alert('Alert', res.message);
+        if (res.type === 'SIGNIN_SUCCESS') {
+          gettingProfile(res.data.access_token);
         } else {
-          const token = res.data.access_token;
-          gettingProfile(token);
+          Alert.alert('Alert', res.message);
         }
       });
     });
   };
 
   const pressLogin = () => {
-    const {actionSignIn} = props;
     const payload = {
       email,
       password,
@@ -91,11 +94,10 @@ export default (props: SigninProps) => {
     InteractionManager.runAfterInteractions(() => {
       if (email !== '' && password !== '') {
         actionSignIn(payload).then((res: any) => {
-          if (res.type === 'SIGNIN_FAILED') {
-            Alert.alert('Alert', res.message);
+          if (res.type === 'SIGNIN_SUCCESS') {
+            gettingProfile(res.data.access_token);
           } else {
-            const tokenNow = res.data.access_token;
-            setTimeout(() => gettingProfile(tokenNow), 500);
+            Alert.alert('Alert', res.message);
           }
         });
       } else {
@@ -105,7 +107,6 @@ export default (props: SigninProps) => {
   };
 
   const gettingProfile = (token: string) => {
-    const {actionGetProfile, setToken} = props;
     setToken(token);
     actionGetProfile(token)
       .then(() => null)
@@ -118,16 +119,16 @@ export default (props: SigninProps) => {
       <Header title="Log In" onSetting={() => goToThe('MainSetting')} />
       <Content
         {...props}
-        onPressGoogle={pressGoogle}
-        onPressFacebook={pressFacebook}
+        onPressGoogle={() => pressGoogle()}
+        onPressFacebook={() => pressFacebook()}
         onChangeEmail={(text: string) => onChangeText('email', text)}
         validMail={isValidEmail}
         onChangePassword={(text: string) => onChangeText('password', text)}
         onForgot={() => goToThe('ForgotPassword')}
-        onPressLogin={pressLogin}
+        onPressLogin={() => pressLogin()}
         onPressRegister={() => goToThe('FormRegister')}
       />
-      <LoadingBook isVisible={props.fetchProfile || props.fetchSignIn} />
+      <LoadingBook isVisible={fetchProfile || fetchSignIn} />
     </HighSafeArea>
   );
 };

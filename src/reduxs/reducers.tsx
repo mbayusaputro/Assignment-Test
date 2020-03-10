@@ -8,6 +8,7 @@ import flightReducer from './flight/reducer';
 import hotelReducer from './hotel/reducer';
 import holidayReducer from './holiday/reducer';
 import paymentReducer from './payment/reducer';
+import agentReducer from './agent/reducer';
 
 const rootReducer = combineReducers({
   chat: chatReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   hotel: hotelReducer,
   holiday: holidayReducer,
   payment: paymentReducer,
+  agent: agentReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

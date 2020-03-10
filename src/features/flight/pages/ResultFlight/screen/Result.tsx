@@ -29,7 +29,12 @@ const Result = (props: ResultProps) => {
     <View style={{flex: 1, marginHorizontal: 10}}>
       {dataFlight !== null || dataFlight.length > 0 ? (
         <FlatList
-          data={dataFlight}
+          data={
+            dataFlight &&
+            dataFlight.sort((a: any, b: any) => {
+              return a.price_adult - b.price_adult;
+            })
+          }
           keyExtractor={(__: any, index: number) => index.toString()}
           renderItem={renderItem}
           ListHeaderComponent={isLoading ? <LoadingDate /> : <Date />}

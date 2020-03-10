@@ -89,7 +89,7 @@ const Active = (props: any) => {
                       </Text>
                     </View>
                   )}
-                  {item.has_food !== '' ? (
+                  {item.has_food !== '0' ? (
                     <View
                       style={{
                         flexDirection: 'row',

@@ -27,25 +27,29 @@ const Result = (props: ResultProps) => {
         showsVerticalScrollIndicator={false}>
         <Date />
         <View style={{marginVertical: 5}} />
-        {dataFlight.map((item: any, i: number) => {
-          return (
-            <ListView
-              key={i}
-              onPress={() => handleSelectFlight(item)}
-              onDetail={() => handleDetailFlight(item)}
-              departure={item.detail[0].departure_city}
-              arrival={item.detail[item.detail.length - 1].arrival_city}
-              departure_time={item.departure_time}
-              arrival_time={item.arrival_time}
-              price={item.price_adult}
-              img={item.detail[0].img_src}
-              duration={item.duration}
-              transit={
-                item.stop.toLowerCase() === 'langsung' ? 'direct' : item.stop
-              }
-            />
-          );
-        })}
+        {dataFlight
+          .sort((a: any, b: any) => {
+            return a.price_adult - b.price_adult;
+          })
+          .map((item: any, i: number) => {
+            return (
+              <ListView
+                key={i}
+                onPress={() => handleSelectFlight(item)}
+                onDetail={() => handleDetailFlight(item)}
+                departure={item.detail[0].departure_city}
+                arrival={item.detail[item.detail.length - 1].arrival_city}
+                departure_time={item.departure_time}
+                arrival_time={item.arrival_time}
+                price={item.price_adult}
+                img={item.detail[0].img_src}
+                duration={item.duration}
+                transit={
+                  item.stop.toLowerCase() === 'langsung' ? 'direct' : item.stop
+                }
+              />
+            );
+          })}
       </ScrollView>
     </View>
   );

@@ -12,11 +12,15 @@ export default (props: ForgotPassProps) => {
   const [email, setEmail] = React.useState('');
   const [validMail, setValidEmail] = React.useState(true);
 
+  // Props
+  const {
+    navigation: {goBack, navigate},
+    actionForgotPassword,
+    fetchForgotPass,
+  } = props;
+
   // Function
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     InteractionManager.runAfterInteractions(() => goBack());
   };
 
@@ -36,10 +40,6 @@ export default (props: ForgotPassProps) => {
   };
 
   const onSubmit = (type: string) => {
-    const {
-      navigation: {navigate},
-      actionForgotPassword,
-    } = props;
     const payload = {
       data: type === 'mobile' ? mobile : email,
     };
@@ -55,7 +55,6 @@ export default (props: ForgotPassProps) => {
   };
 
   // Main Render
-  const {fetchForgotPass} = props;
   return (
     <HighSafeArea>
       <Header callback={onBack} />
@@ -64,8 +63,8 @@ export default (props: ForgotPassProps) => {
           onChangeMobile={(text: string) => onChange('mobile', text)}
           onChangeEmail={(text: string) => onChange('email', text)}
           validEmail={validMail}
-          onSubmitMobile={() => (!fetchForgotPass ? onSubmit('mobile') : null)}
-          onSubmitEmail={() => (!fetchForgotPass ? onSubmit('email') : null)}
+          onSubmitMobile={() => onSubmit('mobile')}
+          onSubmitEmail={() => onSubmit('email')}
           loading={fetchForgotPass}
         />
       </ScrollView>

@@ -167,3 +167,22 @@ export async function checkPaymentMidtrans(trx_id: string, type: string) {
   return response;
 }
 // ====================== PAYMENT ======================
+
+// ====================== AGENT ======================
+export async function topUp(payload: object, token: string) {
+  const uri: string = `${URL}payment/agents/top-up`;
+  const config = {
+    headers: {Authorization: `bearer ${token}`},
+  };
+  const response = await axios.post(uri, payload, config).then(res => res.data);
+  return response;
+}
+export async function withdrawRequest(payload: object, token: string) {
+  const uri: string = `${URL}customers/withdrawal`;
+  const config = {
+    headers: {Authorization: `bearer ${token}`},
+  };
+  const response = await axios.post(uri, payload, config).then(res => res.data);
+  return response;
+}
+// ====================== AGENT ======================

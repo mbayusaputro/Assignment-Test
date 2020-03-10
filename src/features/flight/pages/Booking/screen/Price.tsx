@@ -6,6 +6,7 @@ import {moneyFormat} from '../../../../../helpers/helpers';
 
 const Card = (form: string, titleForm: string, date: string, props: any) => {
   const {departure, returns, data} = props;
+  console.log(data.infant.length);
   return (
     <View>
       {date !== '1' ? (
@@ -72,12 +73,12 @@ const Price = (props: any) => {
         {data.child.length > 0 ? Card('child', 'Child', '', props) : []}
         {data.infant.length > 0 ? Card('infant', 'Infant', '', props) : []}
         {returns === null ? [] : Card('adult', 'Adult', 'return', props)}
-        {data.child.length > -1 && returns === null
-          ? []
-          : Card('child', 'Child', 'return', props)}
-        {data.infant.length > -1 && returns === null
-          ? []
-          : Card('infant', 'Infant', 'return', props)}
+        {returns !== null && data.child.length > 0
+          ? Card('child', 'Child', 'return', props)
+          : []}
+        {returns !== null && data.infant.length > 0
+          ? Card('infant', 'Infant', 'return', props)
+          : []}
       </View>
     </View>
   );

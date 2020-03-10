@@ -105,3 +105,11 @@ export function groupingRoomImages(images: any, rooms = [], code = '') {
     return pathResult;
   }
 }
+
+export const generateValue = (begin: number, end: number) => {
+  let valueAmount = [];
+  for (let i = begin; i < end; i++) {
+    valueAmount.push(500000 * (i + 1));
+  }
+  return valueAmount;
+};
