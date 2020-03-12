@@ -10,30 +10,47 @@ import {moneyFormat} from '../../../../helpers/helpers';
 
 const Active = (props: any) => {
   const {
-    navigation: {navigate, state},
+    navigation: {navigate, getParam},
   } = props;
+  const item = getParam('item');
+  const params = getParam('params');
+  const result = getParam('data');
+  const dept_flight = getParam('departure_flight');
+
+  // Function
+  const toSelect = (item: object) => {
+    if (result !== null) {
+      navigate('ResultFlightReturn', {
+        departure_flight: item,
+        params,
+        result,
+      });
+    } else {
+      navigate('BookingFlight', {
+        departure_flight: dept_flight !== null ? dept_flight : item,
+        return_flight: dept_flight !== null ? item : null,
+        params,
+      });
+    }
+  };
+
   return (
     <View style={{height: HEIGHT_SCREEN - 150}}>
       <ScrollView style={{margin: 20}} showsVerticalScrollIndicator={false}>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <Text style={styles.title}>
-            {state.params.detail[0].departure_city_name}
-          </Text>
+          <Text style={styles.title}>{item.detail[0].departure_city_name}</Text>
           <Image
             style={styles.img}
             source={require('../../../../assets/icons/icon_header_flight_result.png')}
             resizeMode="contain"
           />
           <Text style={styles.title}>
-            {
-              state.params.detail[state.params.detail.length - 1]
-                .arrival_city_name
-            }
+            {item.detail[item.detail.length - 1].arrival_city_name}
           </Text>
         </View>
-        <Card data={state.params} />
+        <Card data={item} />
         <View style={{paddingBottom: 125}}>
-          {state.params.detail.map((item: any, i: number) => {
+          {item.detail.map((item: any, i: number) => {
             return (
               <View key={i}>
                 <Text
@@ -132,7 +149,7 @@ const Active = (props: any) => {
         <View style={styles.bot}>
           <Text style={{fontFamily: 'NunitoSans-Bold'}}>Total Payment</Text>
           <Text style={{fontFamily: 'NunitoSans-Bold', color: Color.orange}}>
-            Rp {moneyFormat(state.params.price_adult)}
+            Rp {moneyFormat(item.price_adult)}
           </Text>
         </View>
         <Button
@@ -142,7 +159,7 @@ const Active = (props: any) => {
           isUpperCase={true}
           fullWidth={true}
           content={{id: 'Select Flight', en: 'Select Flight'}}
-          onPress={() => Alert.alert('Warning', 'Please check your email!')}
+          onPress={() => toSelect(item)}
         />
       </View>
     </View>

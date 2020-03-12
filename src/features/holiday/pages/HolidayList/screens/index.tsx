@@ -26,7 +26,7 @@ export default (props: Props) => {
     if (dataPopular.length === 0) {
       actionHolidayList(isLogin ? token : null).then((res: any) => {
         if (res.type === 'HOLIDAYLIST_SUCCESS') {
-          setDataPopular(res.data);
+          setDataPopular(res.data.items);
         } else {
           alert(res.message);
         }
@@ -38,7 +38,7 @@ export default (props: Props) => {
     const {
       navigation: {navigate},
     } = props;
-    navigate('HolidayDetail', {id: item.tour_id});
+    navigate('HolidayDetail', {id: item.id});
   };
 
   // Main Render

@@ -111,11 +111,11 @@ export const actionGetFlight = (payload: object) => {
 // ====================== FLIGHTS - SEARCH ======================
 
 // ====================== FLIGHTS - BOOKING ======================
-export const actionBookingFlight = (payload: object) => {
+export const actionBookingFlight = (payload: object, token: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(requestState(booking));
     try {
-      const res = await bookingFlight(payload);
+      const res = await bookingFlight(payload, token);
       if (res.status) {
         return dispatch(successState(booking, res, payload));
       }

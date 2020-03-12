@@ -32,12 +32,20 @@ export default StyleSheet.create({
     paddingBottom: 8.3,
     marginBottom: 16,
   },
-  cardPd: {
-    paddingVertical: 21,
-    paddingHorizontal: 26.33,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  leftSection: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  rightSection: {
+    flex: 7,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  icons: {
+    tintColor: Color.tealBlue,
+    height: 25,
+    width: 28,
   },
 
   // Text

@@ -32,7 +32,7 @@ const ResultFlight = (props: Props) => {
   };
 
   const toDetail = (item: object) => {
-    navigate('DetailFlight', item);
+    navigate('DetailFlight', {item, params, data: null, departure_flight});
   };
 
   return (

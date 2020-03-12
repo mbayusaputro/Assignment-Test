@@ -7,10 +7,7 @@ import {
 } from 'react-native';
 import {Text, InputText, Button} from '../../../../../components';
 import {styles} from '../components';
-import {
-  validateEmailFormat,
-  getFirstNameLastname,
-} from '../../../../../helpers/helpers';
+import {validateEmailFormat} from '../../../../../helpers/helpers';
 
 type Props = {
   onClose: () => void;
@@ -52,6 +49,11 @@ export default (props: Props) => {
       setEmail(txt);
       setValidMail(false);
     }
+  };
+
+  const changeNumber = (text: string) => {
+    let number = text.replace(/[^0-9]/g, '');
+    setMobileNumber(number);
   };
 
   const onSave = () => {
@@ -100,8 +102,8 @@ export default (props: Props) => {
         <View style={styles.vertical}>
           <InputText
             placeholder="Phone Number"
-            onChangeText={(text: string) => setMobileNumber(text)}
-            keyboardType="number-pad"
+            onChangeText={(text: string) => changeNumber(text)}
+            keyboardType="numeric"
           />
         </View>
 

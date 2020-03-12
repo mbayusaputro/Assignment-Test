@@ -9,7 +9,7 @@ const Finished = (props: any) => {
   } = props;
   return (
     <View style={{margin: 20}}>
-      <Empty />
+      <Empty {...props} />
     </View>
   );
 };

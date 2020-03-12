@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {HighSafeArea, LoadingBook} from '../../../../../components';
-import {Header} from '../../../../../components/Header';
+import {Header, SubHeader} from '../../../../../components/Header';
 import Content from './Content';
 import {TopUp as Props} from '../../../interface/types';
 import {InteractionManager} from 'react-native';
@@ -63,6 +63,7 @@ export default (props: Props) => {
         callback={onBack}
         content={{id: 'Top Up Setoran', en: 'Top Up Deposit'}}
       />
+      <SubHeader />
       <Content
         balance={oc(profile).balance(0)}
         onSubmit={() => onTopUp(isAmount)}

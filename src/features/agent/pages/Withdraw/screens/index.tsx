@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {HighSafeArea, LoadingBook} from '../../../../../components';
-import {Header} from '../../../../../components/Header';
+import {Header, SubHeader} from '../../../../../components/Header';
 import Content from './Content';
 import {Withdraw as Props} from '../../../interface/types';
 import {InteractionManager} from 'react-native';
@@ -65,6 +65,7 @@ export default (props: Props) => {
         callback={onBack}
         content={{id: 'Permintaan Penarikan', en: 'Withdrawal Request'}}
       />
+      <SubHeader />
       <Content
         balance={oc(profile).commision(0)}
         onSubmit={() => onSubmit()}

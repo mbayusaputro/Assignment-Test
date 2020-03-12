@@ -5,9 +5,11 @@ export interface GlobalProps {
 }
 
 export interface Props extends GlobalProps {
-  onBookingFlight: (payload: object) => Promise<void>;
+  onBookingFlight: (payload: object, token: string) => Promise<void>;
   isLogin: boolean;
   isLoading: boolean;
+  token: string;
+  isProfile: any;
 }
 
 export type HeaderProps = {

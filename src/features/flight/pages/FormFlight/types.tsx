@@ -22,7 +22,6 @@ export type FormProps = {
   OptionTrip: string;
   fieldPress: (payload: any) => void;
   searchFlightPress: () => void;
-  isSearching: boolean;
   fromPressed: () => void;
   toPressed: () => void;
   fromCity: string;

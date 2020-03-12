@@ -1,10 +1,16 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, Alert} from 'react-native';
+import {View, Text, Image, StyleSheet} from 'react-native';
 import {verticalScale, scale} from '../../../../../constants/ScaleUtils';
 import {Button} from '../../../../../components';
 import {HEIGHT_SCREEN, WIDTH_SCREEN} from '../../../../../constants/Dimension';
 
 const NoEmpty = (props: any) => {
+  // Props
+  const {
+    navigation: {navigate},
+    isLogin,
+  } = props;
+
   return (
     <View style={styles.container}>
       <Image
@@ -34,8 +40,8 @@ const NoEmpty = (props: any) => {
         isUpperCase={true}
         fullWidth={true}
         content={{id: 'Order Now', en: 'Order Now'}}
-        onPress={() =>
-          Alert.alert('Attention', 'You want to get promo? Order Now ! ')
+        onPress={
+          isLogin ? () => navigate('Flight') : () => navigate('FormRegister')
         }
       />
     </View>
@@ -48,7 +54,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: HEIGHT_SCREEN - 240,
+    height: HEIGHT_SCREEN - 300,
   },
   button: {
     marginTop: 20,

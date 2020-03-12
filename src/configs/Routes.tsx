@@ -43,6 +43,8 @@ import {
   HolidayItinerary,
   TopUp,
   Withdraw,
+  Report,
+  ReportResult,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -389,6 +391,18 @@ const STACK = createStackNavigator(
     },
     Withdraw: {
       screen: Withdraw,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Report: {
+      screen: Report,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ReportResult: {
+      screen: ReportResult,
       navigationOptions: {
         header: null,
       },

@@ -66,7 +66,8 @@ const ResultFlight = (props: Props) => {
   };
 
   const toDetail = (item: object) => {
-    navigate('DetailFlight', item);
+    let data = params.date_return !== '' ? result : null;
+    navigate('DetailFlight', {item, params, data, departure_flight: null});
   };
 
   return (

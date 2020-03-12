@@ -13,6 +13,14 @@ const Orders = (props: Props) => {
   // State
   const [data, setData] = React.useState([]);
 
+  // Props
+  const {
+    isLogin,
+    token,
+    actionFlightsOrderHistory,
+    navigation: {navigate},
+  } = props;
+
   // Life Cycle
   React.useEffect(() => {
     if (data.length === 0) {
@@ -22,7 +30,6 @@ const Orders = (props: Props) => {
 
   // Function
   const getDataOrder = () => {
-    const {isLogin, token, actionFlightsOrderHistory} = props;
     if (isLogin) {
       actionFlightsOrderHistory(token).then((res: any) => {
         if (res.type === 'FLIGHTORDERHISTORY_SUCCESS') {
@@ -52,9 +59,6 @@ const Orders = (props: Props) => {
 
   // OnSelected Order to OrderDetail
   const onSelectOrder = (item: any) => {
-    const {
-      navigation: {navigate},
-    } = props;
     navigate('FlightOrderDetail', {itemSelected: item});
   };
 
@@ -67,7 +71,7 @@ const Orders = (props: Props) => {
           {...props}
           title="Active"
           // dataOrder={oc(dataFlightOrder(data))(new Array(0))}
-          dataOrder={data}
+          dataOrder={isLogin ? data : []}
           onSelected={(item: any) => onSelectOrder(item)}
           onRefresh={getDataOrder}
           loading={props.fetchOrder}

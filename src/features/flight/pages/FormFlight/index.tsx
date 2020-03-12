@@ -12,7 +12,6 @@ import moment from 'moment';
 import {Props} from './types';
 import {HighSafeArea} from '../../../../components';
 import {connect} from 'react-redux';
-import {Dispatch, bindActionCreators} from 'redux';
 import {getAddon} from '../../../../reduxs/holiday/selector';
 
 const FormFlight = (props: Props) => {
@@ -31,7 +30,6 @@ const FormFlight = (props: Props) => {
   } = props;
 
   const [optionTrip, setoptionTrip] = useState('oneway');
-  const [isSearching, setSearching] = useState(false);
   const [isSearchVisible, setSearchVisible] = useState(false);
   const [isCalendarVisible, setCalendarVisible] = useState(false);
   const [isCalendar1Visible, setCalendar1Visible] = useState(false);
@@ -91,6 +89,9 @@ const FormFlight = (props: Props) => {
 
   handleSelectDate = (date: any) => {
     setDate(date);
+    setDateReturn(
+      new Date(new Date(date).setDate(new Date(date).getDate() + 1)),
+    );
     setCalendarVisible(!isCalendarVisible);
   };
 
@@ -122,7 +123,6 @@ const FormFlight = (props: Props) => {
   };
 
   handleSearchFlight = () => {
-    setSearching(true);
     let payload = {
       from: isFrom,
       to: isTo,
@@ -134,10 +134,7 @@ const FormFlight = (props: Props) => {
       passenger: isPassenger,
       cabin_class: isClass,
     };
-    setTimeout(() => {
-      setSearching(false);
-      navigate('ResultFlight', payload);
-    }, 500);
+    navigate('ResultFlight', payload);
   };
 
   return (
@@ -145,7 +142,6 @@ const FormFlight = (props: Props) => {
       <Header goBack={onBack} />
       <ScrollView>
         <Form
-          isSearching={isSearching}
           OptionTripPress={handleOptionTripPress}
           OptionTrip={optionTrip}
           fieldPress={handleFieldPress}

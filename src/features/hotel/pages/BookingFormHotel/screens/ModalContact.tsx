@@ -40,6 +40,11 @@ export default (props: Props) => {
     }
   };
 
+  const changeNumber = (text: string) => {
+    let number = text.replace(/[^0-9]/g, '');
+    setMobileNumber(number);
+  };
+
   const onSave = () => {
     let payload = {
       salutation,
@@ -81,27 +86,24 @@ export default (props: Props) => {
             </Picker>
           </View>
           <View style={{width: '75%'}}>
-            <Text content={{id: 'Nama Lengkap', en: 'Fullname'}} />
             <InputText
-              placeholder=""
+              placeholder="Fullname"
               onChangeText={(text: any) => setFullname(text)}
             />
           </View>
         </View>
 
         <View>
-          <Text content={{id: 'Nomor Handphone', en: 'Mobile Number'}} />
           <InputText
-            placeholder=""
-            onChangeText={(text: string) => setMobileNumber(text)}
-            keyboardType="number-pad"
+            placeholder="Phone Number"
+            onChangeText={(text: string) => changeNumber(text)}
+            keyboardType="numeric"
           />
         </View>
 
         <View>
-          <Text content={{id: 'Alamat Email', en: 'Email Address'}} />
           <InputText
-            placeholder=""
+            placeholder="Email Address"
             onChangeText={(text: string) => changeEmail(text)}
             keyboardType="email-address"
             autoCapitalize="none"

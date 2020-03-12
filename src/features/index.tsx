@@ -48,6 +48,8 @@ import {PaymentMethod, PaymentWeb, ETicket} from './payment';
 // Agent
 import Withdraw from './agent/pages/Withdraw';
 import TopUp from './agent/pages/TopUp';
+import Report from './agent/pages/Report';
+import ReportResult from './agent/pages/ResultReport';
 
 export {
   Home,
@@ -89,4 +91,6 @@ export {
   HolidayItinerary,
   Withdraw,
   TopUp,
+  Report,
+  ReportResult,
 };

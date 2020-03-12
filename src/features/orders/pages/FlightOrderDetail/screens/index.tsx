@@ -20,9 +20,9 @@ export default (props: Props) => {
     } = props;
     goBack();
   };
+  const itemSelected = getParam('itemSelected');
 
   // Main Render
-  const itemSelected = getParam('itemSelected');
   const departure = oc(
     itemSelected,
   ).flight_data[0].flight_info.detail[0].departure_city_name('Not Found');

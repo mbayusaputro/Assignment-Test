@@ -35,7 +35,7 @@ export default (props: Props) => {
       </Touch>
       <Text
         style={styles.textTitle}
-        content={{id: '', en: 'Select top up ammount'}}
+        content={{id: 'Pilih Jumlah Top Up', en: 'Select top up ammount'}}
       />
       <Touch onPress={modalSelect}>
         <Card style={styles.cardPd}>

@@ -1,66 +1,59 @@
 import {Platform} from 'react-native';
 import axios from 'axios';
 
-const URL: string = 'https://api.aeroaja.com/v1/';
+const URL: string = 'https://apidev.aeroaja.com/v1/';
 
 const appSource = Platform.OS === 'ios' ? 'APP_IOS' : 'APP_AND';
 
-// HANDLE RESPONSE API
-const handleResponse = (response: Response) => {
-  return response.text().then((text: string) => {
-    const data = text && JSON.parse(text);
-    return data;
-  });
-};
-
 // ====================== PROFILE ======================
-// export async function signIn(payload: object) {
-//   const uri: string = `${URL}customers/login`;
-//   const response = await axios.post(uri, payload).then(res => res.data);
-//   return response;
-// }
-
 export async function signIn(payload: object) {
   const uri: string = `${URL}customers/login`;
-  const config = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify(payload),
-  };
-  const response = await fetch(uri, config);
-  return handleResponse(response);
+  const response = await axios
+    .post(uri, payload)
+    .then(res => res.data)
+    .catch(err => err.response.data);
+  return response;
 }
 
 export async function signUp(payload: object, applyType: string, type: string) {
   const uri: string = `${URL}customers/${applyType}?by=${type}`;
-  const response = await axios.post(uri, payload).then(res => res.data);
+  const response = await axios
+    .post(uri, payload)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 
 export async function signUpLast(payload: object) {
   const uri: string = `${URL}customers/register`;
-  const response = await axios.post(uri, payload).then(res => res.data);
+  const response = await axios
+    .post(uri, payload)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 
-// export async function profile(token: string) {
-//   const uri: string = `${URL}customers/me`;
-//   const config = {
-//     headers: {Authorization: `bearer ${token}`},
-//   };
-//   const response = await axios.get(uri, config).then(res => res.data);
-//   return response;
-// }
+export async function profile(token: string) {
+  const uri: string = `${URL}customers/me`;
+  const config = {
+    headers: {Authorization: `bearer ${token}`},
+  };
+  const response = await axios
+    .get(uri, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
+  return response;
+}
 
 export async function updateProfile(token: string, payload: object) {
   const uri: string = `${URL}customers/me`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
   };
-  const response = await axios.put(uri, payload, config).then(res => res.data);
+  const response = await axios
+    .put(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 
@@ -69,13 +62,19 @@ export async function changePasswordUser(token: string, payload: object) {
   const config = {
     headers: {Authorization: `bearer ${token}`},
   };
-  const response = await axios.post(uri, payload, config).then(res => res.data);
+  const response = await axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 
 export async function forgotPassword(type: string, payload: object) {
   const uri: string = `${URL}customers/forgot-${type}`;
-  const response = await axios.post(uri, payload).then(res => res.data);
+  const response = await axios
+    .post(uri, payload)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 // ====================== PROFILE ======================
@@ -83,7 +82,10 @@ export async function forgotPassword(type: string, payload: object) {
 // ====================== MASTER ======================
 export async function listCountry() {
   const uri: string = `${URL}master/country?limit=300`;
-  const response = await axios.get(uri).then(res => res.data);
+  const response = await axios
+    .get(uri)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 // ====================== MASTER ======================
@@ -94,7 +96,10 @@ export async function orderHistoryFlight(token: string) {
   const config = {
     headers: {Authorization: `bearer ${token}`},
   };
-  const response = await axios.get(uri, config).then(res => res.data);
+  const response = await axios
+    .get(uri, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 // ====================== ORDER HISTORY ======================
@@ -105,16 +110,26 @@ export async function getFlight(payload: object) {
   const config = {
     headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},
   };
-  const response = await axios.post(uri, payload, config).then(res => res.data);
+  const response = await axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 
-export async function bookingFlight(payload: object) {
+export async function bookingFlight(payload: object, token: string) {
   const uri: string = `${URL}gateway/flights/booking`;
   const config = {
-    headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},
+    headers: {
+      'X-Platform-Source': appSource,
+      'X-SAI-Source': 'ASITAAJA',
+      Authorization: `bearer ${token}`,
+    },
   };
-  const response = await axios.post(uri, payload, config).then(res => res.data);
+  const response = await axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 // ====================== FLIGHT ======================
@@ -123,34 +138,53 @@ export async function bookingFlight(payload: object) {
 export async function listDestinationHotel(payload: object) {
   // const uri: string = `${HOTEL_BEDS}/search-destination`;
   const uri: string = `https://api-gateway-flight-dev.aeroaja.com/search-destination`;
-  const response = await axios.post(uri, payload).then(res => res.data);
+  const response = await axios
+    .post(uri, payload)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 
 export async function searchHotel(payload: object) {
   // const uri: string = `https://api-gateway-hotel-dev.aeroaja.com/apihotel/search`;
   const uri: string = `${URL}gateway/traveloka/search-hotel`;
-  const response = await axios.post(uri, payload).then(res => res.data);
+  const response = await axios
+    .post(uri, payload)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 
-export async function bookingHotel(payload: object) {
+export async function bookingHotel(payload: object, token: string) {
   // const beds = `${URL}gateway/beds`;
   // const uri: string = `${beds}/booking`;
   const uri: string = `${URL}gateway/traveloka/booking`;
-  const response = await axios.post(uri, payload).then(res => res.data);
+  const config = {
+    headers: {
+      'X-Platform-Source': appSource,
+      'X-SAI-Source': 'ASITAAJA',
+      Authorization: `bearer ${token}`,
+    },
+  };
+  const response = await axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 // ====================== HOTEL ======================
 
 // ====================== HOLIDAY ======================
 export async function holidayList(token: string) {
-  const uri: string = `https://apigateway-packagetour-dev.asitaaja.com/api/v1/tour-populars`;
+  const uri: string = `https://apigateway-packagetour-dev.asitaaja.com/api/v1/tours?sort=id`;
   // const uri: string = `${URL}tours?type=popular`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
   };
-  const response = await axios.get(uri, config).then(res => res.data);
+  const response = await axios
+    .get(uri, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 export async function holidayDetail(token: string, id: number) {
@@ -159,13 +193,26 @@ export async function holidayDetail(token: string, id: number) {
   const config = {
     headers: {Authorization: `bearer ${token}`},
   };
-  const response = await axios.get(uri, config).then(res => res.data);
+  const response = await axios
+    .get(uri, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
-export const holidayBooking = (id: any, payload: object) => {
+export const holidayBooking = (payload: object, token: string) => {
   const uri: string = `https://apigateway-tourpackage-dev.asitaaja.com/api/v1/travel-packages`;
   // const uri: string = `${URL}tours/${id}/booking`;
-  const response = axios.post(uri, payload).then(res => res.data);
+  const config = {
+    headers: {
+      'X-Platform-Source': appSource,
+      'X-SAI-Source': 'ASITAAJA',
+      Authorization: `bearer ${token}`,
+    },
+  };
+  const response = axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 };
 // ====================== HOLIDAY ======================
@@ -176,7 +223,10 @@ export async function paymentMidtrans(payload: object) {
   const config = {
     headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},
   };
-  const response = await axios.post(uri, payload, config).then(res => res.data);
+  const response = await axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 
@@ -185,7 +235,10 @@ export async function checkPaymentMidtrans(trx_id: string, type: string) {
   const config = {
     headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},
   };
-  const response = await axios.get(uri, config).then(res => res.data);
+  const response = await axios
+    .get(uri, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 // ====================== PAYMENT ======================
@@ -196,7 +249,10 @@ export async function topUp(payload: object, token: string) {
   const config = {
     headers: {Authorization: `bearer ${token}`},
   };
-  const response = await axios.post(uri, payload, config).then(res => res.data);
+  const response = await axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 export async function withdrawRequest(payload: object, token: string) {
@@ -204,7 +260,10 @@ export async function withdrawRequest(payload: object, token: string) {
   const config = {
     headers: {Authorization: `bearer ${token}`},
   };
-  const response = await axios.post(uri, payload, config).then(res => res.data);
+  const response = await axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => err.response.data);
   return response;
 }
 // ====================== AGENT ======================

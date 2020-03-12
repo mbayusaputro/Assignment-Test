@@ -14,6 +14,9 @@ type Props = {
 };
 
 const Active = (props: Props) => {
+  // Props
+  const {loading, dataOrder, onRefresh, onSelected} = props;
+
   // Flatlist Conf
   const keyExtractor = (__: any, index: number) => index.toString();
 
@@ -44,25 +47,22 @@ const Active = (props: Props) => {
         price={oc(item).total_amount(0)}
         statusPayment={item.status}
         isReturn={isReturn}
-        onPress={() => props.onSelected(item)}
+        onPress={() => onSelected(item)}
       />
     );
   };
-  const renderLoad = ({item, index}) => <Loading key={index} />;
+  const renderLoad = () => <Loading />;
 
   // Main Render
   return (
     <FlatList
-      data={props.loading ? [1, 2, 3, 4] : props.dataOrder}
+      data={loading ? [] : dataOrder}
       keyExtractor={keyExtractor}
-      renderItem={props.loading ? renderLoad : renderItem}
+      renderItem={renderItem}
       refreshControl={
-        <RefreshControl
-          refreshing={props.loading}
-          onRefresh={props.onRefresh}
-        />
+        <RefreshControl refreshing={loading} onRefresh={onRefresh} />
       }
-      ListEmptyComponent={<Empty />}
+      ListEmptyComponent={loading ? renderLoad : <Empty {...props} />}
       style={{paddingVertical: 20}}
       contentContainerStyle={{paddingBottom: 200}}
       maxToRenderPerBatch={20}

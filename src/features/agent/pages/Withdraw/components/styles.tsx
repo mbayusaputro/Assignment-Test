@@ -13,7 +13,7 @@ export default StyleSheet.create({
     backgroundColor: Color.backWhite,
   },
   container: {
-    // marginTop: -50,
+    marginTop: -55,
     padding: 20,
   },
   rowBetween: {
@@ -31,13 +31,6 @@ export default StyleSheet.create({
     paddingTop: 7.33,
     paddingBottom: 8.3,
     marginBottom: 16,
-  },
-  cardPd: {
-    paddingVertical: 21,
-    paddingHorizontal: 26.33,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
 
   // Text

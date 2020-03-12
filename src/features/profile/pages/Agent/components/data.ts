@@ -20,7 +20,7 @@ export const dataAgent = [
   },
   {
     title: {id: 'Laporan', en: 'Report'},
-    target: 'Order',
+    target: 'Report',
   },
   {
     title: {id: 'Keamanan & Kata Sandi', en: 'Password & Security'},

@@ -7,8 +7,31 @@ import {moneyFormat} from '../../../../helpers/helpers';
 
 const Finished = (props: any) => {
   const {
-    navigation: {navigate, state},
+    navigation: {navigate, getParam},
   } = props;
+
+  // Function
+  const item = getParam('item');
+  const params = getParam('params');
+  const result = getParam('data');
+  const dept_flight = getParam('departure_flight');
+
+  const toSelect = (item: object) => {
+    if (result !== null) {
+      navigate('ResultFlightReturn', {
+        departure_flight: item,
+        params,
+        result,
+      });
+    } else {
+      navigate('BookingFlight', {
+        departure_flight: dept_flight !== null ? dept_flight : item,
+        return_flight: dept_flight !== null ? item : null,
+        params,
+      });
+    }
+  };
+
   return (
     <View style={{height: HEIGHT_SCREEN - 150}}>
       <ScrollView style={{margin: 20}} showsVerticalScrollIndicator={false}>
@@ -19,7 +42,7 @@ const Finished = (props: any) => {
         <View style={styles.bot}>
           <Text style={styles.regular}>Adult(x1)</Text>
           <Text style={styles.semibold}>
-            Rp {moneyFormat(state.params.price_adult)}
+            Rp {moneyFormat(item.price_adult)}
           </Text>
         </View>
         <View
@@ -52,7 +75,7 @@ const Finished = (props: any) => {
         <View style={styles.boto}>
           <Text style={{fontFamily: 'NunitoSans-Bold'}}>Total Payment</Text>
           <Text style={{fontFamily: 'NunitoSans-Bold', color: Color.orange}}>
-            Rp {moneyFormat(state.params.price_adult)}
+            Rp {moneyFormat(item.price_adult)}
           </Text>
         </View>
         <Button
@@ -62,7 +85,7 @@ const Finished = (props: any) => {
           isUpperCase={true}
           fullWidth={true}
           content={{id: 'Select Flight', en: 'Select Flight'}}
-          onPress={() => Alert.alert('Warning', 'Please check your email!')}
+          onPress={() => toSelect(item)}
         />
       </View>
     </View>

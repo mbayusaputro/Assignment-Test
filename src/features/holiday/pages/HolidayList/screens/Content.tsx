@@ -48,7 +48,7 @@ export default () => {
           activeOpacity={0.5}
           style={styles.img}>
           <Imaging
-            source={{uri: item.image}}
+            source={{uri: item.image_thumbnail}}
             style={styles.img}
             resizeMode="cover"
           />
@@ -61,8 +61,8 @@ export default () => {
           <View style={{width: '65%'}}>
             <View>
               <Text style={styles.textTitle}>
-                {item.tour.title.slice(0, 13) +
-                  (item.tour.title.length > 11 ? '...' : '')}
+                {item.title.slice(0, 13) +
+                  (item.title.length > 11 ? '...' : '')}
               </Text>
             </View>
             <View style={[styles.row, styles.vertical]}>
@@ -75,8 +75,8 @@ export default () => {
               <Text
                 style={styles.textSubTitle}
                 content={{
-                  id: `${item.tour.duration_days} hari, ${item.tour.duration_night} malam`,
-                  en: `${item.tour.duration_days} day, ${item.tour.duration_night} night`,
+                  id: `${item.duration_days} hari, ${item.duration_night} malam`,
+                  en: `${item.duration_days} day, ${item.duration_night} night`,
                 }}
               />
             </View>
@@ -84,7 +84,7 @@ export default () => {
               <Text style={styles.textSubTitle} content={start_from} />
               <Text style={styles.textPrice}>
                 Rp
-                {moneyFormat(item.tour.price_adult)}
+                {moneyFormat(item.price_adult)}
               </Text>
             </View>
           </View>

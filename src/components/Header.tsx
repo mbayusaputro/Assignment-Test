@@ -111,9 +111,9 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     width: '100%',
-    height: normalize(50, 'height'),
+    height: normalize(40, 'height'),
     backgroundColor: Color.marineBlue,
-    borderBottomStartRadius: 100,
+    borderBottomStartRadius: 40,
   },
 
   // Text

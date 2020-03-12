@@ -6,7 +6,6 @@ import {moneyFormat} from '../../../../../helpers/helpers';
 
 const Card = (form: string, titleForm: string, date: string, props: any) => {
   const {departure, returns, data} = props;
-  console.log(data.infant.length);
   return (
     <View>
       {date !== '1' ? (

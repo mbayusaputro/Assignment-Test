@@ -36,6 +36,11 @@ export default (props: ModalProps) => {
     }
   };
 
+  const changeNumber = (text: string) => {
+    let number = text.replace(/[^0-9]/g, '');
+    setMobileNumber(number);
+  };
+
   const onSave = () => {
     let payload = {
       salutation,
@@ -93,8 +98,8 @@ export default (props: ModalProps) => {
             <InputText
               style={{borderRadius: 5, borderColor: Color.labelgray}}
               placeholder="Phone Number"
-              onChangeText={(text: any) => setMobileNumber(text)}
-              keyboardType="email-address"
+              onChangeText={(text: any) => changeNumber(text)}
+              keyboardType="numeric"
               autoCapitalize="none"
               value={mobileNumber}
             />

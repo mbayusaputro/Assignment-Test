@@ -13,7 +13,6 @@ const Form = (props: FormProps) => {
     OptionTrip,
     fieldPress,
     searchFlightPress,
-    isSearching,
     fromPressed,
     toPressed,
     fromCity,
@@ -69,22 +68,14 @@ const Form = (props: FormProps) => {
         label="Cabin Class"
         fieldValue={cabinClass}
       />
-      {isSearching ? (
-        <ActivityIndicator
-          size="large"
-          color={Color.red}
-          style={{marginTop: 20}}
-        />
-      ) : (
-        <Button
-          customStyle={{marginVertical: 20, borderRadius: 20}}
-          type="primary"
-          fullWidth={true}
-          isUpperCase={true}
-          content={{id: 'Search Flight', en: 'Search Flight'}}
-          onPress={searchFlightPress}
-        />
-      )}
+      <Button
+        customStyle={{marginVertical: 20, borderRadius: 20}}
+        type="primary"
+        fullWidth={true}
+        isUpperCase={true}
+        content={{id: 'Search Flight', en: 'Search Flight'}}
+        onPress={searchFlightPress}
+      />
     </View>
   );
 };

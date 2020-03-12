@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, Alert} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {oc} from 'ts-optchain';
 import {Header, SubHeader} from './components';
 import {Color} from '../../../../constants/Color';
@@ -11,7 +11,11 @@ import {actionBookingFlight} from '../../../../reduxs/flight/action';
 import {AppState} from '../../../../reduxs/reducers';
 import {Props} from './types';
 import {LoadingBook, AlertModal, LoginModal} from '../../../../components';
-import {getIsLogin} from '../../../../reduxs/profile/selector';
+import {
+  getIsLogin,
+  getToken,
+  getProfile,
+} from '../../../../reduxs/profile/selector';
 import {
   generateStatePassenger,
   generatePayloadPassenger,
@@ -22,8 +26,11 @@ const Booking = (props: Props) => {
     navigation: {state, goBack},
     onBookingFlight,
     isLoading,
+    token,
+    isProfile,
   } = props;
   const {departure_flight, return_flight, params} = state.params;
+
   // State
   const [active, setActive] = useState(false);
   const [isVisible, setVisible] = useState(false);
@@ -248,17 +255,19 @@ const Booking = (props: Props) => {
               passengers: adult.concat(child).concat(infant),
             },
           };
-          onBookingFlight(payload).then((res: any) => {
+          onBookingFlight(payload, token).then((res: any) => {
             if (res.type === 'BOOKING_FLIGHT_SUCCESS') {
               const dataParam = {
                 data: res.data.data,
                 partner_trxid: res.data.partner_trxid,
                 total: res.data.total,
               };
-              onNavigate('PaymentMethod', dataParam);
+              isProfile && isProfile.isAgent
+                ? onNavigate('ETicket')
+                : onNavigate('PaymentMethod', dataParam);
             } else {
+              setEerrorMessageServer(res.message);
               setTimeout(() => {
-                setEerrorMessageServer(res.message);
                 setOtherModal(404);
               }, 500);
             }
@@ -378,12 +387,15 @@ const Default = (props: any) => {
 const mapStateToProps = (state: AppState) => ({
   isLoading: state.flight.fetchBooking,
   isLogin: getIsLogin(state),
+  token: getToken(state),
+  isProfile: getProfile(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      onBookingFlight: (payload: object) => actionBookingFlight(payload),
+      onBookingFlight: (payload: object, token: string) =>
+        actionBookingFlight(payload, token),
     },
     dispatch,
   );
