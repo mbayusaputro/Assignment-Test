@@ -25,6 +25,7 @@ import {
 import {dataFacility} from '../components/data';
 import {starLength} from '../../../../../helpers/helpers';
 import {Color} from '../../../../../constants/Color';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 
 type Props = {
   titleHotel: string;
@@ -143,7 +144,7 @@ export default (props: Props) => {
 
           {/* LOCATION */}
           <View style={styles.vertical}>
-            <View style={styles.content}>
+            {/* <View style={styles.content}>
               <View>
                 <Text style={styles.textBlue} content={locationLang} />
               </View>
@@ -155,8 +156,21 @@ export default (props: Props) => {
                 />
                 <Text style={styles.textSubTitle}>{props.location}</Text>
               </View>
-            </View>
+            </View> */}
             <Touch style={[styles.map, styles.vertical]} activeOpacity={0.75}>
+              {/* <MapView
+                provider={PROVIDER_GOOGLE}
+                initialRegion={{
+                  latitude: 37.78825,
+                  longitude: -122.4324,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }}
+              >
+                <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+                  title={'marker.title'}
+                  description={'marker.description'} />
+              </MapView> */}
               <Text>MAPS</Text>
             </Touch>
             <View style={[styles.rowBetween, {marginTop: -35}]}>

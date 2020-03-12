@@ -25,14 +25,8 @@ import {
   CHANGEPASSWORDUSER_SUCCESS,
   CHANGEPASSWORDUSER_FAILED,
   FORGOTPASS,
-  FORGOTPASS2,
-  FORGOTPASS3,
   FORGOTPASS_SUCCESS,
-  FORGOTPASS2_SUCCESS,
-  FORGOTPASS3_SUCCESS,
   FORGOTPASS_FAILED,
-  FORGOTPASS2_FAILED,
-  FORGOTPASS3_FAILED,
 } from './types';
 import {
   signIn,
@@ -52,8 +46,6 @@ const signUp3 = 'signUpp3';
 const updateProfileType = 'updateProfileType';
 const changePassUserType = 'changePassUserType';
 const forgotPassType1 = 'forgotPassType1';
-const forgotPassType2 = 'forgotPassType2';
-const forgotPassType3 = 'forgotPassType3';
 
 const requestState = (type: string) => {
   if (type === signInType) {
@@ -87,14 +79,6 @@ const requestState = (type: string) => {
   } else if (type === forgotPassType1) {
     return {
       type: FORGOTPASS,
-    };
-  } else if (type === forgotPassType2) {
-    return {
-      type: FORGOTPASS2,
-    };
-  } else if (type === forgotPassType3) {
-    return {
-      type: FORGOTPASS3,
     };
   }
 };
@@ -148,18 +132,6 @@ const successState = (type: string, data: any, payload: any) => {
       data,
       payload,
     };
-  } else if (type === forgotPassType2) {
-    return {
-      type: FORGOTPASS2_SUCCESS,
-      data,
-      payload,
-    };
-  } else if (type === forgotPassType3) {
-    return {
-      type: FORGOTPASS3_SUCCESS,
-      data,
-      payload,
-    };
   }
 };
 
@@ -200,21 +172,15 @@ const failedState = (type: string, message: any, payload: any) => {
       message,
       payload,
     };
+  } else if (type === changePassUserType) {
+    return {
+      type: CHANGEPASSWORDUSER_FAILED,
+      message,
+      payload,
+    };
   } else if (type === forgotPassType1) {
     return {
       type: FORGOTPASS_FAILED,
-      message,
-      payload,
-    };
-  } else if (type === forgotPassType2) {
-    return {
-      type: FORGOTPASS2_FAILED,
-      message,
-      payload,
-    };
-  } else if (type === forgotPassType3) {
-    return {
-      type: FORGOTPASS3_FAILED,
       message,
       payload,
     };
@@ -345,36 +311,6 @@ export const actionForgotPassword = (type: string, payload: object) => {
       return dispatch(failedState(forgotPassType1, res.message, payload));
     } catch (err) {
       return dispatch(failedState(forgotPassType1, err.message, payload));
-    }
-  };
-};
-
-export const actionForgotPassword2 = (type: string, payload: object) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(requestState(forgotPassType2));
-    try {
-      const res = await forgotPassword(type, payload);
-      if (res.success) {
-        return dispatch(successState(forgotPassType2, res.data, payload));
-      }
-      return dispatch(failedState(forgotPassType2, res.message, payload));
-    } catch (err) {
-      return dispatch(failedState(forgotPassType2, err.message, payload));
-    }
-  };
-};
-
-export const actionForgotPassword3 = (type: string, payload: object) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(requestState(forgotPassType2));
-    try {
-      const res = await forgotPassword(type, payload);
-      if (res.success) {
-        return dispatch(successState(forgotPassType2, res.data, payload));
-      }
-      return dispatch(failedState(forgotPassType2, res.message, payload));
-    } catch (err) {
-      return dispatch(failedState(forgotPassType2, err.message, payload));
     }
   };
 };

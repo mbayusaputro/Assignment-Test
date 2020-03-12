@@ -19,7 +19,6 @@ type Props = {
 
 export default (props: Props) => {
   const {pathAsset} = React.useContext(CardContext);
-  console.log(props.dataHotel);
 
   // Flatlist Conf
   const keyExtractor = (__: any, index: number) => index.toString();

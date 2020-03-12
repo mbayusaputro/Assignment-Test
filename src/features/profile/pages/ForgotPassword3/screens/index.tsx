@@ -3,26 +3,26 @@ import {StackActions, NavigationActions, ScrollView} from 'react-navigation';
 import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Content from './Content';
 import Header from './Header';
-import {ForgotPass3Props as Props} from '../../../interface/types';
+import {ForgotPassProps as Props} from '../../../interface/types';
 import {InteractionManager} from 'react-native';
 
 export default (props: Props) => {
   // State
   const [password, setPassword] = React.useState('');
 
+  // Props
+  const {
+    navigation: {goBack, getParam, dispatch},
+    actionForgotPassword,
+    fetchForgotPass,
+  } = props;
+
   // Function
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     InteractionManager.runAfterInteractions(() => goBack());
   };
 
   const onSubmit = () => {
-    const {
-      navigation: {getParam, dispatch},
-      actionForgotPassword3,
-    } = props;
     const data = getParam('data');
     const payload = {
       data: data.data,
@@ -30,8 +30,8 @@ export default (props: Props) => {
       password,
     };
     if (password.length !== 0) {
-      actionForgotPassword3('password-apply', payload).then((res: any) => {
-        if (res.type === 'FORGOTPASS3_SUCCESS') {
+      actionForgotPassword('password-apply', payload).then((res: any) => {
+        if (res.type === 'FORGOTPASS_SUCCESS') {
           dispatch(
             StackActions.reset({
               index: 0,
@@ -48,7 +48,6 @@ export default (props: Props) => {
   };
 
   // Main Render
-  const {fetchForgotPass} = props;
   return (
     <HighSafeArea>
       <Header callback={onBack} />
@@ -56,7 +55,7 @@ export default (props: Props) => {
         <Content
           onChangePassword={(text: string) => setPassword(text)}
           value={password}
-          onSubmit={onSubmit}
+          onSubmit={() => onSubmit()}
           loading={fetchForgotPass}
         />
       </ScrollView>

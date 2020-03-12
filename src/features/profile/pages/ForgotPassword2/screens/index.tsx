@@ -2,13 +2,15 @@ import React from 'react';
 import {InteractionManager, ScrollView} from 'react-native';
 import {HighSafeArea, LoadingBook} from '../../../../../components';
 import Content from './Content';
-import {ForgotPass2Props} from '../../../interface/types';
+import {ForgotPassProps} from '../../../interface/types';
 import Header from './Header';
 
-export default (props: ForgotPass2Props) => {
+export default (props: ForgotPassProps) => {
+  // Props
   const {
-    navigation: {getParam},
+    navigation: {getParam, goBack, navigate},
     fetchForgotPass,
+    actionForgotPassword,
   } = props;
 
   // State
@@ -16,17 +18,10 @@ export default (props: ForgotPass2Props) => {
 
   // Function
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     InteractionManager.runAfterInteractions(() => goBack());
   };
 
   const onSend = () => {
-    const {
-      navigation: {navigate},
-      actionForgotPassword2,
-    } = props;
     const data = getParam('data');
     const payload = {
       data: data.data,
@@ -34,8 +29,8 @@ export default (props: ForgotPass2Props) => {
     };
     const code: string = otp;
     if (code.length === 6) {
-      actionForgotPassword2('password-verified', payload).then((res: any) => {
-        if (res.type === 'FORGOTPASS2_SUCCESS') {
+      actionForgotPassword('password-verified', payload).then((res: any) => {
+        if (res.type === 'FORGOTPASS_SUCCESS') {
           InteractionManager.runAfterInteractions(() => {
             navigate('ForgotPassword3', {data: payload});
           });
@@ -56,7 +51,7 @@ export default (props: ForgotPass2Props) => {
         <Content
           type={getParam('typeNav')}
           onChangeText={(text: string) => setOTP(text)}
-          onSend={onSend}
+          onSend={() => onSend()}
           loading={fetchForgotPass}
         />
       </ScrollView>

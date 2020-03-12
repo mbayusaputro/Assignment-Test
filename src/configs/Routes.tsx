@@ -41,7 +41,7 @@ import {
   HolidayAddon,
   HolidayBooking,
   HolidayItinerary,
-  // TopUp,
+  TopUp,
   Withdraw,
 } from '../features';
 import {Color} from '../constants/Color';
@@ -381,12 +381,12 @@ const STACK = createStackNavigator(
         header: null,
       },
     },
-    // TopUp: {
-    //   screen: TopUp,
-    //   navigationOptions: {
-    //     header: null,
-    //   },
-    // },
+    TopUp: {
+      screen: TopUp,
+      navigationOptions: {
+        header: null,
+      },
+    },
     Withdraw: {
       screen: Withdraw,
       navigationOptions: {

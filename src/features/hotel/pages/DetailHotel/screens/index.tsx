@@ -65,7 +65,7 @@ export default (props: Props) => {
         <Content
           callback={onBack}
           titleHotel={selectedHotel.name}
-          rate={parseInt(selectedHotel.categoryName.split(' ')[1], 0)}
+          rate={parseInt(selectedHotel.categoryName.split(' ')[0], 0)}
           photo={pathAsset + oc(selectedHotel).detail.images[0].path('aw.jpg')}
           accommodationType={oc(selectedHotel).detail.accommodationTypeCode(
             'Hotel',

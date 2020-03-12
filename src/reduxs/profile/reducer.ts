@@ -28,12 +28,6 @@ import {
   FORGOTPASS,
   FORGOTPASS_SUCCESS,
   FORGOTPASS_FAILED,
-  FORGOTPASS2,
-  FORGOTPASS2_SUCCESS,
-  FORGOTPASS2_FAILED,
-  FORGOTPASS3,
-  FORGOTPASS3_SUCCESS,
-  FORGOTPASS3_FAILED,
 } from './types';
 
 const intialState: State = {
@@ -223,7 +217,7 @@ export default (state: State = intialState, action: Action): State => {
         fetchChangePasswordUser: false,
       };
 
-    // ============= FORGOT PASSWORD step 1 =============
+    // ============= FORGOT PASSWORD =============
     case FORGOTPASS:
       return {
         ...state,
@@ -237,44 +231,6 @@ export default (state: State = intialState, action: Action): State => {
       };
 
     case FORGOTPASS_FAILED:
-      return {
-        ...state,
-        fetchForgotPass: false,
-      };
-
-    // ============= FORGOT PASSWORD step 2 =============
-    case FORGOTPASS2:
-      return {
-        ...state,
-        fetchForgotPass: true,
-      };
-
-    case FORGOTPASS2_SUCCESS:
-      return {
-        ...state,
-        fetchForgotPass: false,
-      };
-
-    case FORGOTPASS2_FAILED:
-      return {
-        ...state,
-        fetchForgotPass: false,
-      };
-
-    // ============= FORGOT PASSWORD step 1 =============
-    case FORGOTPASS3:
-      return {
-        ...state,
-        fetchForgotPass: true,
-      };
-
-    case FORGOTPASS3_SUCCESS:
-      return {
-        ...state,
-        fetchForgotPass: false,
-      };
-
-    case FORGOTPASS3_FAILED:
       return {
         ...state,
         fetchForgotPass: false,

@@ -5,11 +5,33 @@ const URL: string = 'https://api.aeroaja.com/v1/';
 
 const appSource = Platform.OS === 'ios' ? 'APP_IOS' : 'APP_AND';
 
+// HANDLE RESPONSE API
+const handleResponse = (response: Response) => {
+  return response.text().then((text: string) => {
+    const data = text && JSON.parse(text);
+    return data;
+  });
+};
+
 // ====================== PROFILE ======================
+// export async function signIn(payload: object) {
+//   const uri: string = `${URL}customers/login`;
+//   const response = await axios.post(uri, payload).then(res => res.data);
+//   return response;
+// }
+
 export async function signIn(payload: object) {
   const uri: string = `${URL}customers/login`;
-  const response = await axios.post(uri, payload).then(res => res.data);
-  return response;
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(payload),
+  };
+  const response = await fetch(uri, config);
+  return handleResponse(response);
 }
 
 export async function signUp(payload: object, applyType: string, type: string) {
@@ -24,14 +46,14 @@ export async function signUpLast(payload: object) {
   return response;
 }
 
-export async function profile(token: string) {
-  const uri: string = `${URL}customers/me`;
-  const config = {
-    headers: {Authorization: `bearer ${token}`},
-  };
-  const response = await axios.get(uri, config).then(res => res.data);
-  return response;
-}
+// export async function profile(token: string) {
+//   const uri: string = `${URL}customers/me`;
+//   const config = {
+//     headers: {Authorization: `bearer ${token}`},
+//   };
+//   const response = await axios.get(uri, config).then(res => res.data);
+//   return response;
+// }
 
 export async function updateProfile(token: string, payload: object) {
   const uri: string = `${URL}customers/me`;
@@ -167,3 +189,22 @@ export async function checkPaymentMidtrans(trx_id: string, type: string) {
   return response;
 }
 // ====================== PAYMENT ======================
+
+// ====================== AGENT ======================
+export async function topUp(payload: object, token: string) {
+  const uri: string = `${URL}payment/agents/top-up`;
+  const config = {
+    headers: {Authorization: `bearer ${token}`},
+  };
+  const response = await axios.post(uri, payload, config).then(res => res.data);
+  return response;
+}
+export async function withdrawRequest(payload: object, token: string) {
+  const uri: string = `${URL}customers/withdrawal`;
+  const config = {
+    headers: {Authorization: `bearer ${token}`},
+  };
+  const response = await axios.post(uri, payload, config).then(res => res.data);
+  return response;
+}
+// ====================== AGENT ======================

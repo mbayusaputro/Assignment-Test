@@ -14,7 +14,8 @@ import {
   getProfile,
   getFetchProfile,
 } from '../../reduxs/profile/selector';
-import {SignIn, MyProfile} from './pages/Profile';
+import {SignIn, MyProfile, Agent} from './pages/Profile';
+import {oc} from 'ts-optchain';
 
 const mapStateToProps = (state: any) => ({
   isLogin: getIsLogin(state),
@@ -36,8 +37,17 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   );
 
 const Default = (props: any) => {
-  const {isLogin} = props;
-  return isLogin ? <MyProfile {...props} /> : <SignIn {...props} />;
+  const {isLogin, profile} = props;
+  // return isLogin ? <MyProfile {...props} /> : <SignIn {...props} />;
+  return isLogin ? (
+    profile && profile.isAgent ? (
+      <Agent {...props} />
+    ) : (
+      <MyProfile {...props} />
+    )
+  ) : (
+    <SignIn {...props} />
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Default);

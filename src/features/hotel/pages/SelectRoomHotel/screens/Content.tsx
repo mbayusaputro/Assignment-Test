@@ -16,14 +16,26 @@ type Props = {
 };
 
 export default (props: Props) => {
+  // Props
+  const {
+    dataFilter,
+    dataRoom,
+    selectFilter,
+    selectedFilter,
+    onBookRoom,
+    onDetailRoom,
+    path,
+    detailHotel,
+  } = props;
+
   // Flatlist
   const keyExtractor = (__: any, index: number) => index.toString();
   const renderItem = ({item, index}: any) => {
     const getImage = (code: any) => {
-      const images = props.detailHotel.images;
-      const rooms = props.dataRoom;
+      const images = detailHotel.images;
+      const rooms = dataRoom;
       const roomImage = groupingRoomImages(images, rooms, code);
-      return props.path + roomImage;
+      return path + roomImage;
     };
     return (
       <Card
@@ -33,19 +45,19 @@ export default (props: Props) => {
         maxGuest={item.rates[0].allotment}
         facility={[]}
         price={item.rates[0].net}
-        onDetailRoom={() => props.onDetailRoom(item)}
-        onBookRoom={() => props.onBookRoom(item)}
+        onDetailRoom={() => onDetailRoom(item)}
+        onBookRoom={() => onBookRoom(item)}
       />
     );
   };
   const renderFilter = ({item, index}: any) => (
     <Touch
       key={index}
-      onPress={() => props.selectFilter(item, index)}
+      onPress={() => selectFilter(item, index)}
       activeOpacity={0.5}
       style={[
         styles.cardFilter,
-        props.selectedFilter === item ? styles.cardSelected : null,
+        selectedFilter === item ? styles.cardSelected : null,
       ]}>
       <Text>{item}</Text>
     </Touch>
@@ -55,7 +67,7 @@ export default (props: Props) => {
   return (
     <View style={styles.content}>
       <FlatList
-        data={props.dataFilter}
+        data={dataFilter}
         keyExtractor={keyExtractor}
         renderItem={renderFilter}
         horizontal={true}
@@ -64,7 +76,7 @@ export default (props: Props) => {
       />
       <View style={styles.hr} />
       <FlatList
-        data={props.dataRoom}
+        data={dataRoom}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         contentContainerStyle={{paddingBottom: 300}}

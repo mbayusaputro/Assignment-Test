@@ -39,15 +39,15 @@ export interface ForgotPassProps extends Props {
   actionForgotPassword: (type: string, payload: object) => Promise<void>;
 }
 
-export interface ForgotPass2Props extends Props {
-  fetchForgotPass: boolean;
-  actionForgotPassword2: (type: string, payload: object) => Promise<void>;
-}
+// export interface ForgotPass2Props extends Props {
+//   fetchForgotPass: boolean;
+//   actionForgotPassword2: (type: string, payload: object) => Promise<void>;
+// }
 
-export interface ForgotPass3Props extends Props {
-  fetchForgotPass: boolean;
-  actionForgotPassword3: (type: string, payload: object) => Promise<void>;
-}
+// export interface ForgotPass3Props extends Props {
+//   fetchForgotPass: boolean;
+//   actionForgotPassword3: (type: string, payload: object) => Promise<void>;
+// }
 
 export type MyProfileProps = {
   onLogOut: () => void;
