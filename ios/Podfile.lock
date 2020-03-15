@@ -197,8 +197,6 @@ PODS:
   - React-jsinspector (0.61.2)
   - react-native-image-picker (2.0.0):
     - React
-  - react-native-maps (0.26.1):
-    - React
   - react-native-webview (8.0.6):
     - React
   - React-RCTActionSheet (0.61.2):
@@ -278,7 +276,6 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
-  - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -341,8 +338,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
-  react-native-maps:
-    :path: "../node_modules/react-native-maps"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -400,7 +395,6 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8909917ff7d8f21a57e443a866fd8d4560e50c65
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
   react-native-image-picker: ba7fe85b3373ff33d4827210d989dfcbbd68f7f9
-  react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   react-native-webview: e11b5d7da61ac3acee13f3ae3184d417f773c5d5
   React-RCTActionSheet: 89b037c0fb7d2671607cb645760164e7e0c013f6
   React-RCTAnimation: e3cefa93c38c004c318f7ec04b883eb14b8b8235
@@ -424,4 +418,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 7e5770c4bd3a728026f87765dfbfb1412627686e
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1
