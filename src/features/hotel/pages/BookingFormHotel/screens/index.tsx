@@ -26,6 +26,8 @@ export default (props: Props) => {
     navigation: {getParam, goBack, navigate},
     actionBookHotel,
     loadingBook,
+    token,
+    isProfile,
   } = props;
   const data = getParam('data'); // Data from Selected Room
   const payload = getParam('payload'); // Payload Form Hotel
@@ -109,7 +111,6 @@ export default (props: Props) => {
   const onBook = () => {
     setModal(null);
     setTimeout(() => {
-      setModal(201);
       const payloadBook = {
         code: payload.searchBy.code,
         checkIn: payload.stay.checkIn,
@@ -127,21 +128,20 @@ export default (props: Props) => {
         searchId: 'SRCH-0001',
         amount: data.price * night,
       };
-      actionBookHotel(payloadBook).then((res: any) => {
-        setTimeout(() => {
-          if (res.type === 'BOOK_HOTEL_SUCCESS') {
-            const dataParam = {
-              data: res.data.data,
-              partner_trxid: res.data.bookingCode,
-              total: res.data.amount,
-            };
-            onNavigate(dataParam);
-            setModal(null);
-          } else {
-            alert(res.message);
-            setModal(null);
-          }
-        }, 500);
+      actionBookHotel(payloadBook, token).then((res: any) => {
+        if (res.type === 'BOOK_HOTEL_SUCCESS') {
+          const dataParam = {
+            data: res.data.data,
+            partner_trxid: res.data.bookingCode,
+            total: res.data.amount,
+          };
+          onNavigate(dataParam);
+        } else {
+          setMessage(res.message);
+          setTimeout(() => {
+            setModal(404);
+          }, 500);
+        }
       });
     }, 500);
   };
@@ -196,6 +196,7 @@ export default (props: Props) => {
           <ModalContact
             onClose={() => setModal(null)}
             onSave={(item: any) => setDataContact(item)}
+            costumerID={isProfile !== null ? isProfile.id : null}
           />
         }
       />
@@ -216,7 +217,7 @@ export default (props: Props) => {
       {/* PRICE */}
 
       {/* OTHER MODAL */}
-      <LoadingBook type="flight" isVisible={modal === 201} />
+      <LoadingBook type="flight" isVisible={loadingBook} />
       <AlertModal
         qna={true}
         isVisible={modal === 999}
@@ -225,6 +226,15 @@ export default (props: Props) => {
         btnOk={btnBookOk}
         btnCancel={btnBookCancel}
         onOk={onBook}
+        onDismiss={() => setModal(null)}
+      />
+      <AlertModal
+        isVisible={modal === 404}
+        title={{id: 'Alert', en: 'Alert'}}
+        desc={{id: message, en: message}}
+        btnOk={{id: 'OK', en: 'OK'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
+        onOk={() => setModal(null)}
         onDismiss={() => setModal(null)}
       />
     </HighSafeArea>

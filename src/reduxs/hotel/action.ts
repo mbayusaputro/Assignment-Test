@@ -117,11 +117,11 @@ export const actionSearchHotel = (payload: object) => {
 };
 
 // BOOK HOTEL
-export const actionBookHotel = (payload: object) => {
+export const actionBookHotel = (payload: object, token: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(requestState(bookHot));
     try {
-      const res = await bookingHotel(payload);
+      const res = await bookingHotel(payload, token);
       if (res.status) {
         return dispatch(successState(bookHot, res.data, payload));
       }

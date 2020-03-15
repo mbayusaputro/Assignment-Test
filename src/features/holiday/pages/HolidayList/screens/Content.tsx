@@ -44,7 +44,7 @@ export default () => {
     return (
       <View key={index} style={styles.contentCard}>
         <Touch
-          onPress={() => onDetail(item.id)}
+          onPress={() => onDetail(item)}
           activeOpacity={0.5}
           style={styles.img}>
           <Imaging
