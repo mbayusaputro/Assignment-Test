@@ -50,6 +50,7 @@ export default (props: Props) => {
   const [adultFlight, setAdultFlight] = React.useState([]);
   const [child, setChild] = React.useState([]);
   const [childFlight, setChildFlight] = React.useState([]);
+  const [message, setMessage] = React.useState('');
 
   React.useEffect(() => {
     checkFirst();
@@ -205,6 +206,7 @@ export default (props: Props) => {
               };
               onNavigate('PaymentMethod', dataSend);
             } else {
+              setMessage(res.message);
               setTimeout(() => {
                 setModal(404);
               }, 500);
@@ -303,7 +305,7 @@ export default (props: Props) => {
       <AlertModal
         isVisible={modal === 404}
         title={{id: 'Alert', en: 'Alert'}}
-        desc={{id: 'Terjadi kesalahan', en: 'There is an error'}}
+        desc={{id: message, en: message}}
         btnOk={{id: 'OK', en: 'OK'}}
         btnCancel={{id: 'Batal', en: 'Cancel'}}
         onOk={() => setModal(null)}

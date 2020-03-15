@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
 import axios from 'axios';
 
-const URL: string = 'https://apidev.aeroaja.com/v1/';
+const URL: string = 'https://api.aeroaja.com/v1/';
 
 const appSource = Platform.OS === 'ios' ? 'APP_IOS' : 'APP_AND';
 
@@ -137,7 +137,7 @@ export async function bookingFlight(payload: object, token: string) {
 // ====================== HOTEL ======================
 export async function listDestinationHotel(payload: object) {
   // const uri: string = `${HOTEL_BEDS}/search-destination`;
-  const uri: string = `https://api-gateway-flight-dev.aeroaja.com/search-destination`;
+  const uri: string = `${URL}gateway/traveloka/destination`;
   const response = await axios
     .post(uri, payload)
     .then(res => res.data)
@@ -176,7 +176,7 @@ export async function bookingHotel(payload: object, token: string) {
 
 // ====================== HOLIDAY ======================
 export async function holidayList(token: string) {
-  const uri: string = `https://apigateway-packagetour-dev.asitaaja.com/api/v1/tours?sort=id`;
+  const uri: string = `https://apigateway-packagetour.asitaaja.com/api/v1/tours?sort=id`;
   // const uri: string = `${URL}tours?type=popular`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
@@ -188,7 +188,7 @@ export async function holidayList(token: string) {
   return response;
 }
 export async function holidayDetail(token: string, id: number) {
-  const uri: string = `https://apigateway-packagetour-dev.asitaaja.com/api/v1/tour-populars/${id}`;
+  const uri: string = `https://apigateway-packagetour.asitaaja.com/api/v1/tour-populars/${id}`;
   // const uri: string = `${URL}tours/${id}`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
@@ -200,7 +200,7 @@ export async function holidayDetail(token: string, id: number) {
   return response;
 }
 export const holidayBooking = (payload: object, token: string) => {
-  const uri: string = `https://apigateway-tourpackage-dev.asitaaja.com/api/v1/travel-packages`;
+  const uri: string = `https://apigateway-tourpackage.asitaaja.com/api/v1/travel-packages`;
   // const uri: string = `${URL}tours/${id}/booking`;
   const config = {
     headers: {

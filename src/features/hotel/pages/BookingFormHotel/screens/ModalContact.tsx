@@ -16,10 +16,11 @@ import {dataSalutation} from '../components/data';
 type Props = {
   onClose: () => void;
   onSave: (item: any) => void;
+  costumerID: any;
 };
 
 export default (props: Props) => {
-  const {onClose} = props;
+  const {onClose, costumerID} = props;
 
   // State
   const [salutation, setSalutation] = React.useState('MR');
@@ -52,7 +53,7 @@ export default (props: Props) => {
       surname: '',
       email,
       phoneNumber: mobileNumber,
-      customerId: 1,
+      customerId: costumerID,
     };
     getFirstNameLastname(fullname, (res: any) => {
       (payload.name = res.firstName), (payload.surname = res.lastName);

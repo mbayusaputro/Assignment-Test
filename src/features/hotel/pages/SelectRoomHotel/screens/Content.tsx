@@ -42,7 +42,7 @@ export default (props: Props) => {
         key={index}
         title={item.name}
         photo={getImage(item.code)}
-        maxGuest={item.rates[0].allotment}
+        maxGuest={item.rates[0].max_occupancy}
         facility={[]}
         price={item.rates[0].net}
         onDetailRoom={() => onDetailRoom(item)}
