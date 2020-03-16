@@ -141,62 +141,6 @@ export default (props: Props) => {
             </View>
             <View style={styles.hr} />
           </Touch>
-
-          {/* LOCATION */}
-          <View style={styles.vertical}>
-            {/* <View style={styles.content}>
-              <View>
-                <Text style={styles.textBlue} content={locationLang} />
-              </View>
-              <View style={styles.rowDirection}>
-                <MaterialIcon
-                  name="location-on"
-                  size={17.5}
-                  color={Color.greyish}
-                />
-                <Text style={styles.textSubTitle}>{props.location}</Text>
-              </View>
-            </View> */}
-            <Touch style={[styles.map, styles.vertical]} activeOpacity={0.75}>
-              {/* <MapView
-                provider={PROVIDER_GOOGLE}
-                initialRegion={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-                }}
-              >
-                <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-                  title={'marker.title'}
-                  description={'marker.description'} />
-              </MapView> */}
-              <Text>MAPS</Text>
-            </Touch>
-            <View style={[styles.rowBetween, {marginTop: -35}]}>
-              <Touch
-                onPress={props.openMaps}
-                activeOpacity={0.5}
-                style={{width: '50%', alignItems: 'center'}}>
-                <Imaging
-                  source={require('../../../../../assets/icons/map_direction.png')}
-                  resizeMode="contain"
-                  style={styles.iconFacility}
-                />
-                <Text style={styles.textMedium} content={showDirectionLang} />
-              </Touch>
-              <Touch
-                activeOpacity={0.5}
-                style={{width: '50%', alignItems: 'center'}}>
-                <Imaging
-                  source={require('../../../../../assets/icons/map_location.png')}
-                  resizeMode="contain"
-                  style={styles.iconFacility}
-                />
-                <Text style={styles.textMedium} content={showMapLang} />
-              </Touch>
-            </View>
-          </View>
         </View>
       </Animated.ScrollView>
       <Header
