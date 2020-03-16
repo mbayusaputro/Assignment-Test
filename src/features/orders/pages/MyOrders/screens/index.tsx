@@ -34,6 +34,7 @@ const Orders = (props: Props) => {
       actionFlightsOrderHistory(token).then((res: any) => {
         if (res.type === 'FLIGHTORDERHISTORY_SUCCESS') {
           dataFlightOrder(res.data.data);
+          console.log(res.data);
         } else {
           alert(res.message);
         }
@@ -76,7 +77,14 @@ const Orders = (props: Props) => {
           onRefresh={getDataOrder}
           loading={props.fetchOrder}
         />
-        <Finished {...props} title="Finished" />
+        <Finished
+          {...props}
+          title="Finished"
+          dataOrder={isLogin ? data : []}
+          onSelected={(item: any) => onSelectOrder(item)}
+          onRefresh={getDataOrder}
+          loading={props.fetchOrder}
+        />
       </Tabs>
     </HighSafeArea>
   );

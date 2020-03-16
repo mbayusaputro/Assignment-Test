@@ -60,10 +60,14 @@ const Passenger = (props: PassengerProps) => {
               return (
                 <ScrollPicker
                   key={i}
-                  dataSource={generateNumber(1, 7)}
+                  dataSource={
+                    item.type === 'Adult'
+                      ? generateNumber(1, 7)
+                      : generateNumber(0, 7)
+                  }
                   selectedIndex={
                     item.type === 'Adult'
-                      ? props.isPassenger.adult
+                      ? props.isPassenger.adult - 1
                       : item.type === 'Child'
                       ? props.isPassenger.child
                       : props.isPassenger.infant

@@ -168,11 +168,16 @@ const FormFlight = (props: Props) => {
           isModalVisible={isCalendarVisible}
           toggleModal={() => handleFieldPress('date')}
           onDateChange={handleSelectDate}
+          date={isDate}
         />
         <Calendar
           isModalVisible={isCalendar1Visible}
           toggleModal={() => handleFieldPress('return_date')}
           onDateChange={handleSelectDateReturn}
+          date={isDateReturn}
+          disabled={
+            new Date(new Date(isDate).setDate(new Date(isDate).getDate() + 1))
+          }
         />
         <Passenger
           isModalVisible={isPassengerVisible}

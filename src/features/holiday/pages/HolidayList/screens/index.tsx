@@ -1,49 +1,54 @@
-import React from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {HighSafeArea} from '../../../../../components';
 import {HolidayListContext} from '../components';
 import Content from './Content';
 import Header from './Header';
 import {HolidayListProps as Props} from '../../../interface/types';
+import Toast from 'react-native-easy-toast';
 
 export default (props: Props) => {
-  // State
-  const [dataPopular, setDataPopular] = React.useState([]);
+  // Props
+  const {
+    navigation: {goBack, navigate},
+    isLogin,
+    token,
+    actionHolidayList,
+  } = props;
 
-  React.useEffect(() => {
+  // State
+  const [dataPopular, setDataPopular] = useState([]);
+
+  // Lifecycle
+  useEffect(() => {
     getData();
   }, []);
 
+  // Ref
+  const toastRef: any = useRef();
+
   // Function
   const onBack = () => {
-    const {
-      navigation: {goBack},
-    } = props;
     goBack();
   };
 
   const getData = () => {
-    const {isLogin, token, actionHolidayList} = props;
     if (dataPopular.length === 0) {
       actionHolidayList(isLogin ? token : null).then((res: any) => {
-        if (res.type === 'HOLIDAYLIST_SUCCESS') {
-          setDataPopular(res.data.items);
-        } else {
-          alert(res.message);
-        }
+        res.type === 'HOLIDAYLIST_SUCCESS'
+          ? setDataPopular(res.data.items)
+          : toastRef.current.show(res.message, 1500);
       });
     }
   };
 
   const onDetail = (item: any) => {
-    const {
-      navigation: {navigate},
-    } = props;
     navigate('HolidayDetail', {id: item.id});
   };
 
   // Main Render
   return (
     <HighSafeArea>
+      <Toast ref={toastRef} />
       <HolidayListContext.Provider
         value={{
           callback: onBack,

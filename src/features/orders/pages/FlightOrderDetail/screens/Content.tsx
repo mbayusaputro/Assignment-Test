@@ -41,7 +41,7 @@ export default (props: Props) => {
       />
       <Policy />
       <Price data={dataFlight} return={dataFlight.length > 1 ? true : false} />
-      <Total data={dataFlight} />
+      {props.dataSelected.status === 'PAID' ? [] : <Total data={dataFlight} />}
     </View>
   );
 };

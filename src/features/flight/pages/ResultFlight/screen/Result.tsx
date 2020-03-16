@@ -7,8 +7,10 @@ import {Loading, LoadingDate, Empty} from '../components';
 import {moneyFormat} from '../../../../../helpers/helpers';
 
 const Result = (props: ResultProps) => {
+  // Props
   const {dataFlight, handleDetailFlight, handleSelectFlight, isLoading} = props;
 
+  // Item
   const renderItem = ({item, index}) => (
     <ListView
       key={index}
@@ -25,25 +27,24 @@ const Result = (props: ResultProps) => {
     />
   );
 
+  // Main Render
   return (
     <View style={{flex: 1, marginHorizontal: 10}}>
-      {dataFlight !== null || dataFlight.length > 0 ? (
-        <FlatList
-          data={
-            dataFlight &&
-            dataFlight.sort((a: any, b: any) => {
-              return a.price_adult - b.price_adult;
-            })
-          }
-          keyExtractor={(__: any, index: number) => index.toString()}
-          renderItem={renderItem}
-          ListHeaderComponent={isLoading ? <LoadingDate /> : <Date />}
-          ListHeaderComponentStyle={{marginBottom: 10}}
-          ListEmptyComponent={<Loading />}
-        />
-      ) : (
-        <Empty />
-      )}
+      <FlatList
+        data={
+          dataFlight &&
+          dataFlight.sort((a: any, b: any) => {
+            return a.price_adult - b.price_adult;
+          })
+        }
+        keyExtractor={(__: any, index: number) => index.toString()}
+        renderItem={renderItem}
+        ListHeaderComponent={
+          isLoading ? <LoadingDate /> : dataFlight ? <Date /> : <View />
+        }
+        ListHeaderComponentStyle={{marginBottom: 10}}
+        ListEmptyComponent={isLoading ? <Loading /> : <Empty {...props} />}
+      />
     </View>
   );
 };

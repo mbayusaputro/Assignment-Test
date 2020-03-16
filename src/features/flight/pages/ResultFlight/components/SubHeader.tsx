@@ -14,9 +14,15 @@ const Header = (props: SubHeaderProps) => {
     total_flight,
     isLoading,
     cabin_class,
+    empty,
   } = props;
   return (
-    <View style={styles.container}>
+    <View
+      style={
+        empty
+          ? [styles.container, {borderBottomLeftRadius: 55}]
+          : styles.container
+      }>
       <View
         style={{
           flexDirection: 'row',
@@ -34,15 +40,19 @@ const Header = (props: SubHeaderProps) => {
         <View style={styles.circle} />
         <Text style={styles.id}>{cabin_class}</Text>
       </View>
-      <View style={styles.top}>
-        {isLoading ? (
-          <Load />
-        ) : (
-          <Text style={styles.ids}>
-            Select Departure Flights From {total_flight} Schedule
-          </Text>
-        )}
-      </View>
+      {empty ? (
+        []
+      ) : (
+        <View style={styles.top}>
+          {isLoading ? (
+            <Load />
+          ) : (
+            <Text style={styles.ids}>
+              Select Departure Flights From {total_flight} Schedule
+            </Text>
+          )}
+        </View>
+      )}
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import Result from './screen/Result';
 import {Header, SubHeader} from './components';
@@ -8,19 +8,29 @@ import {actionGetFlight} from '../../../../reduxs/flight/action';
 import {AppState} from '../../../../reduxs/reducers';
 import {Props} from './types';
 import {oc} from 'ts-optchain';
+import Toast from 'react-native-easy-toast';
 
 const ResultFlight = (props: Props) => {
+  // Props
   const {
     navigation: {navigate, goBack, state},
     isLoading,
+    actionGetFlight,
   } = props;
   const {params} = state;
-  const [result, setResult]: any = React.useState([{}]);
 
-  React.useEffect(() => {
+  // State
+  const [result, setResult]: any = useState([{}]);
+
+  // Ref
+  const toastRef: any = useRef();
+
+  // UseEfeect
+  useEffect(() => {
     getFlight();
   }, []);
 
+  // Function
   const getFlight = () => {
     let payload: any = {
       command: 'SCHEDULE',
@@ -42,10 +52,10 @@ const ResultFlight = (props: Props) => {
     if (params.date_return !== '') {
       payload.data.return_date = params.date_return;
     }
-    props.actionGetFlight(payload).then((res: any) => {
-      if (res.type === 'GET_FLIGHT_SUCCESS') {
-        setResult(res.data);
-      }
+    actionGetFlight(payload).then((res: any) => {
+      res.type === 'GET_FLIGHT_SUCCESS'
+        ? setResult(res.data)
+        : toastRef.current.show(res.message, 1500);
     });
   };
 
@@ -70,8 +80,10 @@ const ResultFlight = (props: Props) => {
     navigate('DetailFlight', {item, params, data, departure_flight: null});
   };
 
+  // Main Render
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ededed'}}>
+      <Toast ref={toastRef} />
       <Header
         goBack={() => goBack()}
         from={state.params.from.city_name}
@@ -85,8 +97,10 @@ const ResultFlight = (props: Props) => {
         cabin_class={state.params.cabin_class}
         total_flight={oc(result).departures(0).length}
         isLoading={isLoading}
+        empty={isLoading ? false : result.depatures ? false : true}
       />
       <Result
+        {...props}
         dataFlight={result.departures}
         handleSelectFlight={toSelect}
         handleDetailFlight={toDetail}

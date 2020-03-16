@@ -16,7 +16,7 @@ const NoFlight = (props: any) => {
           width: scale(WIDTH_SCREEN - 40),
           marginTop: 50,
         }}
-        source={require('../../../../../assets/flight/no-flight.png')}
+        source={require('../../../../../assets/flight/empty.png')}
         resizeMode="contain"
       />
       <Text

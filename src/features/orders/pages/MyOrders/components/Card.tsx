@@ -15,6 +15,7 @@ type Props = {
   imgPlane: string;
   isReturn: boolean;
   onPress: (item: any) => void;
+  purchase?: boolean;
 };
 
 const Card = (props: Props) => {
@@ -30,7 +31,7 @@ const Card = (props: Props) => {
       );
     } else if (status === 'BOOKED') {
       return (
-        <View style={styles.status}>
+        <View style={[styles.status, {backgroundColor: Color.dustyOrange}]}>
           <Text style={[styles.regular, {color: Color.white}]}>Booked</Text>
         </View>
       );
@@ -75,7 +76,19 @@ const Card = (props: Props) => {
         </Text>
         {/* </View> */}
         <View style={styles.rowBetween}>
-          {statusPayment(props.statusPayment)}
+          {props.purchase ? (
+            <View style={[styles.status, {backgroundColor: Color.backWhite}]}>
+              <Text
+                style={[
+                  styles.regular,
+                  {color: Color.green, fontFamily: 'NunitoSans-Bold'},
+                ]}>
+                Purchase Successful
+              </Text>
+            </View>
+          ) : (
+            statusPayment(props.statusPayment)
+          )}
           {props.isReturn && (
             <Imaging
               style={styles.iconReturn}

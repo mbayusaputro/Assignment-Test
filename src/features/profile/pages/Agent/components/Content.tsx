@@ -45,7 +45,7 @@ export default (props: MyProfileProps) => {
           style={[styles.content, styles.rowBetween]}>
           <View style={styles.rowBetween}>
             <Text
-              content={{id: 'Pengaturan Akun', en: 'Account Setting'}}
+              content={{id: 'Agen Saya', en: 'My Agent'}}
               style={styles.textBold}
             />
           </View>

@@ -25,6 +25,7 @@ export type SubHeaderProps = {
   cabin_class: string;
   total_flight: number;
   isLoading: boolean;
+  empty?: boolean;
 };
 
 export type ResultProps = {

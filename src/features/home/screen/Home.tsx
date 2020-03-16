@@ -1,15 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import {HighSafeArea, Header, LoginModal} from '../../../components';
+import React, {useState, useEffect, useRef} from 'react';
+import {HighSafeArea, Header} from '../../../components';
 import {styles, HomeContext} from '../components';
 import Content from './Content';
 import {Props} from '../types';
 import Login from './Login';
 import PopularHoliday from './PopularHoliday';
-import {ScrollView, ActivityIndicator, Button} from 'react-native';
+import {ScrollView, ActivityIndicator} from 'react-native';
+import Toast from 'react-native-easy-toast';
 
 export default (props: Props) => {
   // State
   const [popularHoliday, setPopularHoliday] = useState([]);
+
+  // Ref
+  const toastRef: any = useRef();
 
   useEffect(() => {
     loadPopular();
@@ -33,7 +37,7 @@ export default (props: Props) => {
         if (res.type === 'HOLIDAYLIST_SUCCESS') {
           setPopularHoliday(res.data.items);
         } else {
-          alert(res.message);
+          toastRef.current.show(res.message, 1500);
         }
       });
     }
@@ -49,6 +53,7 @@ export default (props: Props) => {
   // Main Render
   return (
     <HighSafeArea style={styles.container}>
+      <Toast ref={toastRef} />
       <Header homeIcon={true} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <HomeContext.Provider
