@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -45,7 +45,7 @@ const SearchAirport = (props: SearchAirportProps) => {
   const [isOnFocus, setOnFocus] = useState(false);
   const [airport, setAirport] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setAirport(props.airport);
   }, []);
 
@@ -55,6 +55,9 @@ const SearchAirport = (props: SearchAirportProps) => {
       props.airport.filter((dest: any) => {
         if (
           dest.city_name.toLowerCase().indexOf(event.toLowerCase()) > -1 ||
+          dest.international_airport_name
+            .toLowerCase()
+            .indexOf(event.toLowerCase()) > -1 ||
           dest.airport_code.toLowerCase().indexOf(event.toLowerCase()) > -1
         ) {
           tempDataFlight.push(dest);
@@ -89,7 +92,7 @@ const SearchAirport = (props: SearchAirportProps) => {
               placeholder="Select City or Airport"
               style={[
                 styles.text,
-                isOnFocus ? {marginLeft: 30} : {textAlign: 'center'},
+                isOnFocus ? {marginLeft: 15} : {textAlign: 'center'},
               ]}
               onChangeText={(text: string) => onChange(text)}
               onFocus={() => setOnFocus(true)}
@@ -145,7 +148,8 @@ const styles = StyleSheet.create({
   search: {
     flexDirection: 'row',
     backgroundColor: Color.white,
-    padding: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
     borderRadius: 5,
     marginTop: -30,
     marginBottom: 20,
@@ -160,7 +164,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   text: {
-    flex: 1,
     fontFamily: 'NunitoSans-Regular',
   },
 });

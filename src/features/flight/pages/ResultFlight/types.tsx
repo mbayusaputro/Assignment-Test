@@ -31,8 +31,10 @@ export type SubHeaderProps = {
 export type ResultProps = {
   handleSelectFlight: (payload: object) => void;
   handleDetailFlight: (payload: object) => void;
+  handleSelectDate: (payload: any) => void;
   dataFlight: Array<object>;
   isLoading: boolean;
+  isDate: any;
 };
 
 export type ListProps = {

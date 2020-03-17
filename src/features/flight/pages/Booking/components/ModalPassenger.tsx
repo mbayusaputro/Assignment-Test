@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -20,16 +20,10 @@ import {generateDate} from '../../../../../helpers/helpers';
 import moment from 'moment';
 
 export default (props: ModalProps) => {
-  const {
-    isVisible,
-    onDismiss,
-    form,
-    dataPassenger,
-    handleInput,
-    onSave,
-    onDob,
-  } = props;
+  // Props
+  const {isVisible, onDismiss, form, handleInput, onSave, onDob} = props;
 
+  // State
   const [salutation, setSalutation] = useState('MR');
   const [dob, setDob] = useState(false);
   const [type, setType] = React.useState(['Day', 'Month', 'Year']);
@@ -37,6 +31,7 @@ export default (props: ModalProps) => {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [day, setDay] = useState(new Date().getDate());
 
+  // Function
   const onChange = (data: any, item: any) => {
     item === 'Day'
       ? setDay(data)
@@ -50,6 +45,7 @@ export default (props: ModalProps) => {
     setDob(!dob);
   };
 
+  // Main Render
   return (
     <Modal
       useNativeDriver={true}
@@ -128,7 +124,6 @@ export default (props: ModalProps) => {
                       handleInput('fullName', text)
                     }
                     autoCapitalize="words"
-                    value={dataPassenger.fullname}
                   />
                 </View>
               </View>

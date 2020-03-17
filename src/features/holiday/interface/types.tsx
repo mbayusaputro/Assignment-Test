@@ -36,5 +36,8 @@ export interface HolidayBookingProps extends GlobalProps {
   flight: any;
   holiday: any;
   isLoading: boolean;
+  isLogin: boolean;
+  isProfile: any;
+  token: string;
   actionHolidayBook: (id: number, payload: object) => Promise<void>;
 }

@@ -36,6 +36,7 @@ export default (props: Props) => {
       data,
       payload,
       room,
+      dataHotel,
     });
   };
 

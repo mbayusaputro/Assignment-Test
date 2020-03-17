@@ -14,6 +14,7 @@ export default (props: Props) => {
   const data = getParam('data'); // Data from Selected Room
   const payload = getParam('payload'); // Payload Form Hotel
   const room = getParam('room'); // Room Selected
+  const dataHotel = getParam('dataHotel'); // Room Selected
 
   // Function
   const onBack = () => {
@@ -21,7 +22,7 @@ export default (props: Props) => {
   };
 
   const navigating = (route: string) => {
-    navigate(route, {data, payload, room});
+    navigate(route, {data, payload, room, dataHotel});
   };
 
   let night =

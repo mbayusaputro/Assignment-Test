@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {oc} from 'ts-optchain';
 import {Header, SubHeader} from './components';
@@ -20,14 +20,17 @@ import {
   generateStatePassenger,
   generatePayloadPassenger,
 } from '../../../../helpers/generatePayload';
+import Toast from 'react-native-easy-toast';
 
 const Booking = (props: Props) => {
+  // Props
   const {
     navigation: {state, goBack},
     onBookingFlight,
     isLoading,
     token,
     isProfile,
+    isLogin,
   } = props;
   const {departure_flight, return_flight, params} = state.params;
 
@@ -35,7 +38,7 @@ const Booking = (props: Props) => {
   const [active, setActive] = useState(false);
   const [isVisible, setVisible] = useState(false);
   const [otherModal, setOtherModal] = useState(null);
-  const [modalForm, setModalForm] = useState('');
+  const [modalForm, setModalForm] = useState('adult');
   const [modalIndex, setModalIndex] = useState(0);
   const [contact, setContact] = useState(null);
   const [adult, setAdult] = useState([]);
@@ -53,6 +56,10 @@ const Booking = (props: Props) => {
     infant: [],
   };
 
+  // Ref
+  const toastRef: any = useRef();
+
+  // Lifecycle
   useEffect(() => {
     generateStatePassenger(params.passenger.adult, 'adult', res => {
       data.adult = res;
@@ -66,6 +73,15 @@ const Booking = (props: Props) => {
       data.infant = res;
       setDataPassenger(data);
     });
+    if (isLogin) {
+      let payload = {
+        salutation: oc(isProfile).salutation(''),
+        fullname: oc(isProfile).fullname(''),
+        email: oc(isProfile).email(''),
+        mobileNumber: oc(isProfile).mobileNo(''),
+      };
+      setContact(payload);
+    }
   }, []);
 
   const toggleSwitch = () => {
@@ -75,9 +91,11 @@ const Booking = (props: Props) => {
   };
 
   const openModal = (form: string, index: number) => {
-    setVisible(!isVisible);
-    setModalForm(form);
-    setModalIndex(index);
+    form !== 'contact'
+      ? contact === null
+        ? toastRef.current.show('Please enter data contact!')
+        : (setVisible(!isVisible), setModalForm(form), setModalIndex(index))
+      : (setVisible(!isVisible), setModalForm(form), setModalIndex(index));
   };
 
   const saveContact = (payload: any) => {
@@ -205,7 +223,11 @@ const Booking = (props: Props) => {
   };
   const onSubmit = () => {
     setOtherModal(null);
-    if (contact) {
+    if (
+      oc(contact).fullname('') !== '' &&
+      oc(contact).email('') !== '' &&
+      oc(contact).mobileNumber('') !== ''
+    ) {
       let isSubmited = false;
       let childs = params.passenger.child;
       let infants = params.passenger.infant;
@@ -294,6 +316,7 @@ const Booking = (props: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Toast ref={toastRef} />
       <Header goBack={() => goBack()} title="Booking Summary" />
       <SubHeader />
       <Content
@@ -315,6 +338,7 @@ const Booking = (props: Props) => {
       />
       {modalForm === 'contact' ? (
         <Modal
+          dataPassenger={contact}
           isVisible={isVisible}
           onDismiss={() => openModal(modalForm, modalIndex)}
           onSave={saveContact}
@@ -323,7 +347,6 @@ const Booking = (props: Props) => {
         <ModalPassenger
           isVisible={isVisible}
           form={modalForm}
-          dataPassenger={dataPassenger}
           onDismiss={() => openModal('adult', 0)}
           onSave={generatePayloadPassengers}
           handleInput={handleInput}

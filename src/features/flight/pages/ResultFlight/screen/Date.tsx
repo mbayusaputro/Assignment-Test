@@ -1,32 +1,56 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity as Touch} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 import {date} from '../data';
+import {generateDateSlider} from '../../../../../helpers/helpers';
 
-const DateSlide = () => {
+type Props = {
+  date: any;
+  onPress: (_: any) => void;
+};
+
+const DateSlide = (props: Props) => {
+  // Props
+  const {date, onPress} = props;
+
+  // State
+  const [isDate, setDate] = useState([]);
+
+  // Lifecycle
+  useEffect(() => {
+    setDate(generateDateSlider(date));
+  }, []);
+
+  // Main Render
   return (
     <View style={styles.card}>
-      {date.map((item: any, i: number) => {
-        return (
-          <View style={styles.content} key={i}>
-            <Text
-              style={[
-                styles.date,
-                item.disabled ? styles.grey : item.active ? styles.blue : {},
-              ]}>
-              {item.date}
-            </Text>
-            <Text
-              style={[
-                styles.day,
-                item.disabled ? styles.grey : item.active ? styles.blue : {},
-              ]}>
-              {item.day.toUpperCase()}
-            </Text>
-            {item.active ? <View style={styles.circle} /> : []}
-          </View>
-        );
-      })}
+      {isDate &&
+        isDate.map((item: any, i: number) => {
+          return (
+            <Touch
+              onPress={
+                item.disabled ? () => {} : () => onPress(item.selectDate)
+              }
+              style={styles.content}
+              key={i}>
+              <Text
+                style={[
+                  styles.date,
+                  item.disabled ? styles.grey : item.active ? styles.blue : {},
+                ]}>
+                {item.date}
+              </Text>
+              <Text
+                style={[
+                  styles.day,
+                  item.disabled ? styles.grey : item.active ? styles.blue : {},
+                ]}>
+                {item.day.toUpperCase()}
+              </Text>
+              {item.active ? <View style={styles.circle} /> : []}
+            </Touch>
+          );
+        })}
     </View>
   );
 };

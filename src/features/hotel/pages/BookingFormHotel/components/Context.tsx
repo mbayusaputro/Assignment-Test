@@ -11,6 +11,7 @@ export const ContentContext = React.createContext({
 
   // Login
   onLogin: () => {},
+  isLogin: false,
 
   // Contact
   onShowContact: () => {},

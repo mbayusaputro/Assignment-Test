@@ -8,7 +8,14 @@ import {moneyFormat} from '../../../../../helpers/helpers';
 
 const Result = (props: ResultProps) => {
   // Props
-  const {dataFlight, handleDetailFlight, handleSelectFlight, isLoading} = props;
+  const {
+    dataFlight,
+    handleDetailFlight,
+    handleSelectFlight,
+    isLoading,
+    handleSelectDate,
+    isDate,
+  } = props;
 
   // Item
   const renderItem = ({item, index}) => (
@@ -32,15 +39,23 @@ const Result = (props: ResultProps) => {
     <View style={{flex: 1, marginHorizontal: 10}}>
       <FlatList
         data={
-          dataFlight &&
-          dataFlight.sort((a: any, b: any) => {
-            return a.price_adult - b.price_adult;
-          })
+          isLoading
+            ? []
+            : dataFlight &&
+              dataFlight.sort((a: any, b: any) => {
+                return a.price_adult - b.price_adult;
+              })
         }
         keyExtractor={(__: any, index: number) => index.toString()}
         renderItem={renderItem}
         ListHeaderComponent={
-          isLoading ? <LoadingDate /> : dataFlight ? <Date /> : <View />
+          isLoading ? (
+            <LoadingDate />
+          ) : dataFlight ? (
+            <Date onPress={handleSelectDate} date={isDate} />
+          ) : (
+            <View />
+          )
         }
         ListHeaderComponentStyle={{marginBottom: 10}}
         ListEmptyComponent={isLoading ? <Loading /> : <Empty {...props} />}

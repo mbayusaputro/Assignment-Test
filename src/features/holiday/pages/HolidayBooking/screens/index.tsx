@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import _ from 'lodash';
 import {
   HighSafeArea,
@@ -20,6 +20,8 @@ import {
   generatePayloadGuest,
   payloadTour,
 } from '../../../../../helpers/generatePayload';
+import {oc} from 'ts-optchain';
+import Toast from 'react-native-easy-toast';
 
 export default (props: Props) => {
   // Props
@@ -30,30 +32,45 @@ export default (props: Props) => {
     hotel,
     actionHolidayBook,
     isLoading,
+    isLogin,
+    isProfile,
   } = props;
   const dataParam = getParam('item');
   const dataDetail = getParam('detail');
 
   // State
-  const [modal, setModal] = React.useState(null);
-  const [contact, setContact] = React.useState(null);
-  const [sameContact, setSameContact] = React.useState(false);
-  const [guestNum, setGuestNum] = React.useState(0);
-  const [typeGuest, setTypeGuest] = React.useState('adult');
+  const [modal, setModal] = useState(null);
+  const [contact, setContact] = useState(null);
+  const [sameContact, setSameContact] = useState(false);
+  const [guestNum, setGuestNum] = useState(0);
+  const [typeGuest, setTypeGuest] = useState('adult');
 
-  const [dataPassenger, setDataPassenger] = React.useState({
+  const [dataPassenger, setDataPassenger] = useState({
     adult: [],
     child: [],
   });
-  const [adult, setAdult] = React.useState([]);
-  const [adultHotel, setAdultHotel] = React.useState([]);
-  const [adultFlight, setAdultFlight] = React.useState([]);
-  const [child, setChild] = React.useState([]);
-  const [childFlight, setChildFlight] = React.useState([]);
-  const [message, setMessage] = React.useState('');
+  const [adult, setAdult] = useState([]);
+  const [adultHotel, setAdultHotel] = useState([]);
+  const [adultFlight, setAdultFlight] = useState([]);
+  const [child, setChild] = useState([]);
+  const [childFlight, setChildFlight] = useState([]);
+  const [message, setMessage] = useState('');
 
-  React.useEffect(() => {
+  // Ref
+  const toastRef: any = useRef();
+
+  // Lifecycle
+  useEffect(() => {
     checkFirst();
+    if (isLogin) {
+      let payload = {
+        salutation: oc(isProfile).salutation(''),
+        fullname: oc(isProfile).fullname(''),
+        email: oc(isProfile).email(''),
+        phoneNumber: oc(isProfile).mobileNo(''),
+      };
+      setContact(payload);
+    }
   }, []);
 
   const checkFirst = () => {
@@ -162,9 +179,9 @@ export default (props: Props) => {
 
   // Show Modal Guest
   const showModalGuest = (item: any, id?: any, type?: string) => {
-    setGuestNum(item);
-    setTypeGuest(type);
-    setModal(id);
+    contact === null
+      ? toastRef.current.show('Please enter data contact!')
+      : (setGuestNum(item), setTypeGuest(type), setModal(id));
   };
 
   // Save Item to Contact
@@ -184,37 +201,47 @@ export default (props: Props) => {
   // On BOOK
   const onBook = () => {
     setModal(null);
-    setTimeout(() => {
-      const request = {
-        tour: holiday.detail,
-        contact,
-        travelers: [...adult, ...child],
-        flight,
-        passengers: [...adultFlight, ...childFlight],
-        hotel,
-        guest: adultHotel,
-      };
-      payloadTour(request, (response: any) => {
-        actionHolidayBook(holiday.detail.tour_package, response).then(
-          (res: any) => {
-            if (res.type === 'HOLIDAYBOOKING_SUCCESS') {
-              const dataSend = {
-                data: res.data,
-                partner_trxid: res.data.partner_trxid,
-                total: res.data.amount,
-                info: {dataDetail, dataParam},
-              };
-              onNavigate('PaymentMethod', dataSend);
-            } else {
-              setMessage(res.message);
-              setTimeout(() => {
-                setModal(404);
-              }, 500);
-            }
-          },
-        );
-      });
-    }, 500);
+    if (
+      oc(contact).fullname('') !== '' &&
+      oc(contact).email('') !== '' &&
+      oc(contact).mobileNumber('') !== ''
+    ) {
+      setTimeout(() => {
+        const request = {
+          tour: holiday.detail,
+          contact,
+          travelers: [...adult, ...child],
+          flight,
+          passengers: [...adultFlight, ...childFlight],
+          hotel,
+          guest: adultHotel,
+        };
+        payloadTour(request, (response: any) => {
+          actionHolidayBook(holiday.detail.tour_package, response).then(
+            (res: any) => {
+              if (res.type === 'HOLIDAYBOOKING_SUCCESS') {
+                const dataSend = {
+                  data: res.data,
+                  partner_trxid: res.data.partner_trxid,
+                  total: res.data.amount,
+                  info: {dataDetail, dataParam},
+                };
+                onNavigate('PaymentMethod', dataSend);
+              } else {
+                setMessage(res.message);
+                setTimeout(() => {
+                  setModal(404);
+                }, 500);
+              }
+            },
+          );
+        });
+      }, 500);
+    } else {
+      setTimeout(() => {
+        setModal(500);
+      }, 1000);
+    }
   };
 
   // Navigation to Other Route
@@ -228,6 +255,7 @@ export default (props: Props) => {
   // Main Render
   return (
     <HighSafeArea style={styles.container}>
+      <Toast ref={toastRef} />
       <Header callback={onBack} />
       <SubHeader style={styles.subHeader} />
       <ScrollView>
@@ -262,6 +290,7 @@ export default (props: Props) => {
         onDismiss={() => setModal(null)}
         children={
           <ModalContact
+            data={contact}
             onClose={() => setModal(null)}
             onSave={(item: any) => setDataContact(item)}
           />
@@ -306,6 +335,18 @@ export default (props: Props) => {
         isVisible={modal === 404}
         title={{id: 'Alert', en: 'Alert'}}
         desc={{id: message, en: message}}
+        btnOk={{id: 'OK', en: 'OK'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
+        onOk={() => setModal(null)}
+        onDismiss={() => setModal(null)}
+      />
+      <AlertModal
+        isVisible={modal === 500}
+        title={{id: 'Booking', en: 'Booking'}}
+        desc={{
+          id: 'Mohon isi semua data dengan benar',
+          en: 'Please enter all the data correctly',
+        }}
         btnOk={{id: 'OK', en: 'OK'}}
         btnCancel={{id: 'Batal', en: 'Cancel'}}
         onOk={() => setModal(null)}

@@ -9,6 +9,7 @@ import {AppState} from '../../../../reduxs/reducers';
 import {Props} from './types';
 import {oc} from 'ts-optchain';
 import Toast from 'react-native-easy-toast';
+import {isDate} from 'moment';
 
 const ResultFlight = (props: Props) => {
   // Props
@@ -21,24 +22,25 @@ const ResultFlight = (props: Props) => {
 
   // State
   const [result, setResult]: any = useState([{}]);
+  const [isDate, setDate] = useState(params.date);
 
   // Ref
   const toastRef: any = useRef();
 
   // UseEfeect
   useEffect(() => {
-    getFlight();
+    getFlight(params.date);
   }, []);
 
   // Function
-  const getFlight = () => {
+  const getFlight = (date: any) => {
     let payload: any = {
       command: 'SCHEDULE',
       product: 'FLIGHT',
       data: {
         departure_code: params.from.airport_code,
         arrival_code: params.to.airport_code,
-        departure_date: params.date,
+        departure_date: date,
         adult: params.passenger.adult,
         seatClass: params.cabin_class,
       },
@@ -80,6 +82,11 @@ const ResultFlight = (props: Props) => {
     navigate('DetailFlight', {item, params, data, departure_flight: null});
   };
 
+  const toDate = (value: any) => {
+    getFlight(value);
+    setDate(value);
+  };
+
   // Main Render
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ededed'}}>
@@ -90,17 +97,25 @@ const ResultFlight = (props: Props) => {
         to={state.params.to.city_name}
       />
       <SubHeader
-        date={state.params.date}
+        date={isDate}
         adult={state.params.passenger.adult}
         child={state.params.passenger.child}
         infant={state.params.passenger.infant}
         cabin_class={state.params.cabin_class}
-        total_flight={oc(result).departures(0).length}
+        total_flight={oc(result).departures([]).length}
         isLoading={isLoading}
-        empty={isLoading ? false : result.depatures ? false : true}
+        empty={
+          isLoading
+            ? false
+            : oc(result).departures([]).length > 0
+            ? false
+            : true
+        }
       />
       <Result
         {...props}
+        isDate={isDate}
+        handleSelectDate={toDate}
         dataFlight={result.departures}
         handleSelectFlight={toSelect}
         handleDetailFlight={toDetail}
