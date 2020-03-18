@@ -16,7 +16,7 @@ export async function signIn(payload: object) {
   const response = await axios
     .post(uri, payload)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -25,7 +25,7 @@ export async function signUp(payload: object, applyType: string, type: string) {
   const response = await axios
     .post(uri, payload)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -34,7 +34,7 @@ export async function signUpLast(payload: object) {
   const response = await axios
     .post(uri, payload)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -46,7 +46,7 @@ export async function profile(token: string) {
   const response = await axios
     .get(uri, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -58,7 +58,7 @@ export async function updateProfile(token: string, payload: object) {
   const response = await axios
     .put(uri, payload, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -70,7 +70,7 @@ export async function changePasswordUser(token: string, payload: object) {
   const response = await axios
     .post(uri, payload, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -79,7 +79,7 @@ export async function forgotPassword(type: string, payload: object) {
   const response = await axios
     .post(uri, payload)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 // ====================== PROFILE ======================
@@ -90,7 +90,7 @@ export async function listCountry() {
   const response = await axios
     .get(uri)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 // ====================== MASTER ======================
@@ -104,7 +104,7 @@ export async function orderHistoryFlight(token: string) {
   const response = await axios
     .get(uri, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 // ====================== ORDER HISTORY ======================
@@ -118,7 +118,7 @@ export async function getFlight(payload: object) {
   const response = await axios
     .post(uri, payload, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -134,7 +134,7 @@ export async function bookingFlight(payload: object, token: string) {
   const response = await axios
     .post(uri, payload, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 // ====================== FLIGHT ======================
@@ -146,7 +146,7 @@ export async function listDestinationHotel(payload: object) {
   const response = await axios
     .post(uri, payload)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -156,7 +156,7 @@ export async function searchHotel(payload: object) {
   const response = await axios
     .post(uri, payload)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -174,7 +174,7 @@ export async function bookingHotel(payload: object, token: string) {
   const response = await axios
     .post(uri, payload, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 // ====================== HOTEL ======================
@@ -189,7 +189,7 @@ export async function holidayList(token: string) {
   const response = await axios
     .get(uri, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 export async function holidayDetail(token: string, id: number) {
@@ -201,7 +201,7 @@ export async function holidayDetail(token: string, id: number) {
   const response = await axios
     .get(uri, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 export const holidayBooking = (payload: object, token: string) => {
@@ -217,7 +217,7 @@ export const holidayBooking = (payload: object, token: string) => {
   const response = axios
     .post(uri, payload, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 };
 // ====================== HOLIDAY ======================
@@ -231,7 +231,7 @@ export async function paymentMidtrans(payload: object) {
   const response = await axios
     .post(uri, payload, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 
@@ -243,7 +243,7 @@ export async function checkPaymentMidtrans(trx_id: string, type: string) {
   const response = await axios
     .get(uri, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 // ====================== PAYMENT ======================
@@ -257,7 +257,7 @@ export async function topUp(payload: object, token: string) {
   const response = await axios
     .post(uri, payload, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 export async function withdrawRequest(payload: object, token: string) {
@@ -268,7 +268,7 @@ export async function withdrawRequest(payload: object, token: string) {
   const response = await axios
     .post(uri, payload, config)
     .then(res => res.data)
-    .catch(err => err.response.data);
+    .catch(err => (err.response ? err.response.data : err));
   return response;
 }
 // ====================== AGENT ======================
