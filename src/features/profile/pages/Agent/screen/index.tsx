@@ -31,7 +31,7 @@ export default (props: SigninProps) => {
   };
 
   const navProfileEdit = () => {
-    navigate('ProfileEdit');
+    navigate('MyAgent');
   };
   const navigateMenu = (menu: any) => {
     navigate(menu);

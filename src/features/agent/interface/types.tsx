@@ -50,8 +50,8 @@ export type ContentProps = {
 export type CardProps = {
   icons?: ImageSourcePropType;
   label: any;
-  fieldValue: any;
-  type: number;
+  fieldValue?: any;
+  type?: number;
   onPress: () => void;
 };
 
