@@ -1,9 +1,9 @@
 import {
   Action,
   State,
-  PAYMIDTRANS,
-  PAYMIDTRANS_SUCCESS,
-  PAYMIDTRANS_FAILED,
+  PAYMENT,
+  PAYMENT_SUCCESS,
+  PAYMENT_FAILED,
   CHECK_PAYMENT,
   CHECK_PAYMENT_SUCCESS,
   CHECK_PAYMENT_FAILED,
@@ -27,17 +27,17 @@ export default (state: State = initialState, action: Action): State => {
   let {type} = action;
   switch (type) {
     // PAYMENT - MIDTRANS
-    case PAYMIDTRANS:
+    case PAYMENT:
       return {
         ...state,
         fetchPayment: true,
       };
-    case PAYMIDTRANS_SUCCESS:
+    case PAYMENT_SUCCESS:
       return {
         ...state,
         fetchPayment: false,
       };
-    case PAYMIDTRANS_FAILED:
+    case PAYMENT_FAILED:
       return {
         ...state,
         fetchPayment: false,

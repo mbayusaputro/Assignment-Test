@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch, bindActionCreators} from 'redux';
 import {
-  actionCheckPaymentMidtrans,
+  actionCheckPayment,
   actionCheckTopUp,
 } from '../../../../reduxs/payment/action';
 import {getFetchCheckPayment} from '../../../../reduxs/payment/selector';
@@ -17,8 +17,8 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      actionCheckPaymentMidtrans: (id: string, type: string) =>
-        actionCheckPaymentMidtrans(id, type),
+      actionCheckPayment: (id: string, type: string) =>
+        actionCheckPayment(id, type),
       onCheckStatus: (id: string, token: string) => actionCheckTopUp(id, token),
     },
     dispatch,

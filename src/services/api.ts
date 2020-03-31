@@ -160,7 +160,7 @@ export async function searchHotel(payload: object) {
   return response;
 }
 
-export async function bookingHotel(payload: object, token: string) {
+export async function bookingHotel(payload: object) {
   // const beds = `${URL}gateway/beds`;
   // const uri: string = `${beds}/booking`;
   const uri: string = `${URL}gateway/traveloka/booking`;
@@ -168,7 +168,6 @@ export async function bookingHotel(payload: object, token: string) {
     headers: {
       'X-Platform-Source': appSource,
       'X-SAI-Source': 'ASITAAJA',
-      Authorization: `bearer ${token}`,
     },
   };
   const response = await axios
@@ -223,10 +222,14 @@ export const holidayBooking = (payload: object, token: string) => {
 // ====================== HOLIDAY ======================
 
 // ====================== PAYMENT ======================
-export async function paymentMidtrans(payload: object) {
-  const uri: string = `${URL}payment/midtrans`;
+export async function paymentGlobal(payload: object, token: string) {
+  const uri: string = `${URL}payment`;
   const config = {
-    headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},
+    headers: {
+      'X-Platform-Source': appSource,
+      'X-SAI-Source': 'ASITAAJA',
+      Authorization: `bearer ${token}`,
+    },
   };
   const response = await axios
     .post(uri, payload, config)
@@ -235,7 +238,7 @@ export async function paymentMidtrans(payload: object) {
   return response;
 }
 
-export async function checkPaymentMidtrans(trx_id: string, type: string) {
+export async function checkPaymentGlobal(trx_id: string, type: string) {
   const uri: string = `${URL}payment/${trx_id}?type=${type}`;
   const config = {
     headers: {'X-Platform-Source': appSource, 'X-SAI-Source': 'ASITAAJA'},

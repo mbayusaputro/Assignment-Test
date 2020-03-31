@@ -7,9 +7,14 @@ import {dataVA} from '../components/data';
 import Countdown from 'react-native-countdown-component';
 
 const Method = () => {
-  const {price, typeScreen, dataParam, dataItem, onPay} = React.useContext(
-    PayMethodContext,
-  );
+  const {
+    price,
+    typeScreen,
+    dataParam,
+    dataItem,
+    onPay,
+    deposit,
+  } = React.useContext(PayMethodContext);
   // Main Render
   return (
     <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
@@ -58,7 +63,9 @@ const Method = () => {
       />
 
       {/* CREDIT CARD */}
-      <CardCC onPress={() => onPay('credit_card')} />
+      <CardCC onPress={() => onPay('credit_card', 'MIDTRANS')} />
+
+      {/* VIRTUAL ACCOUNT */}
       <Text
         style={{
           marginVertical: 10,
@@ -67,16 +74,29 @@ const Method = () => {
         }}>
         Virtual Account
       </Text>
-
-      {/* VIRTUAL ACCOUNT */}
       {dataVA.map((item: any, index: number) => (
         <CardVA
           key={index}
           logo={item.image}
           title={item.name}
-          onPress={() => onPay(item.id)}
+          onPress={() => onPay(item.id, item.method)}
         />
       ))}
+
+      {/* VIRTUAL ACCOUNT */}
+      <Text
+        style={{
+          marginVertical: 10,
+          fontFamily: 'NunitoSans-Bold',
+          fontSize: 16,
+        }}>
+        Deposit
+      </Text>
+      <CardVA
+        logo={`Rp${moneyFormat(deposit)}`}
+        title="Deposit"
+        onPress={() => onPay('', 'DEPOSIT')}
+      />
     </View>
   );
 };

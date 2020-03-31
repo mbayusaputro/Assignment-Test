@@ -1,4 +1,4 @@
-export const dataSalutation = [
+export const salutationAdult = [
   {
     id: 1,
     title: 'MR',
@@ -7,8 +7,14 @@ export const dataSalutation = [
     id: 2,
     title: 'MRS',
   },
+];
+export const salutationChild = [
   {
-    id: 3,
-    title: 'MS',
+    id: 1,
+    title: 'MSTR',
+  },
+  {
+    id: 2,
+    title: 'MISS',
   },
 ];

@@ -6,13 +6,15 @@ interface GlobalProps {
 
 export interface PayMethodProps extends GlobalProps {
   fetchPayment: boolean;
-  actionPaymentMidtrans: (__: object) => Promise<void>;
+  token: string;
+  actionPayment: (__: object, token: string) => Promise<void>;
+  getProfile: (token: string) => Promise<void>;
 }
 
 export interface PayWebProps extends GlobalProps {
   fetchCheck: boolean;
   token: string;
-  actionCheckPaymentMidtrans: (id: string, type: string) => Promise<void>;
+  actionCheckPayment: (id: string, type: string) => Promise<void>;
   onCheckStatus: (id: string, token: string) => Promise<void>;
 }
 

@@ -66,6 +66,7 @@ export default (props: Props) => {
         surname: '',
         email: oc(isProfile).email(''),
         phoneNumber: oc(isProfile).mobileNo(''),
+        customerId: oc(isProfile).id(0),
       };
       getFirstNameLastname(oc(isProfile).fullname(''), (res: any) => {
         (payload.name = res.firstName), (payload.surname = res.lastName);
@@ -94,7 +95,6 @@ export default (props: Props) => {
     }
     setGuest(arr);
   };
-  console.log(guest);
 
   // Show Modal Guest
   const showModalGuest = (item: any, id?: any) => {
@@ -159,7 +159,7 @@ export default (props: Props) => {
           searchId: 'SRCH-0001',
           amount: data.price * night,
         };
-        actionBookHotel(payloadBook, token).then((res: any) => {
+        actionBookHotel(payloadBook).then((res: any) => {
           if (res.type === 'BOOK_HOTEL_SUCCESS') {
             const dataParam = {
               data: res.data.data,
@@ -249,6 +249,7 @@ export default (props: Props) => {
             guest={guestNum}
             onClose={() => setModal(null)}
             onSaveGuest={(item: any, id: any) => setItemGuest(item, id)}
+            isFullName={oc(guest[guestNum - 1]).name('')}
           />
         }
       />

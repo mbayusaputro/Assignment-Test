@@ -55,8 +55,6 @@ export default (props: Props) => {
     }
   };
 
-  console.log(isProfile);
-
   const onDetail = (item: any) => {
     if (isLogin) {
       isProfile.isAgent

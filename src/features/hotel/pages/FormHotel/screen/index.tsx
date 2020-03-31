@@ -102,8 +102,8 @@ export default (props: Props) => {
 
   const setRoomGuest = (data: any, type: string) => {
     if (type === 'guest') {
-      if (room === guest || room > guest) {
-        setRoom(data);
+      if (guest > room) {
+        setRoom(Math.ceil(data / 2));
         setGuest(data);
       } else {
         setGuest(data);
@@ -168,8 +168,8 @@ export default (props: Props) => {
         children={
           <ModalDestination
             onClose={() => onModal(null)}
-            onSearch={(event: any) => onSearch(event)}
-            onSelect={(item: any) => onSelectDestination(item)}
+            onSearch={onSearch}
+            onSelect={onSelectDestination}
             data={dataDestination}
             loading={loadingList}
             toastRef={toastRef}
@@ -196,7 +196,7 @@ export default (props: Props) => {
           <ModalCheckout
             onDismiss={() => onModal(null)}
             selectedIndex={checkOut}
-            onValueChange={(data: any) => setCheckOut(data)}
+            onValueChange={setCheckOut}
           />
         }
       />
@@ -210,8 +210,7 @@ export default (props: Props) => {
             selectedRoom={room}
             selectedGuest={guest}
             totalGuest={guest}
-            onChangeRoom={(data: any) => setRoomGuest(data, 'room')}
-            onChangeGuest={(data: any) => setRoomGuest(data, 'guest')}
+            onChange={setRoomGuest}
           />
         }
       />

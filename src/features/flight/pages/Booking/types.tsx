@@ -37,6 +37,7 @@ export type ModalProps = {
   onDob?: (payload: any) => void;
   form?: string;
   dataPassenger?: any;
+  index?: number;
   handleInput?: (field: string, value: any) => void;
 };
 

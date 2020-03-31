@@ -1,10 +1,9 @@
 import React from 'react';
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import RadioOptionTrip from './RadioOptionTrip';
 import FieldFromTo from './FieldFromTo';
 import FieldData from './FieldData';
 import {Button} from '../../../../../components/';
-import {Color} from '../../../../../constants/Color';
 import {FormProps} from '../types';
 
 const Form = (props: FormProps) => {

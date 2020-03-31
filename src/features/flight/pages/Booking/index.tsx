@@ -347,6 +347,8 @@ const Booking = (props: Props) => {
         <ModalPassenger
           isVisible={isVisible}
           form={modalForm}
+          index={modalIndex}
+          dataPassenger={dataPassenger}
           onDismiss={() => openModal('adult', 0)}
           onSave={generatePayloadPassengers}
           handleInput={handleInput}

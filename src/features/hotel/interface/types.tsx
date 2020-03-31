@@ -37,5 +37,5 @@ export interface BookingFormHotelProps extends Props {
   token: string;
   isProfile: any;
   isLogin: boolean;
-  actionBookHotel: (payload: object, token: string) => Promise<void>;
+  actionBookHotel: (payload: object) => Promise<void>;
 }

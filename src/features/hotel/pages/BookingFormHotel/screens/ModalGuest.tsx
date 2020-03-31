@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity as Touch} from 'react-native';
 import {Text, InputText, Button} from '../../../../../components';
 import {styles} from '../components';
@@ -7,12 +7,18 @@ type Props = {
   onClose: () => void;
   guest: number;
   onSaveGuest: (item: any, id: number) => void;
+  isFullName: string;
 };
 
 export default (props: Props) => {
-  const {onClose, onSaveGuest, guest} = props;
+  const {onClose, onSaveGuest, guest, isFullName} = props;
 
-  const [fullname, setFullname] = React.useState('');
+  const [fullname, setFullname] = useState('');
+
+  // Lifecycle
+  useEffect(() => {
+    setFullname(isFullName);
+  }, []);
 
   const onSave = () => {
     if (fullname !== '') {

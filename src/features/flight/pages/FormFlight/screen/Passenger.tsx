@@ -67,7 +67,7 @@ const Passenger = (props: PassengerProps) => {
                   }
                   selectedIndex={
                     item.type === 'Adult'
-                      ? props.isPassenger.adult - 1
+                      ? props.isPassenger.adult - 2
                       : item.type === 'Child'
                       ? props.isPassenger.child
                       : props.isPassenger.infant

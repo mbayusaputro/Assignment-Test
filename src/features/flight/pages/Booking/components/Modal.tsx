@@ -14,7 +14,7 @@ import {
   HEADER_FONT_SIZE,
   MEDIUM_FONT_SIZE,
 } from '../../../../../constants/TextSize';
-import {dataSalutation} from './data';
+import {salutationAdult, salutationChild} from './data';
 import {ModalProps} from '../types';
 import {validateEmailFormat} from '../../../../../helpers/helpers';
 import {oc} from 'ts-optchain';
@@ -87,7 +87,7 @@ export default (props: ModalProps) => {
                   onValueChange={(value: any, _: number) =>
                     setSalutation(value)
                   }>
-                  {dataSalutation.map((item: any, index: number) => (
+                  {salutationAdult.map((item: any, index: number) => (
                     <Picker.Item
                       key={index}
                       value={item.title}
