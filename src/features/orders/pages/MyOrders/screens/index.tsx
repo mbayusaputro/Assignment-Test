@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import {oc} from 'ts-optchain';
 import _ from 'lodash';
 import {HighSafeArea} from '../../../../../components';
 import Header from '../components/Header';
@@ -34,7 +33,6 @@ const Orders = (props: Props) => {
       actionFlightsOrderHistory(token).then((res: any) => {
         if (res.type === 'FLIGHTORDERHISTORY_SUCCESS') {
           dataFlightOrder(res.data.data);
-          console.log(res.data);
         } else {
           alert(res.message);
         }

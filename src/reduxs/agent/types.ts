@@ -7,16 +7,23 @@ export interface Action {
 export interface State {
   fetchTopUp: boolean;
   fetchWithdraw: boolean;
+  fetchAllPack: boolean;
 }
 
-// ====================== FLIGHTS - TOP UP ======================
+// ====================== AGENT - TOP UP ======================
 export const TOP_UP = 'TOP_UP';
 export const TOP_UP_SUCCESS = 'TOP_UP_SUCCESS';
 export const TOP_UP_FAILED = 'TOP_UP_FAILED';
-// ====================== FLIGHTS - TOP UP ======================
+// ====================== AGENT - TOP UP ======================
 
-// ====================== FLIGHTS - WITHDRAW ======================
+// ====================== AGENT - WITHDRAW ======================
 export const WITHDRAW = 'WITHDRAW';
 export const WITHDRAW_SUCCESS = 'WITHDRAW_SUCCESS';
 export const WITHDRAW_FAILED = 'WITHDRAW_FAILED';
-// ====================== FLIGHTS - WITHDRAW ======================
+// ====================== AGENT - WITHDRAW ======================
+
+// ====================== AGENT - ALL PACKAGE ======================
+export const ALLPACK = 'ALLPACK';
+export const ALLPACK_SUCCESS = 'ALLPACK_SUCCESS';
+export const ALLPACK_FAILED = 'ALLPACK_FAILED';
+// ====================== AGENT - ALL PACKAGE ======================

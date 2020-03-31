@@ -279,15 +279,15 @@ const Booking = (props: Props) => {
           };
           onBookingFlight(payload, token).then((res: any) => {
             if (res.type === 'BOOKING_FLIGHT_SUCCESS') {
-              console.log(res.data.data);
               const dataParam = {
                 data: res.data.data,
                 partner_trxid: res.data.partner_trxid,
                 total: res.data.total,
               };
-              isProfile && isProfile.isAgent
-                ? onNavigate('ETicket')
-                : onNavigate('PaymentMethod', dataParam);
+              // isProfile && isProfile.isAgent
+              //   ? onNavigate('ETicket')
+              // : onNavigate('PaymentMethod', dataParam);
+              onNavigate('PaymentMethod', dataParam);
             } else {
               setEerrorMessageServer(res.message);
               setTimeout(() => {

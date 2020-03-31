@@ -23,7 +23,7 @@ export default (props: Props) => {
         name: fullname,
         surname: splitName[0],
       };
-      onSaveGuest(payload, guest);
+      onSaveGuest(payload, guest - 1);
     } else {
       alert('Please enter fullname field');
     }
@@ -35,7 +35,7 @@ export default (props: Props) => {
       <Touch onPress={onClose} style={styles.modalClose}>
         <Text
           style={styles.textClose}
-          content={{id: `#${guest + 1} Tamu`, en: `#${guest + 1} Guest`}}
+          content={{id: `#${guest} Tamu`, en: `#${guest} Guest`}}
         />
       </Touch>
       <View style={styles.vertical}>

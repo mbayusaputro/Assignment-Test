@@ -11,7 +11,9 @@ export interface PayMethodProps extends GlobalProps {
 
 export interface PayWebProps extends GlobalProps {
   fetchCheck: boolean;
+  token: string;
   actionCheckPaymentMidtrans: (id: string, type: string) => Promise<void>;
+  onCheckStatus: (id: string, token: string) => Promise<void>;
 }
 
 export interface PayWebState {

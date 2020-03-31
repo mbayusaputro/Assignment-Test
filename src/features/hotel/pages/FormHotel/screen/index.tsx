@@ -73,7 +73,6 @@ export default (props: Props) => {
   };
 
   const onSearch = (text: string) => {
-    console.log(text);
     const payload = {
       query: text,
     };

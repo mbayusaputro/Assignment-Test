@@ -16,6 +16,8 @@ export interface ResultHotelProps extends Props {
   loadingSearch: boolean;
   pathAsset: string;
   actionSearchHotel: (payload: object) => Promise<void>;
+  isProfile: any;
+  isLogin: boolean;
 }
 
 export interface DetailHotelProps extends Props {

@@ -9,6 +9,8 @@ export interface Props extends GlobalProps {
   handleDetailFlight: (payload: object) => void;
   actionGetFlight: (payload: object) => Promise<void>;
   isLoading: boolean;
+  isProfile: any;
+  isLogin: boolean;
 }
 
 export type HeaderProps = {

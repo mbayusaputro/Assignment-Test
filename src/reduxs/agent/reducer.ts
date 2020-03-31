@@ -7,18 +7,23 @@ import {
   WITHDRAW,
   WITHDRAW_SUCCESS,
   WITHDRAW_FAILED,
+  ALLPACK,
+  ALLPACK_FAILED,
+  ALLPACK_SUCCESS,
 } from './types';
 
 const initialState: State = {
-  // Flights - Top Up Deposit
+  // Agent - Top Up Deposit
   fetchTopUp: false,
-  // Flights - Withdraw Request
+  // Agent - Withdraw Request
   fetchWithdraw: false,
+  // Agent - All Package
+  fetchAllPack: false,
 };
 
 export default (state: State = initialState, action: Action): State => {
   switch (action.type) {
-    // ====================== FLIGHTS - ORDER HISTORY ======================
+    // ====================== AGENT - TOP UP ======================
     case TOP_UP:
       return {
         ...state,
@@ -36,9 +41,9 @@ export default (state: State = initialState, action: Action): State => {
         ...state,
         fetchTopUp: false,
       };
-    // ====================== FLIGHTS - ORDER HISTORY ======================
+    // ====================== AGENT - TOP UP ======================
 
-    // ====================== FLIGHTS - SEARCH ======================
+    // ====================== AGENT - WITHDRAW ======================
     case WITHDRAW:
       return {
         ...state,
@@ -56,7 +61,27 @@ export default (state: State = initialState, action: Action): State => {
         ...state,
         fetchWithdraw: false,
       };
-    // ====================== FLIGHTS - SEARCH ======================
+    // ====================== AGENT - WITHDRAW ======================
+
+    // ====================== AGENT - ALL PACKAGE ======================
+    case ALLPACK:
+      return {
+        ...state,
+        fetchAllPack: true,
+      };
+
+    case ALLPACK_SUCCESS:
+      return {
+        ...state,
+        fetchAllPack: false,
+      };
+
+    case ALLPACK_FAILED:
+      return {
+        ...state,
+        fetchAllPack: false,
+      };
+    // ====================== AGENT - ALL PACKAGE ======================
 
     default:
       return state;

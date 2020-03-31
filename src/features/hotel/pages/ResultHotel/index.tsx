@@ -11,6 +11,8 @@ import ResultHotel from './screens';
 const mapStateToProps = (state: any) => ({
   loadingSearch: getFetchSearchHotel(state),
   pathAsset: getPathAsset(state),
+  isProfile: state.profile.profile,
+  isLogin: state.profile.isLogin,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

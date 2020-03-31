@@ -84,16 +84,28 @@ export default class PaymentWeb extends PureComponent<Props, State> {
     const {
       actionCheckPaymentMidtrans,
       navigation: {getParam},
+      onCheckStatus,
+      token,
     } = this.props;
     const type = getParam('typeScreen');
     const trx_id = getParam('productID');
-    actionCheckPaymentMidtrans(trx_id, type).then((res: any) => {
-      if (res.type === 'CHECK_PAYMENT_SUCCESS') {
-        if (res.data.Status !== 'WAITING_PAYMENT') {
-          this.goTicket();
-        }
-      }
-    });
+
+    // Validate Agent
+    type === 'agent'
+      ? onCheckStatus(trx_id, token).then((res: any) => {
+          if (res.type === 'CHECK_TOPUP_SUCCESS') {
+            if (res.data[0].status !== 'WAITING_PAYMENT') {
+              this.goTicket();
+            }
+          }
+        })
+      : actionCheckPaymentMidtrans(trx_id, type).then((res: any) => {
+          if (res.type === 'CHECK_PAYMENT_SUCCESS') {
+            if (res.data.status !== 'WAITING_PAYMENT') {
+              this.goTicket();
+            }
+          }
+        });
   };
 
   // Get SOURCE WEB

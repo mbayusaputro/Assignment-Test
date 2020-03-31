@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import {Header, SubHeader} from '../../../../../components';
 import Content from './Content';
-import {Modal} from '../components';
+import {Modal, ModalVisited} from '../components';
 
 const Orders = (props: any) => {
   // Props
@@ -30,8 +30,16 @@ const Orders = (props: any) => {
         onSubmit={() => navigate('CreatePackagesNext')}
         onField={onField}
       />
+
+      {/* Modal Holiday */}
       <Modal
         isVisible={isVisible === 'holiday'}
+        onDismiss={() => setVisible('')}
+      />
+
+      {/* Modal Visited */}
+      <ModalVisited
+        isVisible={isVisible === 'visited'}
         onDismiss={() => setVisible('')}
       />
     </SafeAreaView>

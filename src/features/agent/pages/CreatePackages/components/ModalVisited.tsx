@@ -1,19 +1,45 @@
-import React, {useState} from 'react';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import {Color} from '../../../../../constants/Color';
 import {Text, Button, InputText} from '../../../../../components';
 import {ModalProps} from '../../../interface/types';
-import ScrollPicker from 'react-native-wheel-scroll-picker';
-import {generateValue} from '../../../../../helpers/helpers';
 
 const Passenger = (props: ModalProps) => {
   // Props
   const {isVisible, onDismiss, onSave, model} = props;
 
   // State
-  const [isAmount, setAmount] = useState(0);
+  const [isData, setData] = useState([{name: ''}, {name: ''}]);
+  const [isNumber, setNumber] = useState(3);
 
+  // Lifecycle
+  useEffect(() => {
+    generateArray();
+  }, [isNumber]);
+
+  // Function
+  const generateArray = () => {
+    let array = [];
+    array.push({name: ''});
+    // for (let i = 1; i <= isNumber; i++) {
+    //   array.push({ name: "" });
+    // }
+    setData(isData.concat(array));
+  };
+
+  const onChange = (i: number, text: string) => {
+    const data = isData;
+    data[i].name = text;
+    setData(data);
+  };
+
+  const onDD = (value: any) => {
+    // setData(tempArr)
+    console.log(isData);
+  };
+
+  // Main Render
   return (
     <Modal
       isVisible={isVisible}
@@ -32,42 +58,29 @@ const Passenger = (props: ModalProps) => {
                 fontSize: 18,
               }}
               content={
-                model === 'select'
-                  ? {id: 'Pilih Jumlah', en: 'Select Amount'}
-                  : {id: 'Masukkan Jumlah', en: 'Enter Amount'}
+                model === 'visited'
+                  ? {id: 'Pilih Jumlah', en: 'Visited Date'}
+                  : {id: 'Masukkan Jumlah', en: 'Holiday Date'}
               }
             />
           </View>
+          <TouchableOpacity onPress={() => setNumber(isNumber + 1)}>
+            <Text>+</Text>
+          </TouchableOpacity>
 
-          {model === 'select' ? (
-            // Model Select
-            <View style={[styles.row, {padding: 20}]}>
-              <ScrollPicker
-                dataSource={generateValue(0, 10)}
-                selectedIndex={1}
-                onValueChange={(data: any) => setAmount(data)}
-                itemColor={Color.black}
-                itemHeight={35}
-                highlightBorderWidth={0.2}
-                highlightColor={Color.labelgray}
-                wrapperHeight={100}
-              />
-            </View>
-          ) : (
-            // Model Input
-            <View style={styles.pd}>
-              <InputText
-                style={{borderRadius: 5, borderColor: Color.labelgray}}
-                placeholder="Enter Amount"
-                onChangeText={(text: any) =>
-                  text === '' ? setAmount(0) : setAmount(parseInt(text))
-                }
-                keyboardType="numeric"
-                autoCapitalize="none"
-                value={isAmount.toString()}
-              />
-            </View>
-          )}
+          {/* Model Input */}
+          {isData.map((item, i) => {
+            return (
+              <View style={styles.pd} key={i}>
+                <InputText
+                  style={{borderRadius: 5, borderColor: Color.labelgray}}
+                  placeholder="Enter Place"
+                  onChangeText={(text: string) => onChange(i, text)}
+                  autoCapitalize="none"
+                />
+              </View>
+            );
+          })}
 
           <Button
             customStyle={{margin: 20, borderRadius: 20}}
@@ -75,7 +88,7 @@ const Passenger = (props: ModalProps) => {
             fullWidth={true}
             isUpperCase={true}
             content={{id: 'Selesai', en: 'Done'}}
-            onPress={() => onSave(isAmount)}
+            onPress={() => onDD('tempArr')}
           />
         </View>
       </SafeAreaView>
@@ -93,7 +106,6 @@ const styles = StyleSheet.create({
   },
   pd: {
     paddingHorizontal: 20,
-    paddingTop: 20,
   },
   bold: {
     fontFamily: 'NunitoSans-Bold',
@@ -106,11 +118,5 @@ const styles = StyleSheet.create({
   },
   center: {
     alignItems: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 55,
-    paddingVertical: 20,
   },
 });

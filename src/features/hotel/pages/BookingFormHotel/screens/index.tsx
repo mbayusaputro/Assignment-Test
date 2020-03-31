@@ -1,7 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {ScrollView} from 'react-native';
-import dayjs from 'dayjs';
-import _ from 'lodash';
 import {
   HighSafeArea,
   SubHeader,
@@ -22,6 +20,7 @@ import ModalGuest from './ModalGuest';
 import {oc} from 'ts-optchain';
 import {getFirstNameLastname} from '../../../../../helpers/helpers';
 import Toast from 'react-native-easy-toast';
+import moment from 'moment';
 
 export default (props: Props) => {
   // Props
@@ -38,9 +37,10 @@ export default (props: Props) => {
   const room = getParam('room'); // Room Selected
   const dataHotel = getParam('dataHotel'); // Room Selected
 
-  let night =
-    parseInt(dayjs(payload.stay.checkOut).format('DD')) -
-    parseInt(dayjs(payload.stay.checkIn).format('DD'));
+  let night = moment(payload.stay.checkOut).diff(
+    moment(payload.stay.checkIn),
+    'days',
+  );
 
   // State
   const [modal, setModal] = useState(null);
@@ -94,6 +94,7 @@ export default (props: Props) => {
     }
     setGuest(arr);
   };
+  console.log(guest);
 
   // Show Modal Guest
   const showModalGuest = (item: any, id?: any) => {
@@ -119,14 +120,14 @@ export default (props: Props) => {
         name: item ? `${contact.name} ${contact.surname}` : '',
         surname: item ? contact.name : '',
       };
-      setItemGuest(dataGuest);
+      setItemGuest(dataGuest, 0);
     }
   };
 
   // Save Item by Guest Number
-  const setItemGuest = (item: any) => {
+  const setItemGuest = (item: any, id: number) => {
     let arr = guest;
-    arr[0] = item;
+    arr[id] = item;
     setGuest(arr);
     setTimeout(() => setModal(null), 500);
   };
@@ -158,7 +159,6 @@ export default (props: Props) => {
           searchId: 'SRCH-0001',
           amount: data.price * night,
         };
-        console.log(payloadBook);
         actionBookHotel(payloadBook, token).then((res: any) => {
           if (res.type === 'BOOK_HOTEL_SUCCESS') {
             const dataParam = {
@@ -203,8 +203,8 @@ export default (props: Props) => {
             room: payload.occupancies[0].rooms,
             night: night,
             title: data.title,
-            checkin: dayjs(payload.stay.checkIn).format('YYYY-MM-DD'),
-            checkout: dayjs(payload.stay.checkOut).format('YYYY-MM-DD'),
+            checkin: moment(payload.stay.checkIn).format('YYYY-MM-DD'),
+            checkout: moment(payload.stay.checkOut).format('YYYY-MM-DD'),
             // Login
             onLogin: null,
             isLogin: isLogin,
@@ -248,7 +248,7 @@ export default (props: Props) => {
           <ModalGuest
             guest={guestNum}
             onClose={() => setModal(null)}
-            onSaveGuest={(item: any, id: any) => setItemGuest(item)}
+            onSaveGuest={(item: any, id: any) => setItemGuest(item, id)}
           />
         }
       />

@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
 import axios from 'axios';
 
-const URL: string = 'https://api.aeroaja.com/v1/';
+const URL: string = 'https://apidev.aeroaja.com/v1/';
 const TOUR_DEV: string =
   'https://apigateway-packagetour-dev.asitaaja.com/api/v1/';
 const TOUR_PROD: string = 'https://node-tourpackage.asitaaja.com/api/v1/';
@@ -181,7 +181,7 @@ export async function bookingHotel(payload: object, token: string) {
 
 // ====================== HOLIDAY ======================
 export async function holidayList(token: string) {
-  const uri: string = `${TOUR_PROD}tours?sort=-id`;
+  const uri: string = `${TOUR_DEV}tours?sort=-id`;
   // const uri: string = `${URL}tours?type=popular`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
@@ -193,7 +193,7 @@ export async function holidayList(token: string) {
   return response;
 }
 export async function holidayDetail(token: string, id: number) {
-  const uri: string = `${TOUR_PROD}tour-populars/${id}`;
+  const uri: string = `${TOUR_DEV}tour-populars/${id}`;
   // const uri: string = `${URL}tours/${id}`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
@@ -205,7 +205,7 @@ export async function holidayDetail(token: string, id: number) {
   return response;
 }
 export const holidayBooking = (payload: object, token: string) => {
-  const uri: string = `${BT_PROD}travel-packages`;
+  const uri: string = `${BT_DEV}travel-packages`;
   // const uri: string = `${URL}tours/${id}/booking`;
   const config = {
     headers: {
@@ -267,6 +267,28 @@ export async function withdrawRequest(payload: object, token: string) {
   };
   const response = await axios
     .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => (err.response ? err.response.data : err));
+  return response;
+}
+export async function checkTopUp(id: string, token: string) {
+  const uri: string = `${URL}payment/agents/top-up?q=${id}`;
+  const config = {
+    headers: {Authorization: `bearer ${token}`},
+  };
+  const response = await axios
+    .get(uri, config)
+    .then(res => res.data)
+    .catch(err => (err.response ? err.response.data : err));
+  return response;
+}
+export async function allPack(token: string) {
+  const uri: string = `${TOUR_DEV}/tours/list/authenticated`;
+  const config = {
+    headers: {Authorization: `bearer ${token}`},
+  };
+  const response = await axios
+    .get(uri, config)
     .then(res => res.data)
     .catch(err => (err.response ? err.response.data : err));
   return response;

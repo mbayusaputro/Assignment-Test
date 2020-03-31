@@ -9,7 +9,7 @@ import {AppState} from '../../../../reduxs/reducers';
 import {Props} from './types';
 import {oc} from 'ts-optchain';
 import Toast from 'react-native-easy-toast';
-import {isDate} from 'moment';
+import {AlertModal} from '../../../../components';
 
 const ResultFlight = (props: Props) => {
   // Props
@@ -17,12 +17,15 @@ const ResultFlight = (props: Props) => {
     navigation: {navigate, goBack, state},
     isLoading,
     actionGetFlight,
+    isProfile,
+    isLogin,
   } = props;
   const {params} = state;
 
   // State
   const [result, setResult]: any = useState([{}]);
   const [isDate, setDate] = useState(params.date);
+  const [isModal, setModal] = useState('');
 
   // Ref
   const toastRef: any = useRef();
@@ -62,18 +65,24 @@ const ResultFlight = (props: Props) => {
   };
 
   const toSelect = (item: object) => {
-    if (params.date_return !== '') {
-      navigate('ResultFlightReturn', {
-        departure_flight: item,
-        params,
-        result,
-      });
+    if (isLogin) {
+      if (isProfile.isAgent) {
+        params.date_return !== ''
+          ? navigate('ResultFlightReturn', {
+              departure_flight: item,
+              params,
+              result,
+            })
+          : navigate('BookingFlight', {
+              departure_flight: item,
+              return_flight: null,
+              params,
+            });
+      } else {
+        setModal('agent');
+      }
     } else {
-      navigate('BookingFlight', {
-        departure_flight: item,
-        return_flight: null,
-        params,
-      });
+      setModal('login');
     }
   };
 
@@ -121,6 +130,30 @@ const ResultFlight = (props: Props) => {
         handleDetailFlight={toDetail}
         isLoading={isLoading}
       />
+      <AlertModal
+        isVisible={isModal === 'login'}
+        title={{id: 'Pemberitahuan', en: 'Information'}}
+        desc={{
+          id: 'Kamu harus Masuk atau Daftar untuk langkah selanjutnya.',
+          en: 'You must Login or Register for the next step.',
+        }}
+        btnOk={{id: 'OK', en: 'OK'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
+        onOk={() => navigate('Tabs')}
+        onDismiss={() => setModal('')}
+      />
+      <AlertModal
+        isVisible={isModal === 'agent'}
+        title={{id: 'Pemberitahuan', en: 'Information'}}
+        desc={{
+          id: 'Akunmu belum di aktifkan. Silahkan hubungi kami.',
+          en: 'Your account has not been activated. Please contact us.',
+        }}
+        btnOk={{id: 'OK', en: 'OK'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
+        onOk={() => setModal('')}
+        onDismiss={() => setModal('')}
+      />
     </SafeAreaView>
   );
 };
@@ -131,6 +164,8 @@ const Default = (props: any) => {
 
 const mapStateToProps = (state: AppState) => ({
   isLoading: state.flight.fetchResult,
+  isProfile: state.profile.profile,
+  isLogin: state.profile.isLogin,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

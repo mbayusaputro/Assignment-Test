@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {HighSafeArea, LoadingBook} from '../../../../../components';
 import {Header, SubHeader} from '../../../../../components/Header';
 import Content from './Content';
@@ -6,6 +6,7 @@ import {Withdraw as Props} from '../../../interface/types';
 import {InteractionManager} from 'react-native';
 import {styles, ModalInput, Modal} from '../components';
 import {oc} from 'ts-optchain';
+import Toast from 'react-native-easy-toast';
 
 export default (props: Props) => {
   // State
@@ -16,12 +17,21 @@ export default (props: Props) => {
 
   // Props
   const {
-    navigation: {goBack, navigate},
+    navigation: {goBack},
     token,
     actionWithdraw,
     isLoading,
     profile,
+    getProfile,
   } = props;
+
+  // Ref
+  const toastRef: any = useRef();
+
+  // Lifecycle
+  useEffect(() => {
+    gettingProfile();
+  }, []);
 
   // Function
   const onBack = () => {
@@ -40,9 +50,13 @@ export default (props: Props) => {
       if (res.type === 'WITHDRAW_SUCCESS') {
         console.log(res.data);
       } else {
-        console.log(res.message);
+        toastRef.current.show(res.message, 1500);
       }
     });
+  };
+
+  const gettingProfile = () => {
+    getProfile(token);
   };
 
   const onSave = (value: any, type: string) => {
@@ -61,6 +75,7 @@ export default (props: Props) => {
   // Main Render
   return (
     <HighSafeArea style={styles.SafeContainer}>
+      <Toast ref={toastRef} />
       <Header
         callback={onBack}
         content={{id: 'Permintaan Penarikan', en: 'Withdrawal Request'}}

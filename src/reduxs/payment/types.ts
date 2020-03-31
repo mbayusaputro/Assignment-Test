@@ -10,6 +10,9 @@ export interface State {
 
   // CHECK STATUS PAYMENT
   fetchCheckStatus: boolean;
+
+  // CHECK STATUS TOP UP
+  fetchCheckTopUp: boolean;
 }
 
 // PAYMENT -> MIDTRANS
@@ -21,3 +24,8 @@ export const PAYMIDTRANS_FAILED = 'PAYMIDTRANS_FAILED';
 export const CHECK_PAYMENT = 'CHECK_PAYMENT';
 export const CHECK_PAYMENT_SUCCESS = 'CHECK_PAYMENT_SUCCESS';
 export const CHECK_PAYMENT_FAILED = 'CHECK_PAYMENT_FAILED';
+
+// PAYMENT -> CHECK PAYMENT TOP UP
+export const CHECK_TOPUP = 'CHECK_TOPUP';
+export const CHECK_TOPUP_SUCCESS = 'CHECK_TOPUP_SUCCESS';
+export const CHECK_TOPUP_FAILED = 'CHECK_TOPUP_FAILED';

@@ -1,5 +1,4 @@
 import React, {useRef, useState, useEffect} from 'react';
-import _ from 'lodash';
 import {
   HighSafeArea,
   SubHeader,
@@ -204,7 +203,7 @@ export default (props: Props) => {
     if (
       oc(contact).fullname('') !== '' &&
       oc(contact).email('') !== '' &&
-      oc(contact).mobileNumber('') !== ''
+      oc(contact).phoneNumber('') !== ''
     ) {
       setTimeout(() => {
         const request = {
@@ -217,12 +216,12 @@ export default (props: Props) => {
           guest: adultHotel,
         };
         payloadTour(request, (response: any) => {
-          actionHolidayBook(holiday.detail.tour_package, response).then(
+          actionHolidayBook(holiday.detail.tourpackage, response).then(
             (res: any) => {
-              if (res.type === 'HOLIDAYBOOKING_SUCCESS') {
+              if (res.type === 'HOLIDAYBOOKINGSUCCESS') {
                 const dataSend = {
                   data: res.data,
-                  partner_trxid: res.data.partner_trxid,
+                  partnertrxid: res.data.partnertrxid,
                   total: res.data.amount,
                   info: {dataDetail, dataParam},
                 };

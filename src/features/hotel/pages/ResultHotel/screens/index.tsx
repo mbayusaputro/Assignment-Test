@@ -7,6 +7,7 @@ import {Color} from '../../../../../constants/Color';
 // import {FloatFilter} from '../components';
 import {CardContext} from '../components/CardContext';
 import Toast from 'react-native-easy-toast';
+import {AlertModal} from '../../../../../components';
 
 const titleLang = {id: 'Hotel Didekat Anda', en: 'Hotel Near You'};
 
@@ -17,12 +18,15 @@ export default (props: Props) => {
     loadingSearch,
     pathAsset,
     actionSearchHotel,
+    isLogin,
+    isProfile,
   } = props;
   const payload = getParam('payload');
   payload;
 
   // State
   const [data, setData] = useState([]);
+  const [isModal, setModal] = useState('');
 
   // Ref
   const toastRef: any = useRef();
@@ -48,10 +52,16 @@ export default (props: Props) => {
   };
 
   const onSelectHotel = (item: any) => {
-    navigate('DetailHotel', {
-      selectedHotel: item,
-      payload,
-    });
+    if (isLogin) {
+      isProfile.isAgent
+        ? navigate('DetailHotel', {
+            selectedHotel: item,
+            payload,
+          })
+        : setModal('agent');
+    } else {
+      setModal('login');
+    }
   };
 
   // Main Render
@@ -76,6 +86,30 @@ export default (props: Props) => {
         />
       </CardContext.Provider>
       {/* <FloatFilter onPress={filter} /> */}
+      <AlertModal
+        isVisible={isModal === 'login'}
+        title={{id: 'Pemberitahuan', en: 'Information'}}
+        desc={{
+          id: 'Kamu harus Masuk atau Daftar untuk langkah selanjutnya.',
+          en: 'You must Login or Register for the next step.',
+        }}
+        btnOk={{id: 'OK', en: 'OK'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
+        onOk={() => navigate('Tabs')}
+        onDismiss={() => setModal('')}
+      />
+      <AlertModal
+        isVisible={isModal === 'agent'}
+        title={{id: 'Pemberitahuan', en: 'Information'}}
+        desc={{
+          id: 'Akunmu belum di aktifkan. Silahkan hubungi kami.',
+          en: 'Your account has not been activated. Please contact us.',
+        }}
+        btnOk={{id: 'OK', en: 'OK'}}
+        btnCancel={{id: 'Batal', en: 'Cancel'}}
+        onOk={() => setModal('')}
+        onDismiss={() => setModal('')}
+      />
     </HighSafeArea>
   );
 };

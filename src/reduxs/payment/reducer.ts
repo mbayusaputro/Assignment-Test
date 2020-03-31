@@ -7,6 +7,9 @@ import {
   CHECK_PAYMENT,
   CHECK_PAYMENT_SUCCESS,
   CHECK_PAYMENT_FAILED,
+  CHECK_TOPUP,
+  CHECK_TOPUP_FAILED,
+  CHECK_TOPUP_SUCCESS,
 } from './types';
 
 const initialState: State = {
@@ -15,6 +18,9 @@ const initialState: State = {
 
   // PAYMENT -> CHECK PAYMENT MIDTRANS
   fetchCheckStatus: false,
+
+  // PAYMENT -> CHECK PAYMENT TOP UP
+  fetchCheckTopUp: false,
 };
 
 export default (state: State = initialState, action: Action): State => {
@@ -52,6 +58,23 @@ export default (state: State = initialState, action: Action): State => {
       return {
         ...state,
         fetchCheckStatus: false,
+      };
+
+    // PAYMENT - CHECK PAYMENT MIDTRANS
+    case CHECK_TOPUP:
+      return {
+        ...state,
+        fetchCheckTopUp: true,
+      };
+    case CHECK_TOPUP_SUCCESS:
+      return {
+        ...state,
+        fetchCheckTopUp: false,
+      };
+    case CHECK_TOPUP_FAILED:
+      return {
+        ...state,
+        fetchCheckTopUp: false,
       };
 
     default:

@@ -8,6 +8,7 @@ export interface HolidayListProps extends GlobalProps {
   fetchList: boolean;
   isLogin: boolean;
   token: string;
+  isProfile: any;
   actionHolidayList: (item: any) => Promise<void>;
 }
 
