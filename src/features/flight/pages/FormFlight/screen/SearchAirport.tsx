@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,15 +16,19 @@ import Header from '../../../components/Head';
 import {SearchAirportProps, AirportProps} from '../types';
 
 const Aiports = (props: AirportProps) => {
+  // Props
+  const {onPress, city, airport, code} = props;
+
+  // Main Render
   return (
-    <Touch style={styles.list} activeOpacity={0.7} onPress={props.onPress}>
+    <Touch style={styles.list} activeOpacity={0.7} onPress={onPress}>
       <View>
         <Text style={{fontFamily: 'NunitoSans-Bold', fontSize: 16}}>
-          {props.city}
+          {city}
         </Text>
         <Text
           style={{fontFamily: 'NunitoSans-Regular', color: Color.brownGreyF}}>
-          {props.airport}
+          {airport}
         </Text>
       </View>
       <View style={styles.code}>
@@ -34,7 +38,7 @@ const Aiports = (props: AirportProps) => {
             color: Color.brownGreyTwo,
             fontSize: 12,
           }}>
-          {props.code}
+          {code}
         </Text>
       </View>
     </Touch>
@@ -42,19 +46,25 @@ const Aiports = (props: AirportProps) => {
 };
 
 const SearchAirport = (props: SearchAirportProps) => {
-  const [isOnFocus, setOnFocus] = useState(false);
-  const [airport, setAirport] = useState([]);
+  // Props
+  const {airport, isModalVisible, toggleModal, handleSelect} = props;
 
-  React.useEffect(() => {
-    setAirport(props.airport);
+  // State
+  const [isAirport, setAirport] = useState([]);
+
+  useEffect(() => {
+    setAirport(airport);
   }, []);
 
   const onChange = (event: string) => {
     let tempDataFlight = [];
-    if (props.airport.length > 0) {
-      props.airport.filter((dest: any) => {
+    if (airport.length > 0) {
+      airport.filter((dest: any) => {
         if (
           dest.city_name.toLowerCase().indexOf(event.toLowerCase()) > -1 ||
+          dest.international_airport_name
+            .toLowerCase()
+            .indexOf(event.toLowerCase()) > -1 ||
           dest.airport_code.toLowerCase().indexOf(event.toLowerCase()) > -1
         ) {
           tempDataFlight.push(dest);
@@ -64,16 +74,17 @@ const SearchAirport = (props: SearchAirportProps) => {
     setAirport(tempDataFlight);
   };
 
+  // Main Render
   return (
     <View style={{flex: 1}}>
       <Modal
-        isVisible={props.isModalVisible}
+        isVisible={isModalVisible}
         backdropColor={Color.lightgray}
         backdropOpacity={1}
-        onBackButtonPress={props.toggleModal}
+        onBackButtonPress={toggleModal}
         style={{marginHorizontal: 0}}>
         <SafeAreaView style={{flex: 1}}>
-          <Header title="Select Departure" goBack={props.toggleModal} />
+          <Header title="Select Departure" goBack={toggleModal} />
           <View style={styles.search}>
             <Image
               style={{
@@ -87,12 +98,8 @@ const SearchAirport = (props: SearchAirportProps) => {
             <TextInput
               // value={'Place'}
               placeholder="Select City or Airport"
-              style={[
-                styles.text,
-                isOnFocus ? {marginLeft: 30} : {textAlign: 'center'},
-              ]}
+              style={[styles.text, {marginLeft: 15}]}
               onChangeText={(text: string) => onChange(text)}
-              onFocus={() => setOnFocus(true)}
             />
           </View>
           <View style={styles.title}>
@@ -106,12 +113,12 @@ const SearchAirport = (props: SearchAirportProps) => {
               Popular Destinations
             </Text>
             <FlatList
-              data={airport}
+              data={isAirport}
               keyExtractor={(__: any, index: number) => index.toString()}
               renderItem={({item, index}) => {
                 return (
                   <Aiports
-                    onPress={() => props.handleSelect(item)}
+                    onPress={() => handleSelect(item)}
                     key={index}
                     city={item.city_name}
                     airport={item.international_airport_name}
@@ -145,7 +152,8 @@ const styles = StyleSheet.create({
   search: {
     flexDirection: 'row',
     backgroundColor: Color.white,
-    padding: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
     borderRadius: 5,
     marginTop: -30,
     marginBottom: 20,
@@ -160,7 +168,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   text: {
-    flex: 1,
     fontFamily: 'NunitoSans-Regular',
   },
 });

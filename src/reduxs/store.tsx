@@ -8,6 +8,7 @@ import logger from 'redux-logger';
 import rootReducer from './reducers';
 
 const middlewares = [thunkMiddleware, logger];
+// const middlewares = [thunkMiddleware];
 const middlewareEnhancer = applyMiddleware(...middlewares);
 
 const persistObj = {

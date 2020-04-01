@@ -2,6 +2,7 @@ import React from 'react';
 import {Imaging} from '../components';
 import normalize from '../constants/normalize';
 import numeral from 'numeral';
+import moment from 'moment';
 
 export const validateEmailFormat = (email: string) => {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -112,4 +113,32 @@ export const generateValue = (begin: number, end: number) => {
     valueAmount.push(500000 * (i + 1));
   }
   return valueAmount;
+};
+
+export const generateDateSlider = (date: any) => {
+  let data = [];
+  for (let i = -3; i < 4; i++) {
+    data.push({
+      date: moment(date)
+        .add(i, 'days')
+        .format('D'),
+      day: moment(date)
+        .add(i, 'days')
+        .format('ddd'),
+      selectDate: moment(date)
+        .add(i, 'days')
+        .format('YYYY-MM-DD'),
+      disabled:
+        new Date() <
+        new Date(
+          moment(date)
+            .add(i, 'days')
+            .format('YYYY-MM-DD'),
+        )
+          ? false
+          : true,
+      active: i === 0 ? true : false,
+    });
+  }
+  return data;
 };

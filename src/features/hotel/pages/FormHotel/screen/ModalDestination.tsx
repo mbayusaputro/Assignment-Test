@@ -15,6 +15,7 @@ import {
 } from '../../../../../components';
 import {Color} from '../../../../../constants/Color';
 import {InputButton, styles} from '../components';
+import Toast from 'react-native-easy-toast';
 
 type Props = {
   onClose: () => void;
@@ -22,10 +23,11 @@ type Props = {
   onSelect: (item: any) => void;
   data: Array<any>;
   loading: boolean;
+  toastRef: any;
 };
 
 export default (props: Props) => {
-  const {onClose, onSearch, data, loading, onSelect} = props;
+  const {onClose, onSearch, data, loading, onSelect, toastRef} = props;
 
   // Flatlist
   const keyExtractor = (__: any, index: number) => index.toString();
@@ -52,6 +54,7 @@ export default (props: Props) => {
   // Main Render
   return (
     <View style={{flex: 1, backgroundColor: Color.backWhite}}>
+      <Toast ref={toastRef} />
       <Header
         content={{id: 'Temukan Hotel Tujuan', en: 'Find Destination Hotels'}}
         iconLeft={
@@ -74,6 +77,7 @@ export default (props: Props) => {
                 onSubmitEditing={(event: any) =>
                   onSearch(event.nativeEvent.text)
                 }
+                onChangeText={(event: string) => onSearch(event)}
                 style={{borderWidth: 0, width: '100%', margin: 0, padding: 0}}
                 autoFocus={true}
                 returnKeyType="search"

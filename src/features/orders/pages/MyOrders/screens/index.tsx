@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import {oc} from 'ts-optchain';
 import _ from 'lodash';
 import {HighSafeArea} from '../../../../../components';
 import Header from '../components/Header';
@@ -76,7 +75,14 @@ const Orders = (props: Props) => {
           onRefresh={getDataOrder}
           loading={props.fetchOrder}
         />
-        <Finished {...props} title="Finished" />
+        <Finished
+          {...props}
+          title="Finished"
+          dataOrder={isLogin ? data : []}
+          onSelected={(item: any) => onSelectOrder(item)}
+          onRefresh={getDataOrder}
+          loading={props.fetchOrder}
+        />
       </Tabs>
     </HighSafeArea>
   );

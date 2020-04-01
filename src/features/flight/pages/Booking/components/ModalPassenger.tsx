@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,30 +13,43 @@ import {
   HEADER_FONT_SIZE,
   MEDIUM_FONT_SIZE,
 } from '../../../../../constants/TextSize';
-import {dataSalutation} from './data';
+import {salutationAdult, salutationChild} from './data';
 import {ModalProps} from '../types';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
 import {generateDate} from '../../../../../helpers/helpers';
 import moment from 'moment';
+import {oc} from 'ts-optchain';
 
 export default (props: ModalProps) => {
+  // Props
   const {
     isVisible,
     onDismiss,
     form,
-    dataPassenger,
     handleInput,
     onSave,
     onDob,
+    dataPassenger,
+    index,
   } = props;
 
+  // State
   const [salutation, setSalutation] = useState('MR');
   const [dob, setDob] = useState(false);
   const [type, setType] = React.useState(['Day', 'Month', 'Year']);
   const [year, setYear] = useState(new Date().getFullYear() - 12);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [day, setDay] = useState(new Date().getDate());
+  const [isName, setName] = useState('');
 
+  // Lifecycle
+  useEffect(() => {
+    if (isName !== oc(dataPassenger[form][index]).fullName('')) {
+      setName(oc(dataPassenger[form][index]).fullName(''));
+    }
+  });
+
+  // Function
   const onChange = (data: any, item: any) => {
     item === 'Day'
       ? setDay(data)
@@ -50,6 +63,12 @@ export default (props: ModalProps) => {
     setDob(!dob);
   };
 
+  const onText = (text: string) => {
+    setName(text);
+    handleInput('fullName', text);
+  };
+
+  // Main Render
   return (
     <Modal
       useNativeDriver={true}
@@ -111,24 +130,30 @@ export default (props: ModalProps) => {
                     onValueChange={(value: any, _: number) =>
                       setSalutation(value)
                     }>
-                    {dataSalutation.map((item: any, index: number) => (
-                      <Picker.Item
-                        key={index}
-                        value={item.title}
-                        label={item.title}
-                      />
-                    ))}
+                    {form !== 'adult'
+                      ? salutationChild.map((item: any, index: number) => (
+                          <Picker.Item
+                            key={index}
+                            value={item.title}
+                            label={item.title}
+                          />
+                        ))
+                      : salutationAdult.map((item: any, index: number) => (
+                          <Picker.Item
+                            key={index}
+                            value={item.title}
+                            label={item.title}
+                          />
+                        ))}
                   </Picker>
                 </View>
                 <View style={{width: '75%'}}>
                   <InputText
                     style={{borderRadius: 5, borderColor: Color.labelgray}}
                     placeholder="Full Name"
-                    onChangeText={(text: string) =>
-                      handleInput('fullName', text)
-                    }
+                    onChangeText={(text: string) => onText(text)}
                     autoCapitalize="words"
-                    value={dataPassenger.fullname}
+                    value={isName}
                   />
                 </View>
               </View>

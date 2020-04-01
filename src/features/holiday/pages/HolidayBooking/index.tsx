@@ -8,6 +8,11 @@ import {
   getDataHotel,
   getDataHoliday,
 } from '../../../../reduxs/holiday/selector';
+import {
+  getIsLogin,
+  getToken,
+  getProfile,
+} from '../../../../reduxs/profile/selector';
 import HolidayBooking from './screens';
 
 const mapStateToProps = (state: any) => ({
@@ -15,6 +20,9 @@ const mapStateToProps = (state: any) => ({
   flight: getDataFlight(state),
   hotel: getDataHotel(state),
   holiday: getDataHoliday(state),
+  isLogin: getIsLogin(state),
+  token: getToken(state),
+  isProfile: getProfile(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

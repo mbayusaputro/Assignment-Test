@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, memo} from 'react';
 import {Animated} from 'react-native';
 import Content from './Content';
 import Header from './Header';
@@ -16,7 +16,7 @@ import {oc} from 'ts-optchain';
 import ModalImage from './ModalImage';
 
 export default (props: Props) => {
-  const Participant = React.memo(ModalParticipant);
+  const Participant = memo(ModalParticipant);
   // Props
   const {
     navigation: {getParam, goBack, navigate},
@@ -25,15 +25,15 @@ export default (props: Props) => {
   } = props;
   const idParam = getParam('id');
   // State
-  const [dataDetail, setDataDetail] = React.useState(null);
-  const [scrollY] = React.useState(new Animated.Value(0));
-  const [modal, setModal] = React.useState(null);
-  const [selectedDate, setSelectedDate] = React.useState(0);
-  const [totalAdult, setTotalAdult] = React.useState(2);
-  const [totalChild, setTotalChild] = React.useState(0);
-  const [totalPrice, setTotalPrice] = React.useState(0);
+  const [dataDetail, setDataDetail] = useState(null);
+  const [scrollY] = useState(new Animated.Value(0));
+  const [modal, setModal] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(0);
+  const [totalAdult, setTotalAdult] = useState(2);
+  const [totalChild, setTotalChild] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     getDetail();
   }, []);
 

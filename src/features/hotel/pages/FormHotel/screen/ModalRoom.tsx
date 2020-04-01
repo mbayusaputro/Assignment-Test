@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity as Touch} from 'react-native';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
-import _ from 'lodash';
 import {Text, Button} from '../../../../../components';
 import {styles} from '../components';
 import {Color} from '../../../../../constants/Color';
@@ -12,8 +11,7 @@ type Props = {
   selectedRoom: number;
   selectedGuest: number;
   totalGuest: number;
-  onChangeRoom: (data: any) => void;
-  onChangeGuest: (data: any) => void;
+  onChange: (data: any, type: string) => void;
 };
 
 const closeLang = {id: 'Kamar & Tamu', en: 'Room & Guest'};
@@ -21,14 +19,7 @@ const titleRoom = {id: 'Jumlah Kamar', en: 'Number of Room'};
 const titleGuest = {id: 'Jumlah Tamu', en: 'Number of Guest'};
 
 export default (props: Props) => {
-  const {
-    onDismiss,
-    selectedRoom,
-    selectedGuest,
-    totalGuest,
-    onChangeRoom,
-    onChangeGuest,
-  } = props;
+  const {onDismiss, selectedRoom, selectedGuest, onChange} = props;
   return (
     <View style={styles.contentModalCheckout}>
       <Touch style={styles.close} onPress={onDismiss}>
@@ -42,15 +33,9 @@ export default (props: Props) => {
             </View>
             <View style={[styles.vertical, styles.rowBetween]}>
               <ScrollPicker
-                dataSource={
-                  item === 'room'
-                    ? _.chunk(dataTotal, totalGuest)[0]
-                    : dataTotal
-                }
+                dataSource={dataTotal}
                 selectedIndex={item === 'room' ? selectedRoom : selectedGuest}
-                onValueChange={(data: any, id: number) =>
-                  item === 'room' ? onChangeRoom(data) : onChangeGuest(data)
-                }
+                onValueChange={(data: any, _: number) => onChange(data, item)}
                 wrapperHeight={100}
                 wrapperWidth={150}
                 itemColor={Color.black}

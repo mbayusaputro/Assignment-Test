@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   TouchableOpacity as Touch,
@@ -8,10 +8,12 @@ import {
 import {Text, InputText, Button} from '../../../../../components';
 import {styles} from '../components';
 import {validateEmailFormat} from '../../../../../helpers/helpers';
+import {oc} from 'ts-optchain';
 
 type Props = {
   onClose: () => void;
   onSave: (item: any) => void;
+  data: any;
 };
 
 const dataSalutation = [
@@ -30,14 +32,22 @@ const dataSalutation = [
 ];
 
 export default (props: Props) => {
-  const {onClose} = props;
+  const {onClose, data} = props;
 
   // State
-  const [salutation, setSalutation] = React.useState('Mr');
-  const [fullname, setFullname] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [validMail, setValidMail] = React.useState(true);
-  const [mobileNumber, setMobileNumber] = React.useState('');
+  const [salutation, setSalutation] = useState('Mr');
+  const [fullname, setFullname] = useState('');
+  const [email, setEmail] = useState('');
+  const [validMail, setValidMail] = useState(true);
+  const [mobileNumber, setMobileNumber] = useState('');
+
+  // Lifecycle
+  useEffect(() => {
+    setSalutation(oc(data).salutation('MR'));
+    setFullname(oc(data).fullname(''));
+    setEmail(oc(data).email(''));
+    setMobileNumber(oc(data).phoneNumber(''));
+  }, []);
 
   // Function
   const changeEmail = (txt: string) => {
@@ -93,8 +103,9 @@ export default (props: Props) => {
           </View>
           <View style={{width: '75%'}}>
             <InputText
-              placeholder="Fullnam"
+              placeholder="Fullname"
               onChangeText={(text: any) => setFullname(text)}
+              value={fullname}
             />
           </View>
         </View>
@@ -104,6 +115,7 @@ export default (props: Props) => {
             placeholder="Phone Number"
             onChangeText={(text: string) => changeNumber(text)}
             keyboardType="numeric"
+            value={mobileNumber}
           />
         </View>
 
@@ -113,6 +125,7 @@ export default (props: Props) => {
             onChangeText={(text: string) => changeEmail(text)}
             keyboardType="email-address"
             autoCapitalize="none"
+            value={email}
           />
           {validMail ? null : (
             <Text

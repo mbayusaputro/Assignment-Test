@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {HighSafeArea, LoadingBook} from '../../../../../components';
+import React, {useState, useEffect, useRef} from 'react';
+import {HighSafeArea} from '../../../../../components';
 import {Header, SubHeader} from '../../../../../components/Header';
 import Content from './Content';
 import {TopUp as Props} from '../../../interface/types';
 import {InteractionManager} from 'react-native';
 import {styles, Modal} from '../components';
 import {oc} from 'ts-optchain';
+import Toast from 'react-native-easy-toast';
 
 export default (props: Props) => {
   // State
@@ -18,9 +19,17 @@ export default (props: Props) => {
     navigation: {goBack, navigate},
     token,
     actionTopUp,
-    isLoading,
     profile,
+    getProfile,
   } = props;
+
+  // Ref
+  const toastRef: any = useRef();
+
+  // Lifecycle
+  useEffect(() => {
+    gettingProfile();
+  }, []);
 
   // Function
   const onBack = () => {
@@ -37,13 +46,17 @@ export default (props: Props) => {
           navigate('PaymentWeb', {
             source: res.data.redirect_url,
             typeScreen: 'agent',
-            productID: '',
+            productID: res.data.code,
           });
         }, 500);
       } else {
-        alert(res.message);
+        toastRef.current.show(res.message, 1500);
       }
     });
+  };
+
+  const gettingProfile = () => {
+    getProfile(token);
   };
 
   const onSave = (value: number) => {
@@ -59,6 +72,7 @@ export default (props: Props) => {
   // Main Render
   return (
     <HighSafeArea style={styles.SafeContainer}>
+      <Toast ref={toastRef} />
       <Header
         callback={onBack}
         content={{id: 'Top Up Setoran', en: 'Top Up Deposit'}}
@@ -71,11 +85,10 @@ export default (props: Props) => {
         modalSelect={() => onModal('select')}
         amount={isAmount}
       />
-      <LoadingBook isVisible={isLoading} />
       <Modal
         isVisible={isVisible}
         onDismiss={() => setVisible(null)}
-        onSave={(_1: any) => onSave(_1)}
+        onSave={(_1: number) => onSave(_1)}
         model={isModel}
       />
     </HighSafeArea>

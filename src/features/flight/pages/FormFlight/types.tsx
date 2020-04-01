@@ -52,6 +52,8 @@ export type CalendarProps = {
   isModalVisible: boolean;
   toggleModal: () => void;
   onDateChange: (payload: any) => void;
+  date: any;
+  disabled?: any;
 };
 
 export type ClassProps = {

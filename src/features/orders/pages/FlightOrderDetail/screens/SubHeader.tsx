@@ -4,22 +4,27 @@ import {Color} from '../../../../../constants/Color';
 import {scale, verticalScale} from '../../../../../constants/ScaleUtils';
 
 type Props = {
-  departure: any;
-  destination: any;
+  departure?: string;
+  destination?: string;
+  code?: string;
 };
 
 export default (props: Props) => {
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: 'row'}}>
-        <Text style={styles.id}>{props.departure}</Text>
-        <Image
-          style={styles.return}
-          source={require('../../../../../assets/icons/return.png')}
-          resizeMode="contain"
-        />
-        <Text style={styles.id}>{props.destination}</Text>
-      </View>
+      {props.code ? (
+        <Text style={styles.id}>Booking Code {props.code}</Text>
+      ) : (
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.id}>{props.departure}</Text>
+          <Image
+            style={styles.return}
+            source={require('../../../../../assets/icons/return.png')}
+            resizeMode="contain"
+          />
+          <Text style={styles.id}>{props.destination}</Text>
+        </View>
+      )}
     </View>
   );
 };

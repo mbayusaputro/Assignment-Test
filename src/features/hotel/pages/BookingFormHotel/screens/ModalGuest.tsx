@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity as Touch} from 'react-native';
 import {Text, InputText, Button} from '../../../../../components';
 import {styles} from '../components';
@@ -7,12 +7,18 @@ type Props = {
   onClose: () => void;
   guest: number;
   onSaveGuest: (item: any, id: number) => void;
+  isFullName: string;
 };
 
 export default (props: Props) => {
-  const {onClose, onSaveGuest, guest} = props;
+  const {onClose, onSaveGuest, guest, isFullName} = props;
 
-  const [fullname, setFullname] = React.useState('');
+  const [fullname, setFullname] = useState('');
+
+  // Lifecycle
+  useEffect(() => {
+    setFullname(isFullName);
+  }, []);
 
   const onSave = () => {
     if (fullname !== '') {
@@ -23,7 +29,7 @@ export default (props: Props) => {
         name: fullname,
         surname: splitName[0],
       };
-      onSaveGuest(payload, guest);
+      onSaveGuest(payload, guest - 1);
     } else {
       alert('Please enter fullname field');
     }
@@ -35,7 +41,7 @@ export default (props: Props) => {
       <Touch onPress={onClose} style={styles.modalClose}>
         <Text
           style={styles.textClose}
-          content={{id: `#${guest + 1} Tamu`, en: `#${guest + 1} Guest`}}
+          content={{id: `#${guest} Tamu`, en: `#${guest} Guest`}}
         />
       </Touch>
       <View style={styles.vertical}>

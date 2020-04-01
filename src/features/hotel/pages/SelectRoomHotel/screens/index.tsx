@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import {HighSafeArea} from '../../../../../components';
 import Content from './Content';
 import Header from './Header';
@@ -36,6 +35,7 @@ export default (props: Props) => {
       data,
       payload,
       room,
+      dataHotel,
     });
   };
 

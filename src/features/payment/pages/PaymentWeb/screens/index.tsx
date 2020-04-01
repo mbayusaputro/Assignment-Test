@@ -1,13 +1,7 @@
 import React, {PureComponent} from 'react';
 import WebView from 'react-native-webview';
 import {BackHandler} from 'react-native';
-import {
-  HighSafeArea,
-  Header,
-  Card,
-  Text,
-  AlertModal,
-} from '../../../../../components';
+import {HighSafeArea, Header, AlertModal} from '../../../../../components';
 import {
   PayWebProps as Props,
   PayWebState as State,
@@ -53,14 +47,6 @@ export default class PaymentWeb extends PureComponent<Props, State> {
     this.setState({isVisible: 2});
   };
 
-  // Navigate to Home
-  goTicket = () => {
-    const {
-      navigation: {navigate},
-    } = this.props;
-    navigate('ETicket');
-  };
-
   goHome = () => {
     const {
       navigation: {dispatch},
@@ -82,18 +68,30 @@ export default class PaymentWeb extends PureComponent<Props, State> {
   // Check Payment Status
   checkPaymentStatus = () => {
     const {
-      actionCheckPaymentMidtrans,
-      navigation: {getParam},
+      actionCheckPayment,
+      navigation: {getParam, navigate},
+      onCheckStatus,
+      token,
     } = this.props;
     const type = getParam('typeScreen');
     const trx_id = getParam('productID');
-    actionCheckPaymentMidtrans(trx_id, type).then((res: any) => {
-      if (res.type === 'CHECK_PAYMENT_SUCCESS') {
-        if (res.data.Status !== 'WAITING_PAYMENT') {
-          this.goTicket();
-        }
-      }
-    });
+
+    // Validate Agent
+    type === 'agent'
+      ? onCheckStatus(trx_id, token).then((res: any) => {
+          if (res.type === 'CHECK_TOPUP_SUCCESS') {
+            if (res.data[0].status !== 'WAITING_PAYMENT') {
+              navigate('ETicket');
+            }
+          }
+        })
+      : actionCheckPayment(trx_id, type).then((res: any) => {
+          if (res.type === 'CHECK_PAYMENT_SUCCESS') {
+            if (res.data.status !== 'WAITING_PAYMENT') {
+              navigate('ETicket');
+            }
+          }
+        });
   };
 
   // Get SOURCE WEB

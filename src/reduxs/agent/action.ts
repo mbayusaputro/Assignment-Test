@@ -6,11 +6,15 @@ import {
   WITHDRAW,
   WITHDRAW_FAILED,
   WITHDRAW_SUCCESS,
+  ALLPACK,
+  ALLPACK_FAILED,
+  ALLPACK_SUCCESS,
 } from './types';
-import {topUp, withdrawRequest} from '../../services/api';
+import {topUp, withdrawRequest, allPack} from '../../services/api';
 
 const topUpDeposit: string = 'topUpDeposit';
 const withdraw: string = 'withdraw';
+const allpack: string = 'allpack';
 
 const requestState = (type: string) => {
   if (type === topUpDeposit) {
@@ -21,71 +25,98 @@ const requestState = (type: string) => {
     return {
       type: WITHDRAW,
     };
+  } else if (type === allpack) {
+    return {
+      type: ALLPACK,
+    };
   }
 };
 
-const successState = (type: string, data: any, payload: any) => {
+const successState = (type: string, data: any) => {
   if (type === topUpDeposit) {
     return {
       type: TOP_UP_SUCCESS,
       data,
-      payload,
     };
   } else if (type === withdraw) {
     return {
       type: WITHDRAW_SUCCESS,
       data,
-      payload,
+    };
+  } else if (type === allpack) {
+    return {
+      type: ALLPACK_SUCCESS,
+      data,
     };
   }
 };
 
-const failedState = (type: string, message: any, payload: any) => {
+const failedState = (type: string, message: any) => {
   if (type === topUpDeposit) {
     return {
       type: TOP_UP_FAILED,
       message,
-      payload,
     };
   } else if (type === withdraw) {
     return {
       type: WITHDRAW_FAILED,
       message,
-      payload,
+    };
+  } else if (type === allpack) {
+    return {
+      type: ALLPACK_FAILED,
+      message,
     };
   }
 };
 
-// ====================== FLIGHTS - ORDER HISTORY ======================
+// ====================== AGENT - TOP UP ======================
 export const actionTopUp = (token: string, payload: object) => {
   return async (dispatch: Dispatch) => {
     dispatch(requestState(topUpDeposit));
     try {
       const res = await topUp(payload, token);
       if (res.success) {
-        return dispatch(successState(topUpDeposit, res.data, payload));
+        return dispatch(successState(topUpDeposit, res.data));
       }
-      return dispatch(failedState(topUpDeposit, res.message, payload));
+      return dispatch(failedState(topUpDeposit, res.message));
     } catch (err) {
-      return dispatch(failedState(topUpDeposit, err.message, payload));
+      return dispatch(failedState(topUpDeposit, err.message));
     }
   };
 };
-// ====================== FLIGHTS - ORDER HISTORY ======================
+// ====================== AGENT - TOP UP ======================
 
-// ====================== FLIGHTS - SEARCH ======================
+// ====================== AGENT - WITHDRAW ======================
 export const actionWithdraw = (token: string, payload: object) => {
   return async (dispatch: Dispatch) => {
     dispatch(requestState(withdraw));
     try {
       const res = await withdrawRequest(payload, token);
       if (res.status) {
-        return dispatch(successState(withdraw, res.data, payload));
+        return dispatch(successState(withdraw, res.data));
       }
-      return dispatch(failedState(withdraw, res.message, payload));
+      return dispatch(failedState(withdraw, res.message));
     } catch (err) {
-      return dispatch(failedState(withdraw, err.message, payload));
+      return dispatch(failedState(withdraw, err.message));
     }
   };
 };
-// ====================== FLIGHTS - SEARCH ======================
+// ====================== AGENT - WITHDRAW ======================
+
+// ====================== AGENT - ALL PACKAGE ======================
+export const actionAllPack = (token: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestState(allpack));
+    try {
+      const res = await allPack(token);
+      if (res.success) {
+        return dispatch(successState(allpack, res.data));
+      }
+      return dispatch(failedState(allpack, res.data.message));
+    } catch (err) {
+      return dispatch(failedState(allpack, err.message));
+    }
+  };
+};
+// ====================== AGENT - ALL PACKAGE ======================

@@ -9,6 +9,8 @@ export interface Props extends GlobalProps {
   handleDetailFlight: (payload: object) => void;
   actionGetFlight: (payload: object) => Promise<void>;
   isLoading: boolean;
+  isProfile: any;
+  isLogin: boolean;
 }
 
 export type HeaderProps = {
@@ -25,13 +27,16 @@ export type SubHeaderProps = {
   cabin_class: string;
   total_flight: number;
   isLoading: boolean;
+  empty?: boolean;
 };
 
 export type ResultProps = {
   handleSelectFlight: (payload: object) => void;
   handleDetailFlight: (payload: object) => void;
+  handleSelectDate: (payload: any) => void;
   dataFlight: Array<object>;
   isLoading: boolean;
+  isDate: any;
 };
 
 export type ListProps = {

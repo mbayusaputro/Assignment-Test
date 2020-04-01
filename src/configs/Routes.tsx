@@ -45,6 +45,10 @@ import {
   Withdraw,
   Report,
   ReportResult,
+  MyAgent,
+  CreatePackages,
+  CreatePackagesNext,
+  ItineraryAgent,
 } from '../features';
 import {Color} from '../constants/Color';
 import {fromBottom, fromRight} from 'react-navigation-transitions';
@@ -403,6 +407,30 @@ const STACK = createStackNavigator(
     },
     ReportResult: {
       screen: ReportResult,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    MyAgent: {
+      screen: MyAgent,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    CreatePackages: {
+      screen: CreatePackages,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    CreatePackagesNext: {
+      screen: CreatePackagesNext,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    ItineraryAgent: {
+      screen: ItineraryAgent,
       navigationOptions: {
         header: null,
       },

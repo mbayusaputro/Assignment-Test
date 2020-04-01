@@ -59,8 +59,10 @@ const Passenger = (props: ModalProps) => {
               <InputText
                 style={{borderRadius: 5, borderColor: Color.labelgray}}
                 placeholder="Enter Amount"
-                onChangeText={(text: any) => setAmount(text)}
-                keyboardType="number-pad"
+                onChangeText={(text: any) =>
+                  text === '' ? setAmount(0) : setAmount(parseInt(text))
+                }
+                keyboardType="numeric"
                 autoCapitalize="none"
                 value={isAmount.toString()}
               />

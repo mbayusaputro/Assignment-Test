@@ -6,10 +6,10 @@ export interface Props {
 }
 
 export interface TopUp extends Props {
-  isLoading: boolean;
   token: string;
   profile: any;
   actionTopUp: (_1: string, _2: object) => Promise<void>;
+  getProfile: (_1: string) => Promise<void>;
 }
 
 export interface Withdraw extends Props {
@@ -17,6 +17,7 @@ export interface Withdraw extends Props {
   token: string;
   profile: any;
   actionWithdraw: (_1: string, _2: object) => Promise<void>;
+  getProfile: (_1: string) => Promise<void>;
 }
 
 export type ContentChangeProps = {
@@ -50,8 +51,8 @@ export type ContentProps = {
 export type CardProps = {
   icons?: ImageSourcePropType;
   label: any;
-  fieldValue: any;
-  type: number;
+  fieldValue?: any;
+  type?: number;
   onPress: () => void;
 };
 

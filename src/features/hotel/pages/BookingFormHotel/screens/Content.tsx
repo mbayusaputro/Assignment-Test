@@ -26,7 +26,7 @@ export default () => {
           checkin={content.checkin}
           checkout={content.checkout}
         />
-        <CardLogin onPress={content.onLogin} />
+        {content.isLogin ? [] : <CardLogin onPress={content.onLogin} />}
         <ContactDetail
           onShowContact={content.onShowContact}
           dataContact={content.dataContact}

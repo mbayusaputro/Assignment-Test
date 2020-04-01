@@ -35,7 +35,13 @@ export default (props: MyProfileProps) => {
             />
           )}
           <View style={styles.leftMargin}>
-            <Text style={styles.textExtraBold}>{oc(profile).fullname('')}</Text>
+            <Text style={styles.textExtraBold}>
+              {
+                oc(profile)
+                  .fullname('')
+                  .split('-')[0]
+              }
+            </Text>
             <Text style={styles.textSmall}>{oc(profile).email('')}</Text>
           </View>
         </View>
@@ -45,7 +51,7 @@ export default (props: MyProfileProps) => {
           style={[styles.content, styles.rowBetween]}>
           <View style={styles.rowBetween}>
             <Text
-              content={{id: 'Pengaturan Akun', en: 'Account Setting'}}
+              content={{id: 'Agen Saya', en: 'My Agent'}}
               style={styles.textBold}
             />
           </View>

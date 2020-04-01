@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch, bindActionCreators} from 'redux';
 import {actionWithdraw} from '../../../../reduxs/agent/action';
+import {actionGetProfile} from '../../../../reduxs/profile/action';
 import {getToken, getProfile} from '../../../../reduxs/profile/selector';
 import Withdraw from './screens';
 
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       actionWithdraw: (token: string, payload: object) =>
         actionWithdraw(token, payload),
+      getProfile: (token: string) => actionGetProfile(token),
     },
     dispatch,
   );

@@ -83,7 +83,7 @@ export default (props: Props) => {
         keyExtractor={keyExtractor}
         contentContainerStyle={{paddingBottom: 200}}
         maxToRenderPerBatch={50}
-        ListEmptyComponent={<Empty />}
+        ListEmptyComponent={<Empty {...props} />}
         initialNumToRender={3}
         windowSize={10}
       />

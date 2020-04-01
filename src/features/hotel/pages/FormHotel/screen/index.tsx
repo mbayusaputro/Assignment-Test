@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {InteractionManager} from 'react-native';
 import dayjs from 'dayjs';
 import {HighSafeArea} from '../../../../../components';
@@ -19,6 +19,7 @@ const defaultDestination = {
 };
 
 export default (props: Props) => {
+  // Props
   const {
     loadingList,
     navigation: {goBack, navigate, state},
@@ -34,6 +35,9 @@ export default (props: Props) => {
   const [checkOut, setCheckOut] = useState(null);
   const [room, setRoom] = useState(1);
   const [guest, setGuest] = useState(1);
+
+  // Ref
+  const toastRef: any = useRef();
 
   // LifeCycle
   useEffect(() => {
@@ -72,12 +76,13 @@ export default (props: Props) => {
     const payload = {
       query: text,
     };
-    actionListDestinationHotel(payload).then((res: any) => {
-      if (res.type === 'LIST_DESTINATION_SUCCESS') {
-        const result = [...res.data.city, ...res.data.hotels];
-        setDataDestination(result);
-      }
-    });
+    if (text.length > 2) {
+      actionListDestinationHotel(payload).then((res: any) => {
+        res.type === 'LIST_DESTINATION_SUCCESS'
+          ? setDataDestination(res.data.city.concat(res.data.hotels))
+          : toastRef.current.show(res.message, 1500);
+      });
+    }
   };
 
   const onSelectDestination = (item: any) => {
@@ -97,8 +102,8 @@ export default (props: Props) => {
 
   const setRoomGuest = (data: any, type: string) => {
     if (type === 'guest') {
-      if (room === guest || room > guest) {
-        setRoom(data);
+      if (guest > room) {
+        setRoom(Math.ceil(data / 2));
         setGuest(data);
       } else {
         setGuest(data);
@@ -163,10 +168,11 @@ export default (props: Props) => {
         children={
           <ModalDestination
             onClose={() => onModal(null)}
-            onSearch={(event: any) => onSearch(event)}
-            onSelect={(item: any) => onSelectDestination(item)}
+            onSearch={onSearch}
+            onSelect={onSelectDestination}
             data={dataDestination}
             loading={loadingList}
+            toastRef={toastRef}
           />
         }
       />
@@ -190,7 +196,7 @@ export default (props: Props) => {
           <ModalCheckout
             onDismiss={() => onModal(null)}
             selectedIndex={checkOut}
-            onValueChange={(data: any) => setCheckOut(data)}
+            onValueChange={setCheckOut}
           />
         }
       />
@@ -204,8 +210,7 @@ export default (props: Props) => {
             selectedRoom={room}
             selectedGuest={guest}
             totalGuest={guest}
-            onChangeRoom={(data: any) => setRoomGuest(data, 'room')}
-            onChangeGuest={(data: any) => setRoomGuest(data, 'guest')}
+            onChange={setRoomGuest}
           />
         }
       />

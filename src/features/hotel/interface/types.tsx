@@ -16,6 +16,8 @@ export interface ResultHotelProps extends Props {
   loadingSearch: boolean;
   pathAsset: string;
   actionSearchHotel: (payload: object) => Promise<void>;
+  isProfile: any;
+  isLogin: boolean;
 }
 
 export interface DetailHotelProps extends Props {
@@ -34,5 +36,6 @@ export interface BookingFormHotelProps extends Props {
   loadingBook: boolean;
   token: string;
   isProfile: any;
-  actionBookHotel: (payload: object, token: string) => Promise<void>;
+  isLogin: boolean;
+  actionBookHotel: (payload: object) => Promise<void>;
 }

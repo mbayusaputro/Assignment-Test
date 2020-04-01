@@ -50,6 +50,10 @@ import Withdraw from './agent/pages/Withdraw';
 import TopUp from './agent/pages/TopUp';
 import Report from './agent/pages/Report';
 import ReportResult from './agent/pages/ResultReport';
+import MyAgent from './agent/pages/MyAgent';
+import CreatePackages from './agent/pages/CreatePackages';
+import CreatePackagesNext from './agent/pages/CreatePackagesNext';
+import ItineraryAgent from './agent/pages/Itinerary';
 
 export {
   Home,
@@ -93,4 +97,8 @@ export {
   TopUp,
   Report,
   ReportResult,
+  MyAgent,
+  CreatePackages,
+  CreatePackagesNext,
+  ItineraryAgent,
 };

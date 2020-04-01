@@ -3,13 +3,18 @@ import {connect} from 'react-redux';
 import {Dispatch, bindActionCreators} from 'redux';
 import {getFetchHolidayList} from '../../../../reduxs/holiday/selector';
 import {actionHolidayList} from '../../../../reduxs/holiday/action';
-import {getIsLogin, getToken} from '../../../../reduxs/profile/selector';
+import {
+  getIsLogin,
+  getToken,
+  getProfile,
+} from '../../../../reduxs/profile/selector';
 import HolidatList from './screens';
 
 const mapStateToProps = (state: any) => ({
   fetchList: getFetchHolidayList(state),
   isLogin: getIsLogin(state),
   token: getToken(state),
+  isProfile: getProfile(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

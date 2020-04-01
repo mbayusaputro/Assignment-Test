@@ -8,6 +8,7 @@ export interface HolidayListProps extends GlobalProps {
   fetchList: boolean;
   isLogin: boolean;
   token: string;
+  isProfile: any;
   actionHolidayList: (item: any) => Promise<void>;
 }
 
@@ -36,5 +37,8 @@ export interface HolidayBookingProps extends GlobalProps {
   flight: any;
   holiday: any;
   isLoading: boolean;
+  isLogin: boolean;
+  isProfile: any;
+  token: string;
   actionHolidayBook: (id: number, payload: object) => Promise<void>;
 }

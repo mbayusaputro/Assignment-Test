@@ -18,7 +18,18 @@ const Card = (props: Props) => {
   return (
     <Touch activeOpacity={0.7} onPress={onPress}>
       <View style={[styles.card, styles.rowva]}>
-        <Image style={styles.logova} source={logo} resizeMode="contain" />
+        {title === 'Deposit' ? (
+          <Text
+            style={{
+              fontFamily: fonts.fontBold,
+              fontSize: 20,
+              color: '#a2195b',
+            }}>
+            {logo}
+          </Text>
+        ) : (
+          <Image style={styles.logova} source={logo} resizeMode="contain" />
+        )}
         <View style={{flexDirection: 'row'}}>
           <Text style={{fontFamily: fonts.fontSemiBold, marginHorizontal: 10}}>
             {title}

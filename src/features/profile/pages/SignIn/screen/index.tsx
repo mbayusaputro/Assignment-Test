@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {Alert, InteractionManager} from 'react-native';
 import {google, facebook} from 'react-native-simple-auth';
 import {
@@ -9,12 +9,16 @@ import {HighSafeArea, LoadingBook} from '../../../../../components';
 import {Header, Content} from '../components';
 import {validateEmailFormat} from '../../../../../helpers/helpers';
 import {SigninProps} from '../../../interface/types';
+import Toast from 'react-native-easy-toast';
 
 export default (props: SigninProps) => {
   // State
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [isValidEmail, setValidEmail] = React.useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isValidEmail, setValidEmail] = useState(true);
+
+  // Ref
+  const toastRef: any = useRef();
 
   // Props
   const {
@@ -54,7 +58,7 @@ export default (props: SigninProps) => {
         signinSocmed(res.credentials.id_token, 'google');
       })
       .catch((err: any) => {
-        alert(JSON.stringify(err));
+        toastRef.current.show(err.message, 1500);
       });
   };
 
@@ -64,7 +68,7 @@ export default (props: SigninProps) => {
         signinSocmed(res.credentials.access_token, 'facebook');
       })
       .catch((err: any) => {
-        alert(JSON.stringify(err));
+        toastRef.current.show(err.message, 1500);
       });
   };
 
@@ -77,11 +81,9 @@ export default (props: SigninProps) => {
     };
     InteractionManager.runAfterInteractions(() => {
       actionSignIn(payload).then((res: any) => {
-        if (res.type === 'SIGNIN_SUCCESS') {
-          gettingProfile(res.data.access_token);
-        } else {
-          Alert.alert('Alert', res.message);
-        }
+        res.type === 'SIGNIN_SUCCESS'
+          ? gettingProfile(res.data.access_token)
+          : toastRef.current.show(res.message, 1500);
       });
     });
   };
@@ -94,14 +96,12 @@ export default (props: SigninProps) => {
     InteractionManager.runAfterInteractions(() => {
       if (email !== '' && password !== '') {
         actionSignIn(payload).then((res: any) => {
-          if (res.type === 'SIGNIN_SUCCESS') {
-            gettingProfile(res.data.access_token);
-          } else {
-            Alert.alert('Alert', res.message);
-          }
+          res.type === 'SIGNIN_SUCCESS'
+            ? gettingProfile(res.data.access_token)
+            : toastRef.current.show(res.message, 5000);
         });
       } else {
-        Alert.alert('Alert', 'Please enter all field');
+        toastRef.current.show('Please enter all field', 1500);
       }
     });
   };
@@ -110,12 +110,13 @@ export default (props: SigninProps) => {
     setToken(token);
     actionGetProfile(token)
       .then(() => null)
-      .catch((err: any) => Alert.alert('Alert', err.message));
+      .catch((err: any) => toastRef.current.show(err.message, 1500));
   };
 
   // Render
   return (
     <HighSafeArea>
+      <Toast ref={toastRef} />
       <Header title="Log In" onSetting={() => goToThe('MainSetting')} />
       <Content
         {...props}

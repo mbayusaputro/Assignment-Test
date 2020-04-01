@@ -2,13 +2,18 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Button} from '../../../../../components';
 
-export default () => {
+type Props = {
+  onPress: () => void;
+};
+
+export default (props: Props) => {
   return (
     <View style={styles.content}>
       <Button
         content={{id: 'Lanjutkan Pembayaran', en: 'Continue Payment'}}
         fullWidth={true}
         customStyle={styles.btn}
+        onPress={props.onPress}
       />
     </View>
   );

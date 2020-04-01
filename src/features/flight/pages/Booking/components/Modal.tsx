@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -14,17 +14,31 @@ import {
   HEADER_FONT_SIZE,
   MEDIUM_FONT_SIZE,
 } from '../../../../../constants/TextSize';
-import {dataSalutation} from './data';
+import {salutationAdult, salutationChild} from './data';
 import {ModalProps} from '../types';
 import {validateEmailFormat} from '../../../../../helpers/helpers';
+import {oc} from 'ts-optchain';
 
 export default (props: ModalProps) => {
-  const [salutation, setSalutation] = React.useState('MR');
-  const [fullname, setFullname] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [validMail, setValidMail] = React.useState(true);
-  const [mobileNumber, setMobileNumber] = React.useState('');
+  // Props
+  const {isVisible, onSave, onDismiss, dataPassenger} = props;
 
+  // State
+  const [salutation, setSalutation] = useState('MR');
+  const [fullname, setFullname] = useState('');
+  const [email, setEmail] = useState('');
+  const [validMail, setValidMail] = useState(true);
+  const [mobileNumber, setMobileNumber] = useState('');
+
+  // Lifecycle
+  useEffect(() => {
+    setSalutation(oc(dataPassenger).salutation('MR'));
+    setFullname(oc(dataPassenger).fullname(''));
+    setEmail(oc(dataPassenger).email(''));
+    setMobileNumber(oc(dataPassenger).mobileNumber(''));
+  }, []);
+
+  // Function
   const changeEmail = (txt: string) => {
     let checkMail = validateEmailFormat(txt);
     if (checkMail) {
@@ -41,27 +55,27 @@ export default (props: ModalProps) => {
     setMobileNumber(number);
   };
 
-  const onSave = () => {
+  const onSaveContact = () => {
     let payload = {
       salutation,
       fullname,
       email,
       mobileNumber,
     };
-    props.onSave(payload);
+    onSave(payload);
   };
 
   return (
     <Modal
       useNativeDriver={true}
-      isVisible={props.isVisible}
+      isVisible={isVisible}
       avoidKeyboard={true}
-      onBackButtonPress={props.onDismiss}
-      onBackdropPress={props.onDismiss}
+      onBackButtonPress={onDismiss}
+      onBackdropPress={onDismiss}
       style={styles.modal}
       children={
         <View style={styles.container}>
-          <Touch style={styles.close} onPress={props.onDismiss}>
+          <Touch style={styles.close} onPress={onDismiss}>
             <Text style={styles.textClose}>Contact Details</Text>
           </Touch>
           <View style={styles.vertical}>
@@ -73,7 +87,7 @@ export default (props: ModalProps) => {
                   onValueChange={(value: any, _: number) =>
                     setSalutation(value)
                   }>
-                  {dataSalutation.map((item: any, index: number) => (
+                  {salutationAdult.map((item: any, index: number) => (
                     <Picker.Item
                       key={index}
                       value={item.title}
@@ -131,7 +145,7 @@ export default (props: ModalProps) => {
               customStyle={styles.btnUpdate}
               fullWidth
               isUpperCase
-              onPress={onSave}
+              onPress={onSaveContact}
             />
           </View>
         </View>
