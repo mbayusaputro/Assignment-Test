@@ -9,6 +9,7 @@ type Props = {
   guest: number;
   type: string;
   onSaveGuest: (item: any, type: any) => void;
+  isFullName: string;
 };
 
 const dataSalutation = [
@@ -20,10 +21,6 @@ const dataSalutation = [
     id: 2,
     title: 'MRS',
   },
-  {
-    id: 3,
-    title: 'MS',
-  },
 ];
 
 const dataSalutChild = [
@@ -33,25 +30,19 @@ const dataSalutChild = [
   },
   {
     id: 1,
-    title: 'MS',
+    title: 'MISS',
   },
 ];
 
 export default (props: Props) => {
-  const {onClose, onSaveGuest, guest, type} = props;
+  const {onClose, onSaveGuest, guest, type, isFullName} = props;
 
   const [fullname, setFullname] = React.useState('');
   const [salutation, setSalutation] = React.useState('MR');
-  const [birthDate, setBirthDate] = React.useState('2000-01-01');
-  const [email, setEmail] = React.useState('');
-  const [validMail, setValidMail] = React.useState(true);
-  const [phone, setPhone] = React.useState('');
 
-  const onCheckMail = (text: any) => {
-    const valid = validateEmailFormat(text);
-    setEmail(text);
-    setValidMail(valid);
-  };
+  React.useEffect(() => {
+    setFullname(isFullName);
+  }, []);
 
   const onSave = () => {
     if (fullname !== '') {
@@ -78,7 +69,7 @@ export default (props: Props) => {
         />
       </Touch>
       <View style={styles.rowBetween}>
-        <View style={{width: '30%'}}>
+        <View style={{width: 100}}>
           <Picker
             selectedValue={salutation}
             style={{width: '100%'}}

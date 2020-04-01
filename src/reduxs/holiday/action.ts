@@ -111,11 +111,11 @@ export const actionHolidayDetail = (token: string, id: number) => {
   };
 };
 
-export const actionHolidayBook = (id: number, payload: object) => {
+export const actionHolidayBook = (payload: object, token: string) => {
   return async (dispatch: Dispatch) => {
     dispatch(requestState(bookType));
     try {
-      const res = await holidayBooking(id, payload);
+      const res = await holidayBooking(payload, token);
       if (res.success) {
         return dispatch(successState(bookType, res.data, payload));
       } else {

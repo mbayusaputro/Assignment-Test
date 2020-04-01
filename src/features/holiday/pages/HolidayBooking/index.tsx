@@ -28,8 +28,8 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      actionHolidayBook: (id: number, payload: object) =>
-        actionHolidayBook(id, payload),
+      actionHolidayBook: (payload: object, token: string) =>
+        actionHolidayBook(payload, token),
     },
     dispatch,
   );

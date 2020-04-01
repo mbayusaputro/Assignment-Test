@@ -71,7 +71,7 @@ export default (props: Props) => {
       salutation,
       fullname,
       email,
-      phoneNumber: mobileNumber,
+      phone: mobileNumber,
     };
     props.onSave(payload);
   };
@@ -87,7 +87,7 @@ export default (props: Props) => {
       </Touch>
       <ScrollView>
         <View style={[styles.rowBetween, {marginTop: 10}]}>
-          <View style={{width: '25%'}}>
+          <View style={{width: 100}}>
             <Picker
               selectedValue={salutation}
               style={{width: '100%'}}
@@ -101,7 +101,7 @@ export default (props: Props) => {
               ))}
             </Picker>
           </View>
-          <View style={{width: '75%'}}>
+          <View style={{width: '70%'}}>
             <InputText
               placeholder="Fullname"
               onChangeText={(text: any) => setFullname(text)}

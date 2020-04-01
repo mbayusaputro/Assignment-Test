@@ -33,6 +33,7 @@ export default (props: Props) => {
     isLoading,
     isLogin,
     isProfile,
+    token,
   } = props;
   const dataParam = getParam('item');
   const dataDetail = getParam('detail');
@@ -66,7 +67,7 @@ export default (props: Props) => {
         salutation: oc(isProfile).salutation(''),
         fullname: oc(isProfile).fullname(''),
         email: oc(isProfile).email(''),
-        phoneNumber: oc(isProfile).mobileNo(''),
+        phone: oc(isProfile).mobileNo(''),
       };
       setContact(payload);
     }
@@ -203,7 +204,7 @@ export default (props: Props) => {
     if (
       oc(contact).fullname('') !== '' &&
       oc(contact).email('') !== '' &&
-      oc(contact).phoneNumber('') !== ''
+      oc(contact).phone('') !== ''
     ) {
       setTimeout(() => {
         const request = {
@@ -216,24 +217,22 @@ export default (props: Props) => {
           guest: adultHotel,
         };
         payloadTour(request, (response: any) => {
-          actionHolidayBook(holiday.detail.tourpackage, response).then(
-            (res: any) => {
-              if (res.type === 'HOLIDAYBOOKINGSUCCESS') {
-                const dataSend = {
-                  data: res.data,
-                  partnertrxid: res.data.partnertrxid,
-                  total: res.data.amount,
-                  info: {dataDetail, dataParam},
-                };
-                onNavigate('PaymentMethod', dataSend);
-              } else {
-                setMessage(res.message);
-                setTimeout(() => {
-                  setModal(404);
-                }, 500);
-              }
-            },
-          );
+          actionHolidayBook(response, token).then((res: any) => {
+            if (res.type === 'HOLIDAYBOOKING_SUCCESS') {
+              const dataSend = {
+                data: res.data,
+                partner_trxid: res.data.partner_trxid,
+                total: res.data.amount,
+                info: {dataDetail, dataParam},
+              };
+              onNavigate('PaymentMethod', dataSend);
+            } else {
+              setMessage(res.message);
+              setTimeout(() => {
+                setModal(404);
+              }, 500);
+            }
+          });
         });
       }, 500);
     } else {
@@ -304,6 +303,7 @@ export default (props: Props) => {
           <ModalGuest
             guest={guestNum}
             type={typeGuest}
+            isFullName={oc(dataPassenger[typeGuest][guestNum]).fullName('')}
             onClose={() => setModal(null)}
             onSaveGuest={(item: any, type: any) =>
               handleInput('modalform', item)

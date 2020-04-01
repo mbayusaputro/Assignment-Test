@@ -5,10 +5,9 @@ import {Imaging} from '../../../../../components';
 import {Color} from '../../../../../constants/Color';
 import fonts from '../../../../../constants/Fonts';
 import {moneyFormat} from '../../../../../helpers/helpers';
+import {oc} from 'ts-optchain';
 
 type Props = {
-  departure: string;
-  destination: string;
   id: string;
   price: number;
   statusPayment: string;
@@ -16,11 +15,26 @@ type Props = {
   isReturn: boolean;
   onPress: (item: any) => void;
   purchase?: boolean;
+  type: string;
+  data: any;
 };
 
 const Card = (props: Props) => {
+  // Props
+  const {
+    type,
+    data,
+    onPress,
+    id,
+    price,
+    statusPayment,
+    imgPlane,
+    isReturn,
+    purchase,
+  } = props;
+
   // Status Payment
-  const statusPayment = (status: string) => {
+  const statusPay = (status: string) => {
     if (status === 'WAITING_PAYMENT') {
       return (
         <View style={[styles.status, {backgroundColor: Color.oceanBlue}]}>
@@ -51,32 +65,51 @@ const Card = (props: Props) => {
     <Touch
       style={styles.card}
       activeOpacity={0.5}
-      onPress={(item: any) => props.onPress(item)}>
+      onPress={(item: any) => onPress(item)}>
       <Imaging
         style={styles.img}
-        source={{uri: props.imgPlane}}
+        source={{uri: imgPlane}}
         resizeMode="contain"
       />
       <View style={{flex: 1}}>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-          <Text style={styles.bold}>{props.departure}</Text>
-          <Imaging
-            style={styles.icon}
-            source={require('../../../../../assets/payment/return.png')}
-            resizeMode="contain"
-          />
-          <Text style={styles.bold}>{props.destination}</Text>
-        </View>
+        {type === ' flight' ? (
+          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+            <Text style={styles.bold}>
+              {oc(data[0]).flight_info.detail[0].departure_city_name(' ')}
+            </Text>
+            <Imaging
+              style={styles.icon}
+              source={require('../../../../../assets/payment/return.png')}
+              resizeMode="contain"
+            />
+            <Text style={styles.bold}>
+              {oc(data[0]).flight_info.detail[0].arrival_city_name(' ')}
+            </Text>
+          </View>
+        ) : (
+          <Text>
+            {`${type === 'hotel' ? data.summary.name.content : data.title} - ${
+              type === 'hotel' ? data.room.name : data.host
+            }`.length > 35
+              ? `${
+                  type === 'hotel' ? data.summary.name.content : data.title
+                } - ${type === 'hotel' ? data.room.name : data.host}`.slice(
+                  0,
+                  35,
+                ) + '...'
+              : `${
+                  type === 'hotel' ? data.summary.name.content : data.title
+                } - ${type === 'hotel' ? data.room.name : data.host}`}
+          </Text>
+        )}
         {/* <View> */}
-        <Text style={[styles.regular, {marginTop: 5}]}>
-          Booking ID {props.id}
-        </Text>
+        <Text style={[styles.regular, {marginTop: 5}]}>Booking ID {id}</Text>
         <Text style={[styles.bold, {marginVertical: 5}]}>
-          Rp {moneyFormat(props.price)}
+          Rp {moneyFormat(price)}
         </Text>
         {/* </View> */}
         <View style={styles.rowBetween}>
-          {props.purchase ? (
+          {purchase ? (
             <View style={[styles.status, {backgroundColor: Color.backWhite}]}>
               <Text
                 style={[
@@ -87,9 +120,9 @@ const Card = (props: Props) => {
               </Text>
             </View>
           ) : (
-            statusPayment(props.statusPayment)
+            statusPay(statusPayment)
           )}
-          {props.isReturn && (
+          {isReturn && (
             <Imaging
               style={styles.iconReturn}
               source={require('../../../../../assets/payment/return.png')}

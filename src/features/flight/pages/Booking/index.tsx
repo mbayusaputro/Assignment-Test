@@ -78,7 +78,7 @@ const Booking = (props: Props) => {
         salutation: oc(isProfile).salutation(''),
         fullname: oc(isProfile).fullname(''),
         email: oc(isProfile).email(''),
-        mobileNumber: oc(isProfile).mobileNo(''),
+        phone: oc(isProfile).mobileNo(''),
       };
       setContact(payload);
     }
@@ -171,7 +171,7 @@ const Booking = (props: Props) => {
       salutation: oc(profile).salutation('MR'),
       fullname: oc(profile).fullname(''),
       email: oc(profile).email(''),
-      mobileNumber: `0${oc(profile).mobileNo('9999')}`,
+      phone: `0${oc(profile).mobileNo('9999')}`,
     };
     setContact(payload);
   };
@@ -226,7 +226,7 @@ const Booking = (props: Props) => {
     if (
       oc(contact).fullname('') !== '' &&
       oc(contact).email('') !== '' &&
-      oc(contact).mobileNumber('') !== ''
+      oc(contact).phone('') !== ''
     ) {
       let isSubmited = false;
       let childs = params.passenger.child;
@@ -266,14 +266,9 @@ const Booking = (props: Props) => {
               return_schedule_id:
                 return_flight === null ? '' : return_flight.schedule_id,
               class: 'Y',
-              sub_class: 'Y',
+              sub_class: 'W',
               return_class: '',
-              contact_detail: {
-                salutation: contact.salutation,
-                fullname: contact.fullname,
-                email: contact.email,
-                phone: contact.mobileNumber,
-              },
+              contact_detail: contact,
               passengers: adult.concat(child).concat(infant),
             },
           };

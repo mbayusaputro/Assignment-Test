@@ -1,33 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import {Color} from '../../../../../constants/Color';
 import {Text, Button} from '../../../../../components';
 import ScrollPicker from 'react-native-wheel-scroll-picker';
-import {generateNumber} from '../../../../../helpers/helpers';
 import {PassengerProps} from '../types';
 
 const Passenger = (props: PassengerProps) => {
-  const [type, setType] = React.useState([
+  // Props
+  const {isModalVisible, toggleModal, isPassenger, onPassengerChange} = props;
+
+  // State
+  const [type, setType] = useState([
     {type: 'Adult', desc: 'Age 12+'},
     {type: 'Child', desc: 'Age 2-11'},
     {type: 'Infant', desc: 'Age 2'},
   ]);
-  const [passenger, setPassenger] = React.useState({
+  const [passenger, setPassenger] = useState({
     adult: 1,
     child: 0,
     infant: 0,
   });
+
+  // Function
   const onChange = (data: any, field: string) => {
     passenger[field] = data;
     setPassenger(passenger);
   };
+
+  // Main Render
   return (
     <Modal
-      isVisible={props.isModalVisible}
+      isVisible={isModalVisible}
       backdropColor={Color.black}
-      onBackdropPress={props.toggleModal}
-      onBackButtonPress={props.toggleModal}
+      onBackdropPress={toggleModal}
+      onBackButtonPress={toggleModal}
       style={{flex: 1, justifyContent: 'flex-end', margin: 0}}>
       <SafeAreaView>
         <View style={styles.container}>
@@ -62,15 +69,21 @@ const Passenger = (props: PassengerProps) => {
                   key={i}
                   dataSource={
                     item.type === 'Adult'
-                      ? generateNumber(1, 7)
-                      : generateNumber(0, 7)
+                      ? [1, 2, 3, 4, 5, 6, 7]
+                      : [0, 1, 2, 3, 4, 5, 6, 7]
                   }
                   selectedIndex={
                     item.type === 'Adult'
-                      ? props.isPassenger.adult - 2
+                      ? isPassenger.adult === 1
+                        ? -1
+                        : isPassenger.adult - 1
                       : item.type === 'Child'
-                      ? props.isPassenger.child
-                      : props.isPassenger.infant
+                      ? isPassenger.child === 0
+                        ? -1
+                        : isPassenger.child
+                      : isPassenger.infant === 0
+                      ? -1
+                      : isPassenger.infant
                   }
                   onValueChange={(data: any, _: number) =>
                     onChange(data, item.type.toLowerCase())
@@ -90,7 +103,7 @@ const Passenger = (props: PassengerProps) => {
             fullWidth={true}
             isUpperCase={true}
             content={{id: 'Done', en: 'Done'}}
-            onPress={() => props.onPassengerChange(passenger)}
+            onPress={() => onPassengerChange(passenger)}
           />
         </View>
       </SafeAreaView>

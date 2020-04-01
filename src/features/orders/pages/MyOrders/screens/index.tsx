@@ -33,6 +33,7 @@ const Orders = (props: Props) => {
       actionFlightsOrderHistory(token).then((res: any) => {
         if (res.type === 'FLIGHTORDERHISTORY_SUCCESS') {
           dataFlightOrder(res.data.data);
+          setData(res.data.data);
         } else {
           alert(res.message);
         }
@@ -42,18 +43,18 @@ const Orders = (props: Props) => {
 
   // Get real data
   const dataFlightOrder = (item: Array<any>) => {
-    const removeNullFlight =
-      item.length > 0 ? _.reject(item, ['flight_data', null]) : item;
-    const removeExpiredDate =
-      removeNullFlight.length > 0
-        ? _.reject(removeNullFlight, n => {
-            return (
-              moment(n.created_at).format('YYYY-MM-DD') >
-              moment(new Date()).format('YYYY-MM-DD')
-            );
-          })
-        : removeNullFlight;
-    setData(removeExpiredDate);
+    // const removeNullFlight =
+    //   item.length > 0 ? _.reject(item, ['flight_data', null]) : item;
+    // const removeExpiredDate =
+    //   removeNullFlight.length > 0
+    //     ? _.reject(removeNullFlight, n => {
+    //         return (
+    //           moment(n.created_at).format('YYYY-MM-DD') >
+    //           moment(new Date()).format('YYYY-MM-DD')
+    //         );
+    //       })
+    //     : removeNullFlight;
+    // setData(removeExpiredDate);
   };
 
   // OnSelected Order to OrderDetail

@@ -28,14 +28,14 @@ export default (props: ModalProps) => {
   const [fullname, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [validMail, setValidMail] = useState(true);
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
   // Lifecycle
   useEffect(() => {
     setSalutation(oc(dataPassenger).salutation('MR'));
     setFullname(oc(dataPassenger).fullname(''));
     setEmail(oc(dataPassenger).email(''));
-    setMobileNumber(oc(dataPassenger).mobileNumber(''));
+    setPhone(oc(dataPassenger).phone(''));
   }, []);
 
   // Function
@@ -52,7 +52,7 @@ export default (props: ModalProps) => {
 
   const changeNumber = (text: string) => {
     let number = text.replace(/[^0-9]/g, '');
-    setMobileNumber(number);
+    setPhone(number);
   };
 
   const onSaveContact = () => {
@@ -60,7 +60,7 @@ export default (props: ModalProps) => {
       salutation,
       fullname,
       email,
-      mobileNumber,
+      phone,
     };
     onSave(payload);
   };
@@ -80,7 +80,7 @@ export default (props: ModalProps) => {
           </Touch>
           <View style={styles.vertical}>
             <View style={styles.rowBetween}>
-              <View style={{width: '25%'}}>
+              <View style={{width: 100}}>
                 <Picker
                   selectedValue={salutation}
                   style={{width: '100%'}}
@@ -96,7 +96,7 @@ export default (props: ModalProps) => {
                   ))}
                 </Picker>
               </View>
-              <View style={{width: '75%'}}>
+              <View style={{width: '70%'}}>
                 <InputText
                   style={{borderRadius: 5, borderColor: Color.labelgray}}
                   placeholder="Full Name"
@@ -115,7 +115,7 @@ export default (props: ModalProps) => {
               onChangeText={(text: any) => changeNumber(text)}
               keyboardType="numeric"
               autoCapitalize="none"
-              value={mobileNumber}
+              value={phone}
             />
           </View>
 

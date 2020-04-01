@@ -123,7 +123,7 @@ export default (props: ModalProps) => {
           ) : (
             <View style={styles.vertical}>
               <View style={styles.rowBetween}>
-                <View style={{width: '25%'}}>
+                <View style={{width: 100}}>
                   <Picker
                     selectedValue={salutation}
                     style={{width: '100%'}}

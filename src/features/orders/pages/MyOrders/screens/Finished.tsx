@@ -24,31 +24,31 @@ const Finished = (props: Props) => {
     const imgPlane = oc(item).flight_data[0].flight_info.detail[0].img_src(
       'https://notfound',
     );
-    const departure = oc(
-      item,
-    ).flight_data[0].flight_info.detail[0].departure_city_name('Not found');
-    const departureCode = oc(
-      item,
-    ).flight_data[0].flight_info.detail[0].departure_city('Not found');
-    const arrival = oc(
-      item,
-    ).flight_data[0].flight_info.detail[0].arrival_city_name('Not found');
-    const arrivalCode = oc(
-      item,
-    ).flight_data[0].flight_info.detail[0].arrival_city('Not found');
     const isReturn = oc(item).flight_data.length > 1 ? true : false;
+    const type =
+      item.flight_data !== null
+        ? 'flight'
+        : item.hotel_data !== null
+        ? 'hotel'
+        : 'tour';
+    const data =
+      item.flight_data !== null
+        ? item.flight_data
+        : item.hotel_data !== null
+        ? item.hotel_data
+        : item.tour_data;
     return (
       <Card
         key={index}
         purchase={true}
         imgPlane={imgPlane}
-        departure={`${departure} (${departureCode})`}
-        destination={`${arrival} (${arrivalCode})`}
+        data={data}
         id={oc(item).booking_code('')}
         price={oc(item).total_amount(0)}
         statusPayment={item.status}
         isReturn={isReturn}
         onPress={() => onSelected(item)}
+        type={type}
       />
     );
   };
