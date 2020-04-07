@@ -26,7 +26,7 @@ const Method = () => {
         sub="time">
         <Countdown
           size={16}
-          until={3600}
+          until={900}
           onFinish={() => alert('Time Out')}
           digitTxtStyle={{color: '#008c9a'}}
           digitStyle={{backgroundColor: '#fff', height: 17}}

@@ -12,7 +12,7 @@ interface Props {
 const Orders = (props: Props) => {
   return (
     <SafeAreaView style={{backgroundColor: '#f0f0f0', flex: 1}}>
-      <Header title=" My Order" />
+      <Header title=" My Inbox" />
       {/* <Content {...props} title="Active" /> */}
       <Empty />
       {/* <Text isUpperCase={false} content={{id: 'Orders', en: 'Orders'}} /> */}

@@ -40,6 +40,7 @@ export default StyleSheet.create({
   textBold: {
     fontSize: BIG_FONT_SIZE,
     fontFamily: fonts.fontExtraBold,
+    marginBottom: 5,
   },
   textBlue: {
     fontFamily: fonts.fontSemiBold,

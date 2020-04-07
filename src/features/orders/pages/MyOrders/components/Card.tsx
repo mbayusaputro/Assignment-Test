@@ -72,7 +72,7 @@ const Card = (props: Props) => {
         resizeMode="contain"
       />
       <View style={{flex: 1}}>
-        {type === ' flight' ? (
+        {type === 'flight' ? (
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
             <Text style={styles.bold}>
               {oc(data[0]).flight_info.detail[0].departure_city_name(' ')}

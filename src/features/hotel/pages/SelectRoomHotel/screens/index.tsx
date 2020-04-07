@@ -43,6 +43,9 @@ export default (props: Props) => {
     const dataBook = {
       title: dataHotel.name,
       price: room.rates[0].net,
+      room: room,
+      payload,
+      dataHotel,
     };
     if (addon) {
       actionDataHotel(dataBook);

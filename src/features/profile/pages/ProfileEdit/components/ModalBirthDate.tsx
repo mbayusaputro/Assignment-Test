@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity as Touch} from 'react-native';
 import Modal from 'react-native-modal';
-import {BirthDatePicker, Button} from '../../../../../components';
+import {BirthDatePicker, Button, Text} from '../../../../../components';
 import {BirthDateProps as Props} from '../interface/types';
 import {Color} from '../../../../../constants/Color';
 
@@ -31,6 +31,10 @@ export default (props: Props) => {
       style={styles.modal}
       children={
         <View style={styles.container}>
+          <Text
+            style={styles.textTitle}
+            content={{id: 'Tanggal Lahir', en: 'Birthdate'}}
+          />
           <BirthDatePicker
             selectedYear={year}
             selectedMonth={month}
@@ -44,6 +48,8 @@ export default (props: Props) => {
             onPress={showDate}
             fullWidth
             isUpperCase
+            type="primary"
+            customStyle={styles.btnUpdate}
           />
         </View>
       }
@@ -58,8 +64,21 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   container: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     backgroundColor: Color.white,
-    padding: 10,
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10,
     paddingBottom: 20,
+  },
+  textTitle: {
+    fontFamily: 'NunitoSans-Bold',
+    fontSize: 20,
+    textAlign: 'center',
+    padding: 5,
+  },
+  btnUpdate: {
+    borderRadius: 20,
+    borderWidth: 0.5,
   },
 });

@@ -87,7 +87,7 @@ export default (props: Props) => {
   };
 
   // Generate Data Passenger
-  const generatePayloadPassengers = (field: string, value: number) => {
+  const generatePayloadPassengers = (field: string, value: string) => {
     generatePayloadTravelers(
       field,
       value,
@@ -148,8 +148,8 @@ export default (props: Props) => {
       }
     } else if (type === 'sameContact') {
       if (dataPassenger[typeGuest]) {
-        dataPassenger[typeGuest][guestNum].fullName = value;
-        dataPassenger[typeGuest][guestNum].title =
+        dataPassenger[typeGuest][0].fullName = value;
+        dataPassenger[typeGuest][0].title =
           contact === null ? 'MR' : contact.salutation;
         generatePayloadPassengers(
           'adult',
@@ -158,7 +158,7 @@ export default (props: Props) => {
       }
     } else if (type === 'blank') {
       if (dataPassenger[typeGuest]) {
-        dataPassenger[typeGuest][guestNum].fullName = value;
+        dataPassenger[typeGuest][0].fullName = value;
       }
       generatePayloadPassengers('adult', null);
     } else if (type === 'modalform') {
@@ -194,7 +194,9 @@ export default (props: Props) => {
   const onChangeSame = (item: boolean) => {
     if (contact !== null) {
       setSameContact(item);
-      handleInput('sameContact', contact.fullname);
+      sameContact
+        ? handleInput('blank', '')
+        : handleInput('sameContact', contact.fullname);
     }
   };
 

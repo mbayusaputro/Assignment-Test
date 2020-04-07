@@ -53,11 +53,12 @@ export default (props: ContentProps) => {
           <View style={styles.hr} />
           <View style={styles.rowBetween}>
             <Text style={styles.textRegular}>
-              {salutation}. {fullname}
+              {salutation}.{' '}
+              {fullname.length > 20 ? `${fullname.slice(0, 20)}...` : fullname}
             </Text>
             {birthDate !== null ? (
               <Text style={styles.textRegular}>
-                {dayjs(birthDate).format('D MMMM, YYYY')}
+                {dayjs(birthDate).format('D MMM YYYY')}
               </Text>
             ) : null}
           </View>
@@ -67,7 +68,6 @@ export default (props: ContentProps) => {
       <Card style={styles.vertical}>
         <View style={styles.content}>
           <Text style={styles.textBold}>Email</Text>
-          <View style={styles.hr} />
           <View>
             <Text style={styles.textRegular}>{email}</Text>
           </View>
@@ -80,7 +80,6 @@ export default (props: ContentProps) => {
             style={styles.textBold}
             content={{id: 'Nomor Handphone', en: 'Mobile Number'}}
           />
-          <View style={styles.hr} />
           <Text style={styles.textRegular}>{`+${mobilePre} ${mobileNo}`}</Text>
         </View>
       </Card>
@@ -91,7 +90,6 @@ export default (props: ContentProps) => {
             style={styles.textBold}
             content={{id: 'Alamat', en: 'Address'}}
           />
-          <View style={styles.hr} />
           <Text style={styles.textRegular}>{address}</Text>
         </View>
       </Card>

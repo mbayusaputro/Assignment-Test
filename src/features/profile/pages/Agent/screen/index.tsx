@@ -62,7 +62,7 @@ export default (props: SigninProps) => {
           id: 'Anda yakin ingin keluar?',
           en: 'Are you sure want log out?',
         }}
-        btnOk={{id: 'Ya, keluar sekarang', en: 'Yes, log out now'}}
+        btnOk={{id: 'Ya', en: 'Yes'}}
         btnCancel={{id: 'Batal', en: 'Cancel'}}
         onDismiss={() => setModal(false)}
         onOk={onLogOut}

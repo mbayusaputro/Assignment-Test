@@ -70,9 +70,9 @@ export default () => {
       ) : null}
 
       {/* HOTEL */}
-      {dataHotel !== null ? (
+      {/* {dataHotel !== null ? (
         <CardItem
-          type={{id: 'Hotel', en: 'Hotel'}}
+          type={{ id: 'Hotel', en: 'Hotel' }}
           onCancel={onClearHotel}
           title={dataHotel.title}
           description={dataHotel.room.name}
@@ -81,23 +81,23 @@ export default () => {
           price={dataHotel.price}
         />
       ) : (
-        <View style={styles.contentButton}>
-          <Button
-            onPress={onSelectHotel}
-            customStyle={styles.btnAdd}
-            customTextStyle={styles.textPink}
-            content={{id: 'Tambah Hotel', en: 'Add Hotel'}}
-            fullWidth
-            isUpperCase
-            type="secondary"
-          />
-        </View>
-      )}
+          <View style={styles.contentButton}>
+            <Button
+              onPress={onSelectHotel}
+              customStyle={styles.btnAdd}
+              customTextStyle={styles.textPink}
+              content={{ id: 'Tambah Hotel', en: 'Add Hotel' }}
+              fullWidth
+              isUpperCase
+              type="secondary"
+            />
+          </View>
+        )} */}
 
       {/* FLIGHT */}
-      {dataFlight !== null ? (
+      {/* {dataFlight !== null ? (
         <CardItem
-          type={{id: 'Pesawat', en: 'Flight'}}
+          type={{ id: 'Pesawat', en: 'Flight' }}
           onCancel={onClearFlight}
           title={`${dataFlight.departure_flight.detail[0].departure_city_name}(${dataFlight.departure_flight.detail[0].departure_city}) - ${dataFlight.departure_flight.detail[0].arrival_city_name}(${dataFlight.departure_flight.detail[0].arrival_city})`}
           start_date={dataFlight.departure_flight.departure_date}
@@ -112,18 +112,18 @@ export default () => {
           }
         />
       ) : (
-        <View style={styles.contentButton}>
-          <Button
-            onPress={onSelectFlight}
-            customStyle={styles.btnAdd}
-            customTextStyle={styles.textPink}
-            content={{id: 'Tambah Pesawat', en: 'Add Flight'}}
-            fullWidth
-            isUpperCase
-            type="secondary"
-          />
-        </View>
-      )}
+          <View style={styles.contentButton}>
+            <Button
+              onPress={onSelectFlight}
+              customStyle={styles.btnAdd}
+              customTextStyle={styles.textPink}
+              content={{ id: 'Tambah Pesawat', en: 'Add Flight' }}
+              fullWidth
+              isUpperCase
+              type="secondary"
+            />
+          </View>
+        )} */}
     </View>
   );
 };

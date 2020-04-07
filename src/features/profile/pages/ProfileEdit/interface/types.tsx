@@ -36,7 +36,6 @@ export type ModalProps = {
   onChangeSalutation: (txt: any) => void;
   onChangeEmail: (txt: any) => void;
   validMail: boolean;
-  onChangeMobilePre: (txt: any) => void;
   onChangeMobileNumber: (txt: any) => void;
   onShowBirthDate: () => void;
   onChangeAddress: (txt: any) => void;
@@ -47,7 +46,6 @@ export type ModalProps = {
   valueMobile: string;
   valueAddress: string;
   birthDate: string;
-  valuePre: string;
   isLoading: boolean;
 };
 

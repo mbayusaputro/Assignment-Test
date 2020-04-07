@@ -46,7 +46,8 @@ export default (props: Props) => {
     setSalutation(oc(data).salutation('MR'));
     setFullname(oc(data).fullname(''));
     setEmail(oc(data).email(''));
-    setMobileNumber(oc(data).phoneNumber(''));
+    setMobileNumber(oc(data).phone(''));
+    console.log(data);
   }, []);
 
   // Function

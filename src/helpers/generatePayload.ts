@@ -37,7 +37,7 @@ export const generateStatePassenger = (
 
 export const generatePayloadTravelers = (
   field: string,
-  value: number,
+  value: string,
   dataPassenger: any,
   index: number,
   callback: (response: any) => void,
@@ -83,7 +83,7 @@ export const generatePayloadTravelers = (
 
 export const generatePayloadGuest = (
   field: string,
-  value: number,
+  value: string,
   dataPassenger: any,
   index: number,
   callback: (response: any) => void,
@@ -91,18 +91,17 @@ export const generatePayloadGuest = (
   let tempArr = [];
   dataPassenger[field].map((item: any, i: number) => {
     let tempObj: {
-      first_name?: string;
-      last_name?: string;
-      birth_date?: string;
+      name?: string;
+      surname?: string;
+      type?: string;
       title?: string;
     } = {};
     let salutation = i === index ? value : item.title;
     if (item.fullName !== '') {
       getFirstNameLastname(item.fullName, (res: any) => {
-        (tempObj.first_name = res.firstName),
-          (tempObj.last_name = res.lastName);
+        (tempObj.name = res.firstName), (tempObj.surname = res.lastName);
       });
-      (tempObj.birth_date = '01-01-1990'), (tempObj.title = salutation);
+      (tempObj.type = 'AD'), (tempObj.title = salutation);
       tempArr.push(tempObj);
     }
   });
@@ -111,7 +110,7 @@ export const generatePayloadGuest = (
 
 export const generatePayloadPassenger = (
   field: string,
-  value: any,
+  value: string,
   dataPassenger: any,
   contact: any,
   index: number,
@@ -181,42 +180,29 @@ export const payloadTour = (req: any, callback: (response: any) => void) => {
         req.hotel === null
           ? null
           : {
-              check_in: '2020-02-17',
-              check_out: '2020-02-18',
-              rate_types: ['PAY_NOW'],
+              code: req.hotel.dataHotel.code.toString(),
+              checkIn: req.tour.trip_date.start_date,
+              checkOut: req.tour.trip_date.end_date,
+              holder: {
+                salutation: req.contact.salutation,
+                name: req.contact.fullname.split(' ')[0],
+                surname: req.contact.fullname.split(' ')[1],
+                email: req.contact.email,
+                phoneNumber: req.contact.phone,
+                customerId: 64,
+              },
               rooms: [
                 {
-                  num_of_adult: 2,
-                  guests: req.guest,
+                  rateKey: req.hotel.room.rates[0].rateKey,
+                  paxes: req.guest,
                 },
               ],
-              search_id: '',
-              affiliate_confirmation_ids: '',
-              expected_total_chargeable_rates: {
-                currency_code: 'IDR',
-                amount: 507000,
-              },
-              user_contact: {
-                phones: [req.contact.phone],
-                email: req.contact.email,
-                title: req.contact.salutation,
-                first_name: req.guest[0].first_name,
-                last_name: req.guest[0].last_name,
-              },
-              affiliate_contact: {
-                affiliate_phone_number: [req.contact.phone],
-                affiliate_email: req.contact.email,
-              },
-              user_payment_method: '',
-              special_request: '',
-              metadata: {
-                customer_session_id: '',
-                customer_ipaddress: '',
-                customer_useragent: 'mobile-traveloka',
-                locale: 'id_ID',
-                currency_code: 'IDR',
-                client_interface: 'DESKTOP_WEB',
-              },
+              totalRooms: req.hotel.payload.occupancies[0].rooms,
+              clientReference: 'ORDER-00001',
+              remark: '',
+              tolerance: '5.00',
+              searchId: 'SRCH-0001',
+              amount: req.hotel.price * req.tour.day,
             },
       flight:
         req.flight === null

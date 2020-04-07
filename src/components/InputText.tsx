@@ -27,6 +27,7 @@ interface PropInputText {
   returnKeyType?: ReturnKeyTypeOptions;
   onChangeText?: (text: any) => void;
   onSubmitEditing?: (item: any) => void;
+  onFocus?: () => void;
 }
 export const InputText = (props: PropInputText) => {
   const {inputText} = styles;
@@ -46,6 +47,7 @@ export const InputText = (props: PropInputText) => {
         maxLength={props.maxLength}
         editable={props.editable}
         numberOfLines={props.numberOfLines}
+        onFocus={props.onFocus}
       />
     </View>
   );

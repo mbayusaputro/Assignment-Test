@@ -22,19 +22,40 @@ import {
   SMALL_FONT_SIZE,
 } from '../../../../../constants/TextSize';
 import {dataSalutation} from './data';
+import moment from 'moment';
 
 export default (props: Props) => {
+  // Props
+  const {
+    onDismiss,
+    onChangeSalutation,
+    onChangeFullname,
+    onChangeAddress,
+    onChangeEmail,
+    onChangeMobileNumber,
+    onShowBirthDate,
+    onUpdate,
+    valueAddress,
+    valueEmail,
+    valueFullname,
+    validMail,
+    valueMobile,
+    isVisible,
+    selectedSalutation,
+    birthDate,
+    isLoading,
+  } = props;
   return (
     <Modal
       useNativeDriver={true}
-      isVisible={props.isVisible}
+      isVisible={isVisible}
       avoidKeyboard={true}
-      onBackButtonPress={props.onDismiss}
-      onBackdropPress={props.onDismiss}
+      onBackButtonPress={onDismiss}
+      onBackdropPress={onDismiss}
       style={styles.modal}
       children={
         <View style={styles.container}>
-          <Touch style={styles.close} onPress={props.onDismiss}>
+          <Touch style={styles.close} onPress={onDismiss}>
             <Text
               style={styles.textClose}
               content={{id: 'Tutup', en: 'Close'}}
@@ -43,17 +64,13 @@ export default (props: Props) => {
 
           <ScrollView>
             <View style={styles.vertical}>
-              <Text
-                style={styles.textTitle}
-                content={{id: 'Nama Panjang', en: 'Fullname'}}
-              />
               <View style={styles.rowBetween}>
                 <View style={{width: '25%'}}>
                   <Picker
-                    selectedValue={props.selectedSalutation}
+                    selectedValue={selectedSalutation}
                     style={{width: '100%'}}
                     onValueChange={(itemValue: any, itemIndex: number) =>
-                      props.onChangeSalutation(itemValue)
+                      onChangeSalutation(itemValue)
                     }>
                     {dataSalutation.map((item: any, index: number) => (
                       <Picker.Item
@@ -67,24 +84,23 @@ export default (props: Props) => {
                 <View style={{width: '75%'}}>
                   <InputText
                     placeholder="Fullname"
-                    onChangeText={(text: any) => props.onChangeFullname(text)}
+                    onChangeText={(text: any) => onChangeFullname(text)}
                     autoCapitalize="words"
-                    value={props.valueFullname}
+                    value={valueFullname}
                   />
                 </View>
               </View>
             </View>
 
             <View style={styles.vertical}>
-              <Text style={styles.textTitle}>Email</Text>
               <InputText
                 placeholder="Email"
-                onChangeText={(text: any) => props.onChangeEmail(text)}
+                onChangeText={(text: any) => onChangeEmail(text)}
                 keyboardType="email-address"
                 autoCapitalize="none"
-                value={props.valueEmail}
+                value={valueEmail}
               />
-              {props.validMail ? null : (
+              {validMail ? null : (
                 <Text
                   style={styles.textError}
                   content={{
@@ -96,66 +112,35 @@ export default (props: Props) => {
             </View>
 
             <View style={styles.vertical}>
-              <Text
-                style={styles.textTitle}
-                content={{id: 'Nomor Handphone', en: 'Mobile Number'}}
+              <InputText
+                placeholder="Mobile Number"
+                onChangeText={(text: string) => onChangeMobileNumber(text)}
+                keyboardType="numeric"
+                value={valueMobile}
               />
-              <View style={styles.rowBetween}>
-                <View style={{width: '20%'}}>
-                  <InputText
-                    placeholder="Code"
-                    onChangeText={(text: string) =>
-                      props.onChangeMobilePre(text)
-                    }
-                    maxLength={4}
-                    keyboardType="number-pad"
-                    value={props.valuePre}
-                  />
-                </View>
-                <View style={{width: '75%'}}>
-                  <InputText
-                    placeholder="Mobile Number"
-                    onChangeText={(text: string) =>
-                      props.onChangeMobileNumber(text)
-                    }
-                    keyboardType="number-pad"
-                    value={props.valueMobile}
-                  />
-                </View>
-              </View>
             </View>
 
             <View style={styles.vertical}>
-              <Touch onPress={props.onShowBirthDate}>
-                <Text
-                  style={styles.textButton}
-                  content={{id: 'Tanggal Lahir', en: 'BirthDate'}}
-                />
-              </Touch>
               <InputText
                 placeholder=""
-                value={props.birthDate}
-                editable={false}
+                value={moment(birthDate).format('D MMMM YYYY')}
                 onChangeText={null}
+                onFocus={onShowBirthDate}
               />
             </View>
 
             <View style={styles.vertical}>
-              <Text
-                style={styles.textTitle}
-                content={{id: 'Alamat', en: 'Address'}}
-              />
               <InputText
                 placeholder="Address"
-                onChangeText={(txt: any) => props.onChangeAddress(txt)}
+                onChangeText={(txt: any) => onChangeAddress(txt)}
                 numberOfLines={3}
                 maxLength={200}
-                value={props.valueAddress}
+                value={valueAddress}
               />
             </View>
 
             <View style={styles.vertical}>
-              {props.isLoading ? (
+              {isLoading ? (
                 <ButtonLoading />
               ) : (
                 <Button
@@ -163,7 +148,8 @@ export default (props: Props) => {
                   customStyle={styles.btnUpdate}
                   fullWidth
                   isUpperCase
-                  onPress={props.onUpdate}
+                  onPress={onUpdate}
+                  type="primary"
                 />
               )}
             </View>
@@ -182,7 +168,8 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   container: {
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     backgroundColor: Color.white,
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
@@ -226,8 +213,6 @@ const styles = StyleSheet.create({
   },
   btnUpdate: {
     borderRadius: 20,
-    backgroundColor: Color.tealBlue,
-    borderColor: Color.tealBlue,
     borderWidth: 0.5,
   },
 });

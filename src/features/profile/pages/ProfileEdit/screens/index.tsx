@@ -42,7 +42,7 @@ export default (props: Props) => {
 
   // Function
   const checkData = () => {
-    setImgProfile(oc(profile).photo(null));
+    setImgProfile(oc(profile).photo(avatar));
     setSalutation(oc(profile).salutation('Mr'));
     setFullname(oc(profile).fullname(''));
     setEmail(oc(profile).email(''));
@@ -130,7 +130,7 @@ export default (props: Props) => {
       },
     };
     ImagePicker.showImagePicker(options, (res: ImagePickerResponse) => {
-      const checkExt = res.fileName;
+      const checkExt = oc(res).fileName('picture.jpeg');
       // tslint:disable-next-line: no-empty
       if (res.didCancel) {
       } else if (res.error) {
@@ -203,14 +203,12 @@ export default (props: Props) => {
         onChangeSalutation={(text: any) => setSalutation(text)}
         onChangeEmail={(text: string) => changeEmail(text)}
         validMail={validMail}
-        onChangeMobilePre={(text: any) => setMobilePre(text)}
         onChangeMobileNumber={(text: any) => setMobileNumber(text)}
         onShowBirthDate={openModalBirth}
         onChangeAddress={(text: any) => setAddress(text)}
         selectedSalutation={salutation}
         valueFullname={fullname}
         valueEmail={email}
-        valuePre={mobilePre}
         valueMobile={mobileNumber}
         valueAddress={address}
         birthDate={birthDate}

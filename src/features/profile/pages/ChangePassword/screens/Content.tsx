@@ -20,7 +20,7 @@ export default (props: Props) => {
         </Touch>
       </Card>
 
-      <Card style={[styles.card, styles.vertical]}>
+      {/* <Card style={[styles.card, styles.vertical]}>
         <View style={styles.rowBetween}>
           <View style={{width: '80%'}}>
             <Text
@@ -48,7 +48,7 @@ export default (props: Props) => {
             }}
           />
         </View>
-      </Card>
+      </Card> */}
     </View>
   );
 };
