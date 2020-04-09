@@ -21,7 +21,9 @@ export default (props: Props) => {
             justifyContent: 'space-between',
           }}>
           <View>
-            <Text style={styles.textName}>{name}</Text>
+            <Text style={styles.textName}>
+              {name.length > 20 ? name.slice(0, 20) + '...' : name}
+            </Text>
             <Text style={{fontFamily: 'NunitoSans-Regular'}}>{type}</Text>
           </View>
           <View style={{alignItems: 'flex-end'}}>

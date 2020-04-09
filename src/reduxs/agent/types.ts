@@ -8,6 +8,7 @@ export interface State {
   fetchTopUp: boolean;
   fetchWithdraw: boolean;
   fetchAllPack: boolean;
+  fetchReport: boolean;
 }
 
 // ====================== AGENT - TOP UP ======================
@@ -27,3 +28,9 @@ export const ALLPACK = 'ALLPACK';
 export const ALLPACK_SUCCESS = 'ALLPACK_SUCCESS';
 export const ALLPACK_FAILED = 'ALLPACK_FAILED';
 // ====================== AGENT - ALL PACKAGE ======================
+
+// ====================== AGENT - REPORT ======================
+export const REPORT = 'REPORT';
+export const REPORT_SUCCESS = 'REPORT_SUCCESS';
+export const REPORT_FAILED = 'REPORT_FAILED';
+// ====================== AGENT - REPORT ======================

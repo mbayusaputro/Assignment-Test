@@ -27,7 +27,7 @@ const Calendar = (props: ModalProps) => {
           <View style={styles.title}>
             <CalendarPicker
               textStyle={{fontFamily: 'NunitoSans-SemiBold'}}
-              minDate={new Date()}
+              // minDate={new Date()}
               onDateChange={onSave}
               selectDayColor={Color.orange}
             />

@@ -302,3 +302,20 @@ export async function allPack(token: string) {
   return response;
 }
 // ====================== AGENT ======================
+// ====================== AGENT - REPORT ======================
+export async function reportAgent(token: string, params: any) {
+  const uri: string = `${URL}customers/${params.type}?end_date=${params.end}&page=${params.page}&start_date=${params.start}`;
+  const config = {
+    headers: {
+      Authorization: `bearer ${token}`,
+      'X-Platform-Source': appSource,
+      'X-SAI-Source': 'ASITAAJA',
+    },
+  };
+  const response = await axios
+    .get(uri, config)
+    .then(res => res.data)
+    .catch(err => (err.response ? err.response.data : err));
+  return response;
+}
+// ====================== AGENT - REPORT ======================

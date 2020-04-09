@@ -47,7 +47,6 @@ export default (props: Props) => {
     setFullname(oc(data).fullname(''));
     setEmail(oc(data).email(''));
     setMobileNumber(oc(data).phone(''));
-    console.log(data);
   }, []);
 
   // Function

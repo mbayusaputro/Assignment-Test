@@ -5,10 +5,11 @@ import {styles} from '../components';
 import {ContentProps as Props} from '../../../interface/types';
 import {Button} from '../../../../../components/';
 import Field from './Field';
+import moment from 'moment';
 
 export default (props: Props) => {
   // Props
-  const {onSubmit, onField} = props;
+  const {onSubmit, onField, select, startDate, endDate} = props;
 
   // Main Render
   return (
@@ -20,8 +21,8 @@ export default (props: Props) => {
           en: 'Type',
         }}
         fieldValue={{
-          id: 'Pilih Laporan',
-          en: 'Select Report',
+          id: select.id,
+          en: select.en,
         }}
         type={0}
       />
@@ -37,8 +38,10 @@ export default (props: Props) => {
           en: 'From',
         }}
         fieldValue={{
-          id: 'Kam, 21 Jan 2020',
-          en: 'Wed, 21 Jan 2020',
+          id: moment(startDate)
+            .locale('id')
+            .format('ddd, DD MMM YYYY'),
+          en: moment(startDate).format('ddd, DD MMM YYYY'),
         }}
         type={1}
       />
@@ -50,8 +53,10 @@ export default (props: Props) => {
           en: 'To',
         }}
         fieldValue={{
-          id: 'Kam, 21 Jan 2020',
-          en: 'Wed, 21 Jan 2020',
+          id: moment(endDate)
+            .locale('id')
+            .format('ddd, DD MMM YYYY'),
+          en: moment(endDate).format('ddd, DD MMM YYYY'),
         }}
         type={1}
       />

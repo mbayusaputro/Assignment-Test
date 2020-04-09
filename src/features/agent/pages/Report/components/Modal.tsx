@@ -15,12 +15,22 @@ import {ModalProps} from '../../../interface/types';
 const Class = (props: ModalProps) => {
   // State
   const [type, setType] = React.useState([
-    {type: 'Sales Report', active: true},
-    {type: 'Commission Report', active: false},
-    {type: 'Commission Balance', active: false},
-    {type: 'Deposit Balance', active: false},
+    {
+      type: {id: 'Laporan Sales', en: 'Sales Report', alias: 'sales'},
+      active: true,
+    },
+    {
+      type: {id: 'Laporan Komisi', en: 'Commission Report', alias: 'commision'},
+      active: false,
+    },
+    {
+      type: {id: 'Rekening', en: 'Account Statement', alias: 'balance'},
+      active: false,
+    },
+    // { type: { id: 'Saldo Komisi', en: 'Commission Balance' }, active: false },
+    // { type: { id: 'Saldo Deposit', en: 'Deposit Balance' }, active: false },
   ]);
-  const [isClass, setClass] = React.useState('');
+  const [isClass, setClass] = React.useState({});
 
   // Props
   const {isVisible, onDismiss, onSave} = props;
@@ -29,11 +39,7 @@ const Class = (props: ModalProps) => {
   const onChange = (index: number) => {
     type.map((item: any, i: number) => {
       if (index === i) {
-        if (item.active) {
-          item.active = false;
-        } else {
-          item.active = true;
-        }
+        item.active = true;
       } else {
         item.active = false;
       }
@@ -42,6 +48,7 @@ const Class = (props: ModalProps) => {
     setType(type);
     setClass(type[index].type);
   };
+
   return (
     <Modal
       isVisible={isVisible}
@@ -69,7 +76,7 @@ const Class = (props: ModalProps) => {
                   onPress={() => onChange(i)}
                   key={i}
                   style={styles.row}>
-                  <Text style={styles.bold}>{item.type}</Text>
+                  <Text style={styles.bold} content={item.type} />
                   {item.active ? (
                     <Image
                       style={{

@@ -3,8 +3,6 @@ import {View} from 'react-native';
 import {Text, Card} from '../../../../../components';
 import {styles} from '../components';
 import {FieldDetailProps as Props} from '../../../interface/types';
-import {moneyFormat} from '../../../../../helpers/helpers';
-import moment from 'moment';
 
 export default (props: Props) => {
   // Props
@@ -28,7 +26,14 @@ export default (props: Props) => {
         style={[styles.textBlue, styles.textGrey]}
         content={{id: label3.id, en: label3.en}}
       />
-      <Text style={[styles.textBold, styles.top]}>{sub3}</Text>
+      <Text
+        style={
+          label4
+            ? [styles.textBold, {color: '#a2195b'}]
+            : [styles.textBold, styles.top]
+        }>
+        {sub3}
+      </Text>
       {label4 ? (
         <View>
           <View style={styles.line} />

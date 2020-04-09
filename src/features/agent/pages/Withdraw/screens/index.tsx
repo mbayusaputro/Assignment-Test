@@ -82,7 +82,7 @@ export default (props: Props) => {
       />
       <SubHeader />
       <Content
-        balance={oc(profile).commision(0)}
+        balance={oc(profile).balance(0)}
         onSubmit={() => onSubmit()}
         modalInput={onModal}
         modalSelect={() => onModal('bank')}

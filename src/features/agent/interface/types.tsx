@@ -35,6 +35,7 @@ export type ModalProps = {
   onDismiss: () => void;
   onSave?: (_1: any) => void;
   model?: string;
+  detail?: any;
 };
 
 export type FieldProps = {
@@ -46,6 +47,9 @@ export type FieldProps = {
 export type ContentProps = {
   onSubmit: () => void;
   onField: (type: string) => void;
+  select: any;
+  startDate: Date;
+  endDate: Date;
 };
 
 export type CardProps = {
@@ -59,16 +63,16 @@ export type CardProps = {
 export type FieldProfileProps = {
   img: ImageSourcePropType;
   name: string;
-  amountPrev: number;
-  amountNext: number;
-  amountSubTotal?: number;
-  amountTotal?: number;
+  // amountPrev: number;
+  // amountNext: number;
+  // amountSubTotal?: number;
+  amountTotal: number;
 };
 
 export type FieldDataProps = {
   name: string;
   type: string;
-  date: any;
+  date: Date;
   amount: number;
   onPress?: () => void;
 };
@@ -84,6 +88,18 @@ export type FieldDetailProps = {
   sub4?: string;
 };
 
-export type ReportProps = {
-  onField: () => void;
+export interface ReportProps extends Props {
+  onReport: (token: string, payload: object) => Promise<void>;
+  token: string;
+  isLoading: boolean;
+}
+
+export type ContentReportProps = {
+  onField: (data: object) => void;
+  data: Array<any>;
+  stats: any;
+  meta: number;
+  onMore: (page: number) => void;
+  isLoading: boolean;
+  type: string;
 };

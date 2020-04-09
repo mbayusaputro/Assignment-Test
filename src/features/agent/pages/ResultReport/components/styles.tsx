@@ -1,10 +1,9 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {Color} from '../../../../../constants/Color';
 import fonts from '../../../../../constants/Fonts';
 import {
   TITLE_FONT_SIZE,
   HEADER_FONT_SIZE,
-  MEDIUM_FONT_SIZE,
 } from '../../../../../constants/TextSize';
 
 export default StyleSheet.create({
@@ -15,7 +14,9 @@ export default StyleSheet.create({
   },
   container: {
     marginTop: -55,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: Platform.OS === 'ios' ? 100 : 50,
   },
   rowBetween: {
     flexDirection: 'row',

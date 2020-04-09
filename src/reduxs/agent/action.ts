@@ -9,12 +9,16 @@ import {
   ALLPACK,
   ALLPACK_FAILED,
   ALLPACK_SUCCESS,
+  REPORT,
+  REPORT_FAILED,
+  REPORT_SUCCESS,
 } from './types';
-import {topUp, withdrawRequest, allPack} from '../../services/api';
+import {topUp, withdrawRequest, allPack, reportAgent} from '../../services/api';
 
 const topUpDeposit: string = 'topUpDeposit';
 const withdraw: string = 'withdraw';
 const allpack: string = 'allpack';
+const report: string = 'report';
 
 const requestState = (type: string) => {
   if (type === topUpDeposit) {
@@ -29,10 +33,14 @@ const requestState = (type: string) => {
     return {
       type: ALLPACK,
     };
+  } else if (type === report) {
+    return {
+      type: REPORT,
+    };
   }
 };
 
-const successState = (type: string, data: any) => {
+const successState = (type: string, data: any, meta?: any) => {
   if (type === topUpDeposit) {
     return {
       type: TOP_UP_SUCCESS,
@@ -47,6 +55,12 @@ const successState = (type: string, data: any) => {
     return {
       type: ALLPACK_SUCCESS,
       data,
+    };
+  } else if (type === report) {
+    return {
+      type: REPORT_SUCCESS,
+      data,
+      meta,
     };
   }
 };
@@ -65,6 +79,11 @@ const failedState = (type: string, message: any) => {
   } else if (type === allpack) {
     return {
       type: ALLPACK_FAILED,
+      message,
+    };
+  } else if (type === report) {
+    return {
+      type: REPORT_FAILED,
       message,
     };
   }
@@ -120,3 +139,20 @@ export const actionAllPack = (token: string) => {
   };
 };
 // ====================== AGENT - ALL PACKAGE ======================
+
+// ====================== AGENT - TOP UP ======================
+export const actionReport = (token: string, payload: object) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestState(report));
+    try {
+      const res = await reportAgent(token, payload);
+      if (res.success) {
+        return dispatch(successState(report, res.data, res.meta));
+      }
+      return dispatch(failedState(report, res.message));
+    } catch (err) {
+      return dispatch(failedState(report, err.message));
+    }
+  };
+};
+// ====================== AGENT - TOP UP ======================

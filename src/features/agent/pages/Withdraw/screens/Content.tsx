@@ -24,7 +24,7 @@ export default (props: Props) => {
       <Card style={styles.card}>
         <Text
           style={[styles.textBlue, styles.textGrey]}
-          content={{id: 'Komisimu', en: 'Your Commission'}}
+          content={{id: 'Saldomu', en: 'Your Balance'}}
         />
         <Text style={[styles.textBold, styles.price]}>
           Rp{moneyFormat(balance)}

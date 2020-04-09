@@ -10,6 +10,9 @@ import {
   ALLPACK,
   ALLPACK_FAILED,
   ALLPACK_SUCCESS,
+  REPORT,
+  REPORT_FAILED,
+  REPORT_SUCCESS,
 } from './types';
 
 const initialState: State = {
@@ -19,6 +22,8 @@ const initialState: State = {
   fetchWithdraw: false,
   // Agent - All Package
   fetchAllPack: false,
+  // Agent - Report
+  fetchReport: false,
 };
 
 export default (state: State = initialState, action: Action): State => {
@@ -82,6 +87,26 @@ export default (state: State = initialState, action: Action): State => {
         fetchAllPack: false,
       };
     // ====================== AGENT - ALL PACKAGE ======================
+
+    // ====================== AGENT - REPORT ======================
+    case REPORT:
+      return {
+        ...state,
+        fetchReport: true,
+      };
+
+    case REPORT_SUCCESS:
+      return {
+        ...state,
+        fetchReport: false,
+      };
+
+    case REPORT_FAILED:
+      return {
+        ...state,
+        fetchReport: false,
+      };
+    // ====================== AGENT - REPORT ======================
 
     default:
       return state;

@@ -7,14 +7,7 @@ import {moneyFormat} from '../../../../../helpers/helpers';
 
 export default (props: Props) => {
   // Props
-  const {
-    img,
-    name,
-    amountPrev,
-    amountNext,
-    amountSubTotal,
-    amountTotal,
-  } = props;
+  const {img, name, amountTotal} = props;
 
   // Main Render
   return (
@@ -23,7 +16,7 @@ export default (props: Props) => {
         <Image source={img} resizeMode="contain" style={styles.imgProf} />
         <Text style={styles.textProf}>{name}</Text>
       </View>
-      <View style={styles.row1}>
+      {/* <View style={styles.row1}>
         <Text style={styles.textPrev}>Previous Period</Text>
         <Text style={styles.textValue}>Rp{moneyFormat(amountPrev)}</Text>
       </View>
@@ -39,15 +32,18 @@ export default (props: Props) => {
             <Text style={styles.textValue}>
               Rp{moneyFormat(amountSubTotal)}
             </Text>
-          </View>
-          <View style={[styles.row1, {paddingBottom: 0}]}>
-            <Text style={styles.textPrev}>Total All Period</Text>
-            <Text style={styles.textValue}>Rp{moneyFormat(amountTotal)}</Text>
-          </View>
-        </View>
+          </View> */}
+      <View style={[styles.row1, {paddingBottom: 0}]}>
+        <Text
+          style={styles.textPrev}
+          content={{id: 'Total Semua Periode', en: 'Total All Period'}}
+        />
+        <Text style={styles.textValue}>Rp{moneyFormat(amountTotal)}</Text>
+      </View>
+      {/* </View>
       ) : (
         []
-      )}
+      )} */}
     </Card>
   );
 };
