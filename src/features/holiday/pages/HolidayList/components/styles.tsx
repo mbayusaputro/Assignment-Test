@@ -31,20 +31,18 @@ export default StyleSheet.create({
   vertical: {
     marginVertical: 10,
   },
-
-  // Component
   img: {
-    width: 125,
-    height: 125,
-    borderRadius: 10,
+    width: 100,
+    height: 100,
+    borderRadius: 5,
   },
   card: {
     width: '90%',
     padding: 10,
     backgroundColor: Color.white,
-    borderRadius: 10,
+    borderRadius: 5,
     alignSelf: 'flex-end',
-    marginTop: -100,
+    marginTop: -85,
     zIndex: -1,
     flexWrap: 'wrap',
   },
@@ -52,15 +50,18 @@ export default StyleSheet.create({
   // Text
   textTitle: {
     fontFamily: fonts.fontBold,
-    fontSize: 20,
+    fontSize: 16,
     color: Color.black,
   },
   textSubTitle: {
     color: Color.greyish,
+    fontSize: 14,
   },
   textPrice: {
     color: Color.tealBlue,
-    fontSize: 20,
+    fontSize: 14,
     fontFamily: fonts.fontBold,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
   },
 });

@@ -5,10 +5,8 @@ import {styles} from '../components';
 import {CardProps as Props} from '../../../interface/types';
 
 export default (props: Props) => {
-  // Props
   const {label, fieldValue, type, onPress} = props;
 
-  // Main Render
   return (
     <Touch onPress={onPress} activeOpacity={0.9}>
       {type === 0 ? (

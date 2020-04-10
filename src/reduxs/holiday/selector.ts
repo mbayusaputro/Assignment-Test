@@ -10,6 +10,9 @@ const makeFetchHolidayDetail = (state: AppState) =>
 const makeFetchHolidayBooking = (state: AppState) =>
   state.holiday.fetchHolidayBooking;
 
+const makeFetchHolidayInsert = (state: AppState) =>
+  state.holiday.fetchInsertHoliday;
+
 const makeAddOn = (state: AppState) => state.holiday.addon;
 const makeDataHoliday = (state: AppState) => state.holiday.dataHoliday;
 const makeDataHotel = (state: AppState) => state.holiday.dataHotel;
@@ -24,6 +27,11 @@ export const getFetchHolidayDetail = createSelector(
 
 export const getFetchHolidayBook = createSelector(
   makeFetchHolidayBooking,
+  i => i,
+);
+
+export const getFetchHolidayInsert = createSelector(
+  makeFetchHolidayInsert,
   i => i,
 );
 

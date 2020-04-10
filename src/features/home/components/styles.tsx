@@ -19,8 +19,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 10,
-    paddingVertical: 10,
+    marginTop: 20,
+    marginBottom: 10,
+    paddingTop: 5,
   },
   contentLogin: {
     backgroundColor: Color.white,

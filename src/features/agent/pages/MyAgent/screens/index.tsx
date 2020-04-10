@@ -1,13 +1,12 @@
 import React, {useRef, useEffect, useState} from 'react';
-import {SafeAreaView} from 'react-native';
-import Empty from './Empty';
+import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
 import {Header} from '../../../../../components';
 import {HolidayListContext} from '../components';
 import Content from './Content';
 import Toast from 'react-native-easy-toast';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Orders = (props: any) => {
-  // Props
   const {
     navigation: {goBack, navigate},
     isLoading,
@@ -15,13 +14,10 @@ const Orders = (props: any) => {
     token,
   } = props;
 
-  // State
   const [dataPopular, setDataPopular] = useState([]);
 
-  // Ref
   const toastRef: any = useRef();
 
-  // Lifecycle
   useEffect(() => {
     getData();
   }, []);
@@ -41,13 +37,19 @@ const Orders = (props: any) => {
     navigate('HolidayDetail', {id: item.id});
   };
 
-  // Main Render
   return (
     <SafeAreaView style={{backgroundColor: '#f0f0f0', flex: 1}}>
       <Toast ref={toastRef} />
       <Header
         content={{id: 'Agen Saya', en: 'My Agent'}}
         callback={() => goBack()}
+        right={
+          <TouchableOpacity
+            onPress={() => navigate('CreatePackages')}
+            style={{paddingTop: 5}}>
+            <Feather name="plus" color={'white'} size={32} />
+          </TouchableOpacity>
+        }
       />
       <HolidayListContext.Provider
         value={{

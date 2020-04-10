@@ -1,94 +1,88 @@
 import React, {useState, useEffect} from 'react';
-import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import {Color} from '../../../../../constants/Color';
 import {Text, Button, InputText} from '../../../../../components';
 import {ModalProps} from '../../../interface/types';
+import Feather from 'react-native-vector-icons/Feather';
 
-const Passenger = (props: ModalProps) => {
-  // Props
+const ModalVisited = (props: ModalProps) => {
   const {isVisible, onDismiss, onSave, model} = props;
 
-  // State
-  const [isData, setData] = useState([{name: ''}, {name: ''}]);
-  const [isNumber, setNumber] = useState(3);
+  const [isNumber, setNumber] = useState(0);
+  const [arrayData, setArrayData] = useState([]);
 
-  // Lifecycle
   useEffect(() => {
-    generateArray();
+    arrayGenerator();
   }, [isNumber]);
 
-  // Function
-  const generateArray = () => {
+  const arrayGenerator = () => {
     let array = [];
     array.push({name: ''});
-    // for (let i = 1; i <= isNumber; i++) {
-    //   array.push({ name: "" });
-    // }
-    setData(isData.concat(array));
+    setArrayData(arrayData.concat(array));
   };
 
-  const onChange = (i: number, text: string) => {
-    const data = isData;
-    data[i].name = text;
-    setData(data);
+  const onSetData = (index: any, field: any, value: any) => {
+    let newArr = [...arrayData];
+    if (field === 'name') {
+      newArr[index].name = value;
+      setArrayData(newArr);
+    }
   };
 
-  const onDD = (value: any) => {
-    // setData(tempArr)
-    console.log(isData);
-  };
-
-  // Main Render
   return (
     <Modal
       isVisible={isVisible}
       backdropColor={Color.black}
       onBackdropPress={onDismiss}
       onBackButtonPress={onDismiss}
-      style={{flex: 1, justifyContent: 'flex-end', margin: 0}}>
+      style={styles.modalContainer}>
       <SafeAreaView>
         <View style={styles.container}>
-          <View style={{borderBottomWidth: 0.5, borderColor: Color.lightgray}}>
-            <Text
-              style={{
-                textAlign: 'center',
-                paddingVertical: 10,
-                fontFamily: 'NunitoSans-Bold',
-                fontSize: 18,
-              }}
-              content={
-                model === 'visited'
-                  ? {id: 'Pilih Jumlah', en: 'Visited Date'}
-                  : {id: 'Masukkan Jumlah', en: 'Holiday Date'}
-              }
-            />
+          <View style={styles.modalHeaders}>
+            <View style={styles.subHeaderLeft}>
+              <Text
+                style={styles.modalHeaderTitle}
+                content={{id: 'Visited Place', en: 'Visited Place'}}
+              />
+            </View>
+            <View style={styles.subHeaderRight}>
+              <TouchableOpacity onPress={() => setNumber(isNumber + 1)}>
+                <Feather name="plus" color={Color.berry} size={32} />
+              </TouchableOpacity>
+            </View>
           </View>
-          <TouchableOpacity onPress={() => setNumber(isNumber + 1)}>
-            <Text>+</Text>
-          </TouchableOpacity>
-
-          {/* Model Input */}
-          {isData.map((item, i) => {
-            return (
-              <View style={styles.pd} key={i}>
-                <InputText
-                  style={{borderRadius: 5, borderColor: Color.labelgray}}
-                  placeholder="Enter Place"
-                  onChangeText={(text: string) => onChange(i, text)}
-                  autoCapitalize="none"
-                />
-              </View>
-            );
-          })}
-
+          <ScrollView>
+            {arrayData.map((item, i) => {
+              return (
+                <View key={i} style={styles.containSection}>
+                  <View style={styles.marginTop10}>
+                    <InputText
+                      style={styles.modalTextInput}
+                      placeholder="Visited Place"
+                      onChangeText={(text: any) => onSetData(i, 'name', text)}
+                      keyboardType={'number-pad'}
+                      autoCapitalize="none"
+                    />
+                  </View>
+                </View>
+              );
+            })}
+          </ScrollView>
           <Button
-            customStyle={{margin: 20, borderRadius: 20}}
+            customStyle={styles.modalButton}
             type="primary"
             fullWidth={true}
             isUpperCase={true}
             content={{id: 'Selesai', en: 'Done'}}
-            onPress={() => onDD('tempArr')}
+            onPress={() => onSave(arrayData, model)}
           />
         </View>
       </SafeAreaView>
@@ -96,16 +90,17 @@ const Passenger = (props: ModalProps) => {
   );
 };
 
-export default Passenger;
+export default ModalVisited;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Color.white,
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
+    height: Dimensions.get('window').height / 1.25,
   },
   pd: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
   },
   bold: {
     fontFamily: 'NunitoSans-Bold',
@@ -118,5 +113,58 @@ const styles = StyleSheet.create({
   },
   center: {
     alignItems: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  modalHeaders: {
+    flexDirection: 'row',
+    borderBottomWidth: 0.5,
+    borderColor: Color.lightgray,
+    justifyContent: 'space-between',
+  },
+  modalHeaderTitle: {
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontFamily: 'NunitoSans-Bold',
+    fontSize: 18,
+  },
+  modalTextInput: {
+    borderRadius: 5,
+    borderColor: Color.labelgray,
+  },
+  modalButton: {
+    margin: 20,
+    borderRadius: 20,
+  },
+  subHeaderLeft: {
+    paddingLeft: 20,
+  },
+  subHeaderRight: {
+    paddingRight: 20,
+    paddingTop: 5,
+  },
+  containSection: {
+    borderBottomColor: Color.berry,
+    borderBottomWidth: 2,
+    marginHorizontal: 20,
+    marginBottom: 30,
+  },
+  marginBottom10: {
+    marginBottom: 10,
+  },
+  marginTop10: {
+    marginTop: 10,
+  },
+  modalDateInput: {
+    borderRadius: 5,
+    borderColor: Color.labelgray,
+    borderWidth: 0.5,
+    padding: 16,
+  },
+  labelDate: {
+    fontWeight: 'bold',
   },
 });

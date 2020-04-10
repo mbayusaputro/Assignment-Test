@@ -2,7 +2,6 @@ import React from 'react';
 import {Animated, TouchableOpacity as Touch, Image} from 'react-native';
 import styles from '../components/styles';
 import {Imaging, Header, Text} from '../../../../../components';
-import FastImage from 'react-native-fast-image';
 
 type Props = {
   callback: () => void;
@@ -16,7 +15,6 @@ type Props = {
 };
 
 export default (props: Props) => {
-  // Component
   const leftIcon = () => (
     <Touch onPress={props.callback} style={styles.btnBack}>
       <Image
@@ -26,19 +24,8 @@ export default (props: Props) => {
       />
     </Touch>
   );
-
-  // const rightIcon = () => (
-  //   <Touch onPress={() => alert('asd')} style={styles.btnShare}>
-  //     <Imaging
-  //       source={require('../../../../../assets/icons/share_button.png')}
-  //       resizeMode="contain"
-  //       style={styles.iconShare}
-  //     />
-  //   </Touch>
-  // );
-
-  // Main Render
   const {header, opacity, translate, headerTitle, title} = props;
+
   return (
     <Animated.View style={[styles.header, {height: header}]}>
       <Animated.View
@@ -59,14 +46,13 @@ export default (props: Props) => {
             <Text
               style={[styles.textMedium, styles.textWhite]}
               content={{
-                id: 'Tampilkan gambar lebih banyak',
-                en: 'Show more image',
+                id: 'Lebih banyak',
+                en: 'Show More',
               }}
             />
           </Animated.View>
         </Touch>
         {leftIcon()}
-        {/* {rightIcon()} */}
       </Animated.View>
       <Animated.View style={{transform: [{translateY: headerTitle}]}}>
         <Header

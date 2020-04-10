@@ -7,7 +7,6 @@ import {dataMenu} from '../components/data';
 export default () => {
   const {onNavigate} = React.useContext(HomeContext);
 
-  // Main Render
   return (
     <View style={styles.contentMenu}>
       {dataMenu.map((item: any, index) => (

@@ -82,7 +82,6 @@ export const Header = (props: HeaderProps) => {
 };
 
 const styles = StyleSheet.create({
-  // Component
   header: {
     width: '100%',
     backgroundColor: Color.marineBlue,
@@ -115,15 +114,11 @@ const styles = StyleSheet.create({
     backgroundColor: Color.marineBlue,
     borderBottomStartRadius: 40,
   },
-
-  // Text
   titleHeader: {
     fontFamily: fonts.fontBold,
     fontSize: TITLE_FONT_SIZE,
     color: Color.white,
   },
-
-  // Other
   imgBack: {
     width: normalize(22.5, 'width'),
     height: normalize(20, 'height'),

@@ -13,12 +13,16 @@ import {
   DATAHOLIDAY,
   DATAHOTEL,
   DATAFLIGHT,
+  HOLIDAYINSERT,
+  HOLIDAYINSERT_SUCCESS,
+  HOLIDAYINSERT_FAILED,
 } from './types';
 
 const initialState: State = {
   fetchHolidayList: false,
   fetchHolidayDetail: false,
   fetchHolidayBooking: false,
+  fetchInsertHoliday: false,
 
   // New Feature
   addon: false,
@@ -45,6 +49,22 @@ export default (state: State = initialState, action: Action): State => {
       return {
         ...state,
         fetchHolidayList: false,
+      };
+
+    case HOLIDAYINSERT:
+      return {
+        ...state,
+        fetchInsertHoliday: true,
+      };
+    case HOLIDAYINSERT_SUCCESS:
+      return {
+        ...state,
+        fetchInsertHoliday: false,
+      };
+    case HOLIDAYINSERT_FAILED:
+      return {
+        ...state,
+        fetchInsertHoliday: false,
       };
 
     // HOLIDAY DETAIL

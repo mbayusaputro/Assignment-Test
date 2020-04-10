@@ -120,9 +120,8 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   iconBack: {
-    width: 60,
+    width: 40,
     height: 20,
-    marginLeft: -10,
   },
   icon: {
     width: normalize(20),
@@ -134,8 +133,8 @@ export default StyleSheet.create({
     paddingRight: 5,
     backgroundColor: Color.white,
     position: 'absolute',
-    left: 20,
-    top: 25,
+    left: 10,
+    top: 50,
   },
   btnShowMore: {
     width: '100%',
@@ -152,6 +151,7 @@ export default StyleSheet.create({
   headerTitle: {
     fontSize: TITLE_FONT_SIZE,
     color: Color.black,
+    paddingTop: 10,
   },
   textBlue: {
     fontFamily: fonts.fontSemiBold,

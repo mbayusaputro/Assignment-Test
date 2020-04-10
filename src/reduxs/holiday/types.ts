@@ -8,6 +8,7 @@ export interface State {
   fetchHolidayList: boolean;
   fetchHolidayDetail: boolean;
   fetchHolidayBooking: boolean;
+  fetchInsertHoliday: boolean;
 
   // new feature
   addon: boolean;
@@ -36,3 +37,7 @@ export const ADDON = 'ADDON';
 export const DATAHOLIDAY = 'DATAHOLIDAY';
 export const DATAHOTEL = 'DATAHOTEL';
 export const DATAFLIGHT = 'DATAFLIGHT';
+
+export const HOLIDAYINSERT = 'HOLIDAYINSERT';
+export const HOLIDAYINSERT_SUCCESS = 'HOLIDAYINSERT_SUCCESS';
+export const HOLIDAYINSERT_FAILED = 'HOLIDAYINSERT_FAILED';

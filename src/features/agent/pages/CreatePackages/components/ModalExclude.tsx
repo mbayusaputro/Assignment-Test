@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import {Color} from '../../../../../constants/Color';
-import {Text, Button} from '../../../../../components';
+import {Text, Button, InputText} from '../../../../../components';
 import {ModalProps} from '../../../interface/types';
 import Feather from 'react-native-vector-icons/Feather';
-import {TextInputMask} from 'react-native-masked-text';
 
-const Passenger = (props: ModalProps) => {
+const ModalExclude = (props: ModalProps) => {
   const {isVisible, onDismiss, onSave, model} = props;
 
   const [isNumber, setNumber] = useState(0);
@@ -25,17 +24,14 @@ const Passenger = (props: ModalProps) => {
 
   const arrayGenerator = () => {
     let array = [];
-    array.push({startDate: '', endDate: ''});
+    array.push({title: ''});
     setArrayData(arrayData.concat(array));
   };
 
   const onSetData = (index: any, field: any, value: any) => {
     let newArr = [...arrayData];
-    if (field === 'start') {
-      newArr[index].startDate = value;
-      setArrayData(newArr);
-    } else if (field === 'end') {
-      newArr[index].endDate = value;
+    if (field === 'title') {
+      newArr[index].title = value;
       setArrayData(newArr);
     }
   };
@@ -53,7 +49,7 @@ const Passenger = (props: ModalProps) => {
             <View style={styles.subHeaderLeft}>
               <Text
                 style={styles.modalHeaderTitle}
-                content={{id: 'Holiday Date', en: 'Holiday Date'}}
+                content={{id: 'Exclude Info', en: 'Exclude Info'}}
               />
             </View>
             <View style={styles.subHeaderRight}>
@@ -67,29 +63,12 @@ const Passenger = (props: ModalProps) => {
               return (
                 <View key={i} style={styles.containSection}>
                   <View style={styles.marginTop10}>
-                    <Text style={styles.labelDate}>
-                      Start Date (YYYY-MM-DD)
-                    </Text>
-                    <TextInputMask
-                      style={styles.modalDateInput}
-                      type={'datetime'}
-                      options={{
-                        format: 'YYYY-MM-DD',
-                      }}
-                      value={arrayData[i].startDate}
-                      onChangeText={(text: any) => onSetData(i, 'start', text)}
-                    />
-                  </View>
-                  <View style={[styles.marginTop10, styles.marginBottom10]}>
-                    <Text style={styles.labelDate}>End Date (YYYY-MM-DD)</Text>
-                    <TextInputMask
-                      style={styles.modalDateInput}
-                      type={'datetime'}
-                      options={{
-                        format: 'YYYY-MM-DD',
-                      }}
-                      value={arrayData[i].endDate}
-                      onChangeText={(text: any) => onSetData(i, 'end', text)}
+                    <InputText
+                      style={styles.modalTextInput}
+                      placeholder="Exclude"
+                      onChangeText={(text: any) => onSetData(i, 'title', text)}
+                      keyboardType={'number-pad'}
+                      autoCapitalize="none"
                     />
                   </View>
                 </View>
@@ -110,7 +89,7 @@ const Passenger = (props: ModalProps) => {
   );
 };
 
-export default Passenger;
+export default ModalExclude;
 
 const styles = StyleSheet.create({
   container: {

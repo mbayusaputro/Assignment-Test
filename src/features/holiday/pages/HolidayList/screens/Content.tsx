@@ -57,19 +57,18 @@ export default () => {
           onPress={() => onDetail(item)}
           activeOpacity={0.5}
           style={[styles.card, styles.rowBetween]}>
-          <View style={{width: '35%'}} />
-          <View style={{width: '65%'}}>
+          <View style={{paddingLeft: 75}}>
             <View>
               <Text style={styles.textTitle}>
                 {item.title.slice(0, 13) +
-                  (item.title.length > 11 ? '...' : '')}
+                  (item.title.length > 15 ? '...' : '')}
               </Text>
             </View>
             <View style={[styles.row, styles.vertical]}>
               <Icon
                 name="calendar-check"
                 color={Color.greyish}
-                size={20}
+                size={16}
                 style={{marginRight: 7.5}}
               />
               <Text

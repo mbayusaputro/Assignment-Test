@@ -33,9 +33,11 @@ export type ContentChangeProps = {
 export type ModalProps = {
   isVisible: boolean;
   onDismiss: () => void;
-  onSave?: (_1: any) => void;
+  onSave?: (data: any, type: any) => void;
   model?: string;
   detail?: any;
+  title?: string;
+  inputType?: string;
 };
 
 export type FieldProps = {
@@ -47,9 +49,10 @@ export type FieldProps = {
 export type ContentProps = {
   onSubmit: () => void;
   onField: (type: string) => void;
-  select: any;
-  startDate: Date;
-  endDate: Date;
+  select?: any;
+  startDate?: Date;
+  endDate?: Date;
+  formData?: any;
 };
 
 export type CardProps = {

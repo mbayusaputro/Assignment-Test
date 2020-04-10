@@ -9,16 +9,25 @@ import {
   HOLIDAYBOOKING,
   HOLIDAYBOOKING_SUCCESS,
   HOLIDAYBOOKING_FAILED,
+  HOLIDAYINSERT,
+  HOLIDAYINSERT_SUCCESS,
+  HOLIDAYINSERT_FAILED,
   ADDON,
   DATAHOLIDAY,
   DATAHOTEL,
   DATAFLIGHT,
 } from './types';
-import {holidayList, holidayDetail, holidayBooking} from '../../services/api';
+import {
+  holidayList,
+  holidayDetail,
+  holidayBooking,
+  holidayInsert,
+} from '../../services/api';
 
 const listType = 'listType';
 const detailType = 'detailType';
 const bookType = 'bookType';
+const insertType = 'insertType';
 
 const requestState = (type: string) => {
   if (type === listType) {
@@ -32,6 +41,10 @@ const requestState = (type: string) => {
   } else if (type === bookType) {
     return {
       type: HOLIDAYBOOKING,
+    };
+  } else if (type === insertType) {
+    return {
+      type: HOLIDAYINSERT,
     };
   }
 };
@@ -55,6 +68,12 @@ const successState = (type: string, data: any, payload: any) => {
       data,
       payload,
     };
+  } else if (type === insertType) {
+    return {
+      type: HOLIDAYINSERT_SUCCESS,
+      data,
+      payload,
+    };
   }
 };
 
@@ -74,6 +93,12 @@ const failedState = (type: string, message: any, payload: any) => {
   } else if (type === bookType) {
     return {
       type: HOLIDAYBOOKING_FAILED,
+      message,
+      payload,
+    };
+  } else if (type === insertType) {
+    return {
+      type: HOLIDAYINSERT_FAILED,
       message,
       payload,
     };
@@ -123,6 +148,22 @@ export const actionHolidayBook = (payload: object, token: string) => {
       }
     } catch (err) {
       return dispatch(failedState(bookType, err.message, payload));
+    }
+  };
+};
+
+export const actionHolidayInsert = (payload: object, token: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestState(insertType));
+    try {
+      const res = await holidayInsert(payload, token);
+      if (res.success) {
+        return dispatch(successState(insertType, res.data, payload));
+      } else {
+        return dispatch(failedState(insertType, res.message, payload));
+      }
+    } catch (err) {
+      return dispatch(failedState(insertType, err.message, payload));
     }
   };
 };

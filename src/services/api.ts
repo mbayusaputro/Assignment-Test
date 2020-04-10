@@ -220,6 +220,21 @@ export const holidayBooking = (payload: object, token: string) => {
     .catch(err => (err.response ? err.response.data : err));
   return response;
 };
+export async function holidayInsert(payload: object, token: string) {
+  const uri: string = `${TOUR_DEV}tours`;
+  const config = {
+    headers: {
+      'X-Platform-Source': appSource,
+      'X-SAI-Source': 'ASITAAJA',
+      Authorization: `bearer ${token}`,
+    },
+  };
+  const response = axios
+    .post(uri, payload, config)
+    .then(res => res.data)
+    .catch(err => (err.response ? err.response.data : err));
+  return response;
+}
 // ====================== HOLIDAY ======================
 
 // ====================== PAYMENT ======================
