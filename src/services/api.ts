@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
 import axios from 'axios';
 
-const URL: string = 'https://apidev.asitaaja.com/v1/';
+const URL: string = 'https://api.asitaaja.com/v1/';
 const TOUR_DEV: string =
   'https://apigateway-packagetour-dev.asitaaja.com/api/v1/';
 const TOUR_PROD: string = 'https://node-tourpackage.asitaaja.com/api/v1/';
@@ -181,7 +181,7 @@ export async function bookingHotel(payload: object) {
 
 // ====================== HOLIDAY ======================
 export async function holidayList(token: string) {
-  const uri: string = `${TOUR_DEV}tours?sort=-id`;
+  const uri: string = `${TOUR_PROD}tours?sort=-id`;
   // const uri: string = `${URL}tours?type=popular`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
@@ -193,7 +193,7 @@ export async function holidayList(token: string) {
   return response;
 }
 export async function holidayDetail(token: string, id: number) {
-  const uri: string = `${TOUR_DEV}tour-populars/${id}`;
+  const uri: string = `${TOUR_PROD}tour-populars/${id}`;
   // const uri: string = `${URL}tours/${id}`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
@@ -205,7 +205,7 @@ export async function holidayDetail(token: string, id: number) {
   return response;
 }
 export const holidayBooking = (payload: object, token: string) => {
-  const uri: string = `${BT_DEV}travel-packages`;
+  const uri: string = `${BT_PROD}travel-packages`;
   // const uri: string = `${URL}tours/${id}/booking`;
   const config = {
     headers: {
@@ -221,7 +221,7 @@ export const holidayBooking = (payload: object, token: string) => {
   return response;
 };
 export async function holidayInsert(payload: object, token: string) {
-  const uri: string = `${TOUR_DEV}tours`;
+  const uri: string = `${TOUR_PROD}tours`;
   const config = {
     headers: {
       'X-Platform-Source': appSource,
@@ -306,7 +306,7 @@ export async function checkTopUp(id: string, token: string) {
   return response;
 }
 export async function allPack(token: string) {
-  const uri: string = `${TOUR_DEV}/tours/list/authenticated`;
+  const uri: string = `${TOUR_PROD}/tours/list/authenticated`;
   const config = {
     headers: {Authorization: `bearer ${token}`},
   };
