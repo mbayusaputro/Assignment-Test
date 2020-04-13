@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
-import {styles} from '../components';
+import styles from '../components/styles';
 import {ContentReportProps as Props} from '../../../interface/types';
 import FieldProfile from './FieldProfile';
 import FieldData from './FieldData';

@@ -37,12 +37,7 @@ export default (props: Props) => {
           id: 'Dari',
           en: 'From',
         }}
-        fieldValue={{
-          id: moment(startDate)
-            .locale('id')
-            .format('ddd, DD MMM YYYY'),
-          en: moment(startDate).format('ddd, DD MMM YYYY'),
-        }}
+        fieldValue={moment(startDate).format('ddd, DD MMM YYYY')}
         type={1}
       />
       <Field
@@ -52,12 +47,7 @@ export default (props: Props) => {
           id: 'Sampai',
           en: 'To',
         }}
-        fieldValue={{
-          id: moment(endDate)
-            .locale('id')
-            .format('ddd, DD MMM YYYY'),
-          en: moment(endDate).format('ddd, DD MMM YYYY'),
-        }}
+        fieldValue={moment(endDate).format('ddd, DD MMM YYYY')}
         type={1}
       />
 

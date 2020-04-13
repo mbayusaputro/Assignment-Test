@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity as Touch} from 'react-native';
 import {Text, Card} from '../../../../../components';
-import {styles} from '../components';
+import styles from '../components/styles';
 import {FieldDataProps as Props} from '../../../interface/types';
 import {moneyFormat} from '../../../../../helpers/helpers';
 import moment from 'moment';
@@ -12,7 +12,7 @@ export default (props: Props) => {
 
   // Main Render
   return (
-    <Touch onPress={onPress}>
+    <Touch onPress={onPress} activeOpacity={1}>
       <Card style={styles.card2}>
         <View
           style={{

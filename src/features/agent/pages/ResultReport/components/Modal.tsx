@@ -10,6 +10,7 @@ import styles from './styles';
 import {oc} from 'ts-optchain';
 import {moneyFormat} from '../../../../../helpers/helpers';
 import moment from 'moment';
+import {Text, Card} from '../../../../../components';
 
 const SearchBank = (props: ModalProps) => {
   // Props

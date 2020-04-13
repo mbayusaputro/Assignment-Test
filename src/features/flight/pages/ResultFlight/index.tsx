@@ -1,7 +1,8 @@
 import React, {useRef, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native';
 import Result from './screen/Result';
-import {Header, SubHeader} from './components';
+import {Header} from './components';
+import SubHeader from './components/SubHeader';
 import {connect} from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
 import {actionGetFlight} from '../../../../reduxs/flight/action';

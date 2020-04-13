@@ -38,10 +38,7 @@ export default (props: Props) => {
               />
             </View>
             <View>
-              <Text
-                style={[styles.textBold, styles.top]}
-                content={{id: fieldValue.id, en: fieldValue.en}}
-              />
+              <Text style={[styles.textBold, styles.top]}>{fieldValue}</Text>
             </View>
           </View>
         </Card>

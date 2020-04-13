@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {HighSafeArea, LoadingBook} from '../../../../../components';
 import {Header, SubHeader} from '../../../../../components/Header';
-import {styles, Modal} from '../components';
+import Modal from '../components/Modal';
+import styles from '../components/styles';
 import Content from './Content';
 import {ReportProps as Props} from '../../../interface/types';
 import Toast from 'react-native-easy-toast';

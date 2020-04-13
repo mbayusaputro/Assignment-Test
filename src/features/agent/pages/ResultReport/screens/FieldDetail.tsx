@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Text, Card} from '../../../../../components';
-import {styles} from '../components';
+import styles from '../components/styles';
 import {FieldDetailProps as Props} from '../../../interface/types';
 
 export default (props: Props) => {

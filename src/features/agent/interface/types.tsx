@@ -33,7 +33,7 @@ export type ContentChangeProps = {
 export type ModalProps = {
   isVisible: boolean;
   onDismiss: () => void;
-  onSave?: (data: any, type: any) => void;
+  onSave?: (data: any, type?: any) => void;
   model?: string;
   detail?: any;
   title?: string;

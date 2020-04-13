@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image} from 'react-native';
 import {Text, Card} from '../../../../../components';
-import {styles} from '../components';
+import styles from '../components/styles';
 import {FieldProfileProps as Props} from '../../../interface/types';
 import {moneyFormat} from '../../../../../helpers/helpers';
 

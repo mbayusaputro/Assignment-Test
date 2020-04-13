@@ -25,10 +25,9 @@ export default (props: Props) => {
   const renderItem = ({item, index}: any) => {
     return (
       <Card
-        key={index}
         onPress={() => props.onSelectHotel(item)}
         title={item.name}
-        star={parseInt(item.categoryName.split(' ')[0], 0)}
+        star={parseInt(item.categoryName.split(' ')[0])}
         location={item.destinationName}
         price={item.minRate}
         photo={pathAsset + oc(item).detail.images[0].path('aw.jpg')}
@@ -36,9 +35,7 @@ export default (props: Props) => {
     );
   };
   const loadingItem = ({__, index}: any) => (
-    <View
-      key={index}
-      style={[styles.rowBetween, styles.card, {borderRadius: 10}]}>
+    <View style={[styles.rowBetween, styles.card, {borderRadius: 10}]}>
       <Placeholder
         Left={() => (
           <PlaceholderMedia style={[styles.imgCard, {width: '30%'}]} />
@@ -55,7 +52,6 @@ export default (props: Props) => {
   );
 
   // Main Render
-  const totalHotel = oc(props.dataHotel).length(0);
   return (
     <View style={styles.contentContent}>
       <View style={styles.center}>
@@ -70,8 +66,8 @@ export default (props: Props) => {
           <Text
             style={styles.textSemiBold}
             content={{
-              id: `Tersedia ${totalHotel} Hotel`,
-              en: `Available ${totalHotel} Hotel`,
+              id: `Tersedia ${oc(props.dataHotel).length(0)} Hotel`,
+              en: `Available ${oc(props.dataHotel).length(0)} Hotel`,
             }}
           />
         )}
