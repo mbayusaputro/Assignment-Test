@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'AsitaAja' do
-  # Pods for AsitaAja
+target 'RNTypescript' do
+  # Pods for RNTypescript
   use_frameworks!
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
@@ -37,7 +37,7 @@ target 'AsitaAja' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  target 'AsitaAjaTests' do
+  target 'RNTypescriptTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -45,10 +45,10 @@ target 'AsitaAja' do
   use_native_modules!
 end
 
-target 'AsitaAja-tvOS' do
-  # Pods for AsitaAja-tvOS
+target 'RNTypescript-tvOS' do
+  # Pods for RNTypescript-tvOS
 
-  target 'AsitaAja-tvOSTests' do
+  target 'RNTypescript-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

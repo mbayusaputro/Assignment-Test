@@ -1,25 +1,9 @@
 import {combineReducers} from 'redux';
 
-import chatReducer from './chats/reducer';
-import languageReducer from './language/reducer';
-import profileReducer from './profile/reducer';
-import masterReducer from './master/reducer';
-import flightReducer from './flight/reducer';
-import hotelReducer from './hotel/reducer';
-import holidayReducer from './holiday/reducer';
-import paymentReducer from './payment/reducer';
-import agentReducer from './agent/reducer';
+import basketReducer from './basket/reducer';
 
 const rootReducer = combineReducers({
-  chat: chatReducer,
-  profile: profileReducer,
-  master: masterReducer,
-  language: languageReducer,
-  flight: flightReducer,
-  hotel: hotelReducer,
-  holiday: holidayReducer,
-  payment: paymentReducer,
-  agent: agentReducer,
+  basket: basketReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

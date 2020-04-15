@@ -5,8 +5,8 @@ import {
   SafeAreaView,
   StyleProp,
   ViewStyle,
+  Text,
 } from 'react-native';
-import Text from './Text';
 
 const MISSING_ERROR = 'Error was swallowed during propagation.';
 

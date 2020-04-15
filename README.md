@@ -1,2 +1,19 @@
-# react-native-boilerplate-ts
-This is boilerplate for react native project using typescript
+## Assignment Test:
+
+```
+npm install
+```
+
+## android
+
+```
+npm run android
+```
+
+## ios
+
+```
+cd ios
+pod install
+npm run ios
+```
